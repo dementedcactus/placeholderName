@@ -19,6 +19,18 @@
 		DB3DE47B205721C000AAD2D8 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE47A205721C000AAD2D8 /* LoginVC.swift */; };
 		DB3DE484205722AE00AAD2D8 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE483205722AE00AAD2D8 /* LoginView.swift */; };
 		DB3DE486205723A400AAD2D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB3DE485205723A400AAD2D8 /* GoogleService-Info.plist */; };
+		DBACBAE020580A6900882850 /* NetworkConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBADB20580A6800882850 /* NetworkConnectivity.swift */; };
+		DBACBAE120580A6900882850 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBADC20580A6800882850 /* NetworkHelper.swift */; };
+		DBACBAE220580A6900882850 /* StyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBADD20580A6800882850 /* StyleSheet.swift */; };
+		DBACBAE420580A6900882850 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBADF20580A6800882850 /* Alert.swift */; };
+		DBACBAE920580A8300882850 /* DatabaseService+Add.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAE520580A8300882850 /* DatabaseService+Add.swift */; };
+		DBACBAEA20580A8300882850 /* DatabaseService+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAE620580A8300882850 /* DatabaseService+Get.swift */; };
+		DBACBAEB20580A8300882850 /* DatabaseServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAE720580A8300882850 /* DatabaseServiceDelegate.swift */; };
+		DBACBAEC20580A8300882850 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAE820580A8300882850 /* DatabaseService.swift */; };
+		DBACBAEF20580A8E00882850 /* AuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAED20580A8E00882850 /* AuthUserService.swift */; };
+		DBACBAF020580A8E00882850 /* AuthUserServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAEE20580A8E00882850 /* AuthUserServiceDelegate.swift */; };
+		DBACBAF220580A9800882850 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAF120580A9800882850 /* StorageService.swift */; };
+		DBACBAF420580AA500882850 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAF320580AA500882850 /* UserProfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +75,18 @@
 		DB3DE47A205721C000AAD2D8 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		DB3DE483205722AE00AAD2D8 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		DB3DE485205723A400AAD2D8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		DBACBADB20580A6800882850 /* NetworkConnectivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConnectivity.swift; sourceTree = "<group>"; };
+		DBACBADC20580A6800882850 /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
+		DBACBADD20580A6800882850 /* StyleSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleSheet.swift; sourceTree = "<group>"; };
+		DBACBADF20580A6800882850 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		DBACBAE520580A8300882850 /* DatabaseService+Add.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Add.swift"; sourceTree = "<group>"; };
+		DBACBAE620580A8300882850 /* DatabaseService+Get.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Get.swift"; sourceTree = "<group>"; };
+		DBACBAE720580A8300882850 /* DatabaseServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseServiceDelegate.swift; sourceTree = "<group>"; };
+		DBACBAE820580A8300882850 /* DatabaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		DBACBAED20580A8E00882850 /* AuthUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUserService.swift; sourceTree = "<group>"; };
+		DBACBAEE20580A8E00882850 /* AuthUserServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUserServiceDelegate.swift; sourceTree = "<group>"; };
+		DBACBAF120580A9800882850 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		DBACBAF320580AA500882850 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +224,7 @@
 		DB3DE47E2057221A00AAD2D8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DBACBAF320580AA500882850 /* UserProfile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -207,6 +232,10 @@
 		DB3DE47F2057222700AAD2D8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				DBACBADF20580A6800882850 /* Alert.swift */,
+				DBACBADB20580A6800882850 /* NetworkConnectivity.swift */,
+				DBACBADC20580A6800882850 /* NetworkHelper.swift */,
+				DBACBADD20580A6800882850 /* StyleSheet.swift */,
 				DB3DE4822057224900AAD2D8 /* Database */,
 				DB3DE4812057224000AAD2D8 /* AuthUser */,
 				DB3DE4802057223700AAD2D8 /* Storage */,
@@ -217,6 +246,7 @@
 		DB3DE4802057223700AAD2D8 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				DBACBAF120580A9800882850 /* StorageService.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -224,6 +254,8 @@
 		DB3DE4812057224000AAD2D8 /* AuthUser */ = {
 			isa = PBXGroup;
 			children = (
+				DBACBAED20580A8E00882850 /* AuthUserService.swift */,
+				DBACBAEE20580A8E00882850 /* AuthUserServiceDelegate.swift */,
 			);
 			path = AuthUser;
 			sourceTree = "<group>";
@@ -231,6 +263,10 @@
 		DB3DE4822057224900AAD2D8 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				DBACBAE820580A8300882850 /* DatabaseService.swift */,
+				DBACBAE520580A8300882850 /* DatabaseService+Add.swift */,
+				DBACBAE620580A8300882850 /* DatabaseService+Get.swift */,
+				DBACBAE720580A8300882850 /* DatabaseServiceDelegate.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -538,10 +574,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBACBAEB20580A8300882850 /* DatabaseServiceDelegate.swift in Sources */,
+				DBACBAF020580A8E00882850 /* AuthUserServiceDelegate.swift in Sources */,
+				DBACBAE420580A6900882850 /* Alert.swift in Sources */,
+				DBACBAEA20580A8300882850 /* DatabaseService+Get.swift in Sources */,
 				DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */,
+				DBACBAE020580A6900882850 /* NetworkConnectivity.swift in Sources */,
 				DB3DE47B205721C000AAD2D8 /* LoginVC.swift in Sources */,
+				DBACBAEF20580A8E00882850 /* AuthUserService.swift in Sources */,
+				DBACBAEC20580A8300882850 /* DatabaseService.swift in Sources */,
 				DB3DE484205722AE00AAD2D8 /* LoginView.swift in Sources */,
+				DBACBAF220580A9800882850 /* StorageService.swift in Sources */,
+				DBACBAE120580A6900882850 /* NetworkHelper.swift in Sources */,
+				DBACBAF420580AA500882850 /* UserProfile.swift in Sources */,
 				DB3DE45120571E5C00AAD2D8 /* whosfree.xcdatamodeld in Sources */,
+				DBACBAE220580A6900882850 /* StyleSheet.swift in Sources */,
+				DBACBAE920580A8300882850 /* DatabaseService+Add.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
