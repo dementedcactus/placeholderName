@@ -19,6 +19,10 @@
 		DB3DE47B205721C000AAD2D8 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE47A205721C000AAD2D8 /* LoginVC.swift */; };
 		DB3DE484205722AE00AAD2D8 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE483205722AE00AAD2D8 /* LoginView.swift */; };
 		DB3DE486205723A400AAD2D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB3DE485205723A400AAD2D8 /* GoogleService-Info.plist */; };
+		DB7E3EA8205944A70075AA99 /* iShowTimeAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EA7205944A70075AA99 /* iShowTimeAPIHelper.swift */; };
+		DB7E3EAB205945640075AA99 /* DatabaseService+Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EA9205945630075AA99 /* DatabaseService+Edit.swift */; };
+		DB7E3EAC205945640075AA99 /* DatabaseService+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EAA205945640075AA99 /* DatabaseService+Delete.swift */; };
+		DB7E3EAE2059517B0075AA99 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EAD2059517B0075AA99 /* Comment.swift */; };
 		DBACBAE020580A6900882850 /* NetworkConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBADB20580A6800882850 /* NetworkConnectivity.swift */; };
 		DBACBAE120580A6900882850 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBADC20580A6800882850 /* NetworkHelper.swift */; };
 		DBACBAE220580A6900882850 /* StyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBADD20580A6800882850 /* StyleSheet.swift */; };
@@ -75,6 +79,10 @@
 		DB3DE47A205721C000AAD2D8 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		DB3DE483205722AE00AAD2D8 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		DB3DE485205723A400AAD2D8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		DB7E3EA7205944A70075AA99 /* iShowTimeAPIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iShowTimeAPIHelper.swift; sourceTree = "<group>"; };
+		DB7E3EA9205945630075AA99 /* DatabaseService+Edit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Edit.swift"; sourceTree = "<group>"; };
+		DB7E3EAA205945640075AA99 /* DatabaseService+Delete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Delete.swift"; sourceTree = "<group>"; };
+		DB7E3EAD2059517B0075AA99 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		DBACBADB20580A6800882850 /* NetworkConnectivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConnectivity.swift; sourceTree = "<group>"; };
 		DBACBADC20580A6800882850 /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		DBACBADD20580A6800882850 /* StyleSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleSheet.swift; sourceTree = "<group>"; };
@@ -225,6 +233,8 @@
 			isa = PBXGroup;
 			children = (
 				DBACBAF320580AA500882850 /* UserProfile.swift */,
+				DB7E3EAD2059517B0075AA99 /* Comment.swift */,
+				DB7E3EA7205944A70075AA99 /* iShowTimeAPIHelper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -264,8 +274,10 @@
 			isa = PBXGroup;
 			children = (
 				DBACBAE820580A8300882850 /* DatabaseService.swift */,
-				DBACBAE520580A8300882850 /* DatabaseService+Add.swift */,
 				DBACBAE620580A8300882850 /* DatabaseService+Get.swift */,
+				DBACBAE520580A8300882850 /* DatabaseService+Add.swift */,
+				DB7E3EAA205945640075AA99 /* DatabaseService+Delete.swift */,
+				DB7E3EA9205945630075AA99 /* DatabaseService+Edit.swift */,
 				DBACBAE720580A8300882850 /* DatabaseServiceDelegate.swift */,
 			);
 			path = Database;
@@ -576,6 +588,7 @@
 			files = (
 				DBACBAEB20580A8300882850 /* DatabaseServiceDelegate.swift in Sources */,
 				DBACBAF020580A8E00882850 /* AuthUserServiceDelegate.swift in Sources */,
+				DB7E3EA8205944A70075AA99 /* iShowTimeAPIHelper.swift in Sources */,
 				DBACBAE420580A6900882850 /* Alert.swift in Sources */,
 				DBACBAEA20580A8300882850 /* DatabaseService+Get.swift in Sources */,
 				DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */,
@@ -588,7 +601,10 @@
 				DBACBAE120580A6900882850 /* NetworkHelper.swift in Sources */,
 				DBACBAF420580AA500882850 /* UserProfile.swift in Sources */,
 				DB3DE45120571E5C00AAD2D8 /* whosfree.xcdatamodeld in Sources */,
+				DB7E3EAE2059517B0075AA99 /* Comment.swift in Sources */,
 				DBACBAE220580A6900882850 /* StyleSheet.swift in Sources */,
+				DB7E3EAC205945640075AA99 /* DatabaseService+Delete.swift in Sources */,
+				DB7E3EAB205945640075AA99 /* DatabaseService+Edit.swift in Sources */,
 				DBACBAE920580A8300882850 /* DatabaseService+Add.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
