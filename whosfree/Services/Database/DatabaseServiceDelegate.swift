@@ -37,5 +37,146 @@ import Foundation
     /**
      */
     @objc optional func didFailAddingUserProfile(_ databaseService: DatabaseService, error: String)
+    
+//    @objc optional func didGetUserEvents(_ databaseService: DatabaseService, posts: [Event])
+//
+    /** This method returns an error when attempting to retrieve the posts for the current user.
+     
+     - Parameters:
+     - databaseService: The Firebase/Database API client.
+     - error: The error message that occurred when attempting to retrieve posts.
+     */
+    @objc optional func didFailGettingUserPosts(_ databaseService: DatabaseService, error: String)
+    
+    /** This method returns the all comments from the current, selected post, sorted from newest to oldest.
+     
+     - Parameters:
+     - databaseService: The Firebase/Database API client.
+     - comments: An array of comments from the current, selected post, sorted from newest to oldest.
+     */
+    @objc optional func didGetPostComments(_ databaseService: DatabaseService, comments: [Comment])
+    
+    /** This method returns an error when attempting to retrieve the comments for the current post.
+     
+     - Parameters:
+     - databaseService: The Firebase/Database API client.
+     - error: The error message that occurred when attempting to retrieve comments.
+     */
+    @objc optional func didFailGettingPostComments(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+//    @objc optional func didAddEvent(_ databaseService: DatabaseService, post: Event)
+//
+    /**
+     */
+    @objc optional func didFailAddingPost(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didAddComment(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailAddingComment(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didDeletePost(_ databaseService: DatabaseService, withPostID postID: String)
+    
+    /**
+     */
+    @objc optional func didFailDeletingPost(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didDeleteComment(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailDeletingComment(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didChangeUserImage(_ databaseService: DatabaseService, toImageURL imageURL: String)
+    
+    /**
+     */
+    @objc optional func didFailChangingUserImage(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didChangeBio(_ databaseService: DatabaseService, withText text: String)
+    
+    /**
+     */
+    @objc optional func didFailChangingBio(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didFailEditingPost(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+//    @objc optional func didEditEvent(_ databaseService: DatabaseService, newEvent: Event)
+//
+    /**
+     */
+    @objc optional func didGetBanned(_ databaseService: DatabaseService, message: String)
+    
+    /**
+     */
+    @objc optional func didFailBanning(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didFlagUserAlready(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didFlagUser(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFlagPostAlready(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didFlagPost(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailFlagging(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didLikePost(_ databaseService: DatabaseService, withPostID postID: String)
+    
+    /**
+     */
+    @objc optional func didUndoLikePost(_ databaseService: DatabaseService, withPostID postID: String)
+    
+    /**
+     */
+    @objc optional func didDislikePost(_ databaseService: DatabaseService, withPostID postID: String)
+    
+    /**
+     */
+    @objc optional func didUndoDislikePost(_ databaseService: DatabaseService, withPostID postID: String)
+    
+    @objc optional func didLikeComment(_ databaseService: DatabaseService)
+    
+    @objc optional func didUndoLikeComment(_ databaseService: DatabaseService)
+    
+    @objc optional func didDislikeComment(_ databaseService: DatabaseService)
+    
+    @objc optional func didUndoDislikeComment(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailLiking(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didFailDisliking(_ databaseService: DatabaseService, error: String)
 }
-
