@@ -1,14 +1,14 @@
 //
-//  LoginView.swift
+//  EventDetailView.swift
 //  whosfree
 //
-//  Created by Richard Crichlow on 3/12/18.
+//  Created by Richard Crichlow on 3/16/18.
 //  Copyright © 2018 Richard Crichlow. All rights reserved.
 //
 
 import UIKit
 
-class LoginView: UIView {
+class EventDetailView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)

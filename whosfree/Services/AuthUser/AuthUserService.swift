@@ -68,7 +68,7 @@ class AuthUserService: NSObject {
      - displayName: The displayName used to make the account.
      - ifNameTaken: A closure that returns only if the displayName is already taken.
      */
-    public func createAccount(withEmail email: String, password: String, address: String?, ifNameTaken: @escaping () -> Void) {
+    public func createAccount(withEmail email: String, password: String, displayName: String, ifNameTaken: @escaping () -> Void) {
         //        DatabaseService.manager.checkIfDisplayNameIsTaken(displayName, currentUserID: nil) { (nameIsTaken, oldName, newName) in
         //            if nameIsTaken {
         //                ifNameTaken()
@@ -88,7 +88,7 @@ class AuthUserService: NSObject {
                 //                        }
                 //                    })
                 
-                let newUserProfile = UserProfile(email: email, userID: user.uid, address: address ?? "")
+                let newUserProfile = UserProfile(email: email, userID: user.uid, displayName: displayName)
                 DatabaseService.manager.addUserProfile(newUserProfile)
                 
                 //                    if !user.isEmailVerified {

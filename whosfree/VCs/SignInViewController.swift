@@ -8,9 +8,9 @@
 
 import UIKit
 
-class LoginVC: UIViewController {
+class SignInViewController: UIViewController {
 
-    let loginView = LoginView()
+    let loginView = SignInView()
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -12,13 +12,13 @@ import FirebaseAuth
 class UserProfile: NSObject{
     let email: String
     let userID: String
-    var address: String?
+    var displayName: String
     
     override var description: String {
         return """
         - email: \(self.email)
         - userID: \(self.userID)
-        - address: \(self.address ?? "")
+        - displayName: \(self.displayName)
         """
     }
     
@@ -26,9 +26,9 @@ class UserProfile: NSObject{
         return lhs.userID == rhs.userID
     }
     
-    init(email: String, userID: String, address: String) {
+    init(email: String, userID: String, displayName: String) {
         self.email = email
         self.userID = userID
-        self.address = address
+        self.displayName = displayName
     }
 }
