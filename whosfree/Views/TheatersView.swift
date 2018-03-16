@@ -1,5 +1,5 @@
 //
-//  EventDetailView.swift
+//  MovieTheaterView.swift
 //  whosfree
 //
 //  Created by Richard Crichlow on 3/16/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EventDetailView: UIView {
+class TheatersView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)

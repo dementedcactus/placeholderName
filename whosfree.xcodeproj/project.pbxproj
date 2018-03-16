@@ -16,8 +16,8 @@
 		DB3DE45620571E5C00AAD2D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB3DE45420571E5C00AAD2D8 /* LaunchScreen.storyboard */; };
 		DB3DE46120571E5D00AAD2D8 /* whosfreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE46020571E5D00AAD2D8 /* whosfreeTests.swift */; };
 		DB3DE46C20571E5D00AAD2D8 /* whosfreeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE46B20571E5D00AAD2D8 /* whosfreeUITests.swift */; };
-		DB3DE47B205721C000AAD2D8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE47A205721C000AAD2D8 /* LoginViewController.swift */; };
-		DB3DE484205722AE00AAD2D8 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE483205722AE00AAD2D8 /* LoginView.swift */; };
+		DB3DE47B205721C000AAD2D8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE47A205721C000AAD2D8 /* SignInViewController.swift */; };
+		DB3DE484205722AE00AAD2D8 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE483205722AE00AAD2D8 /* SignInView.swift */; };
 		DB3DE486205723A400AAD2D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB3DE485205723A400AAD2D8 /* GoogleService-Info.plist */; };
 		DB7E3EA8205944A70075AA99 /* iShowTimeAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EA7205944A70075AA99 /* iShowTimeAPIHelper.swift */; };
 		DB7E3EAB205945640075AA99 /* DatabaseService+Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EA9205945630075AA99 /* DatabaseService+Edit.swift */; };
@@ -46,17 +46,17 @@
 		DBE59981205C1FFD00FD1898 /* EventTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59980205C1FFD00FD1898 /* EventTypeTableViewCell.swift */; };
 		DBE59983205C201600FD1898 /* VenueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59982205C201600FD1898 /* VenueViewController.swift */; };
 		DBE59985205C203500FD1898 /* InviteFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59984205C203500FD1898 /* InviteFriendsViewController.swift */; };
-		DBE59987205C205100FD1898 /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59986205C205100FD1898 /* MovieViewController.swift */; };
+		DBE59987205C205100FD1898 /* BuyMovieTixViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59986205C205100FD1898 /* BuyMovieTixViewController.swift */; };
 		DBE59989205C207000FD1898 /* InvitedFriendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59988205C207000FD1898 /* InvitedFriendsCollectionViewCell.swift */; };
 		DBE5998B205C209800FD1898 /* VenueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5998A205C209800FD1898 /* VenueView.swift */; };
 		DBE5998D205C20AF00FD1898 /* VenueDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5998C205C20AF00FD1898 /* VenueDetailViewController.swift */; };
 		DBE5998F205C20C600FD1898 /* VenueDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5998E205C20C600FD1898 /* VenueDetailView.swift */; };
-		DBE59991205C20F300FD1898 /* MovieTheaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59990205C20F300FD1898 /* MovieTheaterViewController.swift */; };
-		DBE59993205C211000FD1898 /* MovieTheaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59992205C211000FD1898 /* MovieTheaterView.swift */; };
-		DBE59995205C211D00FD1898 /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59994205C211D00FD1898 /* MovieView.swift */; };
+		DBE59991205C20F300FD1898 /* TheatersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59990205C20F300FD1898 /* TheatersViewController.swift */; };
+		DBE59993205C211000FD1898 /* TheatersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59992205C211000FD1898 /* TheatersView.swift */; };
+		DBE59995205C211D00FD1898 /* BuyMovieTixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59994205C211D00FD1898 /* BuyMovieTixView.swift */; };
 		DBE59997205C213B00FD1898 /* TheaterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */; };
-		DBE59999205C215900FD1898 /* TheaterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59998205C215900FD1898 /* TheaterDetailViewController.swift */; };
-		DBE5999B205C216B00FD1898 /* TheaterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5999A205C216B00FD1898 /* TheaterDetailView.swift */; };
+		DBE59999205C215900FD1898 /* TheaterShowtimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59998205C215900FD1898 /* TheaterShowtimesViewController.swift */; };
+		DBE5999B205C216B00FD1898 /* TheaterShowtimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5999A205C216B00FD1898 /* TheaterShowtimesView.swift */; };
 		DBE5999D205C217D00FD1898 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5999C205C217D00FD1898 /* MovieTableViewCell.swift */; };
 		DBE5999F205C21AA00FD1898 /* SideDrawerMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5999E205C21AA00FD1898 /* SideDrawerMenuView.swift */; };
 		DBE599A1205C21B800FD1898 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599A0205C21B800FD1898 /* ProfileViewController.swift */; };
@@ -112,8 +112,8 @@
 		DB3DE46720571E5D00AAD2D8 /* whosfreeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = whosfreeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB3DE46B20571E5D00AAD2D8 /* whosfreeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = whosfreeUITests.swift; sourceTree = "<group>"; };
 		DB3DE46D20571E5D00AAD2D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DB3DE47A205721C000AAD2D8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		DB3DE483205722AE00AAD2D8 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		DB3DE47A205721C000AAD2D8 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		DB3DE483205722AE00AAD2D8 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		DB3DE485205723A400AAD2D8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DB7E3EA7205944A70075AA99 /* iShowTimeAPIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iShowTimeAPIHelper.swift; sourceTree = "<group>"; };
 		DB7E3EA9205945630075AA99 /* DatabaseService+Edit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Edit.swift"; sourceTree = "<group>"; };
@@ -142,17 +142,17 @@
 		DBE59980205C1FFD00FD1898 /* EventTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeTableViewCell.swift; sourceTree = "<group>"; };
 		DBE59982205C201600FD1898 /* VenueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueViewController.swift; sourceTree = "<group>"; };
 		DBE59984205C203500FD1898 /* InviteFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendsViewController.swift; sourceTree = "<group>"; };
-		DBE59986205C205100FD1898 /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewController.swift; sourceTree = "<group>"; };
+		DBE59986205C205100FD1898 /* BuyMovieTixViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyMovieTixViewController.swift; sourceTree = "<group>"; };
 		DBE59988205C207000FD1898 /* InvitedFriendsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitedFriendsCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBE5998A205C209800FD1898 /* VenueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueView.swift; sourceTree = "<group>"; };
 		DBE5998C205C20AF00FD1898 /* VenueDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailViewController.swift; sourceTree = "<group>"; };
 		DBE5998E205C20C600FD1898 /* VenueDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailView.swift; sourceTree = "<group>"; };
-		DBE59990205C20F300FD1898 /* MovieTheaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTheaterViewController.swift; sourceTree = "<group>"; };
-		DBE59992205C211000FD1898 /* MovieTheaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTheaterView.swift; sourceTree = "<group>"; };
-		DBE59994205C211D00FD1898 /* MovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieView.swift; sourceTree = "<group>"; };
+		DBE59990205C20F300FD1898 /* TheatersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheatersViewController.swift; sourceTree = "<group>"; };
+		DBE59992205C211000FD1898 /* TheatersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheatersView.swift; sourceTree = "<group>"; };
+		DBE59994205C211D00FD1898 /* BuyMovieTixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyMovieTixView.swift; sourceTree = "<group>"; };
 		DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterTableViewCell.swift; sourceTree = "<group>"; };
-		DBE59998205C215900FD1898 /* TheaterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterDetailViewController.swift; sourceTree = "<group>"; };
-		DBE5999A205C216B00FD1898 /* TheaterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterDetailView.swift; sourceTree = "<group>"; };
+		DBE59998205C215900FD1898 /* TheaterShowtimesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterShowtimesViewController.swift; sourceTree = "<group>"; };
+		DBE5999A205C216B00FD1898 /* TheaterShowtimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterShowtimesView.swift; sourceTree = "<group>"; };
 		DBE5999C205C217D00FD1898 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		DBE5999E205C21AA00FD1898 /* SideDrawerMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideDrawerMenuView.swift; sourceTree = "<group>"; };
 		DBE599A0205C21B800FD1898 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -281,21 +281,21 @@
 		DB3DE4792057219500AAD2D8 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
-				DB3DE47A205721C000AAD2D8 /* LoginViewController.swift */,
-				DBE599B2205C22FD00FD1898 /* CreateAccountViewController.swift */,
-				DBE59972205C1F5C00FD1898 /* EventListViewController.swift */,
-				DBE59978205C1FA500FD1898 /* EventDetailViewController.swift */,
-				DBE5997C205C1FD500FD1898 /* CreateEventViewController.swift */,
-				DBE59982205C201600FD1898 /* VenueViewController.swift */,
-				DBE59984205C203500FD1898 /* InviteFriendsViewController.swift */,
-				DBE59990205C20F300FD1898 /* MovieTheaterViewController.swift */,
-				DBE59998205C215900FD1898 /* TheaterDetailViewController.swift */,
-				DBE599A4205C21F500FD1898 /* FriendListViewController.swift */,
-				DBE59986205C205100FD1898 /* MovieViewController.swift */,
-				DBE5998C205C20AF00FD1898 /* VenueDetailViewController.swift */,
 				DBE599AC205C228300FD1898 /* ChatViewController.swift */,
+				DBE599B2205C22FD00FD1898 /* CreateAccountViewController.swift */,
+				DBE5997C205C1FD500FD1898 /* CreateEventViewController.swift */,
+				DBE59978205C1FA500FD1898 /* EventDetailViewController.swift */,
+				DBE59972205C1F5C00FD1898 /* EventListViewController.swift */,
+				DBE599A4205C21F500FD1898 /* FriendListViewController.swift */,
+				DBE59984205C203500FD1898 /* InviteFriendsViewController.swift */,
+				DBE59986205C205100FD1898 /* BuyMovieTixViewController.swift */,
 				DBE599A0205C21B800FD1898 /* ProfileViewController.swift */,
 				DBE599B6205C23DF00FD1898 /* SideDrawerMenuViewController.swift */,
+				DB3DE47A205721C000AAD2D8 /* SignInViewController.swift */,
+				DBE59990205C20F300FD1898 /* TheatersViewController.swift */,
+				DBE59998205C215900FD1898 /* TheaterShowtimesViewController.swift */,
+				DBE5998C205C20AF00FD1898 /* VenueDetailViewController.swift */,
+				DBE59982205C201600FD1898 /* VenueViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -303,21 +303,21 @@
 		DB3DE47C205721F700AAD2D8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DB3DE483205722AE00AAD2D8 /* LoginView.swift */,
 				DBE599AE205C229700FD1898 /* ChatView.swift */,
 				DBE599B4205C231500FD1898 /* CreateAccountView.swift */,
-				DBE599AA205C226100FD1898 /* InviteFriendsView.swift */,
+				DBE5997E205C1FEA00FD1898 /* CreateEventView.swift */,
+				DBE5997A205C1FC200FD1898 /* EventDetailView.swift */,
+				DBE59974205C1F7000FD1898 /* EventListView.swift */,
 				DBE599A6205C221E00FD1898 /* FriendListView.swift */,
+				DBE599AA205C226100FD1898 /* InviteFriendsView.swift */,
+				DBE59994205C211D00FD1898 /* BuyMovieTixView.swift */,
 				DBE599A2205C21CB00FD1898 /* ProfileView.swift */,
 				DBE5999E205C21AA00FD1898 /* SideDrawerMenuView.swift */,
-				DBE59974205C1F7000FD1898 /* EventListView.swift */,
-				DBE59992205C211000FD1898 /* MovieTheaterView.swift */,
-				DBE59994205C211D00FD1898 /* MovieView.swift */,
-				DBE5997A205C1FC200FD1898 /* EventDetailView.swift */,
-				DBE5999A205C216B00FD1898 /* TheaterDetailView.swift */,
-				DBE5997E205C1FEA00FD1898 /* CreateEventView.swift */,
-				DBE5998A205C209800FD1898 /* VenueView.swift */,
+				DB3DE483205722AE00AAD2D8 /* SignInView.swift */,
+				DBE59992205C211000FD1898 /* TheatersView.swift */,
+				DBE5999A205C216B00FD1898 /* TheaterShowtimesView.swift */,
 				DBE5998E205C20C600FD1898 /* VenueDetailView.swift */,
+				DBE5998A205C209800FD1898 /* VenueView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -325,13 +325,13 @@
 		DB3DE47D2057221200AAD2D8 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				DBE59976205C1F8900FD1898 /* EventTableViewCell.swift */,
 				DBE599B0205C22BA00FD1898 /* ChatTableViewCell.swift */,
-				DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */,
-				DBE599A8205C224300FD1898 /* FriendTableViewCell.swift */,
-				DBE5999C205C217D00FD1898 /* MovieTableViewCell.swift */,
+				DBE59976205C1F8900FD1898 /* EventTableViewCell.swift */,
 				DBE59980205C1FFD00FD1898 /* EventTypeTableViewCell.swift */,
+				DBE599A8205C224300FD1898 /* FriendTableViewCell.swift */,
 				DBE59988205C207000FD1898 /* InvitedFriendsCollectionViewCell.swift */,
+				DBE5999C205C217D00FD1898 /* MovieTableViewCell.swift */,
+				DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -339,10 +339,10 @@
 		DB3DE47E2057221A00AAD2D8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DBACBAF320580AA500882850 /* UserProfile.swift */,
-				DB7E3EAF205967090075AA99 /* Event.swift */,
 				DB7E3EAD2059517B0075AA99 /* Comment.swift */,
+				DB7E3EAF205967090075AA99 /* Event.swift */,
 				DB7E3EA7205944A70075AA99 /* iShowTimeAPIHelper.swift */,
+				DBACBAF320580AA500882850 /* UserProfile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -700,37 +700,37 @@
 				DBE599AB205C226100FD1898 /* InviteFriendsView.swift in Sources */,
 				DBACBAF020580A8E00882850 /* AuthUserServiceDelegate.swift in Sources */,
 				DBE59989205C207000FD1898 /* InvitedFriendsCollectionViewCell.swift in Sources */,
-				DBE59993205C211000FD1898 /* MovieTheaterView.swift in Sources */,
+				DBE59993205C211000FD1898 /* TheatersView.swift in Sources */,
 				DBE599A9205C224300FD1898 /* FriendTableViewCell.swift in Sources */,
 				DB7E3EA8205944A70075AA99 /* iShowTimeAPIHelper.swift in Sources */,
 				DBACBAE420580A6900882850 /* Alert.swift in Sources */,
 				DBE59985205C203500FD1898 /* InviteFriendsViewController.swift in Sources */,
-				DBE59991205C20F300FD1898 /* MovieTheaterViewController.swift in Sources */,
+				DBE59991205C20F300FD1898 /* TheatersViewController.swift in Sources */,
 				DBE5998B205C209800FD1898 /* VenueView.swift in Sources */,
 				DBE59983205C201600FD1898 /* VenueViewController.swift in Sources */,
 				DBACBAEA20580A8300882850 /* DatabaseService+Get.swift in Sources */,
 				DBE599B7205C23DF00FD1898 /* SideDrawerMenuViewController.swift in Sources */,
 				DBE5999F205C21AA00FD1898 /* SideDrawerMenuView.swift in Sources */,
 				DBE599A7205C221E00FD1898 /* FriendListView.swift in Sources */,
-				DBE5999B205C216B00FD1898 /* TheaterDetailView.swift in Sources */,
+				DBE5999B205C216B00FD1898 /* TheaterShowtimesView.swift in Sources */,
 				DBE59997205C213B00FD1898 /* TheaterTableViewCell.swift in Sources */,
 				DBE599A5205C21F500FD1898 /* FriendListViewController.swift in Sources */,
 				DBE5998D205C20AF00FD1898 /* VenueDetailViewController.swift in Sources */,
 				DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */,
 				DBACBAE020580A6900882850 /* NetworkConnectivity.swift in Sources */,
-				DB3DE47B205721C000AAD2D8 /* LoginViewController.swift in Sources */,
+				DB3DE47B205721C000AAD2D8 /* SignInViewController.swift in Sources */,
 				DBACBAEF20580A8E00882850 /* AuthUserService.swift in Sources */,
-				DBE59999205C215900FD1898 /* TheaterDetailViewController.swift in Sources */,
+				DBE59999205C215900FD1898 /* TheaterShowtimesViewController.swift in Sources */,
 				DBE59981205C1FFD00FD1898 /* EventTypeTableViewCell.swift in Sources */,
 				DBACBAEC20580A8300882850 /* DatabaseService.swift in Sources */,
 				DBE599AD205C228300FD1898 /* ChatViewController.swift in Sources */,
 				DBE59975205C1F7000FD1898 /* EventListView.swift in Sources */,
 				DBE5997F205C1FEA00FD1898 /* CreateEventView.swift in Sources */,
-				DB3DE484205722AE00AAD2D8 /* LoginView.swift in Sources */,
+				DB3DE484205722AE00AAD2D8 /* SignInView.swift in Sources */,
 				DBE599AF205C229700FD1898 /* ChatView.swift in Sources */,
 				DBE5998F205C20C600FD1898 /* VenueDetailView.swift in Sources */,
 				DBE5997B205C1FC200FD1898 /* EventDetailView.swift in Sources */,
-				DBE59987205C205100FD1898 /* MovieViewController.swift in Sources */,
+				DBE59987205C205100FD1898 /* BuyMovieTixViewController.swift in Sources */,
 				DBACBAF220580A9800882850 /* StorageService.swift in Sources */,
 				DBACBAE120580A6900882850 /* NetworkHelper.swift in Sources */,
 				DBACBAF420580AA500882850 /* UserProfile.swift in Sources */,
@@ -742,7 +742,7 @@
 				DBE599B5205C231500FD1898 /* CreateAccountView.swift in Sources */,
 				DBACBAE220580A6900882850 /* StyleSheet.swift in Sources */,
 				DB7E3EAC205945640075AA99 /* DatabaseService+Delete.swift in Sources */,
-				DBE59995205C211D00FD1898 /* MovieView.swift in Sources */,
+				DBE59995205C211D00FD1898 /* BuyMovieTixView.swift in Sources */,
 				DBE5999D205C217D00FD1898 /* MovieTableViewCell.swift in Sources */,
 				DBE599A3205C21CB00FD1898 /* ProfileView.swift in Sources */,
 				DB7E3EAB205945640075AA99 /* DatabaseService+Edit.swift in Sources */,

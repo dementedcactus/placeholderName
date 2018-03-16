@@ -1,5 +1,5 @@
 //
-//  MovieTheaterViewController.swift
+//  TheaterDetailViewController.swift
 //  whosfree
 //
 //  Created by Richard Crichlow on 3/16/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovieTheaterViewController: UIViewController {
+class TheaterShowtimesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

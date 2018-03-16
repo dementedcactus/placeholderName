@@ -10,4 +10,23 @@ import UIKit
 
 class InvitedFriendsCollectionViewCell: UICollectionViewCell {
     
+    override init(frame: CGRect) {
+        super.init(frame: UIScreen.main.bounds)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        backgroundColor = .purple
+        setupViews()
+    }
+    
+    private func setupViews() {
+        
+    }
+    
 }
