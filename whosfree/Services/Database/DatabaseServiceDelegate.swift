@@ -38,8 +38,8 @@ import Foundation
      */
     @objc optional func didFailAddingUserProfile(_ databaseService: DatabaseService, error: String)
     
-//    @objc optional func didGetUserEvents(_ databaseService: DatabaseService, posts: [Event])
-//
+    @objc optional func didGetUserEvents(_ databaseService: DatabaseService, posts: [Event])
+
     /** This method returns an error when attempting to retrieve the posts for the current user.
      
      - Parameters:
@@ -66,8 +66,8 @@ import Foundation
     
     /**
      */
-//    @objc optional func didAddEvent(_ databaseService: DatabaseService, post: Event)
-//
+    @objc optional func didAddEvent(_ databaseService: DatabaseService, post: Event)
+
     /**
      */
     @objc optional func didFailAddingPost(_ databaseService: DatabaseService, error: String)
@@ -118,8 +118,8 @@ import Foundation
     
     /**
      */
-//    @objc optional func didEditEvent(_ databaseService: DatabaseService, newEvent: Event)
-//
+    @objc optional func didEditEvent(_ databaseService: DatabaseService, newEvent: Event)
+
     /**
      */
     @objc optional func didGetBanned(_ databaseService: DatabaseService, message: String)

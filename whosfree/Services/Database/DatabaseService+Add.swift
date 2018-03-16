@@ -55,7 +55,7 @@ extension DatabaseService {
         
         ref.setValue(["email": userProfile.email,
                       "userID": userProfile.userID,
-                      "address" : userProfile.address
+                      "displayName" : userProfile.displayName
             
         ]) { (error, _) in
             if let error = error {
