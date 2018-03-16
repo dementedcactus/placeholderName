@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginVC: UIViewController {
+class LoginViewController: UIViewController {
 
     let loginView = LoginView()
     

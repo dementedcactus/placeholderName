@@ -17,19 +17,15 @@ extension DatabaseService {
             guard let email = dataSnapshot.childSnapshot(forPath: "email").value as? String else {
                 return
             }
-            guard let address = dataSnapshot.childSnapshot(forPath: "address").value as? String else {
-                return
-            }
-            guard (dataSnapshot.childSnapshot(forPath: "address").value as? String) != nil else {
+            guard let displayName = dataSnapshot.childSnapshot(forPath: "displayName").value as? String else {
                 return
             }
             
-            let currentUserProfile = UserProfile(email: email, userID: uid, address: address)
+            let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName)
             completion(currentUserProfile)
         }
     }
  
-    /*
     func getAllEvents(completion: @escaping ([Event]?) -> Void) {
         eventsRef.observeSingleEvent(of: .value) { (dataSnapshot) in
             guard let arrayOfAllEventsSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
@@ -44,112 +40,44 @@ extension DatabaseService {
                     completion(nil)
                     return
                 }
-                guard let additionalInformation = savedEventDictionary["additional_information"] as? String else {
+                guard let eventID = savedEventDictionary["eventID"] as? String else {
                     completion(nil)
                     return
                 }
-                guard let agency = savedEventDictionary["agency"] as? String else {
+                guard let eventName = savedEventDictionary["eventName"] as? String else {
                     completion(nil)
                     return
                 }
-                guard let businessTitle = savedEventDictionary["business_title"] as? String else {
+                guard let ownerUserID = savedEventDictionary["ownerUserID"] as? String else {
                     completion(nil)
                     return
                 }
-                guard let civilServiceTitle = savedEventDictionary["civil_service_title"] as? String else {
+                guard let text = savedEventDictionary["text"] as? String else {
                     completion(nil)
                     return
                 }
-                guard let divisionWorkUnit = savedEventDictionary["division_work_unit"] as? String else {
+                guard let timestamp = savedEventDictionary["timestamp"] as? Double else {
                     completion(nil)
                     return
                 }
-                guard let fullTimePartTimeIndicator = savedEventDictionary["full_time_part_time_indicator"] as? String else {
+                guard let rsvpNo = savedEventDictionary["rsvpNo"] as? String else {
                     completion(nil)
                     return
                 }
-                guard let hoursShift = savedEventDictionary["hours_shift"] as? String else {
+                guard let rsvpMaybe = savedEventDictionary["rsvpMaybe"] as? String else {
                     completion(nil)
                     return
                 }
-                guard let jobCategory = savedEventDictionary["job_category"] as? String else {
+                guard let rsvpYes = savedEventDictionary["rsvpYes"] as? String else {
                     completion(nil)
                     return
                 }
-                guard let jobDescription = savedEventDictionary["job_description"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let jobId = savedEventDictionary["job_id"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let minimumQualRequirements = savedEventDictionary["minimum_qual_requirements"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let postUntil = savedEventDictionary["post_until"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let postingDate = savedEventDictionary["posting_date"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let postingType = savedEventDictionary["posting_type"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let postingUpdated = savedEventDictionary["posting_updated"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let preferredSkills = savedEventDictionary["preferred_skills"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let processDate = savedEventDictionary["process_date"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let residencyRequirement = savedEventDictionary["residency_requirement"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let salaryFrequency = savedEventDictionary["salary_frequency"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let salaryRangeFrom = savedEventDictionary["salary_range_from"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let salaryRangeTo = savedEventDictionary["salary_range_to"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let titleCodeNo = savedEventDictionary["title_code_no"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let toApply = savedEventDictionary["to_apply"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let workLocation = savedEventDictionary["work_location"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let workLocation1 = savedEventDictionary["work_location_1"] as? String else {
-                    completion(nil)
-                    return
-                }
-                let event = Event(additional_information: additionalInformation, agency: agency, business_title: businessTitle, civil_service_title: civilServiceTitle, division_work_unit: divisionWorkUnit, full_time_part_time_indicator: fullTimePartTimeIndicator, hours_shift: hoursShift, job_category: jobCategory, job_description: jobDescription, job_id: jobId, minimum_qual_requirements: minimumQualRequirements, post_until: postUntil, posting_date: postingDate, posting_type: postingType, posting_updated: postingUpdated, preferred_skills: preferredSkills, process_date: processDate, residency_requirement: residencyRequirement, salary_frequency: salaryFrequency, salary_range_from: salaryRangeFrom, salary_range_to: salaryRangeTo, title_code_no: titleCodeNo, to_apply: toApply, work_location: workLocation, work_location_1: workLocation1)
+                
+                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, text: text, timestamp: timestamp, rsvpNo: rsvpNo, rsvpMaybe: rsvpMaybe, rsvpYes: rsvpYes)
                 eventArrayToReturn.append(event)
             }
             completion(eventArrayToReturn)
         }
     }
- */
  
 }

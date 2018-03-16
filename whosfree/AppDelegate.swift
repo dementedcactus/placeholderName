@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        let loginVC = LoginVC()
+        let loginVC = LoginViewController()
         let navController = UINavigationController(rootViewController: loginVC)
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navController
