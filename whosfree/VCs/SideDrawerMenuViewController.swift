@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol dismissThenPresentFriendListVC {
+    func FriendListButtonPressed()
+}
+
 class SideDrawerMenuViewController: UIViewController {
     
-    let sideDrawerMenuView = SideDrawerMenuView()
+    var friendListDelegate: dismissThenPresentFriendListVC?
+    
+    private let sideDrawerMenuView = SideDrawerMenuView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,11 +55,15 @@ class SideDrawerMenuViewController: UIViewController {
     @objc func numFriendsButtonAction() {
         //TODO Present friendsViewController
         print("numFriends Button Works")
+        self.friendListDelegate?.FriendListButtonPressed()
+        
     }
     
     @objc func logoutButtonAction() {
         //TODO Function for logout from firebase
         //TODO Pop all viewControllers and show SignInViewController
+        //view.window?.rootViewController?.dismiss(animated: true, completion: nil)
         print("logout Button Works")
     }
 }
+

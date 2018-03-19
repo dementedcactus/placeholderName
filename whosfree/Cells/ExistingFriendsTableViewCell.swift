@@ -1,14 +1,14 @@
 //
-//  FriendTableViewCell.swift
+//  ExistingFriendsTableViewCell.swift
 //  whosfree
 //
-//  Created by Richard Crichlow on 3/16/18.
+//  Created by Richard Crichlow on 3/19/18.
 //  Copyright © 2018 Richard Crichlow. All rights reserved.
 //
 
 import UIKit
 
-class FriendTableViewCell: UITableViewCell {
+class ExistingFriendsTableViewCell: UITableViewCell {
 
     //userPhotoImageView
     lazy var userPhotoImageView: UIImageView = {
@@ -32,10 +32,10 @@ class FriendTableViewCell: UITableViewCell {
         return lb
     }()
     
-    //sendFriendRequestButton
-    lazy var sendFriendRequestButton: UIButton = {
+    //inviteButton
+    lazy var inviteButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Add Friend", for: .normal)
+        button.setTitle("Invite Friend", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(red: 0.263, green: 0.353, blue: 0.576, alpha: 1.00)
         button.layer.borderWidth = 1
@@ -43,7 +43,7 @@ class FriendTableViewCell: UITableViewCell {
     }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style , reuseIdentifier: "FriendCell")
+        super.init(style: style , reuseIdentifier: "ExistingFriendsTableViewCell")
         setupObjects()
         constrainObjects()
     }
@@ -62,14 +62,14 @@ class FriendTableViewCell: UITableViewCell {
     
     private func setupObjects(){
         addSubview(userPhotoImageView)
-        addSubview(sendFriendRequestButton)
+        addSubview(inviteButton)
         addSubview(usernameLabel)
     }
     
     private func constrainObjects() {
         
         //ARRAY MUST BE IN ORDER!!
-        let friendCellObjects = [userPhotoImageView,sendFriendRequestButton,usernameLabel] as [UIView]
+        let friendCellObjects = [userPhotoImageView,inviteButton,usernameLabel] as [UIView]
         
         friendCellObjects.forEach {addSubview($0); ($0).translatesAutoresizingMaskIntoConstraints = false}
         
@@ -82,22 +82,21 @@ class FriendTableViewCell: UITableViewCell {
             userPhotoImageView.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor),
             userPhotoImageView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor),
             
-            //sendFriendRequestButton
-            sendFriendRequestButton.centerYAnchor.constraint(equalTo: self.userPhotoImageView.centerYAnchor),
-            sendFriendRequestButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
-            sendFriendRequestButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
-            sendFriendRequestButton.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
-            sendFriendRequestButton.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor, constant: 5),
-            sendFriendRequestButton.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant: -5),
+            //inviteButton
+            inviteButton.centerYAnchor.constraint(equalTo: self.userPhotoImageView.centerYAnchor),
+            inviteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
+            inviteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
+            inviteButton.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
+            inviteButton.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor, constant: 5),
+            inviteButton.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant: -5),
             
             //usernameLabel
-            usernameLabel.centerYAnchor.constraint(equalTo: self.sendFriendRequestButton.centerYAnchor),
-            usernameLabel.trailingAnchor.constraint(equalTo: self.sendFriendRequestButton.leadingAnchor, constant: -5),
+            usernameLabel.centerYAnchor.constraint(equalTo: self.inviteButton.centerYAnchor),
+            usernameLabel.trailingAnchor.constraint(equalTo: self.inviteButton.leadingAnchor, constant: -5),
             usernameLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3)
             
             ])
     }
     
 }
-
 
