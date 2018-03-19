@@ -10,26 +10,35 @@ import UIKit
 
 class VenueDetailViewController: UIViewController {
 
+    let venueDetailView = VenueDetailView()
+    let dummyData = ["test1", "test2", "test3"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.view.addSubview(venueDetailView)
+        venueDetailView.tableView.delegate = self
+        venueDetailView.tableView.dataSource = self
+        configureNavBar()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    private func configureNavBar() {
+        navigationItem.title = "Venue Detail Page"
     }
-    */
-
+    
+}
+extension VenueDetailViewController : UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dummyData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let data = dummyData[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Venue Detail Cell", for: indexPath)
+        cell.textLabel?.text = data
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Reviews"
+    }
 }
