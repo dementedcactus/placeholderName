@@ -21,10 +21,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        let loginVC = SignInViewController()
-        let navController = UINavigationController(rootViewController: loginVC)
+//        let loginVC = SignInViewController()
+//        let navController = UINavigationController(rootViewController: loginVC)
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//        window?.rootViewController = navController
+//        window?.makeKeyAndVisible()
+        
+        let eventListVC = EventListViewController()
+        let eventListNavCon = UINavigationController(rootViewController: eventListVC)
+        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navController
+        window?.rootViewController = eventListNavCon
         window?.makeKeyAndVisible()
         
         return true

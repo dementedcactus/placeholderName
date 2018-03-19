@@ -20,8 +20,14 @@ extension DatabaseService {
             guard let displayName = dataSnapshot.childSnapshot(forPath: "displayName").value as? String else {
                 return
             }
+            guard let firstName = dataSnapshot.childSnapshot(forPath: "firstName").value as? String else {
+                return
+            }
+            guard let lastName = dataSnapshot.childSnapshot(forPath: "lastName").value as? String else {
+                return
+            }
             
-            let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName)
+            let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName, firstName: firstName, lastName: lastName)
             completion(currentUserProfile)
         }
     }
@@ -77,6 +83,48 @@ extension DatabaseService {
                 eventArrayToReturn.append(event)
             }
             completion(eventArrayToReturn)
+        }
+    }
+    
+    func getChat(withEventID: String, completion: @escaping ([Comment]?) -> Void) {
+        chatRef.child(withEventID).observeSingleEvent(of: .value) { (dataSnapshot) in
+            guard let arrayOfAllCommentsSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
+                print("could not get children snapshots")
+                completion(nil)
+                return
+            }
+            var commentsArrayToReturn: [Comment] = [] // This is the empty comments array that will be filled by the completion handler
+            for postSnapshot in arrayOfAllCommentsSnapshot {
+                guard let commentDictionary = postSnapshot.value as? [String : Any] else {
+                    print("could not get comments dict")
+                    completion(nil)
+                    return
+                }
+                guard let eventID = commentDictionary["eventID"] as? String else {
+                    completion(nil)
+                    return
+                }
+                guard let commentID = commentDictionary["commentID"] as? String else {
+                    completion(nil)
+                    return
+                }
+                guard let userID = commentDictionary["userID"] as? String else {
+                    completion(nil)
+                    return
+                }
+                guard let text = commentDictionary["text"] as? String else {
+                    completion(nil)
+                    return
+                }
+                guard let timestamp = commentDictionary["timestamp"] as? Double else {
+                    completion(nil)
+                    return
+                }
+                
+                let comment = Comment(eventID: eventID, commentID: commentID, userID: userID, text: text, timestamp: timestamp)
+                commentsArrayToReturn.append(comment)
+            }
+            completion(commentsArrayToReturn)
         }
     }
  

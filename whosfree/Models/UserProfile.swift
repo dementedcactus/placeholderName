@@ -13,12 +13,17 @@ class UserProfile: NSObject{
     let email: String
     let userID: String
     var displayName: String
+    let firstName: String
+    let lastName: String
+    
     
     override var description: String {
         return """
         - email: \(self.email)
         - userID: \(self.userID)
         - displayName: \(self.displayName)
+        - firstName: \(self.firstName)
+        - lastName: \(self.lastName)
         """
     }
     
@@ -26,9 +31,11 @@ class UserProfile: NSObject{
         return lhs.userID == rhs.userID
     }
     
-    init(email: String, userID: String, displayName: String) {
+    init(email: String, userID: String, displayName: String, firstName: String, lastName: String) {
         self.email = email
         self.userID = userID
         self.displayName = displayName
+        self.firstName = firstName
+        self.lastName = lastName
     }
 }

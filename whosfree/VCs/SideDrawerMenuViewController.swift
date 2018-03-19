@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 protocol dismissThenPresentFriendListVC {
     func FriendListButtonPressed()
@@ -18,8 +20,11 @@ class SideDrawerMenuViewController: UIViewController {
     
     private let sideDrawerMenuView = SideDrawerMenuView()
     
+    let firebaseAuthService = FirebaseAuthService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        firebaseAuthService.delegate = self
         setupView()
         self.view.backgroundColor = .clear
     }
@@ -63,7 +68,42 @@ class SideDrawerMenuViewController: UIViewController {
         //TODO Function for logout from firebase
         //TODO Pop all viewControllers and show SignInViewController
         //view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        logout()
         print("logout Button Works")
+        
+    }
+    
+    private func logout() {
+        let alertView = UIAlertController(title: "Are you sure you want to logout?", message: nil, preferredStyle: .alert)
+        let yesOption = UIAlertAction(title: "Yes", style: .destructive) { (alertAction) in
+            self.firebaseAuthService.signOut()
+        }
+        let noOption = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        alertView.addAction(yesOption)
+        alertView.addAction(noOption)
+        present(alertView, animated: true, completion: nil)
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { alert in }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+}
+
+extension SideDrawerMenuViewController: FirebaseAuthServiceDelegate {
+    func didSignOut(_ authService: FirebaseAuthService) {
+        if FBSDKAccessToken.current() != nil {
+            let loginManager = FBSDKLoginManager()
+            loginManager.logOut()
+        }
+        let signInVC = SignInViewController()
+        self.present(signInVC, animated: true, completion: nil)
+    }
+    func didFailSigningOut(_ authService: FirebaseAuthService, error: Error) {
+        showAlert(title: "Error", message: error.localizedDescription)
     }
 }
 
