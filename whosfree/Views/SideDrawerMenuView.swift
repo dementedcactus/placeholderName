@@ -9,7 +9,7 @@
 import UIKit
 
 class SideDrawerMenuView: UIView {
-    
+ 
     lazy var dismissView: UIButton = {
         let button = UIButton(frame: UIScreen.main.bounds)
         button.backgroundColor = .clear
@@ -167,3 +167,4 @@ extension UIView {
     }
     
 }
+
