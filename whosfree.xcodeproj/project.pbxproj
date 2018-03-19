@@ -36,6 +36,7 @@
 		DBACBAF020580A8E00882850 /* AuthUserServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAEE20580A8E00882850 /* AuthUserServiceDelegate.swift */; };
 		DBACBAF220580A9800882850 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAF120580A9800882850 /* StorageService.swift */; };
 		DBACBAF420580AA500882850 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAF320580AA500882850 /* UserProfile.swift */; };
+		DBDDDC80206005C9009F4908 /* ExistingFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */; };
 		DBE59973205C1F5C00FD1898 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59972205C1F5C00FD1898 /* EventListViewController.swift */; };
 		DBE59975205C1F7000FD1898 /* EventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59974205C1F7000FD1898 /* EventListView.swift */; };
 		DBE59977205C1F8900FD1898 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59976205C1F8900FD1898 /* EventTableViewCell.swift */; };
@@ -132,6 +133,7 @@
 		DBACBAEE20580A8E00882850 /* AuthUserServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUserServiceDelegate.swift; sourceTree = "<group>"; };
 		DBACBAF120580A9800882850 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		DBACBAF320580AA500882850 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingFriendsTableViewCell.swift; sourceTree = "<group>"; };
 		DBE59972205C1F5C00FD1898 /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
 		DBE59974205C1F7000FD1898 /* EventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListView.swift; sourceTree = "<group>"; };
 		DBE59976205C1F8900FD1898 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 				DBE599B0205C22BA00FD1898 /* ChatTableViewCell.swift */,
 				DBE59976205C1F8900FD1898 /* EventTableViewCell.swift */,
 				DBE59980205C1FFD00FD1898 /* EventTypeTableViewCell.swift */,
+				DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */,
 				DBE599A8205C224300FD1898 /* FriendTableViewCell.swift */,
 				DBE59988205C207000FD1898 /* InvitedFriendsCollectionViewCell.swift */,
 				DBE5999C205C217D00FD1898 /* MovieTableViewCell.swift */,
@@ -748,6 +751,7 @@
 				DB7E3EAB205945640075AA99 /* DatabaseService+Edit.swift in Sources */,
 				DB7E3EB0205967090075AA99 /* Event.swift in Sources */,
 				DBE599A1205C21B800FD1898 /* ProfileViewController.swift in Sources */,
+				DBDDDC80206005C9009F4908 /* ExistingFriendsTableViewCell.swift in Sources */,
 				DBACBAE920580A8300882850 /* DatabaseService+Add.swift in Sources */,
 				DBE5997D205C1FD500FD1898 /* CreateEventViewController.swift in Sources */,
 			);
