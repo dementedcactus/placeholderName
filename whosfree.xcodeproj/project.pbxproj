@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5A02D534D00123711E33753F /* Pods_whosfreeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD5219901C00B5DBC74C7D0 /* Pods_whosfreeUITests.framework */; };
+		746439952060670500B09545 /* FriendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746439942060670500B09545 /* FriendsCollectionViewCell.swift */; };
 		84F06A9A6BF121D360D801EC /* Pods_whosfree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56270434984F66181CF21D95 /* Pods_whosfree.framework */; };
 		94FF2030ABE4CB093C686CC7 /* Pods_whosfreeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21925C818A4A3361FA7E2477 /* Pods_whosfreeTests.framework */; };
 		DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE44820571E5C00AAD2D8 /* AppDelegate.swift */; };
@@ -98,6 +99,7 @@
 		56270434984F66181CF21D95 /* Pods_whosfree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_whosfree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC3006618216CCAFE016C39 /* Pods-whosfreeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whosfreeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-whosfreeTests/Pods-whosfreeTests.release.xcconfig"; sourceTree = "<group>"; };
 		60E208FAA28830ACA6B5C3A2 /* Pods-whosfree.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whosfree.debug.xcconfig"; path = "Pods/Target Support Files/Pods-whosfree/Pods-whosfree.debug.xcconfig"; sourceTree = "<group>"; };
+		746439942060670500B09545 /* FriendsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionViewCell.swift; sourceTree = "<group>"; };
 		7CF222DD50E6FE553458725A /* Pods-whosfreeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whosfreeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-whosfreeUITests/Pods-whosfreeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7DD5219901C00B5DBC74C7D0 /* Pods_whosfreeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_whosfreeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95AFDAA9FE5BB29F7E498C64 /* Pods-whosfreeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whosfreeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-whosfreeUITests/Pods-whosfreeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				DBE59988205C207000FD1898 /* InvitedFriendsCollectionViewCell.swift */,
 				DBE5999C205C217D00FD1898 /* MovieTableViewCell.swift */,
 				DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */,
+				746439942060670500B09545 /* FriendsCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 				DB7E3EAB205945640075AA99 /* DatabaseService+Edit.swift in Sources */,
 				DB7E3EB0205967090075AA99 /* Event.swift in Sources */,
 				DBE599A1205C21B800FD1898 /* ProfileViewController.swift in Sources */,
+				746439952060670500B09545 /* FriendsCollectionViewCell.swift in Sources */,
 				DBDDDC80206005C9009F4908 /* ExistingFriendsTableViewCell.swift in Sources */,
 				DBACBAE920580A8300882850 /* DatabaseService+Add.swift in Sources */,
 				DBE5997D205C1FD500FD1898 /* CreateEventViewController.swift in Sources */,
