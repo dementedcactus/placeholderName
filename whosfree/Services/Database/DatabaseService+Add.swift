@@ -14,6 +14,37 @@ import FirebaseAuth
 extension DatabaseService {
     
     /**
+     Adds a comment to the current post.
+     
+     - Parameters:
+     - text: The comment text.
+     - postID: The ID of the current, selected post.
+     */
+    public func addComment(withText text: String, andEventID eventID: String) {
+        guard let userID = AuthUserService.manager.getCurrentUser()?.uid else {
+            print("Error: could not get current user id, please exit the app and log back in.")
+            return
+        }
+        let ref = chatRef.child(eventID).childByAutoId()
+        let comment = Comment(eventID: eventID, commentID: ref.key, userID: userID, text: text)
+        
+        ref.setValue(["eventID": eventID,
+                      "commentID": comment.commentID,
+                      "userID": comment.userID,
+                      "text": comment.text,
+                      "timestamp": comment.timestamp
+        ]) { (error, _) in
+            if let error = error {
+                self.delegate?.didFailAddingComment?(self, error: error.localizedDescription)
+            } else {
+                self.delegate?.didAddComment?(self)
+            }
+        }
+        
+        print("new comment added to database!!")
+    }
+    
+    /**
      Stores a UserProfile object in the database after account creation.
      
      - Parameter userProfile: The UserProfile object passed in.
@@ -24,7 +55,7 @@ extension DatabaseService {
         
         ref.setValue(["email": userProfile.email,
                       "userID": userProfile.userID,
-                      "address" : userProfile.address
+                      "displayName" : userProfile.displayName
             
         ]) { (error, _) in
             if let error = error {

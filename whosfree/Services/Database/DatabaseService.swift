@@ -31,11 +31,13 @@ class DatabaseService: NSObject {
     var rootRef: DatabaseReference!
     var usersRef: DatabaseReference!
     var eventsRef: DatabaseReference!
+    var chatRef: DatabaseReference!
     
     private override init() {
         self.rootRef = Database.database().reference()
         self.usersRef = self.rootRef.child("users")
         self.eventsRef = self.rootRef.child("events")
+        self.chatRef = self.rootRef.child("chat")
         super.init()
     }
     
@@ -46,6 +48,39 @@ class DatabaseService: NSObject {
         rootRef.removeAllObservers()
         usersRef.removeAllObservers()
         eventsRef.removeAllObservers()
+        chatRef.removeAllObservers()
+    }
+    
+    //changing display name
+    /** This method attempts to change the user's displayName.
+     If the name change is successful, it will return the old and new displayNames through the DatabaseServiceDelegate protocol didChangeDisplayName(_:, oldName:, newName:) method.
+     If the name change is not successful, it will return a localized error message through the DatabaseServiceDelegate protocol didFailChangingDisplayName?(_:, error:) method.
+     
+     - Parameters:
+     - newName: The new name to change to.
+     - ifNameTaken: A closure that passes the new name back if it is currently in used by a different user.
+     - failedName: The name that is already in use by another user.
+     */
+    public func changeDisplayName(to newName: String, ifNameTaken: @escaping (_ failedName: String) -> Void) {
+        guard let currentUser = AuthUserService.manager.getCurrentUser() else {
+            return
+        }
+        //check if anyone has same display name, if true, return false
+        checkIfDisplayNameIsTaken(newName, currentUserID: currentUser.uid) { (isTaken, oldName, newName)  in
+            if isTaken {
+                ifNameTaken(newName)
+                return
+            }
+            currentUser.createProfileChangeRequest().displayName = newName
+            currentUser.createProfileChangeRequest().commitChanges(completion: { (error) in
+                //if change request was not successful
+                if let error = error {
+                    print(error)
+                    self.delegate?.didFailChangingDisplayName?(self, error: error.localizedDescription)
+                    return
+                }
+            })
+        }
     }
     
     /** This method checks if the given displayName is already in use by another user.
