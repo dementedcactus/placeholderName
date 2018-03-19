@@ -10,6 +10,21 @@ import UIKit
 
 class InviteFriendsView: UIView {
 
+    //searchBar
+    lazy var friendSearchbBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Search for a Friend"
+        return searchBar
+    }()
+    
+    //tableview
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        tv.register(ExistingFriendsTableViewCell.self, forCellReuseIdentifier: "ExistingFriendsTableViewCell")
+        tv.backgroundColor = .clear
+        return tv
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -21,12 +36,32 @@ class InviteFriendsView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .purple
+        backgroundColor = .green
         setupViews()
     }
     
     private func setupViews() {
+        addSubview(friendSearchbBar)
+        addSubview(tableView)
         
+        //ARRAY MUST BE IN ORDER!!
+        let FriendListObjects = [friendSearchbBar,tableView] as [UIView]
+        
+        FriendListObjects.forEach{addSubview($0); ($0).translatesAutoresizingMaskIntoConstraints = false}
+        
+        NSLayoutConstraint.activate([
+            //searchbar
+            friendSearchbBar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            friendSearchbBar.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            friendSearchbBar.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            
+            //tableview
+            tableView.topAnchor.constraint(equalTo: self.friendSearchbBar.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
+            ])
     }
-
+    
 }
+
