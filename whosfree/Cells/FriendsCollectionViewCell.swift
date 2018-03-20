@@ -12,7 +12,7 @@ class FriendsCollectionViewCell: UICollectionViewCell {
     
     lazy var friendImage: UIImageView = {
         let fImage = UIImageView()
-        fImage.image = #imageLiteral(resourceName: "placeholderIcon")
+        fImage.image = #imageLiteral(resourceName: "profileImagePlaceholder")
         fImage.contentMode = .scaleAspectFit
         fImage.layer.borderWidth = 2
         fImage.layer.borderColor = UIColor.black.cgColor

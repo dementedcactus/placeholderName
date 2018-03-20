@@ -13,7 +13,7 @@ class Event: NSObject {
     let eventName: String
     let ownerUserID: String
     var text: String
-    var timestamp: Double = Date.timeIntervalSinceReferenceDate
+    var timestamp: Double = Date.timeIntervalSinceReferenceDate //nicely format date for Richard
     var rsvpNo: String? //[String of user ids]
     var rsvpMaybe: String? //[String of All invited user ids]
     var rsvpYes: String? //[String of user ids]
