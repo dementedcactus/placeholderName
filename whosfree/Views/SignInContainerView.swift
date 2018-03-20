@@ -16,7 +16,7 @@ class SignInContainerView: UIView {
     lazy var emailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = #imageLiteral(resourceName: "emailIcon")
+        imageView.image = #imageLiteral(resourceName: "emailIcon-1")
         return imageView
     }()
     
@@ -50,6 +50,7 @@ class SignInContainerView: UIView {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         textField.placeholder = "Enter e-mail address"
+        textField.textAlignment = .center
         textField.text = "luiscalle@ac.c4q.nyc"
         textField.layer.cornerRadius = 5
         textField.borderStyle = .roundedRect
@@ -64,6 +65,7 @@ class SignInContainerView: UIView {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         textField.placeholder = "Enter password"
+        textField.textAlignment = .center
         textField.text = "123456"
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.black.cgColor
@@ -253,8 +255,8 @@ class SignInContainerView: UIView {
         
         NSLayoutConstraint.activate([
             emailImageView.centerYAnchor.constraint(equalTo: emailLoginTextField.centerYAnchor),
-            emailImageView.trailingAnchor.constraint(equalTo: emailLoginTextField.leadingAnchor),
-            emailImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.1),
+            emailImageView.leadingAnchor.constraint(equalTo: emailLoginTextField.leadingAnchor, constant: 4),
+            emailImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.08),
             emailImageView.heightAnchor.constraint(equalTo: emailImageView.widthAnchor)
             ])
     
@@ -267,9 +269,9 @@ class SignInContainerView: UIView {
         
         NSLayoutConstraint.activate([
             passwordImageView.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor),
-            passwordImageView.trailingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
-            passwordImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.09),
-            passwordImageView.heightAnchor.constraint(equalTo: passwordTextField.widthAnchor)
+            passwordImageView.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor, constant: 4),
+            passwordImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.08),
+            passwordImageView.heightAnchor.constraint(equalTo: passwordImageView.widthAnchor)
             ])
     }
     

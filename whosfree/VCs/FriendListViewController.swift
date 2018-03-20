@@ -90,6 +90,14 @@ extension FriendListViewController: UITableViewDataSource {
 }
 
 extension FriendListViewController: dismissThenPresentChosenVC {
+    func ProfileButtonPressed() {
+        sideMenu.dismissView()
+        let profileVC = ProfileViewController()
+        profileVC.modalTransitionStyle = .crossDissolve
+        profileVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
     func EventsButtonPressed() {
         sideMenu.dismissView()
         let eventListVC = EventListViewController()

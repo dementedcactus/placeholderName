@@ -107,6 +107,14 @@ extension EventListViewController: UITableViewDataSource {
     }
 }
 extension EventListViewController: dismissThenPresentChosenVC {
+    func ProfileButtonPressed() {
+        sideMenu.dismissView()
+        let profileVC = ProfileViewController()
+        profileVC.modalTransitionStyle = .crossDissolve
+        profileVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
     func EventsButtonPressed() {
         sideMenu.dismissView()
         //Do nothing else since you're already on the EventsListVC
