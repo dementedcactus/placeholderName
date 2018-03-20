@@ -25,12 +25,12 @@ class EventDetailViewController: UIViewController {
     }
     
     private func configureNavBar() {
-        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editEvent))
+        //let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editEvent))
         let chatButton = UIBarButtonItem(image: #imageLiteral(resourceName: "chatBubble"), style: .plain, target: self, action: #selector(segueToChatViewController))
         navigationItem.rightBarButtonItem = chatButton
         //TODO: edit button is only visible to creator of event
         //if user.id == event creator.id {
-        navigationItem.leftBarButtonItem = editButton
+        //navigationItem.leftBarButtonItem = editButton
         //} else {
         //navigationItem.leftBarButtonItem = nil
         
@@ -44,7 +44,9 @@ class EventDetailViewController: UIViewController {
     }
     
     @objc private func segueToChatViewController() {
-        
+        // TODO: dependency injection of the eventID so we know which chat corresponds to the event
+        let chatVC = ChatViewController()
+        navigationController?.pushViewController(chatVC, animated: true)
     }
     
 }

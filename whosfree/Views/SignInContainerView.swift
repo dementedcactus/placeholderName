@@ -13,6 +13,21 @@ import FBSDKCoreKit
 
 class SignInContainerView: UIView {
     
+    lazy var emailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = #imageLiteral(resourceName: "emailIcon")
+        return imageView
+    }()
+    
+    
+    lazy var passwordImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = #imageLiteral(resourceName: "passwordIcon")
+        return imageView
+    }()
+    
     lazy var emailAddressLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
@@ -106,6 +121,9 @@ class SignInContainerView: UIView {
         setupLoginButton()
         setupForgotPasswordButton()
         setupFBLoginButton()
+        
+        setupEmailImageView()
+        setupPasswordImageView()
     }
     
     private func setupPasswordTextField() {
@@ -225,6 +243,34 @@ class SignInContainerView: UIView {
         //            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-18)
         //            make.centerX.equalTo(safeAreaLayoutGuide.snp.centerX)
         //        }
+    }
+    
+    
+    
+    private func setupEmailImageView() {
+        addSubview(emailImageView)
+        emailImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            emailImageView.centerYAnchor.constraint(equalTo: emailLoginTextField.centerYAnchor),
+            emailImageView.trailingAnchor.constraint(equalTo: emailLoginTextField.leadingAnchor),
+            emailImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.1),
+            emailImageView.heightAnchor.constraint(equalTo: emailImageView.widthAnchor)
+            ])
+    
+    }
+    
+    
+    private func setupPasswordImageView() {
+        addSubview(passwordImageView)
+        passwordImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            passwordImageView.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor),
+            passwordImageView.trailingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
+            passwordImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.09),
+            passwordImageView.heightAnchor.constraint(equalTo: passwordTextField.widthAnchor)
+            ])
     }
     
 }
