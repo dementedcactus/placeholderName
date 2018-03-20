@@ -85,8 +85,9 @@ class EventListViewController: UIViewController {
 }
 extension EventListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: segue to EventDetailViewController
-        //navigationController?.pushViewController(EventDetailViewController, animated: true)
+        //TODO: segue to EventDetailViewController using dependency injection
+        let eventDetailVC = EventDetailViewController()
+        navigationController?.pushViewController(eventDetailVC, animated: true)
     }
 }
 extension EventListViewController: UITableViewDataSource {

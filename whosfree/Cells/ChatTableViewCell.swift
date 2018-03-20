@@ -163,14 +163,14 @@ class ChatTableViewCell: UITableViewCell {
     
     //TODO: Configure cell for user & other user
     public func configureUserCell() {
-        self.userImageView.image = #imageLiteral(resourceName: "user")
+        self.userImageView.image = #imageLiteral(resourceName: "chatBubble")
         self.dateLabel.text = "3/3/18"
         self.usernameLabel.text = "user"
         self.commentLabel.text = "user comment"
     }
     
     public func configureOtherUserCell() {
-        self.otherUserImageView.image = #imageLiteral(resourceName: "user")
+        self.otherUserImageView.image = #imageLiteral(resourceName: "chatBubble")
         self.otherDateLabel.text = "other 3/3/18"
         self.otherUsernameLabel.text = "other user"
         self.otherCommentLabel.text = "other user comment"
