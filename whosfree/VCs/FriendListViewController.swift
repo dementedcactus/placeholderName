@@ -23,6 +23,7 @@ class FriendListViewController: UIViewController {
     }
     
     let friendListView = FriendListView()
+    let sideMenu = SideDrawerMenuViewController()
     
     var sampleArray = [1,2,3,4,5]
     
@@ -37,6 +38,7 @@ class FriendListViewController: UIViewController {
         friendListView.tableView.estimatedRowHeight = 80
         friendListView.tableView.rowHeight = UITableViewAutomaticDimension
         friendListView.friendSearchbBar.delegate = self
+        sideMenu.friendListDelegate = self
     }
     
     private func setupViews(){
@@ -44,7 +46,6 @@ class FriendListViewController: UIViewController {
     }
     
     @objc private func presentMenu() {
-        let sideMenu = SideDrawerMenuViewController()
         let transition = CATransition()
         transition.duration = 0.3
         transition.type = kCATransitionMoveIn
@@ -85,6 +86,24 @@ extension FriendListViewController: UITableViewDataSource {
         cell.usernameLabel.text = "username \(testData)"
         cell.setNeedsLayout()
         return cell
+    }
+}
+
+extension FriendListViewController: dismissThenPresentFriendListVC {
+    func LogoutButtonPressed() {
+        sideMenu.dismissView()
+        let signInVC = SignInViewController()
+        self.present(signInVC, animated: true, completion: nil)
+    }
+    
+    func FriendListButtonPressed() {
+        print("Delegate Working")
+        sideMenu.dismissView()
+        return
+//        let friendListVC = FriendListViewController()
+//        friendListVC.modalTransitionStyle = .crossDissolve
+//        friendListVC.modalPresentationStyle = .overCurrentContext
+//        navigationController?.pushViewController(friendListVC, animated: true)
     }
 }
 
