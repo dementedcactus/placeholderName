@@ -37,8 +37,16 @@ class SideDrawerMenuView: UIView {
         lb.text = "Username"
         lb.textAlignment = .center
         lb.textColor = .white
-        lb.backgroundColor = UIColor(red: 0.263, green: 0.553, blue: 0.576, alpha: 1.00)
+        lb.backgroundColor = UIColor(red: 0.263, green: 0.553, blue: 0.576, alpha: 0.200)
         return lb
+    }()
+    
+    lazy var eventButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Events", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor(red: 0.263, green: 0.553, blue: 0.576, alpha: 1.00)
+        return button
     }()
     
     lazy var profileButton: UIButton = {
@@ -104,6 +112,7 @@ class SideDrawerMenuView: UIView {
         addSubview(containerView)
         addSubview(menuImageView)
         addSubview(usernameLabel)
+        addSubview(eventButton)
         addSubview(profileButton)
         addSubview(numFriendsButton)
         addSubview(logoutButton)
@@ -112,7 +121,7 @@ class SideDrawerMenuView: UIView {
     private func constrainObjects() {
         
         //ARRAY MUST BE IN ORDER!!
-        let menuViewObjects = [containerView, menuImageView, usernameLabel, profileButton, numFriendsButton, logoutButton] as [UIView]
+        let menuViewObjects = [containerView, menuImageView, usernameLabel, eventButton, profileButton, numFriendsButton, logoutButton] as [UIView]
         
         menuViewObjects.forEach{addSubview($0); ($0).translatesAutoresizingMaskIntoConstraints = false}
         
@@ -131,13 +140,19 @@ class SideDrawerMenuView: UIView {
             menuImageView.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3),
             
             //usernameLabel
-            usernameLabel.topAnchor.constraint(equalTo: menuImageView.bottomAnchor),
+            usernameLabel.bottomAnchor.constraint(equalTo: menuImageView.bottomAnchor),
             usernameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             usernameLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1),
-            usernameLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.1),
+            usernameLabel.heightAnchor.constraint(greaterThanOrEqualTo: containerView.heightAnchor, multiplier: 0.05),
+            
+            //eventButton
+            eventButton.topAnchor.constraint(equalTo: menuImageView.bottomAnchor),
+            eventButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            eventButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1),
+            eventButton.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.1),
             
             //profileButton
-            profileButton.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor),
+            profileButton.topAnchor.constraint(equalTo: eventButton.bottomAnchor),
             profileButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             profileButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1),
             profileButton.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.1),
