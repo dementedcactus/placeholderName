@@ -32,13 +32,15 @@ class EventListViewController: UIViewController {
         self.title = "EventListVC"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(presentMenu))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonAction))
+    
         setupViews()
-        //TBV Delegates
+        eventListView.plusButton.addTarget(self, action: #selector(showCalendarButtonAction), for: .touchUpInside)
+        
+        //Delegates
         eventListView.tableView.delegate = self
         eventListView.tableView.dataSource = self
         eventListView.tableView.estimatedRowHeight = 80
         eventListView.tableView.rowHeight = UITableViewAutomaticDimension
-        
         sideMenu.dismissThenPresentDelegate = self
     }
     
@@ -59,6 +61,10 @@ class EventListViewController: UIViewController {
     
     @objc private func addEventButtonAction() {
         print("Add Event Button Pressed")
+    }
+    
+    @objc private func showCalendarButtonAction() {
+        print("Show Calendar Button Pressed")
     }
     
     @objc private func presentMenu() {
