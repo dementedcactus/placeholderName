@@ -61,6 +61,9 @@ class EventListViewController: UIViewController {
     
     @objc private func addEventButtonAction() {
         print("Add Event Button Pressed")
+        let createEventVC = CreateEventViewController()
+        let createEventNavCon = UINavigationController(rootViewController: createEventVC)
+        self.present(createEventNavCon, animated: true, completion: nil)
     }
     
     @objc private func showCalendarButtonAction() {
