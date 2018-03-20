@@ -38,7 +38,7 @@ class FriendListViewController: UIViewController {
         friendListView.tableView.estimatedRowHeight = 80
         friendListView.tableView.rowHeight = UITableViewAutomaticDimension
         friendListView.friendSearchbBar.delegate = self
-        sideMenu.friendListDelegate = self
+        sideMenu.dismissThenPresentDelegate = self
     }
     
     private func setupViews(){
@@ -89,7 +89,15 @@ extension FriendListViewController: UITableViewDataSource {
     }
 }
 
-extension FriendListViewController: dismissThenPresentFriendListVC {
+extension FriendListViewController: dismissThenPresentChosenVC {
+    func EventsButtonPressed() {
+        sideMenu.dismissView()
+        let eventListVC = EventListViewController()
+        eventListVC.modalTransitionStyle = .crossDissolve
+        eventListVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(eventListVC, animated: true)
+    }
+    
     func LogoutButtonPressed() {
         sideMenu.dismissView()
         let signInVC = SignInViewController()
@@ -99,11 +107,7 @@ extension FriendListViewController: dismissThenPresentFriendListVC {
     func FriendListButtonPressed() {
         print("Delegate Working")
         sideMenu.dismissView()
-        return
-//        let friendListVC = FriendListViewController()
-//        friendListVC.modalTransitionStyle = .crossDissolve
-//        friendListVC.modalPresentationStyle = .overCurrentContext
-//        navigationController?.pushViewController(friendListVC, animated: true)
+        //Do nothing else since you're already on the FriendListVC
     }
 }
 

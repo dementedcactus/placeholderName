@@ -39,7 +39,7 @@ class EventListViewController: UIViewController {
         eventListView.tableView.estimatedRowHeight = 80
         eventListView.tableView.rowHeight = UITableViewAutomaticDimension
         
-        sideMenu.friendListDelegate = self
+        sideMenu.dismissThenPresentDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,7 +96,12 @@ extension EventListViewController: UITableViewDataSource {
         return cell
     }
 }
-extension EventListViewController: dismissThenPresentFriendListVC {
+extension EventListViewController: dismissThenPresentChosenVC {
+    func EventsButtonPressed() {
+        sideMenu.dismissView()
+        //Do nothing else since you're already on the EventsListVC
+    }
+    
     func LogoutButtonPressed() {
         sideMenu.dismissView()
         let signInVC = SignInViewController()
