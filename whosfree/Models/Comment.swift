@@ -15,6 +15,7 @@ class Comment: NSObject {
     var text: String
     var timestamp: Double = Date.timeIntervalSinceReferenceDate
     
+    
     static func ==(lhs: Comment, rhs: Comment) -> Bool {
         return lhs.eventID == rhs.eventID && lhs.commentID == rhs.commentID && lhs.userID == rhs.userID
     }

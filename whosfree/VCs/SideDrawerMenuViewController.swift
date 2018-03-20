@@ -12,6 +12,7 @@ import FBSDKCoreKit
 
 protocol dismissThenPresentChosenVC {
     func FriendListButtonPressed()
+    func ProfileButtonPressed()
     func LogoutButtonPressed()
     func EventsButtonPressed()
 }
@@ -65,6 +66,7 @@ class SideDrawerMenuViewController: UIViewController {
     @objc func profileButtonAction() {
         //TODO Present profileViewController
         print("Profile Button Works")
+        self.dismissThenPresentDelegate?.ProfileButtonPressed()
     }
     
     @objc func numFriendsButtonAction() {

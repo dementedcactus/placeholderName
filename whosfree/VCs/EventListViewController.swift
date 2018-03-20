@@ -61,6 +61,9 @@ class EventListViewController: UIViewController {
     
     @objc private func addEventButtonAction() {
         print("Add Event Button Pressed")
+        let createEventVC = CreateEventViewController()
+        let createEventNavCon = UINavigationController(rootViewController: createEventVC)
+        self.present(createEventNavCon, animated: true, completion: nil)
     }
     
     @objc private func showCalendarButtonAction() {
@@ -82,8 +85,9 @@ class EventListViewController: UIViewController {
 }
 extension EventListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: segue to EventDetailViewController
-        //navigationController?.pushViewController(EventDetailViewController, animated: true)
+        //TODO: segue to EventDetailViewController using dependency injection
+        let eventDetailVC = EventDetailViewController()
+        navigationController?.pushViewController(eventDetailVC, animated: true)
     }
 }
 extension EventListViewController: UITableViewDataSource {
@@ -103,6 +107,14 @@ extension EventListViewController: UITableViewDataSource {
     }
 }
 extension EventListViewController: dismissThenPresentChosenVC {
+    func ProfileButtonPressed() {
+        sideMenu.dismissView()
+        let profileVC = ProfileViewController()
+        profileVC.modalTransitionStyle = .crossDissolve
+        profileVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
     func EventsButtonPressed() {
         sideMenu.dismissView()
         //Do nothing else since you're already on the EventsListVC

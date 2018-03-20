@@ -13,6 +13,21 @@ import FBSDKCoreKit
 
 class SignInContainerView: UIView {
     
+    lazy var emailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = #imageLiteral(resourceName: "emailIcon-1")
+        return imageView
+    }()
+    
+    
+    lazy var passwordImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = #imageLiteral(resourceName: "passwordIcon")
+        return imageView
+    }()
+    
     lazy var emailAddressLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
@@ -35,6 +50,7 @@ class SignInContainerView: UIView {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         textField.placeholder = "Enter e-mail address"
+        textField.textAlignment = .center
         textField.text = "luiscalle@ac.c4q.nyc"
         textField.layer.cornerRadius = 5
         textField.borderStyle = .roundedRect
@@ -49,6 +65,7 @@ class SignInContainerView: UIView {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         textField.placeholder = "Enter password"
+        textField.textAlignment = .center
         textField.text = "123456"
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.black.cgColor
@@ -106,6 +123,9 @@ class SignInContainerView: UIView {
         setupLoginButton()
         setupForgotPasswordButton()
         setupFBLoginButton()
+        
+        setupEmailImageView()
+        setupPasswordImageView()
     }
     
     private func setupPasswordTextField() {
@@ -225,6 +245,34 @@ class SignInContainerView: UIView {
         //            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-18)
         //            make.centerX.equalTo(safeAreaLayoutGuide.snp.centerX)
         //        }
+    }
+    
+    
+    
+    private func setupEmailImageView() {
+        addSubview(emailImageView)
+        emailImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            emailImageView.centerYAnchor.constraint(equalTo: emailLoginTextField.centerYAnchor),
+            emailImageView.leadingAnchor.constraint(equalTo: emailLoginTextField.leadingAnchor, constant: 4),
+            emailImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.08),
+            emailImageView.heightAnchor.constraint(equalTo: emailImageView.widthAnchor)
+            ])
+    
+    }
+    
+    
+    private func setupPasswordImageView() {
+        addSubview(passwordImageView)
+        passwordImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            passwordImageView.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor),
+            passwordImageView.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor, constant: 4),
+            passwordImageView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.08),
+            passwordImageView.heightAnchor.constraint(equalTo: passwordImageView.widthAnchor)
+            ])
     }
     
 }
