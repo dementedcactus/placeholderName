@@ -26,7 +26,7 @@ class SideDrawerMenuView: UIView {
     lazy var menuImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "menuImage")
+        imageView.image = UIImage(named: "profileImagePlaceholder")
         imageView.clipsToBounds = true
         imageView.layer.masksToBounds = true
         return imageView

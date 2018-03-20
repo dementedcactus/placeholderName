@@ -42,6 +42,16 @@ class EventListViewController: UIViewController {
         sideMenu.friendListDelegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if FirebaseAuthService.getCurrentUser() == nil {
+            let signInVC = SignInViewController()
+            self.present(signInVC, animated: false, completion: nil)
+        } else {
+            // load events for user here
+        }
+    }
+    
     private func setupViews(){
         self.view.addSubview(eventListView)
         self.eventListView.tableView.addSubview(self.refreshControl)
@@ -87,6 +97,12 @@ extension EventListViewController: UITableViewDataSource {
     }
 }
 extension EventListViewController: dismissThenPresentFriendListVC {
+    func LogoutButtonPressed() {
+        sideMenu.dismissView()
+        let signInVC = SignInViewController()
+        self.present(signInVC, animated: true, completion: nil)
+    }
+    
     func FriendListButtonPressed() {
         print("Delegate Working")
         sideMenu.dismissView()
@@ -95,7 +111,5 @@ extension EventListViewController: dismissThenPresentFriendListVC {
         friendListVC.modalPresentationStyle = .overCurrentContext
         navigationController?.pushViewController(friendListVC, animated: true)
     }
-    
-    
 }
 

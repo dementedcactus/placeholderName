@@ -12,6 +12,7 @@ import FBSDKCoreKit
 
 protocol dismissThenPresentFriendListVC {
     func FriendListButtonPressed()
+    func LogoutButtonPressed()
 }
 
 class SideDrawerMenuViewController: UIViewController {
@@ -60,6 +61,7 @@ class SideDrawerMenuViewController: UIViewController {
     @objc func numFriendsButtonAction() {
         //TODO Present friendsViewController
         print("numFriends Button Works")
+        
         self.friendListDelegate?.FriendListButtonPressed()
         
     }
@@ -76,6 +78,7 @@ class SideDrawerMenuViewController: UIViewController {
     private func logout() {
         let alertView = UIAlertController(title: "Are you sure you want to logout?", message: nil, preferredStyle: .alert)
         let yesOption = UIAlertAction(title: "Yes", style: .destructive) { (alertAction) in
+            self.friendListDelegate?.LogoutButtonPressed()
             self.firebaseAuthService.signOut()
         }
         let noOption = UIAlertAction(title: "No", style: .cancel, handler: nil)
@@ -99,8 +102,9 @@ extension SideDrawerMenuViewController: FirebaseAuthServiceDelegate {
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
         }
-        let signInVC = SignInViewController()
-        self.present(signInVC, animated: true, completion: nil)
+        //view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//        let signInVC = SignInViewController()
+//        self.present(signInVC, animated: true, completion: nil)
     }
     func didFailSigningOut(_ authService: FirebaseAuthService, error: Error) {
         showAlert(title: "Error", message: error.localizedDescription)
