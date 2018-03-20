@@ -61,27 +61,27 @@ class DatabaseService: NSObject {
      - ifNameTaken: A closure that passes the new name back if it is currently in used by a different user.
      - failedName: The name that is already in use by another user.
      */
-    public func changeDisplayName(to newName: String, ifNameTaken: @escaping (_ failedName: String) -> Void) {
-        guard let currentUser = AuthUserService.manager.getCurrentUser() else {
-            return
-        }
-        //check if anyone has same display name, if true, return false
-        checkIfDisplayNameIsTaken(newName, currentUserID: currentUser.uid) { (isTaken, oldName, newName)  in
-            if isTaken {
-                ifNameTaken(newName)
-                return
-            }
-            currentUser.createProfileChangeRequest().displayName = newName
-            currentUser.createProfileChangeRequest().commitChanges(completion: { (error) in
-                //if change request was not successful
-                if let error = error {
-                    print(error)
-                    self.delegate?.didFailChangingDisplayName?(self, error: error.localizedDescription)
-                    return
-                }
-            })
-        }
-    }
+//    public func changeDisplayName(to newName: String, ifNameTaken: @escaping (_ failedName: String) -> Void) {
+//        guard let currentUser = AuthUserService.manager.getCurrentUser() else {
+//            return
+//        }
+//        //check if anyone has same display name, if true, return false
+//        checkIfDisplayNameIsTaken(newName, currentUserID: currentUser.uid) { (isTaken, oldName, newName)  in
+//            if isTaken {
+//                ifNameTaken(newName)
+//                return
+//            }
+//            currentUser.createProfileChangeRequest().displayName = newName
+//            currentUser.createProfileChangeRequest().commitChanges(completion: { (error) in
+//                //if change request was not successful
+//                if let error = error {
+//                    print(error)
+//                    self.delegate?.didFailChangingDisplayName?(self, error: error.localizedDescription)
+//                    return
+//                }
+//            })
+//        }
+//    }
     
     /** This method checks if the given displayName is already in use by another user.
      

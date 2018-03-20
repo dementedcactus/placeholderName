@@ -33,8 +33,6 @@
 		DBACBAEA20580A8300882850 /* DatabaseService+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAE620580A8300882850 /* DatabaseService+Get.swift */; };
 		DBACBAEB20580A8300882850 /* DatabaseServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAE720580A8300882850 /* DatabaseServiceDelegate.swift */; };
 		DBACBAEC20580A8300882850 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAE820580A8300882850 /* DatabaseService.swift */; };
-		DBACBAEF20580A8E00882850 /* AuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAED20580A8E00882850 /* AuthUserService.swift */; };
-		DBACBAF020580A8E00882850 /* AuthUserServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAEE20580A8E00882850 /* AuthUserServiceDelegate.swift */; };
 		DBACBAF220580A9800882850 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAF120580A9800882850 /* StorageService.swift */; };
 		DBACBAF420580AA500882850 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAF320580AA500882850 /* UserProfile.swift */; };
 		DBDDDC80206005C9009F4908 /* ExistingFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */; };
@@ -48,14 +46,12 @@
 		DBE59981205C1FFD00FD1898 /* EventTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59980205C1FFD00FD1898 /* EventTypeTableViewCell.swift */; };
 		DBE59983205C201600FD1898 /* VenueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59982205C201600FD1898 /* VenueViewController.swift */; };
 		DBE59985205C203500FD1898 /* InviteFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59984205C203500FD1898 /* InviteFriendsViewController.swift */; };
-		DBE59987205C205100FD1898 /* BuyMovieTixViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59986205C205100FD1898 /* BuyMovieTixViewController.swift */; };
 		DBE59989205C207000FD1898 /* InvitedFriendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59988205C207000FD1898 /* InvitedFriendsCollectionViewCell.swift */; };
 		DBE5998B205C209800FD1898 /* VenueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5998A205C209800FD1898 /* VenueView.swift */; };
 		DBE5998D205C20AF00FD1898 /* VenueDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5998C205C20AF00FD1898 /* VenueDetailViewController.swift */; };
 		DBE5998F205C20C600FD1898 /* VenueDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5998E205C20C600FD1898 /* VenueDetailView.swift */; };
 		DBE59991205C20F300FD1898 /* TheatersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59990205C20F300FD1898 /* TheatersViewController.swift */; };
 		DBE59993205C211000FD1898 /* TheatersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59992205C211000FD1898 /* TheatersView.swift */; };
-		DBE59995205C211D00FD1898 /* BuyMovieTixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59994205C211D00FD1898 /* BuyMovieTixView.swift */; };
 		DBE59997205C213B00FD1898 /* TheaterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */; };
 		DBE59999205C215900FD1898 /* TheaterShowtimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59998205C215900FD1898 /* TheaterShowtimesViewController.swift */; };
 		DBE5999B205C216B00FD1898 /* TheaterShowtimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5999A205C216B00FD1898 /* TheaterShowtimesView.swift */; };
@@ -70,9 +66,19 @@
 		DBE599AD205C228300FD1898 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599AC205C228300FD1898 /* ChatViewController.swift */; };
 		DBE599AF205C229700FD1898 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599AE205C229700FD1898 /* ChatView.swift */; };
 		DBE599B1205C22BA00FD1898 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599B0205C22BA00FD1898 /* ChatTableViewCell.swift */; };
-		DBE599B3205C22FD00FD1898 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599B2205C22FD00FD1898 /* CreateAccountViewController.swift */; };
-		DBE599B5205C231500FD1898 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599B4205C231500FD1898 /* CreateAccountView.swift */; };
 		DBE599B7205C23DF00FD1898 /* SideDrawerMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE599B6205C23DF00FD1898 /* SideDrawerMenuViewController.swift */; };
+		E22D85972060532400A13ED1 /* FirebaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85962060532400A13ED1 /* FirebaseAuthService.swift */; };
+		E22D8599206054A900A13ED1 /* SignInContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D8598206054A900A13ED1 /* SignInContainerView.swift */; };
+		E22D859B206054B900A13ED1 /* SignUpContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D859A206054B900A13ED1 /* SignUpContainerView.swift */; };
+		E22D859D20605CCC00A13ED1 /* Theater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D859C20605CCC00A13ED1 /* Theater.swift */; };
+		E22D859F20605F1900A13ED1 /* MovieHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D859E20605F1900A13ED1 /* MovieHeaderView.swift */; };
+		E22D85A120605F6200A13ED1 /* Showtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85A020605F6200A13ED1 /* Showtime.swift */; };
+		E22D85A7206061CF00A13ED1 /* TheaterAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85A6206061CF00A13ED1 /* TheaterAPIClient.swift */; };
+		E22D85A9206061E900A13ED1 /* ShowtimeAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85A8206061E900A13ED1 /* ShowtimeAPIClient.swift */; };
+		E22D85AB2060621900A13ED1 /* VenueAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85AA2060621900A13ED1 /* VenueAPIClient.swift */; };
+		E22D85AD2060623800A13ED1 /* VenueReviewAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85AC2060623800A13ED1 /* VenueReviewAPIClient.swift */; };
+		E22D85AF2060625600A13ED1 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85AE2060625600A13ED1 /* Venue.swift */; };
+		E22D85B12060626800A13ED1 /* VenueReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85B02060626800A13ED1 /* VenueReview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,8 +137,6 @@
 		DBACBAE620580A8300882850 /* DatabaseService+Get.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Get.swift"; sourceTree = "<group>"; };
 		DBACBAE720580A8300882850 /* DatabaseServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseServiceDelegate.swift; sourceTree = "<group>"; };
 		DBACBAE820580A8300882850 /* DatabaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
-		DBACBAED20580A8E00882850 /* AuthUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUserService.swift; sourceTree = "<group>"; };
-		DBACBAEE20580A8E00882850 /* AuthUserServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUserServiceDelegate.swift; sourceTree = "<group>"; };
 		DBACBAF120580A9800882850 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		DBACBAF320580AA500882850 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingFriendsTableViewCell.swift; sourceTree = "<group>"; };
@@ -146,14 +150,12 @@
 		DBE59980205C1FFD00FD1898 /* EventTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeTableViewCell.swift; sourceTree = "<group>"; };
 		DBE59982205C201600FD1898 /* VenueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueViewController.swift; sourceTree = "<group>"; };
 		DBE59984205C203500FD1898 /* InviteFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendsViewController.swift; sourceTree = "<group>"; };
-		DBE59986205C205100FD1898 /* BuyMovieTixViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyMovieTixViewController.swift; sourceTree = "<group>"; };
 		DBE59988205C207000FD1898 /* InvitedFriendsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitedFriendsCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBE5998A205C209800FD1898 /* VenueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueView.swift; sourceTree = "<group>"; };
 		DBE5998C205C20AF00FD1898 /* VenueDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailViewController.swift; sourceTree = "<group>"; };
 		DBE5998E205C20C600FD1898 /* VenueDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailView.swift; sourceTree = "<group>"; };
 		DBE59990205C20F300FD1898 /* TheatersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheatersViewController.swift; sourceTree = "<group>"; };
 		DBE59992205C211000FD1898 /* TheatersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheatersView.swift; sourceTree = "<group>"; };
-		DBE59994205C211D00FD1898 /* BuyMovieTixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyMovieTixView.swift; sourceTree = "<group>"; };
 		DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterTableViewCell.swift; sourceTree = "<group>"; };
 		DBE59998205C215900FD1898 /* TheaterShowtimesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterShowtimesViewController.swift; sourceTree = "<group>"; };
 		DBE5999A205C216B00FD1898 /* TheaterShowtimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterShowtimesView.swift; sourceTree = "<group>"; };
@@ -168,9 +170,19 @@
 		DBE599AC205C228300FD1898 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		DBE599AE205C229700FD1898 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		DBE599B0205C22BA00FD1898 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
-		DBE599B2205C22FD00FD1898 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
-		DBE599B4205C231500FD1898 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		DBE599B6205C23DF00FD1898 /* SideDrawerMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideDrawerMenuViewController.swift; sourceTree = "<group>"; };
+		E22D85962060532400A13ED1 /* FirebaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthService.swift; sourceTree = "<group>"; };
+		E22D8598206054A900A13ED1 /* SignInContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInContainerView.swift; sourceTree = "<group>"; };
+		E22D859A206054B900A13ED1 /* SignUpContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpContainerView.swift; sourceTree = "<group>"; };
+		E22D859C20605CCC00A13ED1 /* Theater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theater.swift; sourceTree = "<group>"; };
+		E22D859E20605F1900A13ED1 /* MovieHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieHeaderView.swift; sourceTree = "<group>"; };
+		E22D85A020605F6200A13ED1 /* Showtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Showtime.swift; sourceTree = "<group>"; };
+		E22D85A6206061CF00A13ED1 /* TheaterAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterAPIClient.swift; sourceTree = "<group>"; };
+		E22D85A8206061E900A13ED1 /* ShowtimeAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowtimeAPIClient.swift; sourceTree = "<group>"; };
+		E22D85AA2060621900A13ED1 /* VenueAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueAPIClient.swift; sourceTree = "<group>"; };
+		E22D85AC2060623800A13ED1 /* VenueReviewAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueReviewAPIClient.swift; sourceTree = "<group>"; };
+		E22D85AE2060625600A13ED1 /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
+		E22D85B02060626800A13ED1 /* VenueReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueReview.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,13 +298,11 @@
 			isa = PBXGroup;
 			children = (
 				DBE599AC205C228300FD1898 /* ChatViewController.swift */,
-				DBE599B2205C22FD00FD1898 /* CreateAccountViewController.swift */,
 				DBE5997C205C1FD500FD1898 /* CreateEventViewController.swift */,
 				DBE59978205C1FA500FD1898 /* EventDetailViewController.swift */,
 				DBE59972205C1F5C00FD1898 /* EventListViewController.swift */,
 				DBE599A4205C21F500FD1898 /* FriendListViewController.swift */,
 				DBE59984205C203500FD1898 /* InviteFriendsViewController.swift */,
-				DBE59986205C205100FD1898 /* BuyMovieTixViewController.swift */,
 				DBE599A0205C21B800FD1898 /* ProfileViewController.swift */,
 				DBE599B6205C23DF00FD1898 /* SideDrawerMenuViewController.swift */,
 				DB3DE47A205721C000AAD2D8 /* SignInViewController.swift */,
@@ -308,20 +318,21 @@
 			isa = PBXGroup;
 			children = (
 				DBE599AE205C229700FD1898 /* ChatView.swift */,
-				DBE599B4205C231500FD1898 /* CreateAccountView.swift */,
 				DBE5997E205C1FEA00FD1898 /* CreateEventView.swift */,
 				DBE5997A205C1FC200FD1898 /* EventDetailView.swift */,
 				DBE59974205C1F7000FD1898 /* EventListView.swift */,
 				DBE599A6205C221E00FD1898 /* FriendListView.swift */,
 				DBE599AA205C226100FD1898 /* InviteFriendsView.swift */,
-				DBE59994205C211D00FD1898 /* BuyMovieTixView.swift */,
 				DBE599A2205C21CB00FD1898 /* ProfileView.swift */,
 				DBE5999E205C21AA00FD1898 /* SideDrawerMenuView.swift */,
 				DB3DE483205722AE00AAD2D8 /* SignInView.swift */,
 				DBE59992205C211000FD1898 /* TheatersView.swift */,
 				DBE5999A205C216B00FD1898 /* TheaterShowtimesView.swift */,
+				E22D859E20605F1900A13ED1 /* MovieHeaderView.swift */,
 				DBE5998E205C20C600FD1898 /* VenueDetailView.swift */,
 				DBE5998A205C209800FD1898 /* VenueView.swift */,
+				E22D8598206054A900A13ED1 /* SignInContainerView.swift */,
+				E22D859A206054B900A13ED1 /* SignUpContainerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -346,9 +357,13 @@
 			isa = PBXGroup;
 			children = (
 				DB7E3EAD2059517B0075AA99 /* Comment.swift */,
+				E22D859C20605CCC00A13ED1 /* Theater.swift */,
 				DB7E3EAF205967090075AA99 /* Event.swift */,
 				DB7E3EA7205944A70075AA99 /* iShowTimeAPIHelper.swift */,
 				DBACBAF320580AA500882850 /* UserProfile.swift */,
+				E22D85A020605F6200A13ED1 /* Showtime.swift */,
+				E22D85AE2060625600A13ED1 /* Venue.swift */,
+				E22D85B02060626800A13ED1 /* VenueReview.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -360,6 +375,10 @@
 				DBACBADB20580A6800882850 /* NetworkConnectivity.swift */,
 				DBACBADC20580A6800882850 /* NetworkHelper.swift */,
 				DBACBADD20580A6800882850 /* StyleSheet.swift */,
+				E22D85A6206061CF00A13ED1 /* TheaterAPIClient.swift */,
+				E22D85A8206061E900A13ED1 /* ShowtimeAPIClient.swift */,
+				E22D85AA2060621900A13ED1 /* VenueAPIClient.swift */,
+				E22D85AC2060623800A13ED1 /* VenueReviewAPIClient.swift */,
 				DB3DE4822057224900AAD2D8 /* Database */,
 				DB3DE4812057224000AAD2D8 /* AuthUser */,
 				DB3DE4802057223700AAD2D8 /* Storage */,
@@ -378,8 +397,7 @@
 		DB3DE4812057224000AAD2D8 /* AuthUser */ = {
 			isa = PBXGroup;
 			children = (
-				DBACBAED20580A8E00882850 /* AuthUserService.swift */,
-				DBACBAEE20580A8E00882850 /* AuthUserServiceDelegate.swift */,
+				E22D85962060532400A13ED1 /* FirebaseAuthService.swift */,
 			);
 			path = AuthUser;
 			sourceTree = "<group>";
@@ -673,6 +691,13 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-whosfree/Pods-whosfree-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -682,6 +707,13 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
@@ -704,28 +736,32 @@
 				DBE59979205C1FA500FD1898 /* EventDetailViewController.swift in Sources */,
 				DBACBAEB20580A8300882850 /* DatabaseServiceDelegate.swift in Sources */,
 				DBE599AB205C226100FD1898 /* InviteFriendsView.swift in Sources */,
-				DBACBAF020580A8E00882850 /* AuthUserServiceDelegate.swift in Sources */,
 				DBE59989205C207000FD1898 /* InvitedFriendsCollectionViewCell.swift in Sources */,
 				DBE59993205C211000FD1898 /* TheatersView.swift in Sources */,
 				DBE599A9205C224300FD1898 /* FriendTableViewCell.swift in Sources */,
 				DB7E3EA8205944A70075AA99 /* iShowTimeAPIHelper.swift in Sources */,
 				DBACBAE420580A6900882850 /* Alert.swift in Sources */,
+				E22D859D20605CCC00A13ED1 /* Theater.swift in Sources */,
 				DBE59985205C203500FD1898 /* InviteFriendsViewController.swift in Sources */,
 				DBE59991205C20F300FD1898 /* TheatersViewController.swift in Sources */,
+				E22D859F20605F1900A13ED1 /* MovieHeaderView.swift in Sources */,
 				DBE5998B205C209800FD1898 /* VenueView.swift in Sources */,
 				DBE59983205C201600FD1898 /* VenueViewController.swift in Sources */,
 				DBACBAEA20580A8300882850 /* DatabaseService+Get.swift in Sources */,
 				DBE599B7205C23DF00FD1898 /* SideDrawerMenuViewController.swift in Sources */,
 				DBE5999F205C21AA00FD1898 /* SideDrawerMenuView.swift in Sources */,
+				E22D85AD2060623800A13ED1 /* VenueReviewAPIClient.swift in Sources */,
 				DBE599A7205C221E00FD1898 /* FriendListView.swift in Sources */,
 				DBE5999B205C216B00FD1898 /* TheaterShowtimesView.swift in Sources */,
 				DBE59997205C213B00FD1898 /* TheaterTableViewCell.swift in Sources */,
 				DBE599A5205C21F500FD1898 /* FriendListViewController.swift in Sources */,
+				E22D85B12060626800A13ED1 /* VenueReview.swift in Sources */,
+				E22D859B206054B900A13ED1 /* SignUpContainerView.swift in Sources */,
 				DBE5998D205C20AF00FD1898 /* VenueDetailViewController.swift in Sources */,
 				DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */,
 				DBACBAE020580A6900882850 /* NetworkConnectivity.swift in Sources */,
+				E22D8599206054A900A13ED1 /* SignInContainerView.swift in Sources */,
 				DB3DE47B205721C000AAD2D8 /* SignInViewController.swift in Sources */,
-				DBACBAEF20580A8E00882850 /* AuthUserService.swift in Sources */,
 				DBE59999205C215900FD1898 /* TheaterShowtimesViewController.swift in Sources */,
 				DBE59981205C1FFD00FD1898 /* EventTypeTableViewCell.swift in Sources */,
 				DBACBAEC20580A8300882850 /* DatabaseService.swift in Sources */,
@@ -734,25 +770,27 @@
 				DBE5997F205C1FEA00FD1898 /* CreateEventView.swift in Sources */,
 				DB3DE484205722AE00AAD2D8 /* SignInView.swift in Sources */,
 				DBE599AF205C229700FD1898 /* ChatView.swift in Sources */,
+				E22D85972060532400A13ED1 /* FirebaseAuthService.swift in Sources */,
 				DBE5998F205C20C600FD1898 /* VenueDetailView.swift in Sources */,
+				E22D85AF2060625600A13ED1 /* Venue.swift in Sources */,
+				E22D85A120605F6200A13ED1 /* Showtime.swift in Sources */,
 				DBE5997B205C1FC200FD1898 /* EventDetailView.swift in Sources */,
-				DBE59987205C205100FD1898 /* BuyMovieTixViewController.swift in Sources */,
 				DBACBAF220580A9800882850 /* StorageService.swift in Sources */,
 				DBACBAE120580A6900882850 /* NetworkHelper.swift in Sources */,
 				DBACBAF420580AA500882850 /* UserProfile.swift in Sources */,
+				E22D85A9206061E900A13ED1 /* ShowtimeAPIClient.swift in Sources */,
 				DBE599B1205C22BA00FD1898 /* ChatTableViewCell.swift in Sources */,
 				DB3DE45120571E5C00AAD2D8 /* whosfree.xcdatamodeld in Sources */,
 				DBE59973205C1F5C00FD1898 /* EventListViewController.swift in Sources */,
-				DBE599B3205C22FD00FD1898 /* CreateAccountViewController.swift in Sources */,
 				DB7E3EAE2059517B0075AA99 /* Comment.swift in Sources */,
-				DBE599B5205C231500FD1898 /* CreateAccountView.swift in Sources */,
 				DBACBAE220580A6900882850 /* StyleSheet.swift in Sources */,
 				DB7E3EAC205945640075AA99 /* DatabaseService+Delete.swift in Sources */,
-				DBE59995205C211D00FD1898 /* BuyMovieTixView.swift in Sources */,
 				DBE5999D205C217D00FD1898 /* MovieTableViewCell.swift in Sources */,
+				E22D85AB2060621900A13ED1 /* VenueAPIClient.swift in Sources */,
 				DBE599A3205C21CB00FD1898 /* ProfileView.swift in Sources */,
 				DB7E3EAB205945640075AA99 /* DatabaseService+Edit.swift in Sources */,
 				DB7E3EB0205967090075AA99 /* Event.swift in Sources */,
+				E22D85A7206061CF00A13ED1 /* TheaterAPIClient.swift in Sources */,
 				DBE599A1205C21B800FD1898 /* ProfileViewController.swift in Sources */,
 				746439952060670500B09545 /* FriendsCollectionViewCell.swift in Sources */,
 				DBDDDC80206005C9009F4908 /* ExistingFriendsTableViewCell.swift in Sources */,
