@@ -63,6 +63,39 @@ class EventDetailView: UIView {
         return textView
     }()
     
+    lazy var goingButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitle("Going", for: .normal)
+        button.backgroundColor = UIColor.blue
+        //button.layer.cornerRadius = 10.0
+        button.layer.borderWidth = 1.0
+        button.layer.borderColor = UIColor.darkGray.cgColor
+        return button
+    }()
+    
+    lazy var notGoingButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitle("Not Going", for: .normal)
+        button.backgroundColor = UIColor.blue
+        button.layer.borderWidth = 1.0
+        button.layer.borderColor = UIColor.darkGray.cgColor
+        // button.layer.cornerRadius = 10.0
+        return button
+    }()
+    
+    lazy var invitedButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitle("Invited", for: .normal)
+        button.backgroundColor = UIColor.blue
+        button.layer.borderWidth = 1.0
+        button.layer.borderColor = UIColor.darkGray.cgColor
+        //button.layer.cornerRadius = 10.0
+        return button
+    }()
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -99,6 +132,9 @@ class EventDetailView: UIView {
         setupLocationButton()
         setupDescriptionTextView()
         setupCollectionView()
+        setupNotGoingButton()
+        setupGoingButton()
+        setupInvitedButton()
     }
     
     private func setupBannerPhoto() {
@@ -169,6 +205,32 @@ class EventDetailView: UIView {
         collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.25).isActive = true
+    }
+    
+    private func setupNotGoingButton() {
+        addSubview(notGoingButton)
+        notGoingButton.translatesAutoresizingMaskIntoConstraints = false
+        notGoingButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        notGoingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        notGoingButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.33).isActive = true
+        
+    }
+    
+    private func setupGoingButton() {
+        addSubview(goingButton)
+        goingButton.translatesAutoresizingMaskIntoConstraints = false
+        goingButton.leadingAnchor.constraint(equalTo: notGoingButton.trailingAnchor).isActive = true
+        goingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        goingButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.33).isActive = true
+        
+    }
+    
+    private func setupInvitedButton() {
+        addSubview(invitedButton)
+        invitedButton.translatesAutoresizingMaskIntoConstraints = false
+        invitedButton.leadingAnchor.constraint(equalTo: goingButton.trailingAnchor).isActive = true
+        invitedButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        invitedButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.33).isActive = true
     }
 
 
