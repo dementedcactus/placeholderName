@@ -10,14 +10,15 @@ import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
 
-protocol dismissThenPresentFriendListVC {
+protocol dismissThenPresentChosenVC {
     func FriendListButtonPressed()
     func LogoutButtonPressed()
+    func EventsButtonPressed()
 }
 
 class SideDrawerMenuViewController: UIViewController {
     
-    var friendListDelegate: dismissThenPresentFriendListVC?
+    var dismissThenPresentDelegate: dismissThenPresentChosenVC?
     
     private let sideDrawerMenuView = SideDrawerMenuView()
     
@@ -33,6 +34,7 @@ class SideDrawerMenuViewController: UIViewController {
     private func setupView() {
         self.view.addSubview(sideDrawerMenuView)
         sideDrawerMenuView.dismissView.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
+        sideDrawerMenuView.eventButton.addTarget(self, action: #selector(eventsButtonAction), for: .touchUpInside)
         sideDrawerMenuView.profileButton.addTarget(self, action: #selector(profileButtonAction), for: .touchUpInside)
         sideDrawerMenuView.numFriendsButton.addTarget(self, action: #selector(numFriendsButtonAction), for: .touchUpInside)
         sideDrawerMenuView.logoutButton.addTarget(self, action: #selector(logoutButtonAction), for: .touchUpInside)
@@ -53,6 +55,13 @@ class SideDrawerMenuViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @objc func eventsButtonAction() {
+        //TODO Present eventListViewController
+        print("Event Button Works")
+        
+        self.dismissThenPresentDelegate?.EventsButtonPressed()
+    }
+    
     @objc func profileButtonAction() {
         //TODO Present profileViewController
         print("Profile Button Works")
@@ -62,7 +71,7 @@ class SideDrawerMenuViewController: UIViewController {
         //TODO Present friendsViewController
         print("numFriends Button Works")
         
-        self.friendListDelegate?.FriendListButtonPressed()
+        self.dismissThenPresentDelegate?.FriendListButtonPressed()
         
     }
     
@@ -78,7 +87,7 @@ class SideDrawerMenuViewController: UIViewController {
     private func logout() {
         let alertView = UIAlertController(title: "Are you sure you want to logout?", message: nil, preferredStyle: .alert)
         let yesOption = UIAlertAction(title: "Yes", style: .destructive) { (alertAction) in
-            self.friendListDelegate?.LogoutButtonPressed()
+            self.dismissThenPresentDelegate?.LogoutButtonPressed()
             self.firebaseAuthService.signOut()
         }
         let noOption = UIAlertAction(title: "No", style: .cancel, handler: nil)
