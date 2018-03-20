@@ -15,8 +15,8 @@ class UserProfile: NSObject{
     var displayName: String
     let firstName: String
     let lastName: String
-    
-    
+    //var profileImageUrl: String
+    //var friends: [String] of userIds
     override var description: String {
         return """
         - email: \(self.email)
