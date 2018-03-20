@@ -14,9 +14,12 @@ class Event: NSObject {
     let ownerUserID: String
     var text: String
     var timestamp: Double = Date.timeIntervalSinceReferenceDate
-    var rsvpNo: String?
-    var rsvpMaybe: String?
-    var rsvpYes: String?
+    var rsvpNo: String? //[String of user ids]
+    var rsvpMaybe: String? //[String of All invited user ids]
+    var rsvpYes: String? //[String of user ids]
+    //var eventType: String
+    //var location: String
+    //var eventBannerImgUrl: String
     
     static func ==(lhs: Event, rhs: Event) -> Bool {
         return lhs.eventID == rhs.eventID && lhs.eventName == rhs.eventName && lhs.ownerUserID == rhs.ownerUserID
