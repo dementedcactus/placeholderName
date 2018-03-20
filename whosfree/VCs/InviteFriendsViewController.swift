@@ -29,7 +29,7 @@ class InviteFriendsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Invite Friends"
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(presentMenu))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Finish", style: .done, target: self, action: #selector(finishedAddingFriends))
         setupViews()
         //Delegates
         inviteFriendsView.tableView.delegate = self
@@ -43,17 +43,9 @@ class InviteFriendsViewController: UIViewController {
         self.view.addSubview(inviteFriendsView)
     }
     
-    @objc private func presentMenu() {
-        let sideMenu = SideDrawerMenuViewController()
-        let transition = CATransition()
-        transition.duration = 0.3
-        transition.type = kCATransitionMoveIn
-        transition.subtype = kCATransitionFromLeft
-        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
-        view.window!.layer.add(transition, forKey: kCATransition)
-        sideMenu.modalTransitionStyle = .crossDissolve
-        sideMenu.modalPresentationStyle = .overCurrentContext
-        present(sideMenu, animated: false, completion: nil)
+    @objc private func finishedAddingFriends() {
+        print("Finished adding friends button pressed")
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

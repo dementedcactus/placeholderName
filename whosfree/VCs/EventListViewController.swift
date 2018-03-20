@@ -32,13 +32,15 @@ class EventListViewController: UIViewController {
         self.title = "EventListVC"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(presentMenu))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonAction))
+    
         setupViews()
-        //TBV Delegates
+        eventListView.plusButton.addTarget(self, action: #selector(showCalendarButtonAction), for: .touchUpInside)
+        
+        //Delegates
         eventListView.tableView.delegate = self
         eventListView.tableView.dataSource = self
         eventListView.tableView.estimatedRowHeight = 80
         eventListView.tableView.rowHeight = UITableViewAutomaticDimension
-        
         sideMenu.dismissThenPresentDelegate = self
     }
     
@@ -59,6 +61,13 @@ class EventListViewController: UIViewController {
     
     @objc private func addEventButtonAction() {
         print("Add Event Button Pressed")
+        let createEventVC = CreateEventViewController()
+        let createEventNavCon = UINavigationController(rootViewController: createEventVC)
+        self.present(createEventNavCon, animated: true, completion: nil)
+    }
+    
+    @objc private func showCalendarButtonAction() {
+        print("Show Calendar Button Pressed")
     }
     
     @objc private func presentMenu() {
@@ -76,8 +85,9 @@ class EventListViewController: UIViewController {
 }
 extension EventListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: segue to EventDetailViewController
-        //navigationController?.pushViewController(EventDetailViewController, animated: true)
+        //TODO: segue to EventDetailViewController using dependency injection
+        let eventDetailVC = EventDetailViewController()
+        navigationController?.pushViewController(eventDetailVC, animated: true)
     }
 }
 extension EventListViewController: UITableViewDataSource {
