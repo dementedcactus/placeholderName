@@ -20,10 +20,16 @@ protocol ShowAlertDelegate {
     func showAlertDelegate(nameOfWhatYoureSaving: String)
 }
 
+protocol AddFriendDelegate: class {
+    func didAddFriend(_ friendID: String, message: String)
+    func didFailAddFriend(_ friendID: String, message: String)
+}
+
 class DatabaseService: NSObject {
     
     var refreshDelegate: RefreshDelegate?
     var showAlertDelegate: ShowAlertDelegate?
+    var addFriendDelegate: AddFriendDelegate?
     
     /// The singleton object for the DatabaseService API client.
     static let manager = DatabaseService()

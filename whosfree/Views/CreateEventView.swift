@@ -53,6 +53,14 @@ class CreateEventView: UIView {
         return searchBar
     }()
     
+    lazy var searchResultsTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SearchResultsCell")
+        tableView.isHidden = true
+        //tableView.backgroundColor = .blue
+        return tableView
+    }()
+    
     lazy var inviteFriendsButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(UIColor.white, for: .normal)
@@ -105,6 +113,7 @@ class CreateEventView: UIView {
         setupDatePicker()
         setupEventTypeButton()
         setupTableView()
+        setupSearchResultsTableView()
     }
     
     private func setupBannerPhoto() {
@@ -186,5 +195,15 @@ class CreateEventView: UIView {
         createEventButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
         createEventButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.05).isActive = true
     }
+    
+    private func setupSearchResultsTableView() {
+        addSubview(searchResultsTableView)
+        searchResultsTableView.translatesAutoresizingMaskIntoConstraints = false
+        searchResultsTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        searchResultsTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
+        searchResultsTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        searchResultsTableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.3).isActive = true
+    }
+
 
 }

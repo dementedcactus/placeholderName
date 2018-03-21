@@ -35,7 +35,7 @@ class ProfileViewController: UIViewController {
         profileView.usernameTextField.text = FirebaseAuthService.getCurrentUser()!.displayName
         profileView.emailTextField.text = FirebaseAuthService.getCurrentUser()!.email
         DatabaseService.manager.getUserProfile(withUID: FirebaseAuthService.getCurrentUser()!.uid, completion: {
-            self.profileView.userProfileImage.kf.setImage(with: URL(string: $0.profileImageUrl!), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            self.profileView.userProfileImage.kf.setImage(with: URL(string: $0.profileImageUrl), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
             })
         })
     }
