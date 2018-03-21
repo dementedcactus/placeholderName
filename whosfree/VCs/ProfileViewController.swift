@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProfileViewController: UIViewController {
     
@@ -25,6 +26,18 @@ class ProfileViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(presentMenu))
         sideMenu.dismissThenPresentDelegate = self
         //setupNavBar()
+        if FirebaseAuthService.getCurrentUser() != nil {
+            setupUserImageAndUsername()
+        }
+    }
+    
+    private func setupUserImageAndUsername() {
+        profileView.usernameTextField.text = FirebaseAuthService.getCurrentUser()!.displayName
+        profileView.emailTextField.text = FirebaseAuthService.getCurrentUser()!.email
+        DatabaseService.manager.getUserProfile(withUID: FirebaseAuthService.getCurrentUser()!.uid, completion: {
+            self.profileView.userProfileImage.kf.setImage(with: URL(string: $0.profileImageUrl!), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            })
+        })
     }
     
     private func setupNavBar() {

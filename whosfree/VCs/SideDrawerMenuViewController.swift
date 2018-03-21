@@ -31,7 +31,9 @@ class SideDrawerMenuViewController: UIViewController {
         firebaseAuthService.delegate = self
         setupView()
         self.view.backgroundColor = .clear
-        setupUserImageAndUsername()
+        if FirebaseAuthService.getCurrentUser() != nil {
+            setupUserImageAndUsername()
+        }
     }
     
     private func setupUserImageAndUsername() {
