@@ -7,17 +7,25 @@
 //
 
 import UIKit
+import MapKit
 
 class CreateEventViewController: UIViewController {
 
     let createEventView = CreateEventView()
     var dummyData = ["test1 title", "test2 title", "test3 title"]
+    var searchCompleter = MKLocalSearchCompleter()
+    var searchResults = [MKLocalSearchCompletion]()
+    var searchSource: [String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(createEventView)
         self.createEventView.tableView.dataSource = self
         self.createEventView.tableView.delegate = self
+        self.createEventView.searchResultsTableView.dataSource = self
+        self.createEventView.searchResultsTableView.delegate = self
+        searchCompleter.delegate = self
+        self.createEventView.searchBar.delegate = self
         setupNavBarButtons()
         setupViewButtons()
         
@@ -81,16 +89,73 @@ class CreateEventViewController: UIViewController {
 }
 extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyData.count
+        if tableView == createEventView.tableView {
+            return dummyData.count
+        } else {
+            return searchResults.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = dummyData[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EventTypeCell", for: indexPath) as! EventTypeTableViewCell
         
-        cell.eventTypeLabel.text = data
-        return cell
+        if tableView == createEventView.tableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EventTypeCell", for: indexPath) as! EventTypeTableViewCell
+            let data = dummyData[indexPath.row]
+            
+            cell.eventTypeLabel.text = data
+            return cell
+        } else {
+            let cell = createEventView.searchResultsTableView.dequeueReusableCell(withIdentifier: "SearchResultsCell", for: indexPath)
+            let searchResult = searchResults[indexPath.row]
+            cell.textLabel?.text = "\(searchResult.title) \(searchResult.subtitle)"
+            return cell
+            
+        }
+        return UITableViewCell()
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == createEventView.searchResultsTableView {
+            let completion = searchResults[indexPath.row]
+            let cellText = "\(completion.title) \(completion.subtitle)"
+            let searchRequest = MKLocalSearchRequest(completion: completion)
+            let search = MKLocalSearch(request: searchRequest)
+            search.start{ (response, error) in
+                let coordinate = response?.mapItems[0].placemark.coordinate
+                //print(response?.mapItems)
+                
+                self.createEventView.searchBar.text = "\(cellText)"
+            }
+            searchResults = []
+            self.createEventView.searchResultsTableView.reloadData()
+            createEventView.searchResultsTableView.isHidden = true
+            print("hidden")
+        }
     }
     
-
+    
 }
+
+extension CreateEventViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchCompleter.queryFragment = searchText
+        createEventView.searchResultsTableView.isHidden = false
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        createEventView.searchResultsTableView.isHidden = true
+        print("hidden textdidendediting")
+    }
+}
+
+extension CreateEventViewController: MKLocalSearchCompleterDelegate {
+    
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        searchResults =  completer.results
+        createEventView.searchResultsTableView.reloadData()
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        print(error)
+    }
+}
+
