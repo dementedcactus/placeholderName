@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FriendListViewController: UIViewController {
     
@@ -27,6 +28,14 @@ class FriendListViewController: UIViewController {
     
     var sampleArray = [1,2,3,4,5]
     
+    var allUsers = [UserProfile]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.friendListView.tableView.reloadData()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "FriendListVC"
@@ -39,6 +48,17 @@ class FriendListViewController: UIViewController {
         friendListView.tableView.rowHeight = UITableViewAutomaticDimension
         friendListView.friendSearchbBar.delegate = self
         sideMenu.dismissThenPresentDelegate = self
+        loadAllUsers()
+    }
+    
+    private func loadAllUsers() {
+        DatabaseService.manager.loadAllUsers { (dbUsers) in
+            guard let dbUsers = dbUsers else {
+                print("error loading all users")
+                return
+            }
+            self.allUsers = dbUsers
+        }
     }
     
     private func setupViews(){
@@ -78,12 +98,16 @@ extension FriendListViewController: UITableViewDelegate {
 }
 extension FriendListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sampleArray.count
+        return allUsers.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendTableViewCell
-        let testData = sampleArray[indexPath.row]
-        cell.usernameLabel.text = "username \(testData)"
+//        let testData = sampleArray[indexPath.row]
+//        cell.usernameLabel.text = "username \(testData)"
+        let user = allUsers[indexPath.row]
+        cell.usernameLabel.text = user.displayName
+        cell.userPhotoImageView.kf.setImage(with: URL(string: user.profileImageUrl!), placeholder: #imageLiteral(resourceName: "profileImagePlaceholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
+        }
         cell.setNeedsLayout()
         return cell
     }

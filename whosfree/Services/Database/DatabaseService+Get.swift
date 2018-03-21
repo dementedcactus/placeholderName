@@ -35,6 +35,21 @@ extension DatabaseService {
             completion(currentUserProfile)
         }
     }
+    
+    func loadAllUsers(completionHandler: @escaping ([UserProfile]?) -> Void) {
+        let ref = DatabaseService.manager.getUsers()
+        ref.observe(.value) { (snapshot) in
+            var allUsers = [UserProfile]()
+            for child in snapshot.children {
+                let dataSnapshot = child as! DataSnapshot
+                if let dict = dataSnapshot.value as? [String: Any] {
+                    let user = UserProfile.init(dict: dict)
+                    allUsers.append(user)
+                }
+            }
+            completionHandler(allUsers)
+        }
+    }
  
     func getAllEvents(completion: @escaping ([Event]?) -> Void) {
         eventsRef.observeSingleEvent(of: .value) { (dataSnapshot) in
