@@ -17,8 +17,8 @@ class EventDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(eventDetailView)
-        self.eventDetailView.tableView.dataSource = self
-        self.eventDetailView.tableView.delegate = self
+        //self.eventDetailView.tableView.dataSource = self
+        //self.eventDetailView.tableView.delegate = self
         self.eventDetailView.collectionView.dataSource = self
         self.eventDetailView.collectionView.delegate = self
         configureNavBar()
@@ -51,18 +51,18 @@ class EventDetailViewController: UIViewController {
     
 }
 
-extension EventDetailViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = dummyData[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EventTypeCell", for: indexPath)
-        cell.textLabel?.text = data
-        return cell
-    }
-}
+//extension EventDetailViewController: UITableViewDataSource, UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return dummyData.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let data = dummyData[indexPath.row]
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "EventTypeCell", for: indexPath)
+//        cell.textLabel?.text = data
+//        return cell
+//    }
+//}
 
 extension EventDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

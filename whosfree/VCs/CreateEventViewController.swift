@@ -31,6 +31,7 @@ class CreateEventViewController: UIViewController {
     
     private func setupViewButtons() {
         createEventView.inviteFriendsButton.addTarget(self, action: #selector(inviteFriendsButtonPressed), for: .touchUpInside)
+        createEventView.eventTypeButton.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)
     }
     
     @objc private func createButtonPressed() {
@@ -51,6 +52,32 @@ class CreateEventViewController: UIViewController {
         present(inviteFriendsNavCon, animated: true, completion: nil)
     }
     
+    @objc private func categoryButtonAction(sender: UIButton!) {
+        print("Button tapped")
+        if createEventView.tableView.isHidden == true {
+            createEventView.tableView.isHidden = false
+            animateCategoryTV()
+        } else {
+            createEventView.tableView.isHidden = true
+        }
+    }
+    
+    private func animateCategoryTV() {
+        createEventView.tableView.reloadData()
+        let cells = createEventView.tableView.visibleCells
+        let tableViewHeight = createEventView.tableView.bounds.size.height
+        for cell in cells {
+            cell.transform = CGAffineTransform(translationX: 0, y: -tableViewHeight)
+        }
+        var delayCounter:Double = 0
+        for cell in cells {
+            UIView.animate(withDuration: 1.75, delay: delayCounter * 0.05, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                cell.transform = CGAffineTransform.identity
+            }, completion: nil)
+            delayCounter += 0.5
+        }
+    }
+    
 }
 extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -59,8 +86,9 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = dummyData[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EventTypeCell", for: indexPath)
-        cell.textLabel?.text = data
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EventTypeCell", for: indexPath) as! EventTypeTableViewCell
+        
+        cell.eventTypeLabel.text = data
         return cell
     }
     
