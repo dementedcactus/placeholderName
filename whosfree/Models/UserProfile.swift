@@ -24,6 +24,7 @@ class UserProfile: NSObject{
         - displayName: \(self.displayName)
         - firstName: \(self.firstName)
         - lastName: \(self.lastName)
+        - profileImageUrl:  \(self.profileImageUrl ?? "no image url")
         """
     }
     
@@ -37,5 +38,14 @@ class UserProfile: NSObject{
         self.displayName = displayName
         self.firstName = firstName
         self.lastName = lastName
+    }
+    
+    init(dict: [String : Any]) {
+        email = dict["email"] as? String ?? ""
+        userID = dict["userID"] as? String ?? ""
+        displayName = dict["displayName"] as? String ?? ""
+        firstName = dict["firstName"] as? String ?? ""
+        lastName = dict["lastName"] as? String ?? ""
+        profileImageUrl = dict["profileImageUrl"] as? String ?? ""
     }
 }
