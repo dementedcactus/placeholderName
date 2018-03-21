@@ -10,6 +10,7 @@ import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
 import Kingfisher
+import FirebaseAuth
 
 protocol dismissThenPresentChosenVC {
     func FriendListButtonPressed()
@@ -31,6 +32,13 @@ class SideDrawerMenuViewController: UIViewController {
         firebaseAuthService.delegate = self
         setupView()
         self.view.backgroundColor = .clear
+//        if FirebaseAuthService.getCurrentUser() != nil {
+//            setupUserImageAndUsername()
+//        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if FirebaseAuthService.getCurrentUser() != nil {
             setupUserImageAndUsername()
         }
@@ -125,6 +133,8 @@ extension SideDrawerMenuViewController: FirebaseAuthServiceDelegate {
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
         }
+        sideDrawerMenuView.usernameLabel.text = ""
+        sideDrawerMenuView.menuImageView.image = nil
         //view.window?.rootViewController?.dismiss(animated: true, completion: nil)
 //        let signInVC = SignInViewController()
 //        self.present(signInVC, animated: true, completion: nil)
