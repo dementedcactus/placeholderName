@@ -10,6 +10,14 @@ import UIKit
 
 class EventTypeTableViewCell: UITableViewCell {
 
+    //label
+    lazy var eventTypeLabel: UILabel = {
+        let lb = UILabel()
+        lb.text = "Category Here"
+        Stylesheet.Objects.Labels.Regular.style(label: lb)
+        return lb
+    }()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style , reuseIdentifier: "EventTypeCell")
         setupAndConstrainObjects()
@@ -27,7 +35,12 @@ class EventTypeTableViewCell: UITableViewCell {
     }
     
     private func setupAndConstrainObjects(){
-        
+        addSubview(eventTypeLabel)
+        eventTypeLabel.translatesAutoresizingMaskIntoConstraints = false
+        eventTypeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        eventTypeLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        eventTypeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        eventTypeLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
 
 }
