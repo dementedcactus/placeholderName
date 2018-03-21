@@ -12,7 +12,7 @@ class ProfileView: UIView {
     
     lazy var userProfileImage: UIImageView = {
         let userImage = UIImageView()
-        userImage.image = #imageLiteral(resourceName: "placeholderIcon")
+        userImage.image = #imageLiteral(resourceName: "profileImagePlaceholder")
         userImage.contentMode = .scaleAspectFit
         return userImage
     }()

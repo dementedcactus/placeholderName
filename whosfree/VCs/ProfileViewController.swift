@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProfileViewController: UIViewController {
     
@@ -15,12 +16,28 @@ class ProfileViewController: UIViewController {
     let profileView = ProfileView()
     //    let friendCollectionViewCells = ProfileCollectionViewCells()
     
+    let sideMenu = SideDrawerMenuViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(profileView)
         self.profileView.friendsCollectionView.dataSource = self
         self.profileView.friendsCollectionView.delegate = self
-        setupNavBar()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(presentMenu))
+        sideMenu.dismissThenPresentDelegate = self
+        //setupNavBar()
+        if FirebaseAuthService.getCurrentUser() != nil {
+            setupUserImageAndUsername()
+        }
+    }
+    
+    private func setupUserImageAndUsername() {
+        profileView.usernameTextField.text = FirebaseAuthService.getCurrentUser()!.displayName
+        profileView.emailTextField.text = FirebaseAuthService.getCurrentUser()!.email
+        DatabaseService.manager.getUserProfile(withUID: FirebaseAuthService.getCurrentUser()!.uid, completion: {
+            self.profileView.userProfileImage.kf.setImage(with: URL(string: $0.profileImageUrl!), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            })
+        })
     }
     
     private func setupNavBar() {
@@ -42,6 +59,48 @@ class ProfileViewController: UIViewController {
         //editProfileItems
     }
     
+    @objc private func presentMenu() {
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = kCATransitionMoveIn
+        transition.subtype = kCATransitionFromLeft
+        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        sideMenu.modalTransitionStyle = .crossDissolve
+        sideMenu.modalPresentationStyle = .overCurrentContext
+        present(sideMenu, animated: false, completion: nil)
+    }
+    
+    
+}
+
+extension ProfileViewController: dismissThenPresentChosenVC {
+    func ProfileButtonPressed() {
+        sideMenu.dismissView()
+    }
+    
+    func EventsButtonPressed() {
+        sideMenu.dismissView()
+        let eventListVC = EventListViewController()
+        eventListVC.modalTransitionStyle = .crossDissolve
+        eventListVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(eventListVC, animated: true)
+    }
+    
+    func LogoutButtonPressed() {
+        sideMenu.dismissView()
+        let signInVC = SignInViewController()
+        self.present(signInVC, animated: true, completion: nil)
+    }
+    
+    func FriendListButtonPressed() {
+        print("Delegate Working")
+        sideMenu.dismissView()
+        let friendListVC = FriendListViewController()
+        friendListVC.modalTransitionStyle = .crossDissolve
+        friendListVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(friendListVC, animated: true)
+    }
 }
 
 extension ProfileViewController: UICollectionViewDataSource {

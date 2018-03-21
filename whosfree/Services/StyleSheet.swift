@@ -9,7 +9,45 @@
 import Foundation
 import UIKit
 
+struct Style {
+    // Default Colors
+    static var backgroundColor = UIColor.white
+    static var monthViewLabelColor = UIColor.white
+    static var monthViewRightButtonColor = UIColor.white
+    static var monthviewLeftButtonColor = UIColor.white
+    static var activeCellLabelColor = UIColor.white
+    static var highlightedActiveCellLabelColor = UIColor.black
+    static var weekdaysLabelColor = UIColor.white
+    
+    // Colors for Dark Theme
+    static func darkTheme(){
+        backgroundColor = Stylesheet.Colors.DarkGray
+        monthViewLabelColor = Stylesheet.Colors.White
+        monthViewRightButtonColor = Stylesheet.Colors.White
+        monthviewLeftButtonColor = Stylesheet.Colors.White
+        activeCellLabelColor = Stylesheet.Colors.White
+        highlightedActiveCellLabelColor = Stylesheet.Colors.Black
+        weekdaysLabelColor = Stylesheet.Colors.White
+    }
+    
+    // Colors for Light Theme
+    static func lightTheme(){
+        backgroundColor = Stylesheet.Colors.White
+        monthViewLabelColor = Stylesheet.Colors.Black
+        monthViewRightButtonColor = Stylesheet.Colors.Black
+        monthviewLeftButtonColor = Stylesheet.Colors.Black
+        activeCellLabelColor = Stylesheet.Colors.Black
+        highlightedActiveCellLabelColor = Stylesheet.Colors.White
+        weekdaysLabelColor = Stylesheet.Colors.Black
+    }
+}
+
 enum Stylesheet {
+    
+    enum MyTheme {
+        case Light
+        case Dark
+    }
     
     enum Colors {
         static let White = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.00)
@@ -22,6 +60,9 @@ enum Stylesheet {
         static let Gray = UIColor.gray
         static let LightBlue = UIColor(red: 0.306, green: 0.675, blue: 0.839, alpha: 1.00)
         static let NYCBlue = UIColor(red: 0.267, green: 0.612, blue: 0.843, alpha: 1.00)
+        static var DarkGray = UIColor(red: 0.373, green: 0.365, blue: 0.365, alpha: 1.00)
+        static var DarkRed = UIColor(red: 0.463, green: 0.176, blue: 0.188, alpha: 1.00)
+        static var Black = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.00)
     }
     
     enum Fonts {
@@ -146,7 +187,7 @@ extension Stylesheet {
                     label.backgroundColor = .clear
                     label.textAlignment = .left
                     label.numberOfLines = 1
-                
+                    
                 }
             }
         }

@@ -34,7 +34,7 @@ class EventListViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonAction))
     
         setupViews()
-        eventListView.plusButton.addTarget(self, action: #selector(showCalendarButtonAction), for: .touchUpInside)
+        eventListView.calendarButton.addTarget(self, action: #selector(showCalendarButtonAction), for: .touchUpInside)
         
         //Delegates
         eventListView.tableView.delegate = self
@@ -68,6 +68,11 @@ class EventListViewController: UIViewController {
     
     @objc private func showCalendarButtonAction() {
         print("Show Calendar Button Pressed")
+        let calenderVC = CalendarViewController()
+        let calenderVCinNavCon = UINavigationController(rootViewController: calenderVC)
+        calenderVCinNavCon.modalTransitionStyle = .crossDissolve
+        calenderVCinNavCon.modalPresentationStyle = .overCurrentContext
+        present(calenderVCinNavCon, animated: true, completion: nil)
     }
     
     @objc private func presentMenu() {
@@ -107,6 +112,14 @@ extension EventListViewController: UITableViewDataSource {
     }
 }
 extension EventListViewController: dismissThenPresentChosenVC {
+    func ProfileButtonPressed() {
+        sideMenu.dismissView()
+        let profileVC = ProfileViewController()
+        profileVC.modalTransitionStyle = .crossDissolve
+        profileVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
     func EventsButtonPressed() {
         sideMenu.dismissView()
         //Do nothing else since you're already on the EventsListVC

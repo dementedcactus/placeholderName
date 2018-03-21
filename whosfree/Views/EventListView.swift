@@ -17,7 +17,7 @@ class EventListView: UIView {
         return tv
     }()
     
-    lazy var plusButton: UIButton = {
+    lazy var calendarButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "menuImage"), for: .normal)
         button.backgroundColor = .clear
@@ -44,10 +44,10 @@ class EventListView: UIView {
     
     private func setupViews() {
         addSubview(tableView)
-        addSubview(plusButton)
+        addSubview(calendarButton)
         
         //ARRAY MUST BE IN ORDER!!
-        let EventListObjects = [tableView, plusButton] as [UIView]
+        let EventListObjects = [tableView, calendarButton] as [UIView]
         
         EventListObjects.forEach{addSubview($0); ($0).translatesAutoresizingMaskIntoConstraints = false}
         
@@ -61,10 +61,10 @@ class EventListView: UIView {
             //calendarButton
             //plusButton.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor, constant: 1.0),
             //plusButton.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor, constant: 1.0),
-            plusButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -50),
-            plusButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -50),
-            plusButton.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.12),
-            plusButton.heightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.12)
+            calendarButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            calendarButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            calendarButton.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.12),
+            calendarButton.heightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.12)
             ])
         
     }

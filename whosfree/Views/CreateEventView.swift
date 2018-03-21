@@ -25,11 +25,20 @@ class CreateEventView: UIView {
         return label
     }()
     
+    lazy var eventTypeButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Event Type", for: .normal)
+        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
+        return button
+    }()
+    
     lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "EventTypeCell")
-        //tableView.backgroundColor = .blue
-        return tableView
+        let tv = UITableView()
+        tv.register(EventTypeTableViewCell.self, forCellReuseIdentifier: "EventTypeCell")
+        tv.isHidden = true
+        tv.backgroundColor = .clear
+        tv.separatorColor = .clear
+        return tv
     }()
     
     lazy var datePicker: UIDatePicker = {
@@ -89,12 +98,13 @@ class CreateEventView: UIView {
     private func setupViews() {
         setupBannerPhoto()
         setupEventTitle()
-        setupTableView()
-        setupDatePicker()
-        setupSearchBar()
-        setupInviteButton()
-        setupDescriptionTextView()
         setupCreateEvent()
+        setupDescriptionTextView()
+        setupInviteButton()
+        setupSearchBar()
+        setupDatePicker()
+        setupEventTypeButton()
+        setupTableView()
     }
     
     private func setupBannerPhoto() {
@@ -114,20 +124,29 @@ class CreateEventView: UIView {
         eventTitleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
+    private func setupEventTypeButton() {
+        addSubview(eventTypeButton)
+        eventTypeButton.translatesAutoresizingMaskIntoConstraints = false
+        eventTypeButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+        eventTypeButton.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor).isActive = true
+        eventTypeButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.8).isActive = true
+        eventTypeButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.05).isActive = true
+    }
+    
     private func setupTableView() {
         addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        tableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.05).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: eventTypeButton.leadingAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: eventTypeButton.bottomAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: eventTypeButton.trailingAnchor).isActive = true
+        tableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.3).isActive = true
     }
     
     private func setupDatePicker() {
         addSubview(datePicker)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        datePicker.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
+        datePicker.bottomAnchor.constraint(equalTo: searchBar.topAnchor).isActive = true
         datePicker.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         datePicker.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.25).isActive = true
     }
@@ -136,7 +155,7 @@ class CreateEventView: UIView {
         addSubview(searchBar)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        searchBar.topAnchor.constraint(equalTo: datePicker.bottomAnchor).isActive = true
+        searchBar.bottomAnchor.constraint(equalTo: inviteFriendsButton.topAnchor, constant: -5).isActive = true
         searchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
@@ -144,26 +163,28 @@ class CreateEventView: UIView {
         addSubview(inviteFriendsButton)
         inviteFriendsButton.translatesAutoresizingMaskIntoConstraints = false
         inviteFriendsButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
-        inviteFriendsButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 5).isActive = true
+        inviteFriendsButton.bottomAnchor.constraint(equalTo: descriptionTextView.topAnchor, constant: -5).isActive = true
         inviteFriendsButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.8).isActive = true
+        inviteFriendsButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.05).isActive = true
     }
     
     private func setupDescriptionTextView() {
         addSubview(descriptionTextView)
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        descriptionTextView.topAnchor.constraint(equalTo: inviteFriendsButton.bottomAnchor, constant: 5).isActive = true
+        descriptionTextView.bottomAnchor.constraint(equalTo: createEventButton.topAnchor, constant: -5).isActive = true
         descriptionTextView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        descriptionTextView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.20).isActive = true
+        descriptionTextView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.25).isActive = true
     }
     
     private func setupCreateEvent() {
         addSubview(createEventButton)
         createEventButton.translatesAutoresizingMaskIntoConstraints = false
         createEventButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        createEventButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 5).isActive = true
+        //createEventButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 5).isActive = true
         createEventButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         createEventButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
+        createEventButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.05).isActive = true
     }
 
 }
