@@ -79,6 +79,8 @@
 		E22D85AD2060623800A13ED1 /* VenueReviewAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85AC2060623800A13ED1 /* VenueReviewAPIClient.swift */; };
 		E22D85AF2060625600A13ED1 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85AE2060625600A13ED1 /* Venue.swift */; };
 		E22D85B12060626800A13ED1 /* VenueReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85B02060626800A13ED1 /* VenueReview.swift */; };
+		E248A1F12061F8630080A9E5 /* StorageService+UsersImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E248A1F02061F8630080A9E5 /* StorageService+UsersImages.swift */; };
+		E248A1F32061F8800080A9E5 /* StorageService+EventsImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E248A1F22061F8800080A9E5 /* StorageService+EventsImages.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +185,8 @@
 		E22D85AC2060623800A13ED1 /* VenueReviewAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueReviewAPIClient.swift; sourceTree = "<group>"; };
 		E22D85AE2060625600A13ED1 /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		E22D85B02060626800A13ED1 /* VenueReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueReview.swift; sourceTree = "<group>"; };
+		E248A1F02061F8630080A9E5 /* StorageService+UsersImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+UsersImages.swift"; sourceTree = "<group>"; };
+		E248A1F22061F8800080A9E5 /* StorageService+EventsImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+EventsImages.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -390,6 +394,8 @@
 			isa = PBXGroup;
 			children = (
 				DBACBAF120580A9800882850 /* StorageService.swift */,
+				E248A1F02061F8630080A9E5 /* StorageService+UsersImages.swift */,
+				E248A1F22061F8800080A9E5 /* StorageService+EventsImages.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -765,6 +771,7 @@
 				DBE59999205C215900FD1898 /* TheaterShowtimesViewController.swift in Sources */,
 				DBE59981205C1FFD00FD1898 /* EventTypeTableViewCell.swift in Sources */,
 				DBACBAEC20580A8300882850 /* DatabaseService.swift in Sources */,
+				E248A1F12061F8630080A9E5 /* StorageService+UsersImages.swift in Sources */,
 				DBE599AD205C228300FD1898 /* ChatViewController.swift in Sources */,
 				DBE59975205C1F7000FD1898 /* EventListView.swift in Sources */,
 				DBE5997F205C1FEA00FD1898 /* CreateEventView.swift in Sources */,
@@ -783,6 +790,7 @@
 				DB3DE45120571E5C00AAD2D8 /* whosfree.xcdatamodeld in Sources */,
 				DBE59973205C1F5C00FD1898 /* EventListViewController.swift in Sources */,
 				DB7E3EAE2059517B0075AA99 /* Comment.swift in Sources */,
+				E248A1F32061F8800080A9E5 /* StorageService+EventsImages.swift in Sources */,
 				DBACBAE220580A6900882850 /* StyleSheet.swift in Sources */,
 				DB7E3EAC205945640075AA99 /* DatabaseService+Delete.swift in Sources */,
 				DBE5999D205C217D00FD1898 /* MovieTableViewCell.swift in Sources */,
