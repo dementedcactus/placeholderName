@@ -11,6 +11,11 @@
 		746439952060670500B09545 /* FriendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746439942060670500B09545 /* FriendsCollectionViewCell.swift */; };
 		84F06A9A6BF121D360D801EC /* Pods_whosfree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56270434984F66181CF21D95 /* Pods_whosfree.framework */; };
 		94FF2030ABE4CB093C686CC7 /* Pods_whosfreeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21925C818A4A3361FA7E2477 /* Pods_whosfreeTests.framework */; };
+		DB0407192061FE440066F6C0 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0407182061FE440066F6C0 /* DateCollectionViewCell.swift */; };
+		DB04071D206203150066F6C0 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB04071C206203150066F6C0 /* CalenderView.swift */; };
+		DB04071F206203420066F6C0 /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB04071E206203420066F6C0 /* WeekdaysView.swift */; };
+		DB040721206203660066F6C0 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB040720206203660066F6C0 /* MonthView.swift */; };
+		DB0407232062039F0066F6C0 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0407222062039F0066F6C0 /* CalendarViewController.swift */; };
 		DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE44820571E5C00AAD2D8 /* AppDelegate.swift */; };
 		DB3DE45120571E5C00AAD2D8 /* whosfree.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE44F20571E5C00AAD2D8 /* whosfree.xcdatamodeld */; };
 		DB3DE45320571E5C00AAD2D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB3DE45220571E5C00AAD2D8 /* Assets.xcassets */; };
@@ -109,6 +114,11 @@
 		7CF222DD50E6FE553458725A /* Pods-whosfreeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whosfreeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-whosfreeUITests/Pods-whosfreeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7DD5219901C00B5DBC74C7D0 /* Pods_whosfreeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_whosfreeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95AFDAA9FE5BB29F7E498C64 /* Pods-whosfreeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whosfreeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-whosfreeUITests/Pods-whosfreeUITests.release.xcconfig"; sourceTree = "<group>"; };
+		DB0407182061FE440066F6C0 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB04071C206203150066F6C0 /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
+		DB04071E206203420066F6C0 /* WeekdaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
+		DB040720206203660066F6C0 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
+		DB0407222062039F0066F6C0 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		DB3DE44520571E5C00AAD2D8 /* whosfree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = whosfree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB3DE44820571E5C00AAD2D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB3DE45020571E5C00AAD2D8 /* whosfree.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = whosfree.xcdatamodel; sourceTree = "<group>"; };
@@ -298,16 +308,17 @@
 			isa = PBXGroup;
 			children = (
 				DBE599AC205C228300FD1898 /* ChatViewController.swift */,
+				DBE5997C205C1FD500FD1898 /* CreateEventViewController.swift */,
+				DB0407222062039F0066F6C0 /* CalendarViewController.swift */,
 				DBE59978205C1FA500FD1898 /* EventDetailViewController.swift */,
 				DBE59972205C1F5C00FD1898 /* EventListViewController.swift */,
 				DBE599A4205C21F500FD1898 /* FriendListViewController.swift */,
 				DBE59984205C203500FD1898 /* InviteFriendsViewController.swift */,
 				DBE599A0205C21B800FD1898 /* ProfileViewController.swift */,
-				DBE5997C205C1FD500FD1898 /* CreateEventViewController.swift */,
 				DBE599B6205C23DF00FD1898 /* SideDrawerMenuViewController.swift */,
 				DB3DE47A205721C000AAD2D8 /* SignInViewController.swift */,
-				DBE59990205C20F300FD1898 /* TheatersViewController.swift */,
 				DBE59998205C215900FD1898 /* TheaterShowtimesViewController.swift */,
+				DBE59990205C20F300FD1898 /* TheatersViewController.swift */,
 				DBE5998C205C20AF00FD1898 /* VenueDetailViewController.swift */,
 				DBE59982205C201600FD1898 /* VenueViewController.swift */,
 			);
@@ -318,21 +329,24 @@
 			isa = PBXGroup;
 			children = (
 				DBE599AE205C229700FD1898 /* ChatView.swift */,
+				DB04071C206203150066F6C0 /* CalenderView.swift */,
+				DB040720206203660066F6C0 /* MonthView.swift */,
+				DB04071E206203420066F6C0 /* WeekdaysView.swift */,
 				DBE5997E205C1FEA00FD1898 /* CreateEventView.swift */,
 				DBE5997A205C1FC200FD1898 /* EventDetailView.swift */,
 				DBE59974205C1F7000FD1898 /* EventListView.swift */,
 				DBE599A6205C221E00FD1898 /* FriendListView.swift */,
 				DBE599AA205C226100FD1898 /* InviteFriendsView.swift */,
+				E22D859E20605F1900A13ED1 /* MovieHeaderView.swift */,
 				DBE599A2205C21CB00FD1898 /* ProfileView.swift */,
 				DBE5999E205C21AA00FD1898 /* SideDrawerMenuView.swift */,
+				E22D8598206054A900A13ED1 /* SignInContainerView.swift */,
 				DB3DE483205722AE00AAD2D8 /* SignInView.swift */,
-				DBE59992205C211000FD1898 /* TheatersView.swift */,
+				E22D859A206054B900A13ED1 /* SignUpContainerView.swift */,
 				DBE5999A205C216B00FD1898 /* TheaterShowtimesView.swift */,
-				E22D859E20605F1900A13ED1 /* MovieHeaderView.swift */,
+				DBE59992205C211000FD1898 /* TheatersView.swift */,
 				DBE5998E205C20C600FD1898 /* VenueDetailView.swift */,
 				DBE5998A205C209800FD1898 /* VenueView.swift */,
-				E22D8598206054A900A13ED1 /* SignInContainerView.swift */,
-				E22D859A206054B900A13ED1 /* SignUpContainerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -344,11 +358,12 @@
 				DBE59976205C1F8900FD1898 /* EventTableViewCell.swift */,
 				DBE59980205C1FFD00FD1898 /* EventTypeTableViewCell.swift */,
 				DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */,
+				746439942060670500B09545 /* FriendsCollectionViewCell.swift */,
 				DBE599A8205C224300FD1898 /* FriendTableViewCell.swift */,
 				DBE59988205C207000FD1898 /* InvitedFriendsCollectionViewCell.swift */,
 				DBE5999C205C217D00FD1898 /* MovieTableViewCell.swift */,
 				DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */,
-				746439942060670500B09545 /* FriendsCollectionViewCell.swift */,
+				DB0407182061FE440066F6C0 /* DateCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -743,6 +758,7 @@
 				DBACBAE420580A6900882850 /* Alert.swift in Sources */,
 				E22D859D20605CCC00A13ED1 /* Theater.swift in Sources */,
 				DBE59985205C203500FD1898 /* InviteFriendsViewController.swift in Sources */,
+				DB040721206203660066F6C0 /* MonthView.swift in Sources */,
 				DBE59991205C20F300FD1898 /* TheatersViewController.swift in Sources */,
 				E22D859F20605F1900A13ED1 /* MovieHeaderView.swift in Sources */,
 				DBE5998B205C209800FD1898 /* VenueView.swift in Sources */,
@@ -758,6 +774,7 @@
 				E22D85B12060626800A13ED1 /* VenueReview.swift in Sources */,
 				E22D859B206054B900A13ED1 /* SignUpContainerView.swift in Sources */,
 				DBE5998D205C20AF00FD1898 /* VenueDetailViewController.swift in Sources */,
+				DB0407232062039F0066F6C0 /* CalendarViewController.swift in Sources */,
 				DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */,
 				DBACBAE020580A6900882850 /* NetworkConnectivity.swift in Sources */,
 				E22D8599206054A900A13ED1 /* SignInContainerView.swift in Sources */,
@@ -766,6 +783,7 @@
 				DBE59981205C1FFD00FD1898 /* EventTypeTableViewCell.swift in Sources */,
 				DBACBAEC20580A8300882850 /* DatabaseService.swift in Sources */,
 				DBE599AD205C228300FD1898 /* ChatViewController.swift in Sources */,
+				DB04071F206203420066F6C0 /* WeekdaysView.swift in Sources */,
 				DBE59975205C1F7000FD1898 /* EventListView.swift in Sources */,
 				DBE5997F205C1FEA00FD1898 /* CreateEventView.swift in Sources */,
 				DB3DE484205722AE00AAD2D8 /* SignInView.swift in Sources */,
@@ -782,6 +800,7 @@
 				DBE599B1205C22BA00FD1898 /* ChatTableViewCell.swift in Sources */,
 				DB3DE45120571E5C00AAD2D8 /* whosfree.xcdatamodeld in Sources */,
 				DBE59973205C1F5C00FD1898 /* EventListViewController.swift in Sources */,
+				DB04071D206203150066F6C0 /* CalenderView.swift in Sources */,
 				DB7E3EAE2059517B0075AA99 /* Comment.swift in Sources */,
 				DBACBAE220580A6900882850 /* StyleSheet.swift in Sources */,
 				DB7E3EAC205945640075AA99 /* DatabaseService+Delete.swift in Sources */,
@@ -796,6 +815,7 @@
 				DBDDDC80206005C9009F4908 /* ExistingFriendsTableViewCell.swift in Sources */,
 				DBACBAE920580A8300882850 /* DatabaseService+Add.swift in Sources */,
 				DBE5997D205C1FD500FD1898 /* CreateEventViewController.swift in Sources */,
+				DB0407192061FE440066F6C0 /* DateCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
