@@ -25,11 +25,11 @@ class EventDetailView: UIView {
         return label
     }()
     
-    lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "EventTypeCell")
-        //tableView.backgroundColor = .blue
-        return tableView
+    lazy var eventTypeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Event Type"
+        label.textAlignment = .center
+        return label
     }()
     
     lazy var rsvpButton: UIButton = {
@@ -126,7 +126,7 @@ class EventDetailView: UIView {
     private func setupViews() {
         setupBannerPhoto()
         setupEventTitle()
-        setupTableView()
+        setupEventTypeLabel()
         setupRsvpButton()
         setupDatePicker()
         setupLocationButton()
@@ -155,20 +155,20 @@ class EventDetailView: UIView {
         eventTitleLabel.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 1).isActive = true
     }
     
-    private func setupTableView() {
-        addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        tableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.05).isActive = true
+    private func setupEventTypeLabel() {
+        addSubview(eventTypeLabel)
+        eventTypeLabel.translatesAutoresizingMaskIntoConstraints = false
+        eventTypeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        eventTypeLabel.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor).isActive = true
+        eventTypeLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        eventTypeLabel.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.05).isActive = true
     }
     
     private func setupRsvpButton() {
         addSubview(rsvpButton)
         rsvpButton.translatesAutoresizingMaskIntoConstraints = false
         rsvpButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
-        rsvpButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 5).isActive = true
+        rsvpButton.topAnchor.constraint(equalTo: eventTypeLabel.bottomAnchor, constant: 5).isActive = true
         rsvpButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.7).isActive = true
     }
     
