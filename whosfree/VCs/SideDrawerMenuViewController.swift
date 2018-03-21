@@ -9,6 +9,7 @@
 import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
+import Kingfisher
 
 protocol dismissThenPresentChosenVC {
     func FriendListButtonPressed()
@@ -30,6 +31,15 @@ class SideDrawerMenuViewController: UIViewController {
         firebaseAuthService.delegate = self
         setupView()
         self.view.backgroundColor = .clear
+        setupUserImageAndUsername()
+    }
+    
+    private func setupUserImageAndUsername() {
+        sideDrawerMenuView.usernameLabel.text = FirebaseAuthService.getCurrentUser()!.displayName
+        DatabaseService.manager.getUserProfile(withUID: FirebaseAuthService.getCurrentUser()!.uid, completion: {
+            self.sideDrawerMenuView.menuImageView.kf.setImage(with: URL(string: $0.profileImageUrl!), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            })
+        })
     }
     
     private func setupView() {
