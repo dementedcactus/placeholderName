@@ -55,7 +55,7 @@ class FirebaseAuthService: NSObject {
                         print("changeRequest was successful for username: \(username)")
                         // uncomment to add user to database
                         let theUserId = FirebaseAuthService.getCurrentUser()!.uid
-                        let newUser = UserProfile(email: email, userID: theUserId, displayName: username, firstName: firstName, lastName: lastName)
+                        let newUser = UserProfile(email: email, userID: theUserId, displayName: username, firstName: firstName, lastName: lastName, profileImageUrl: "")
                         DatabaseService.manager.addUserProfile(newUser, userImage)
                         self.delegate?.didCreateUser?(self, user: user)
                     }
