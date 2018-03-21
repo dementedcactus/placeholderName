@@ -211,6 +211,7 @@ class SignInViewController: UIViewController {
     }
     
     private func clearSignUpFields() {
+        signInView.signUpContainerView.usernameTextField.text = ""
         signInView.signUpContainerView.emailLoginTextField.text = ""
         signInView.signUpContainerView.passwordTextField.text = ""
         signInView.signUpContainerView.verifyPasswordTextField.text = ""
@@ -231,13 +232,13 @@ extension SignInViewController: FirebaseAuthServiceDelegate {
             if let error = error {
                 print("Error sending email verification, \(error)")
                 self.showAlert(title: "Error", message: "Error sending email verification")
+                self.firebaseAuthService.signOut()
             } else {
                 print("E-mail verification sent")
                 self.showAlert(title: "Verification Sent", message: "Please verify email")
                 self.showLogin()
                 self.clearSignUpFields()
             }
-            //self.firebaseAuthService.signOut()
         })
     }
     

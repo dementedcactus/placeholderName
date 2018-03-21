@@ -31,13 +31,13 @@ class DatabaseService: NSObject {
     var rootRef: DatabaseReference!
     var usersRef: DatabaseReference!
     var eventsRef: DatabaseReference!
-    var chatRef: DatabaseReference!
+    var chatsRef: DatabaseReference!
     
     private override init() {
         self.rootRef = Database.database().reference()
         self.usersRef = self.rootRef.child("users")
         self.eventsRef = self.rootRef.child("events")
-        self.chatRef = self.rootRef.child("chat")
+        self.chatsRef = self.rootRef.child("chat")
         super.init()
     }
     
@@ -48,8 +48,13 @@ class DatabaseService: NSObject {
         rootRef.removeAllObservers()
         usersRef.removeAllObservers()
         eventsRef.removeAllObservers()
-        chatRef.removeAllObservers()
+        chatsRef.removeAllObservers()
     }
+    
+    public func getDB()-> DatabaseReference { return rootRef }
+    public func getUsers()-> DatabaseReference { return usersRef }
+    public func getEvents()-> DatabaseReference { return eventsRef }
+    public func getChats()-> DatabaseReference { return chatsRef }
     
     //changing display name
     /** This method attempts to change the user's displayName.

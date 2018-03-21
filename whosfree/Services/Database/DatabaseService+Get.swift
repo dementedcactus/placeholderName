@@ -26,8 +26,12 @@ extension DatabaseService {
             guard let lastName = dataSnapshot.childSnapshot(forPath: "lastName").value as? String else {
                 return
             }
+            guard let profileImageUrl = dataSnapshot.childSnapshot(forPath: "profileImageUrl").value as? String else {
+                return
+            }
             
             let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName, firstName: firstName, lastName: lastName)
+            currentUserProfile.profileImageUrl = profileImageUrl
             completion(currentUserProfile)
         }
     }
@@ -87,7 +91,7 @@ extension DatabaseService {
     }
     
     func getChat(withEventID: String, completion: @escaping ([Comment]?) -> Void) {
-        chatRef.child(withEventID).observeSingleEvent(of: .value) { (dataSnapshot) in
+        chatsRef.child(withEventID).observeSingleEvent(of: .value) { (dataSnapshot) in
             guard let arrayOfAllCommentsSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
                 print("could not get children snapshots")
                 completion(nil)
