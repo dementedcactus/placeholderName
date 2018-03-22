@@ -35,7 +35,7 @@ extension DatabaseService {
                 return
             }
             guard let friendsIDs = dataSnapshot.childSnapshot(forPath: "friendsIDs").value as? [String] else {
-                print("error user friendsIDs getting from db, no friends")
+                print("user \(displayName) has no friends")
                 let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName, firstName: firstName, lastName: lastName, profileImageUrl: profileImageUrl)
                 completion(currentUserProfile)
                 return
