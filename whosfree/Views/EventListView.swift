@@ -17,16 +17,6 @@ class EventListView: UIView {
         return tv
     }()
     
-    lazy var calendarButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "menuImage"), for: .normal)
-        button.backgroundColor = .clear
-        button.layer.cornerRadius = 20
-        button.clipsToBounds = true
-        button.imageView?.contentMode = UIViewContentMode.scaleAspectFit
-        return button
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -44,10 +34,8 @@ class EventListView: UIView {
     
     private func setupViews() {
         addSubview(tableView)
-        addSubview(calendarButton)
         
-        //ARRAY MUST BE IN ORDER!!
-        let EventListObjects = [tableView, calendarButton] as [UIView]
+        let EventListObjects = [tableView] as [UIView]
         
         EventListObjects.forEach{addSubview($0); ($0).translatesAutoresizingMaskIntoConstraints = false}
         
@@ -56,15 +44,7 @@ class EventListView: UIView {
             tableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
-            
-            //calendarButton
-            //plusButton.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor, constant: 1.0),
-            //plusButton.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor, constant: 1.0),
-            calendarButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -50),
-            calendarButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -50),
-            calendarButton.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.12),
-            calendarButton.heightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.12)
+            tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
             ])
         
     }
