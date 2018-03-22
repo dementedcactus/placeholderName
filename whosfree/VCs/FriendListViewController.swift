@@ -39,7 +39,7 @@ class FriendListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "FriendListVC"
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(presentMenu))
+        configureNavBar()
         setupViews()
         //Delegates
         friendListView.tableView.delegate = self
@@ -50,6 +50,16 @@ class FriendListViewController: UIViewController {
         sideMenu.dismissThenPresentDelegate = self
         DatabaseService.manager.addFriendDelegate = self
         loadAllUsers()
+    }
+    
+    private func configureNavBar() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(presentMenu))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissFriendsListVC))
+    }
+    
+    @objc private func dismissFriendsListVC() {
+        let eventListVC = EventListViewController()
+        self.navigationController?.pushViewController(eventListVC, animated: true)
     }
     
     private func loadAllUsers() {
