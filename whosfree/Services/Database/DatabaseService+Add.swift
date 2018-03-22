@@ -98,26 +98,30 @@ extension DatabaseService {
         }
     }
     
-    public func addEvent(_ eventToSave: Event) {
+    public func addEvent(_ eventToSave: Event, _ eventImage: UIImage) {
         //1. find ref
         let ref = eventsRef.child(eventToSave.eventID)
-        
+        //let childByAutoId = DatabaseService.manager.getEvents().childByAutoId()
         //2. call set value with completion handler
         ref.setValue(["eventID": eventToSave.eventID,
                       "eventName": eventToSave.eventName,
                       "ownerUserID": eventToSave.ownerUserID,
-                      "text": eventToSave.text,
+                      "eventDescription": eventToSave.eventDescription,
+                      "eventLocation": eventToSave.eventLocation,
                       "timestamp": eventToSave.timestamp,
-                      "rsvpNo": eventToSave.rsvpNo ?? "Empty",
-                      "rsvpMaybe": eventToSave.rsvpMaybe ?? "Empty",
-                      "rsvpYes": eventToSave.rsvpYes ?? "Empty"
-        ]) { (error, nil) in
+                      "eventBannerImgUrl": eventToSave.eventBannerImgUrl
+                      //"rsvpNo": eventToSave.rsvpNo ?? "Empty",
+                      //"rsvpMaybe": eventToSave.rsvpMaybe ?? "Empty",
+                      //"rsvpYes": eventToSave.rsvpYes ?? "Empty"
+        ]) { (error, dbRef) in
             if let error = error {
+                //TODO: delegates for letting the user know fail/success saving event
                 print(error)
             } else {
-                print("Event Saved")
-                self.refreshDelegate?.refreshTableView()
-                self.showAlertDelegate?.showAlertDelegate(nameOfWhatYoureSaving: "Event")
+                print("Event added @ database reference: \(dbRef)")
+                StorageService.manager.storeEventImage(image: eventImage, eventID: eventToSave.eventID)
+                //self.refreshDelegate?.refreshTableView()
+                //self.showAlertDelegate?.showAlertDelegate(nameOfWhatYoureSaving: "Event")
             }
         }
     }

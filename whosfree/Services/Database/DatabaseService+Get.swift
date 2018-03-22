@@ -105,7 +105,11 @@ extension DatabaseService {
                     completion(nil)
                     return
                 }
-                guard let text = savedEventDictionary["text"] as? String else {
+                guard let eventDescription = savedEventDictionary["eventDescription"] as? String else {
+                    completion(nil)
+                    return
+                }
+                guard let eventLocation = savedEventDictionary["eventLocation"] as? String else {
                     completion(nil)
                     return
                 }
@@ -113,20 +117,24 @@ extension DatabaseService {
                     completion(nil)
                     return
                 }
-                guard let rsvpNo = savedEventDictionary["rsvpNo"] as? String else {
+                guard let eventBannerImgUrl = savedEventDictionary["eventBannerImgUrl"] as? String else {
                     completion(nil)
                     return
                 }
-                guard let rsvpMaybe = savedEventDictionary["rsvpMaybe"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let rsvpYes = savedEventDictionary["rsvpYes"] as? String else {
-                    completion(nil)
-                    return
-                }
+//                guard let rsvpNo = savedEventDictionary["rsvpNo"] as? String else {
+//                    completion(nil)
+//                    return
+//                }
+//                guard let rsvpMaybe = savedEventDictionary["rsvpMaybe"] as? String else {
+//                    completion(nil)
+//                    return
+//                }
+//                guard let rsvpYes = savedEventDictionary["rsvpYes"] as? String else {
+//                    completion(nil)
+//                    return
+//                }
                 
-                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, text: text, timestamp: timestamp, rsvpNo: rsvpNo, rsvpMaybe: rsvpMaybe, rsvpYes: rsvpYes)
+                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl)
                 eventArrayToReturn.append(event)
             }
             completion(eventArrayToReturn)
