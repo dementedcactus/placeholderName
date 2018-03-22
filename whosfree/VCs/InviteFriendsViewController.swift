@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class InviteFriendsViewController: UIViewController {
     
@@ -26,6 +27,14 @@ class InviteFriendsViewController: UIViewController {
     
     var sampleArray = [1,2,3,4,5]
     
+    var myFriendsIDs = [String]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.inviteFriendsView.tableView.reloadData()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Invite Friends"
@@ -37,6 +46,19 @@ class InviteFriendsViewController: UIViewController {
         inviteFriendsView.tableView.estimatedRowHeight = 80
         inviteFriendsView.tableView.rowHeight = UITableViewAutomaticDimension
         inviteFriendsView.friendSearchbBar.delegate = self
+        if FirebaseAuthService.getCurrentUser() != nil {
+            loadAllUserFriends()
+        }
+    }
+    
+    private func loadAllUserFriends() {
+        DatabaseService.manager.getUserFriendIDs { (friendIDs) in
+            guard let friendIDs = friendIDs else {
+                print("error retrieving user friends")
+                return
+            }
+            self.myFriendsIDs = friendIDs
+        }
     }
     
     private func setupViews(){
@@ -69,13 +91,20 @@ extension InviteFriendsViewController: UITableViewDelegate {
 }
 extension InviteFriendsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sampleArray.count
+        return myFriendsIDs.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExistingFriendsTableViewCell", for: indexPath) as! ExistingFriendsTableViewCell
-        let testData = sampleArray[indexPath.row]
-        cell.usernameLabel.text = "username \(testData)"
-        cell.setNeedsLayout()
+        //let testData = sampleArray[indexPath.row]
+        //cell.usernameLabel.text = "username \(testData)"
+        //cell.setNeedsLayout()
+        let friend = myFriendsIDs[indexPath.row]
+        cell.userPhotoImageView.kf.indicatorType = .activity
+        DatabaseService.manager.getUserProfile(withUID: friend) { (user) in
+            cell.usernameLabel.text = user.displayName
+            cell.userPhotoImageView.kf.setImage(with: URL(string: user.profileImageUrl), placeholder: #imageLiteral(resourceName: "profileImagePlaceholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            })
+        }
         return cell
     }
 }
