@@ -7,20 +7,56 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProfileViewController: UIViewController {
     
     let friendsArr = ["Bob", "Maryann", "Lisa", "Luis", "Richard"]
     
+    var userFriendsIDs = [String]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.profileView.friendsCollectionView.reloadData()
+            }
+        }
+    }
+    
     let profileView = ProfileView()
     //    let friendCollectionViewCells = ProfileCollectionViewCells()
+    
+    let sideMenu = SideDrawerMenuViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(profileView)
         self.profileView.friendsCollectionView.dataSource = self
         self.profileView.friendsCollectionView.delegate = self
-        setupNavBar()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(presentMenu))
+        sideMenu.dismissThenPresentDelegate = self
+        //setupNavBar()
+        if FirebaseAuthService.getCurrentUser() != nil {
+            setupUserImageAndUsername()
+            loadAllUserFriends()
+        }
+    }
+    
+    private func loadAllUserFriends() {
+        DatabaseService.manager.getUserFriendIDs { (friendIDs) in
+            guard let friendIDs = friendIDs else {
+                print("error retrieving user friends")
+                return
+            }
+            self.userFriendsIDs = friendIDs
+        }
+    }
+    
+    private func setupUserImageAndUsername() {
+        profileView.usernameTextField.text = FirebaseAuthService.getCurrentUser()!.displayName
+        profileView.emailTextField.text = FirebaseAuthService.getCurrentUser()!.email
+        DatabaseService.manager.getUserProfile(withUID: FirebaseAuthService.getCurrentUser()!.uid, completion: {
+            self.profileView.userProfileImage.kf.setImage(with: URL(string: $0.profileImageUrl), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            })
+        })
     }
     
     private func setupNavBar() {
@@ -42,17 +78,67 @@ class ProfileViewController: UIViewController {
         //editProfileItems
     }
     
+    @objc private func presentMenu() {
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = kCATransitionMoveIn
+        transition.subtype = kCATransitionFromLeft
+        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        sideMenu.modalTransitionStyle = .crossDissolve
+        sideMenu.modalPresentationStyle = .overCurrentContext
+        present(sideMenu, animated: false, completion: nil)
+    }
+    
+    
+}
+
+extension ProfileViewController: dismissThenPresentChosenVC {
+    func ProfileButtonPressed() {
+        sideMenu.dismissView()
+    }
+    
+    func EventsButtonPressed() {
+        sideMenu.dismissView()
+        let eventListVC = EventListViewController()
+        eventListVC.modalTransitionStyle = .crossDissolve
+        eventListVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(eventListVC, animated: false)
+    }
+    
+    func LogoutButtonPressed() {
+        sideMenu.dismissView()
+        let signInVC = SignInViewController()
+        self.present(signInVC, animated: true, completion: nil)
+    }
+    
+    func FriendListButtonPressed() {
+        print("Delegate Working")
+        sideMenu.dismissView()
+        let friendListVC = FriendListViewController()
+        friendListVC.modalTransitionStyle = .crossDissolve
+        friendListVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(friendListVC, animated: false)
+    }
 }
 
 extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return friendsArr.count
+//        return friendsArr.count
+        return userFriendsIDs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let friendCell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendsCollectionViewCell", for: indexPath) as! FriendsCollectionViewCell
-        let friendInfo = friendsArr[indexPath.row]
-        friendCell.friendLabel.text = friendInfo
+        let userFriendID = userFriendsIDs[indexPath.row]
+        friendCell.friendImage.kf.indicatorType = .activity
+        DatabaseService.manager.getUserProfile(withUID: userFriendID) { (user) in
+            friendCell.friendLabel.text = user.displayName
+            friendCell.friendImage.kf.setImage(with: URL(string: user.profileImageUrl), placeholder: #imageLiteral(resourceName: "profileImagePlaceholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            })
+        }
+        //let friendInfo = friendsArr[indexPath.row]
+        //friendCell.friendLabel.text = friendInfo
         return friendCell
     }
     

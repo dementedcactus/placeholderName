@@ -32,14 +32,26 @@ class EventListViewController: UIViewController {
         self.title = "EventListVC"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(presentMenu))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonAction))
+    
         setupViews()
-        //TBV Delegates
+        eventListView.calendarButton.addTarget(self, action: #selector(showCalendarButtonAction), for: .touchUpInside)
+        
+        //Delegates
         eventListView.tableView.delegate = self
         eventListView.tableView.dataSource = self
         eventListView.tableView.estimatedRowHeight = 80
         eventListView.tableView.rowHeight = UITableViewAutomaticDimension
-        
-        sideMenu.friendListDelegate = self
+        sideMenu.dismissThenPresentDelegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if FirebaseAuthService.getCurrentUser() == nil {
+            let signInVC = SignInViewController()
+            self.present(signInVC, animated: false, completion: nil)
+        } else {
+            // load events for user here
+        }
     }
     
     private func setupViews(){
@@ -49,6 +61,18 @@ class EventListViewController: UIViewController {
     
     @objc private func addEventButtonAction() {
         print("Add Event Button Pressed")
+        let createEventVC = CreateEventViewController()
+        let createEventNavCon = UINavigationController(rootViewController: createEventVC)
+        self.present(createEventNavCon, animated: true, completion: nil)
+    }
+    
+    @objc private func showCalendarButtonAction() {
+        print("Show Calendar Button Pressed")
+        let calenderVC = CalendarViewController()
+        let calenderVCinNavCon = UINavigationController(rootViewController: calenderVC)
+        calenderVCinNavCon.modalTransitionStyle = .crossDissolve
+        calenderVCinNavCon.modalPresentationStyle = .overCurrentContext
+        present(calenderVCinNavCon, animated: true, completion: nil)
     }
     
     @objc private func presentMenu() {
@@ -66,8 +90,9 @@ class EventListViewController: UIViewController {
 }
 extension EventListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: segue to EventDetailViewController
-        //navigationController?.pushViewController(EventDetailViewController, animated: true)
+        //TODO: segue to EventDetailViewController using dependency injection
+        let eventDetailVC = EventDetailViewController()
+        navigationController?.pushViewController(eventDetailVC, animated: true)
     }
 }
 extension EventListViewController: UITableViewDataSource {
@@ -86,16 +111,33 @@ extension EventListViewController: UITableViewDataSource {
         return cell
     }
 }
-extension EventListViewController: dismissThenPresentFriendListVC {
+extension EventListViewController: dismissThenPresentChosenVC {
+    func ProfileButtonPressed() {
+        sideMenu.dismissView()
+        let profileVC = ProfileViewController()
+        profileVC.modalTransitionStyle = .crossDissolve
+        profileVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(profileVC, animated: false)
+    }
+    
+    func EventsButtonPressed() {
+        sideMenu.dismissView()
+        //Do nothing else since you're already on the EventsListVC
+    }
+    
+    func LogoutButtonPressed() {
+        sideMenu.dismissView()
+        let signInVC = SignInViewController()
+        self.present(signInVC, animated: true, completion: nil)
+    }
+    
     func FriendListButtonPressed() {
         print("Delegate Working")
         sideMenu.dismissView()
         let friendListVC = FriendListViewController()
         friendListVC.modalTransitionStyle = .crossDissolve
         friendListVC.modalPresentationStyle = .overCurrentContext
-        navigationController?.pushViewController(friendListVC, animated: true)
+        navigationController?.pushViewController(friendListVC, animated: false)
     }
-    
-    
 }
 

@@ -13,6 +13,9 @@ target 'whosfree' do
   pod 'Firebase/Storage'
   pod 'Alamofire'
   pod 'Kingfisher'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
 
   target 'whosfreeTests' do
     inherit! :search_paths

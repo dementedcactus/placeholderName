@@ -20,10 +20,16 @@ protocol ShowAlertDelegate {
     func showAlertDelegate(nameOfWhatYoureSaving: String)
 }
 
+protocol AddFriendDelegate: class {
+    func didAddFriend(_ friendID: String, message: String)
+    func didFailAddFriend(_ friendID: String, message: String)
+}
+
 class DatabaseService: NSObject {
     
     var refreshDelegate: RefreshDelegate?
     var showAlertDelegate: ShowAlertDelegate?
+    var addFriendDelegate: AddFriendDelegate?
     
     /// The singleton object for the DatabaseService API client.
     static let manager = DatabaseService()
@@ -31,13 +37,13 @@ class DatabaseService: NSObject {
     var rootRef: DatabaseReference!
     var usersRef: DatabaseReference!
     var eventsRef: DatabaseReference!
-    var chatRef: DatabaseReference!
+    var chatsRef: DatabaseReference!
     
     private override init() {
         self.rootRef = Database.database().reference()
         self.usersRef = self.rootRef.child("users")
         self.eventsRef = self.rootRef.child("events")
-        self.chatRef = self.rootRef.child("chat")
+        self.chatsRef = self.rootRef.child("chat")
         super.init()
     }
     
@@ -48,8 +54,13 @@ class DatabaseService: NSObject {
         rootRef.removeAllObservers()
         usersRef.removeAllObservers()
         eventsRef.removeAllObservers()
-        chatRef.removeAllObservers()
+        chatsRef.removeAllObservers()
     }
+    
+    public func getDB()-> DatabaseReference { return rootRef }
+    public func getUsers()-> DatabaseReference { return usersRef }
+    public func getEvents()-> DatabaseReference { return eventsRef }
+    public func getChats()-> DatabaseReference { return chatsRef }
     
     //changing display name
     /** This method attempts to change the user's displayName.
@@ -61,27 +72,27 @@ class DatabaseService: NSObject {
      - ifNameTaken: A closure that passes the new name back if it is currently in used by a different user.
      - failedName: The name that is already in use by another user.
      */
-    public func changeDisplayName(to newName: String, ifNameTaken: @escaping (_ failedName: String) -> Void) {
-        guard let currentUser = AuthUserService.manager.getCurrentUser() else {
-            return
-        }
-        //check if anyone has same display name, if true, return false
-        checkIfDisplayNameIsTaken(newName, currentUserID: currentUser.uid) { (isTaken, oldName, newName)  in
-            if isTaken {
-                ifNameTaken(newName)
-                return
-            }
-            currentUser.createProfileChangeRequest().displayName = newName
-            currentUser.createProfileChangeRequest().commitChanges(completion: { (error) in
-                //if change request was not successful
-                if let error = error {
-                    print(error)
-                    self.delegate?.didFailChangingDisplayName?(self, error: error.localizedDescription)
-                    return
-                }
-            })
-        }
-    }
+//    public func changeDisplayName(to newName: String, ifNameTaken: @escaping (_ failedName: String) -> Void) {
+//        guard let currentUser = AuthUserService.manager.getCurrentUser() else {
+//            return
+//        }
+//        //check if anyone has same display name, if true, return false
+//        checkIfDisplayNameIsTaken(newName, currentUserID: currentUser.uid) { (isTaken, oldName, newName)  in
+//            if isTaken {
+//                ifNameTaken(newName)
+//                return
+//            }
+//            currentUser.createProfileChangeRequest().displayName = newName
+//            currentUser.createProfileChangeRequest().commitChanges(completion: { (error) in
+//                //if change request was not successful
+//                if let error = error {
+//                    print(error)
+//                    self.delegate?.didFailChangingDisplayName?(self, error: error.localizedDescription)
+//                    return
+//                }
+//            })
+//        }
+//    }
     
     /** This method checks if the given displayName is already in use by another user.
      

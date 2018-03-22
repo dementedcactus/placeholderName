@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FriendListViewController: UIViewController {
     
@@ -23,13 +24,22 @@ class FriendListViewController: UIViewController {
     }
     
     let friendListView = FriendListView()
+    let sideMenu = SideDrawerMenuViewController()
     
     var sampleArray = [1,2,3,4,5]
+    
+    var allUsers = [UserProfile]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.friendListView.tableView.reloadData()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "FriendListVC"
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(presentMenu))
+        configureNavBar()
         setupViews()
         //Delegates
         friendListView.tableView.delegate = self
@@ -37,6 +47,29 @@ class FriendListViewController: UIViewController {
         friendListView.tableView.estimatedRowHeight = 80
         friendListView.tableView.rowHeight = UITableViewAutomaticDimension
         friendListView.friendSearchbBar.delegate = self
+        sideMenu.dismissThenPresentDelegate = self
+        DatabaseService.manager.addFriendDelegate = self
+        loadAllUsers()
+    }
+    
+    private func configureNavBar() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(presentMenu))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissFriendsListVC))
+    }
+    
+    @objc private func dismissFriendsListVC() {
+        let eventListVC = EventListViewController()
+        self.navigationController?.pushViewController(eventListVC, animated: true)
+    }
+    
+    private func loadAllUsers() {
+        DatabaseService.manager.loadAllUsers { (dbUsers) in
+            guard let dbUsers = dbUsers else {
+                print("error loading all users")
+                return
+            }
+            self.allUsers = dbUsers
+        }
     }
     
     private func setupViews(){
@@ -44,7 +77,6 @@ class FriendListViewController: UIViewController {
     }
     
     @objc private func presentMenu() {
-        let sideMenu = SideDrawerMenuViewController()
         let transition = CATransition()
         transition.duration = 0.3
         transition.type = kCATransitionMoveIn
@@ -55,6 +87,14 @@ class FriendListViewController: UIViewController {
         sideMenu.modalPresentationStyle = .overCurrentContext
         present(sideMenu, animated: false, completion: nil)
     }
+    
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { alert in }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }
 
 extension FriendListViewController: UISearchBarDelegate {
@@ -77,14 +117,71 @@ extension FriendListViewController: UITableViewDelegate {
 }
 extension FriendListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sampleArray.count
+        return allUsers.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendTableViewCell
-        let testData = sampleArray[indexPath.row]
-        cell.usernameLabel.text = "username \(testData)"
+//        let testData = sampleArray[indexPath.row]
+//        cell.usernameLabel.text = "username \(testData)"
+        cell.delegate = self
+        cell.tag = indexPath.row
+        let user = allUsers[indexPath.row]
+        cell.usernameLabel.text = user.displayName
+        cell.userPhotoImageView.kf.setImage(with: URL(string: user.profileImageUrl), placeholder: #imageLiteral(resourceName: "profileImagePlaceholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
+        }
         cell.setNeedsLayout()
         return cell
+    }
+}
+
+extension FriendListViewController: dismissThenPresentChosenVC {
+    func ProfileButtonPressed() {
+        sideMenu.dismissView()
+        let profileVC = ProfileViewController()
+        profileVC.modalTransitionStyle = .crossDissolve
+        profileVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(profileVC, animated: false)
+    }
+    
+    func EventsButtonPressed() {
+        sideMenu.dismissView()
+        let eventListVC = EventListViewController()
+        eventListVC.modalTransitionStyle = .crossDissolve
+        eventListVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(eventListVC, animated: false)
+    }
+    
+    func LogoutButtonPressed() {
+        sideMenu.dismissView()
+        let signInVC = SignInViewController()
+        self.present(signInVC, animated: true, completion: nil)
+    }
+    
+    func FriendListButtonPressed() {
+        print("Delegate Working")
+        sideMenu.dismissView()
+        //Do nothing else since you're already on the FriendListVC
+    }
+}
+
+extension FriendListViewController: FriendTableViewCellDelegate {
+    func didPressAddFriendButton(_ tag: Int) {
+        //showAlert(title: allUsers[tag].userID, message: "is for the user \(allUsers[tag].displayName)")
+        //showAlert(title: "Friend added", message: "Added user \(allUsers[tag].displayName) to your friends ")
+        DatabaseService.manager.addFriend(newFriendID: allUsers[tag].userID)
+//        DatabaseService.manager.getUserFriendIDs { (friendIDs) in
+//            dump(friendIDs)
+//        }
+    }
+}
+
+extension FriendListViewController: AddFriendDelegate {
+    func didAddFriend(_ friendID: String, message: String) {
+        showAlert(title: "Success", message: message)
+    }
+    
+    func didFailAddFriend(_ friendID: String, message: String) {
+        showAlert(title: "Error", message: message)
     }
 }
 
