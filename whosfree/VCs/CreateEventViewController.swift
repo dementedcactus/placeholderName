@@ -12,7 +12,7 @@ import MapKit
 class CreateEventViewController: UIViewController {
 
     let createEventView = CreateEventView()
-    var dummyData = ["test1 title", "test2 title", "test3 title"]
+    var categories = ["Venue", "Movie", "Other"]
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     var searchSource: [String]?
@@ -131,7 +131,7 @@ class CreateEventViewController: UIViewController {
 extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == createEventView.tableView {
-            return dummyData.count
+            return categories.count
         } else {
             return searchResults.count
         }
@@ -141,7 +141,7 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
         
         if tableView == createEventView.tableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventTypeCell", for: indexPath) as! EventTypeTableViewCell
-            let data = dummyData[indexPath.row]
+            let data = categories[indexPath.row]
             
             cell.eventTypeLabel.text = data
             return cell
@@ -170,6 +170,26 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
             self.createEventView.searchResultsTableView.reloadData()
             createEventView.searchResultsTableView.isHidden = true
             print("hidden")
+        } else if tableView == createEventView.tableView {
+            let category = categories[indexPath.row]
+            createEventView.eventTypeButton.setTitle(category, for: .normal)
+            createEventView.tableView.isHidden = true
+            switch category {
+            case "Venue":
+                // seque venue
+                print("Clicked Venue")
+                let venueViewController = VenueViewController()
+                navigationController?.pushViewController(venueViewController, animated: true)
+            case "Movie":
+                //segue movie
+                print("Clicked Movie")
+                let theatersViewController = TheatersViewController()
+                navigationController?.pushViewController(theatersViewController, animated: true)
+            case "Other":
+                print("Clicked Other")
+            default:
+                print("Do nothing")
+            }
         }
     }
     
