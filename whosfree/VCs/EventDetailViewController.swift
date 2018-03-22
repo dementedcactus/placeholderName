@@ -21,7 +21,25 @@ class EventDetailViewController: UIViewController {
         //self.eventDetailView.tableView.delegate = self
         self.eventDetailView.collectionView.dataSource = self
         self.eventDetailView.collectionView.delegate = self
+        self.eventDetailView.rsvpButton.addTarget(self, action: #selector(rsvp), for: .touchUpInside)
         configureNavBar()
+    }
+    
+    @objc private func rsvp() {
+        showAlert(title: "RSVP", message: "Please RSVP")
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        let goingAction = UIAlertAction(title: "Going", style: .default) {(alert) in
+            print("pressed Going")
+        }
+        let notGoingAction = UIAlertAction(title: "Not Going", style: .default) {(alert) in
+            print("pressed Not Going")
+        }
+        alertController.addAction(goingAction)
+        alertController.addAction(notGoingAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     private func configureNavBar() {
