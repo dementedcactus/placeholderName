@@ -15,27 +15,39 @@ extension DatabaseService {
         let ref = usersRef.child(uid)
         ref.observe(.value) { (dataSnapshot) in
             guard let email = dataSnapshot.childSnapshot(forPath: "email").value as? String else {
+                print("error user email getting from db")
                 return
             }
             guard let displayName = dataSnapshot.childSnapshot(forPath: "displayName").value as? String else {
+                print("error user displayname getting from db")
                 return
             }
             guard let firstName = dataSnapshot.childSnapshot(forPath: "firstName").value as? String else {
+                print("error user firstName getting from db")
                 return
             }
             guard let lastName = dataSnapshot.childSnapshot(forPath: "lastName").value as? String else {
+                print("error user lastName getting from db")
                 return
             }
             guard let profileImageUrl = dataSnapshot.childSnapshot(forPath: "profileImageUrl").value as? String else {
+                print("error user profileImageUrl getting from db")
+                return
+            }
+            guard let friendsIDs = dataSnapshot.childSnapshot(forPath: "friendsIDs").value as? [String] else {
+                print("user \(displayName) has no friends")
+                let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName, firstName: firstName, lastName: lastName, profileImageUrl: profileImageUrl)
+                completion(currentUserProfile)
                 return
             }
             
-            let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName, firstName: firstName, lastName: lastName)
-            currentUserProfile.profileImageUrl = profileImageUrl
+            let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName, firstName: firstName, lastName: lastName, profileImageUrl: profileImageUrl)
+            currentUserProfile.friendsIDs = friendsIDs
             completion(currentUserProfile)
         }
     }
     
+    // gets all users in database except the current logged in user
     func loadAllUsers(completionHandler: @escaping ([UserProfile]?) -> Void) {
         let ref = DatabaseService.manager.getUsers()
         ref.observe(.value) { (snapshot) in
@@ -44,11 +56,27 @@ extension DatabaseService {
                 let dataSnapshot = child as! DataSnapshot
                 if let dict = dataSnapshot.value as? [String: Any] {
                     let user = UserProfile.init(dict: dict)
+                    if user.userID == FirebaseAuthService.getCurrentUser()!.uid { continue }
                     allUsers.append(user)
                 }
             }
             completionHandler(allUsers)
         }
+    }
+    
+    func getUserFriendIDs(completionHandler: @escaping ([String]?) -> Void) {
+        let userRef = DatabaseService.manager.usersRef.child(FirebaseAuthService.getCurrentUser()!.uid)
+        let userFriendsRef = userRef.child("friendsIDs")
+        userFriendsRef.observeSingleEvent(of: .value) { (snapshot) in
+            var allFriendIDs = [String]()
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let friendID = snap.value as! String
+                allFriendIDs.append(friendID)
+            }
+            completionHandler(allFriendIDs)
+        }
+    
     }
  
     func getAllEvents(completion: @escaping ([Event]?) -> Void) {

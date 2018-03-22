@@ -48,6 +48,7 @@ class FriendListViewController: UIViewController {
         friendListView.tableView.rowHeight = UITableViewAutomaticDimension
         friendListView.friendSearchbBar.delegate = self
         sideMenu.dismissThenPresentDelegate = self
+        DatabaseService.manager.addFriendDelegate = self
         loadAllUsers()
     }
     
@@ -76,6 +77,14 @@ class FriendListViewController: UIViewController {
         sideMenu.modalPresentationStyle = .overCurrentContext
         present(sideMenu, animated: false, completion: nil)
     }
+    
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { alert in }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }
 
 extension FriendListViewController: UISearchBarDelegate {
@@ -104,9 +113,11 @@ extension FriendListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendTableViewCell
 //        let testData = sampleArray[indexPath.row]
 //        cell.usernameLabel.text = "username \(testData)"
+        cell.delegate = self
+        cell.tag = indexPath.row
         let user = allUsers[indexPath.row]
         cell.usernameLabel.text = user.displayName
-        cell.userPhotoImageView.kf.setImage(with: URL(string: user.profileImageUrl!), placeholder: #imageLiteral(resourceName: "profileImagePlaceholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
+        cell.userPhotoImageView.kf.setImage(with: URL(string: user.profileImageUrl), placeholder: #imageLiteral(resourceName: "profileImagePlaceholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
         }
         cell.setNeedsLayout()
         return cell
@@ -140,6 +151,27 @@ extension FriendListViewController: dismissThenPresentChosenVC {
         print("Delegate Working")
         sideMenu.dismissView()
         //Do nothing else since you're already on the FriendListVC
+    }
+}
+
+extension FriendListViewController: FriendTableViewCellDelegate {
+    func didPressAddFriendButton(_ tag: Int) {
+        //showAlert(title: allUsers[tag].userID, message: "is for the user \(allUsers[tag].displayName)")
+        //showAlert(title: "Friend added", message: "Added user \(allUsers[tag].displayName) to your friends ")
+        DatabaseService.manager.addFriend(newFriendID: allUsers[tag].userID)
+//        DatabaseService.manager.getUserFriendIDs { (friendIDs) in
+//            dump(friendIDs)
+//        }
+    }
+}
+
+extension FriendListViewController: AddFriendDelegate {
+    func didAddFriend(_ friendID: String, message: String) {
+        showAlert(title: "Success", message: message)
+    }
+    
+    func didFailAddFriend(_ friendID: String, message: String) {
+        showAlert(title: "Error", message: message)
     }
 }
 

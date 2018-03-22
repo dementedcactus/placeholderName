@@ -13,6 +13,14 @@ class ProfileViewController: UIViewController {
     
     let friendsArr = ["Bob", "Maryann", "Lisa", "Luis", "Richard"]
     
+    var userFriendsIDs = [String]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.profileView.friendsCollectionView.reloadData()
+            }
+        }
+    }
+    
     let profileView = ProfileView()
     //    let friendCollectionViewCells = ProfileCollectionViewCells()
     
@@ -28,6 +36,17 @@ class ProfileViewController: UIViewController {
         //setupNavBar()
         if FirebaseAuthService.getCurrentUser() != nil {
             setupUserImageAndUsername()
+            loadAllUserFriends()
+        }
+    }
+    
+    private func loadAllUserFriends() {
+        DatabaseService.manager.getUserFriendIDs { (friendIDs) in
+            guard let friendIDs = friendIDs else {
+                print("error retrieving user friends")
+                return
+            }
+            self.userFriendsIDs = friendIDs
         }
     }
     
@@ -35,7 +54,7 @@ class ProfileViewController: UIViewController {
         profileView.usernameTextField.text = FirebaseAuthService.getCurrentUser()!.displayName
         profileView.emailTextField.text = FirebaseAuthService.getCurrentUser()!.email
         DatabaseService.manager.getUserProfile(withUID: FirebaseAuthService.getCurrentUser()!.uid, completion: {
-            self.profileView.userProfileImage.kf.setImage(with: URL(string: $0.profileImageUrl!), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            self.profileView.userProfileImage.kf.setImage(with: URL(string: $0.profileImageUrl), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
             })
         })
     }
@@ -105,13 +124,21 @@ extension ProfileViewController: dismissThenPresentChosenVC {
 
 extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return friendsArr.count
+//        return friendsArr.count
+        return userFriendsIDs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let friendCell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendsCollectionViewCell", for: indexPath) as! FriendsCollectionViewCell
-        let friendInfo = friendsArr[indexPath.row]
-        friendCell.friendLabel.text = friendInfo
+        let userFriendID = userFriendsIDs[indexPath.row]
+        friendCell.friendImage.kf.indicatorType = .activity
+        DatabaseService.manager.getUserProfile(withUID: userFriendID) { (user) in
+            friendCell.friendLabel.text = user.displayName
+            friendCell.friendImage.kf.setImage(with: URL(string: user.profileImageUrl), placeholder: #imageLiteral(resourceName: "profileImagePlaceholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            })
+        }
+        //let friendInfo = friendsArr[indexPath.row]
+        //friendCell.friendLabel.text = friendInfo
         return friendCell
     }
     
