@@ -17,6 +17,8 @@ class CreateEventViewController: UIViewController {
     var searchResults = [MKLocalSearchCompletion]()
     var searchSource: [String]?
     
+    let eventBannerImagePicker = UIImagePickerController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(createEventView)
@@ -26,9 +28,35 @@ class CreateEventViewController: UIViewController {
         self.createEventView.searchResultsTableView.delegate = self
         searchCompleter.delegate = self
         self.createEventView.searchBar.delegate = self
+        eventBannerImagePicker.delegate = self
         setupNavBarButtons()
         setupViewButtons()
-        
+        setupBannerImageGestureRecognizer()
+    }
+    
+    private func setupBannerImageGestureRecognizer() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(bannerImageTapped(tapGestureRecognizer:)))
+        createEventView.bannerPhotoImageView.isUserInteractionEnabled = true
+        createEventView.bannerPhotoImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc private func bannerImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        let profileImageAlertController = UIAlertController(title: "Add Event Image", message: nil, preferredStyle: .alert)
+        let fromCameraRollAction = UIAlertAction(title: "From camera roll", style: .default) { (alertAction) in
+            self.eventBannerImagePicker.allowsEditing = true
+            self.eventBannerImagePicker.sourceType = .photoLibrary
+            self.present(self.eventBannerImagePicker, animated: true, completion: nil)
+        }
+        let fromLaunchCameraAction = UIAlertAction(title: "Take a picture", style: .default) { (alertAction) in
+            self.eventBannerImagePicker.allowsEditing = true
+            self.eventBannerImagePicker.sourceType = .camera
+            self.present(self.eventBannerImagePicker, animated: true, completion: nil)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        profileImageAlertController.addAction(fromCameraRollAction)
+        profileImageAlertController.addAction(fromLaunchCameraAction)
+        profileImageAlertController.addAction(cancelAction)
+        present(profileImageAlertController, animated: true, completion: nil)
     }
     
     private func setupNavBarButtons() {
@@ -44,7 +72,20 @@ class CreateEventViewController: UIViewController {
     
     @objc private func createButtonPressed() {
         print("Create Event Button Pressed")
-        // create event firebase func here
+        let childByAutoId = DatabaseService.manager.getEvents().childByAutoId()
+        let eventName = createEventView.eventTitleLabel.text!
+        let ownerUserID = FirebaseAuthService.getCurrentUser()!.uid
+        let eventDescription = createEventView.descriptionTextView.text!
+        let eventLocation = createEventView.searchBar.text!
+        // need to use datepicker delegate to get time and date
+        let componenets = Calendar.current.dateComponents([.year, .month, .day], from: createEventView.datePicker.date)
+        if let day = componenets.day, let month = componenets.month, let year = componenets.year {
+            print("\(day) \(month) \(year)")
+            // add this to db
+        }
+        let timestamp = Date.timeIntervalSinceReferenceDate
+        let eventToAdd = Event(eventID: childByAutoId.key, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")
+        DatabaseService.manager.addEvent(eventToAdd, createEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
         dismiss(animated: true, completion: nil)
     }
     
@@ -158,4 +199,23 @@ extension CreateEventViewController: MKLocalSearchCompleterDelegate {
         print(error)
     }
 }
+
+// MARK:- Image Picker delegate functions
+extension CreateEventViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let imageSelected = info[UIImagePickerControllerEditedImage] as? UIImage else {
+            print("Error selecting picture")
+            return
+        }
+        createEventView.bannerPhotoImageView.image = imageSelected
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
 

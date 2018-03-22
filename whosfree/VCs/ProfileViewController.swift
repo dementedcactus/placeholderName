@@ -103,7 +103,7 @@ extension ProfileViewController: dismissThenPresentChosenVC {
         let eventListVC = EventListViewController()
         eventListVC.modalTransitionStyle = .crossDissolve
         eventListVC.modalPresentationStyle = .overCurrentContext
-        navigationController?.pushViewController(eventListVC, animated: true)
+        navigationController?.pushViewController(eventListVC, animated: false)
     }
     
     func LogoutButtonPressed() {
@@ -118,7 +118,7 @@ extension ProfileViewController: dismissThenPresentChosenVC {
         let friendListVC = FriendListViewController()
         friendListVC.modalTransitionStyle = .crossDissolve
         friendListVC.modalPresentationStyle = .overCurrentContext
-        navigationController?.pushViewController(friendListVC, animated: true)
+        navigationController?.pushViewController(friendListVC, animated: false)
     }
 }
 
