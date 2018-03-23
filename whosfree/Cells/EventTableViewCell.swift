@@ -91,7 +91,6 @@ class EventTableViewCell: UITableViewCell {
             containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            //containerView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.4),
             
             //eventBannerPhotoImageView
             eventBannerPhotoImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
@@ -102,6 +101,9 @@ class EventTableViewCell: UITableViewCell {
             //eventTitleLabel
             eventTitleLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor),
             eventTitleLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            eventTitleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            eventTitleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            eventTitleLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.2),
 
             //placeholderIconImageView
             placeholderIconImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
@@ -110,8 +112,7 @@ class EventTableViewCell: UITableViewCell {
             placeholderIconImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.4),
 
             //eventDateAndTimeLabel
-            eventDateAndTimeLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
-            eventDateAndTimeLabel.bottomAnchor.constraint(equalTo: eventTitleLabel.topAnchor),
+            eventDateAndTimeLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             eventDateAndTimeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             eventDateAndTimeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.25)
             ])
