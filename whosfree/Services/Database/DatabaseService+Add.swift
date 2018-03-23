@@ -127,35 +127,35 @@ extension DatabaseService {
     }
     
     /**
-     Adds a comment to the current post.
+     Adds a comment to the current event.
      
      - Parameters:
      - text: The comment text.
-     - postID: The ID of the current, selected post.
+     - eventID: The ID of the current, selected event.
      */
-    //    public func addComment(withText text: String, andEventID eventID: String) {
-    //        guard let userID = AuthUserService.manager.getCurrentUser()?.uid else {
-    //            print("Error: could not get current user id, please exit the app and log back in.")
-    //            return
-    //        }
-    //        let ref = chatRef.child(eventID).childByAutoId()
-    //        let comment = Comment(eventID: eventID, commentID: ref.key, userID: userID, text: text)
-    //
-    //        ref.setValue(["eventID": eventID,
-    //                      "commentID": comment.commentID,
-    //                      "userID": comment.userID,
-    //                      "text": comment.text,
-    //                      "timestamp": comment.timestamp
-    //        ]) { (error, _) in
-    //            if let error = error {
-    //                self.delegate?.didFailAddingComment?(self, error: error.localizedDescription)
-    //            } else {
-    //                self.delegate?.didAddComment?(self)
-    //            }
-    //        }
-    //
-    //        print("new comment added to database!!")
-    //    }
+    public func addComment(eventID: String, userID: String, phoneNumber: String, email: String, text: String) {
+
+            let ref = chatsRef.child(eventID).childByAutoId()
+            
+            let comment = Comment(eventID: eventID, userID: userID, phoneNumber: phoneNumber, email: email, commentID: ref.key, timestamp: Date.timeIntervalSinceReferenceDate, text: text)
+    
+            ref.setValue(["eventID": eventID,
+                          "userID": comment.userID ?? "NoUserID",
+                          "phoneNumber": comment.phoneNumber ?? "NoNumber",
+                          "email": comment.email ?? "NoEmail",
+                          "commentID": comment.commentID,
+                          "timestamp": comment.timestamp,
+                          "text": comment.text
+            ]) { (error, _) in
+                if let error = error {
+                    self.delegate?.didFailAddingComment?(self, error: error.localizedDescription)
+                } else {
+                    self.delegate?.didAddComment?(self)
+                }
+            }
+    
+            print("new comment added to database!!")
+        }
  
  
 }

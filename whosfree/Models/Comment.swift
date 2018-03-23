@@ -9,28 +9,35 @@
 import Foundation
 
 class Comment: NSObject {
-    let eventID: String //so we can identify specific comments from the user
-    let commentID: String //this should be the unique comment id
-    let userID: String
-    var text: String
+    let eventID: String
+    let userID: String?
+    var phoneNumber: String?
+    var email: String?
+    let commentID: String
     var timestamp: Double = Date.timeIntervalSinceReferenceDate
+    var text: String
     
     
     static func ==(lhs: Comment, rhs: Comment) -> Bool {
-        return lhs.eventID == rhs.eventID && lhs.commentID == rhs.commentID && lhs.userID == rhs.userID
+        return lhs.eventID == rhs.eventID && lhs.commentID == rhs.commentID && lhs.userID == rhs.userID && lhs.phoneNumber == rhs.phoneNumber && lhs.email == rhs.email
     }
     
-    init(eventID: String, commentID: String, userID: String, text: String) {
-        self.eventID = eventID
-        self.commentID = commentID
-        self.userID = userID
-        self.text = text
+    init(dict: [String : Any]) {
+        eventID = dict["eventID"] as? String ?? ""
+        userID = dict["userID"] as? String ?? ""
+        phoneNumber = dict["phoneNumber"] as? String ?? ""
+        email = dict["email"] as? String ?? ""
+        commentID = dict["commentID"] as? String ?? ""
+        timestamp = dict["timestamp"] as? Double ?? 0.0
+        text = dict["text"] as? String ?? ""
     }
     
-    init(eventID: String, commentID: String, userID: String, text: String, timestamp: Double) {
+    init(eventID: String, userID: String?, phoneNumber: String?, email: String?, commentID: String, timestamp: Double, text: String) {
         self.eventID = eventID
-        self.commentID = commentID
         self.userID = userID
+        self.phoneNumber = phoneNumber
+        self.email = email
+        self.commentID = commentID
         self.text = text
         self.timestamp = timestamp
     }
