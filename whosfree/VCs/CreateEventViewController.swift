@@ -12,7 +12,11 @@ import MapKit
 class CreateEventViewController: UIViewController {
 
     let createEventView = CreateEventView()
+
     var dummyData = ["test1 title"]
+
+    var categories = ["Venue", "Movie", "Other"]
+
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     var searchSource: [String]?
@@ -96,6 +100,7 @@ class CreateEventViewController: UIViewController {
         print("Cancel create event pressed")
     }
     
+
     @objc private func inviteFriendsButtonPressed(sender: UIButton) {
         if sender.tag == 0 {
             print("invite friends button pressed")
@@ -103,6 +108,7 @@ class CreateEventViewController: UIViewController {
             let inviteFriendsNavCon = UINavigationController(rootViewController: inviteFriendsVC)
             present(inviteFriendsNavCon, animated: true, completion: nil)
         }
+
     }
     
     @objc private func categoryButtonAction(sender: UIButton!) {
@@ -142,9 +148,10 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
         return 20
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         if tableView == createEventView.pageTableView {
             return dummyData.count
-        } else {
+    } else {
             return searchResults.count
         }
     }
@@ -156,9 +163,6 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
             let data = dummyData[indexPath.row]
              cell.inviteFriendsButton.tag = 0
              cell.inviteFriendsButton.addTarget(self, action: #selector(inviteFriendsButtonPressed(sender:)), for: .touchUpInside)
-            
-            //cell.eventTitleTextField.text = data
-            return cell
         } else {
             let cell = createEventView.searchResultsTableView.dequeueReusableCell(withIdentifier: "SearchResultsCell", for: indexPath)
             let searchResult = searchResults[indexPath.row]
@@ -168,6 +172,7 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
         }
         return UITableViewCell()
     }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == createEventView.searchResultsTableView {
             let completion = searchResults[indexPath.row]
@@ -184,11 +189,28 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
             self.createEventView.searchResultsTableView.reloadData()
             createEventView.searchResultsTableView.isHidden = true
             print("hidden")
+        } else if tableView == createEventView.tableView {
+            let category = categories[indexPath.row]
+            createEventView.eventTypeButton.setTitle(category, for: .normal)
+            createEventView.tableView.isHidden = true
+            switch category {
+            case "Venue":
+                // seque venue
+                print("Clicked Venue")
+                let venueViewController = VenueViewController()
+                navigationController?.pushViewController(venueViewController, animated: true)
+            case "Movie":
+                //segue movie
+                print("Clicked Movie")
+                let theatersViewController = TheatersViewController()
+                navigationController?.pushViewController(theatersViewController, animated: true)
+            case "Other":
+                print("Clicked Other")
+            default:
+                print("Do nothing")
+            }
         }
     }
-    
-    
-}
 
 extension CreateEventViewController: UISearchBarDelegate {
     

@@ -39,7 +39,7 @@ class TheaterShowtimesViewController: UIViewController, SFSafariViewControllerDe
         theaterShowtimesView.showtimesTableView.delegate = self
         theaterShowtimesView.showtimesTableView.dataSource = self
         navigationItem.title = theater.name
-        //ShowtimeAPIClient.manager.getShowtimes(with: theater.theatreId, and: "2018-03-19", and: "1", success: { self.movieShowtimes = $0 }, failure: { print($0) })
+        ShowtimeAPIClient.manager.getShowtimes(with: theater.theatreId, and: "2018-03-23", and: "1", success: { self.movieShowtimes = $0 }, failure: { print($0) })
     }
     
 }

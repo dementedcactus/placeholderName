@@ -12,33 +12,13 @@ import UIKit
 struct Style {
     // Default Colors
     static var backgroundColor = UIColor.white
-    static var monthViewLabelColor = UIColor.white
-    static var monthViewRightButtonColor = UIColor.white
-    static var monthviewLeftButtonColor = UIColor.white
-    static var activeCellLabelColor = UIColor.white
-    static var highlightedActiveCellLabelColor = UIColor.black
-    static var weekdaysLabelColor = UIColor.white
-    
     // Colors for Dark Theme
     static func darkTheme(){
         backgroundColor = Stylesheet.Colors.DarkGray
-        monthViewLabelColor = Stylesheet.Colors.White
-        monthViewRightButtonColor = Stylesheet.Colors.White
-        monthviewLeftButtonColor = Stylesheet.Colors.White
-        activeCellLabelColor = Stylesheet.Colors.White
-        highlightedActiveCellLabelColor = Stylesheet.Colors.Black
-        weekdaysLabelColor = Stylesheet.Colors.White
     }
-    
     // Colors for Light Theme
     static func lightTheme(){
         backgroundColor = Stylesheet.Colors.White
-        monthViewLabelColor = Stylesheet.Colors.Black
-        monthViewRightButtonColor = Stylesheet.Colors.Black
-        monthviewLeftButtonColor = Stylesheet.Colors.Black
-        activeCellLabelColor = Stylesheet.Colors.Black
-        highlightedActiveCellLabelColor = Stylesheet.Colors.White
-        weekdaysLabelColor = Stylesheet.Colors.Black
     }
 }
 
@@ -51,6 +31,13 @@ enum Stylesheet {
     
     enum Colors {
         static let azure = UIColor(red:19/255, green:129/255, blue:239/255, alpha:1.0)
+<<<<<<< HEAD
+=======
+        static let white = UIColor(red:255/255, green:255/255, blue:255/255, alpha:1.0)
+        static let navy = UIColor(red:27/255, green:42/255, blue:65/255, alpha:1.0)
+        static let eerie = UIColor(red:28/255, green:29/255, blue:33/255, alpha:1.0)
+        static let red = UIColor(red:0/255, green:0/255, blue:0/255, alpha:1.0)
+>>>>>>> 1197ab88fa6903b0395ee4adc8a1b4da3eef651d
         static let White = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.00)
         static let LightGrey = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1.00)
         static let Red = UIColor(red: 0.949, green: 0.141, blue: 0, alpha: 1.0)
