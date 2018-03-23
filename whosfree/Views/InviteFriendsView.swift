@@ -1,15 +1,15 @@
 //
-//  InviteFriendView.swift
+//  InviteFriendsView.swift
 //  whosfree
 //
-//  Created by Richard Crichlow on 3/16/18.
+//  Created by Richard Crichlow on 3/23/18.
 //  Copyright © 2018 Richard Crichlow. All rights reserved.
 //
 
 import UIKit
 
 class InviteFriendsView: UIView {
-
+    
     //searchBar
     lazy var friendSearchbBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -64,4 +64,5 @@ class InviteFriendsView: UIView {
     }
     
 }
+
 

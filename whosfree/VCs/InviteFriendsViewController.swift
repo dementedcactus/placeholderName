@@ -2,7 +2,7 @@
 //  InviteFriendsViewController.swift
 //  whosfree
 //
-//  Created by Richard Crichlow on 3/16/18.
+//  Created by Richard Crichlow on 3/23/18.
 //  Copyright © 2018 Richard Crichlow. All rights reserved.
 //
 
@@ -108,4 +108,5 @@ extension InviteFriendsViewController: UITableViewDataSource {
         return cell
     }
 }
+
 
