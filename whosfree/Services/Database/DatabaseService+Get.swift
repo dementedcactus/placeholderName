@@ -64,6 +64,22 @@ extension DatabaseService {
         }
     }
     
+    
+    func getUserFriendsGoing(eventID: String, completionHandler: @escaping ([String]?) -> Void) {
+        let eventRef = DatabaseService.manager.eventsRef.child(eventID)
+        let userFriendsGoingRef = eventRef.child("friendsGoing")
+        userFriendsGoingRef.observeSingleEvent(of: .value) { (snapshot) in
+            var allFriendsGoing = [String]()
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let friend = snap.value as! String
+                allFriendsGoing.append(friend)
+            }
+            completionHandler(allFriendsGoing)
+        }
+        
+    }
+    
     func getUserFriendIDs(completionHandler: @escaping ([String]?) -> Void) {
         let userRef = DatabaseService.manager.usersRef.child(FirebaseAuthService.getCurrentUser()!.uid)
         let userFriendsRef = userRef.child("friendsIDs")
