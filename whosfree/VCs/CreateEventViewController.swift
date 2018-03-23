@@ -11,6 +11,7 @@ import MapKit
 
 class CreateEventViewController: UIViewController {
 
+    
     let createEventView = CreateEventView()
     var categories = ["Venue", "Movie", "Other"]
     var searchCompleter = MKLocalSearchCompleter()
@@ -27,6 +28,7 @@ class CreateEventViewController: UIViewController {
         self.createEventView.searchResultsTableView.dataSource = self
         self.createEventView.searchResultsTableView.delegate = self
         searchCompleter.delegate = self
+        //createEventView.scrollView.delegate = self
         self.createEventView.searchBar.delegate = self
         eventBannerImagePicker.delegate = self
         setupNavBarButtons()
