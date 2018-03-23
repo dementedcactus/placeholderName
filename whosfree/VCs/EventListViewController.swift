@@ -31,6 +31,7 @@ class EventListViewController: UIViewController {
         self.title = "EventListVC"
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonAction))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(logoutAction))
         setupViews()
         
         //Delegates
@@ -58,6 +59,12 @@ class EventListViewController: UIViewController {
         let createEventVC = CreateEventViewController()
         let createEventNavCon = UINavigationController(rootViewController: createEventVC)
         self.present(createEventNavCon, animated: true, completion: nil)
+    }
+    
+    @objc private func logoutAction() {
+        print("Logout Button Pressed")
+        // TODO: Logout function here
+        
     }
 
 }
