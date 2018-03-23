@@ -17,6 +17,7 @@ class Event: NSObject {
 //    var timestamp: Double = Date.timeIntervalSinceReferenceDate //nicely format date for Richard
     var timestamp: Double
     var eventBannerImgUrl: String
+    var friendsGoing: [String]?
     //var rsvpNo: String? //[String of user ids]
     //var rsvpMaybe: String? //[String of All invited user ids]
     //var rsvpYes: String? //[String of user ids]
@@ -70,6 +71,7 @@ class Event: NSObject {
         eventLocation = dict["eventLocation"] as? String ?? ""
         timestamp = dict["timestamp"] as? Double ?? 0.0
         eventBannerImgUrl = dict["eventBannerImgUrl"] as? String ?? ""
+        friendsGoing = dict["friendsGoing"] as? [String] ?? []
     }
 }
 

@@ -72,6 +72,7 @@
 		E22D85B12060626800A13ED1 /* VenueReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85B02060626800A13ED1 /* VenueReview.swift */; };
 		E248A1F12061F8630080A9E5 /* StorageService+UsersImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E248A1F02061F8630080A9E5 /* StorageService+UsersImages.swift */; };
 		E248A1F32061F8800080A9E5 /* StorageService+EventsImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E248A1F22061F8800080A9E5 /* StorageService+EventsImages.swift */; };
+		E2FBFBF020656A5E005C910B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FBFBEF20656A5E005C910B /* Contact.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +170,7 @@
 		E22D85B02060626800A13ED1 /* VenueReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueReview.swift; sourceTree = "<group>"; };
 		E248A1F02061F8630080A9E5 /* StorageService+UsersImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+UsersImages.swift"; sourceTree = "<group>"; };
 		E248A1F22061F8800080A9E5 /* StorageService+EventsImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+EventsImages.swift"; sourceTree = "<group>"; };
+		E2FBFBEF20656A5E005C910B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +336,7 @@
 			isa = PBXGroup;
 			children = (
 				DB7E3EAD2059517B0075AA99 /* Comment.swift */,
+				E2FBFBEF20656A5E005C910B /* Contact.swift */,
 				E22D859C20605CCC00A13ED1 /* Theater.swift */,
 				DB7E3EAF205967090075AA99 /* Event.swift */,
 				DB7E3EA7205944A70075AA99 /* iShowTimeAPIHelper.swift */,
@@ -719,6 +722,7 @@
 				DBACBAE420580A6900882850 /* Alert.swift in Sources */,
 				E22D859D20605CCC00A13ED1 /* Theater.swift in Sources */,
 				DBE59991205C20F300FD1898 /* TheatersViewController.swift in Sources */,
+				E2FBFBF020656A5E005C910B /* Contact.swift in Sources */,
 				E22D859F20605F1900A13ED1 /* MovieHeaderView.swift in Sources */,
 				DBE5998B205C209800FD1898 /* VenueView.swift in Sources */,
 				DBE59983205C201600FD1898 /* VenueViewController.swift in Sources */,

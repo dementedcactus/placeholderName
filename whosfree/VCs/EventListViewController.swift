@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FBSDKCoreKit
+import Contacts
+import MessageUI
 
 class EventListViewController: UIViewController {
     
@@ -16,6 +20,8 @@ class EventListViewController: UIViewController {
         refreshControl.tintColor = UIColor.red
         return refreshControl
     }()
+    
+    let firebaseAuthService =  FirebaseAuthService()
     
     @objc private func handleRefresh(_ refreshControl: UIRefreshControl) {
         self.eventListView.tableView.reloadData()
@@ -29,11 +35,10 @@ class EventListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "EventListVC"
-        
+        self.firebaseAuthService.delegate = self
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonAction))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(logoutAction))
         setupViews()
-        
         //Delegates
         eventListView.tableView.delegate = self
         eventListView.tableView.dataSource = self
@@ -63,11 +68,30 @@ class EventListViewController: UIViewController {
     
     @objc private func logoutAction() {
         print("Logout Button Pressed")
-        // TODO: Logout function here
+        logout()
         
     }
-
+    
+    private func logout() {
+        let alertView = UIAlertController(title: "Are you sure you want to logout?", message: nil, preferredStyle: .alert)
+        let yesOption = UIAlertAction(title: "Yes", style: .destructive) { (alertAction) in
+            self.firebaseAuthService.signOut()
+        }
+        let noOption = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        alertView.addAction(yesOption)
+        alertView.addAction(noOption)
+        present(alertView, animated: true, completion: nil)
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { alert in }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }
+
 extension EventListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //TODO: segue to EventDetailViewController using dependency injection
@@ -93,6 +117,21 @@ extension EventListViewController: UITableViewDataSource {
         cell.eventTitleLabel.text = "Event \(testData)"
         cell.setNeedsLayout()
         return cell
+    }
+}
+
+extension EventListViewController: FirebaseAuthServiceDelegate {
+    func didSignOut(_ authService: FirebaseAuthService) {
+        if FBSDKAccessToken.current() != nil {
+            let loginManager = FBSDKLoginManager()
+            loginManager.logOut()
+        }
+        // TODO: reset Array of event to empty
+        let signInVC = SignInViewController()
+        self.present(signInVC, animated: true, completion: nil)
+    }
+    func didFailSigningOut(_ authService: FirebaseAuthService, error: Error) {
+        showAlert(title: "Error", message: error.localizedDescription)
     }
 }
 
