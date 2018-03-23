@@ -155,28 +155,7 @@ extension DatabaseService {
                     completion(nil)
                     return
                 }
-                guard let eventID = commentDictionary["eventID"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let commentID = commentDictionary["commentID"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let userID = commentDictionary["userID"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let text = commentDictionary["text"] as? String else {
-                    completion(nil)
-                    return
-                }
-                guard let timestamp = commentDictionary["timestamp"] as? Double else {
-                    completion(nil)
-                    return
-                }
-                
-                let comment = Comment(eventID: eventID, commentID: commentID, userID: userID, text: text, timestamp: timestamp)
+                let comment = Comment.init(dict: commentDictionary)
                 commentsArrayToReturn.append(comment)
             }
             completion(commentsArrayToReturn)
