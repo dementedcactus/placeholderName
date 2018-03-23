@@ -54,6 +54,50 @@ extension DatabaseService {
         }
     }
     
+    public func addInvitedUserThatAccepted(to eventID: String, with userID: String) {
+        let theEventRef = DatabaseService.manager.eventsRef.child(eventID)
+        theEventRef.observeSingleEvent(of: .value) { (snapshot) in
+            if snapshot.hasChild("friendsGoing") {
+                let friendsGoingRef = theEventRef.child("friendsGoing")
+                var updatedFriendsGoing = [String]()
+                DatabaseService.manager.getUserFriendsGoing(eventID: eventID) { (currentFriendsGoing) in
+                    guard let currentFriendsGoing = currentFriendsGoing else {
+                        print("Could not get current friends going")
+                        //self.addFriendDelegate?.didFailAddFriend(newFriendID, message: "could not get current friends")
+                        return
+                    }
+                    updatedFriendsGoing = currentFriendsGoing
+                    if !updatedFriendsGoing.contains(userID) {
+                        updatedFriendsGoing.append(userID)
+                    } else {
+                        print("You are already friends with this user")
+                        //self.addFriendDelegate?.didFailAddFriend(newFriendID, message: "You are already friends with this user")
+                        return
+                    }
+                    friendsGoingRef.setValue(updatedFriendsGoing) { (error, dbRef) in
+                        if let error = error {
+                            print("error adding friend with UID: \(userID) - \(error.localizedDescription)")
+                            //self.addFriendDelegate?.didFailAddFriend(newFriendID, message: "Could not add new friend")
+                        } else {
+                            //self.addFriendDelegate?.didAddFriend(newFriendID, message: "New friend added")
+                            print("New friend Added!")
+                        }
+                    }
+                }
+            } else {
+                theEventRef.child("friendsGoing").setValue([userID], withCompletionBlock: { (error, dbRef) in
+                    if let error = error {
+                        print("error adding friend \(userID) to event: - \(error.localizedDescription)")
+                        //self.addFriendDelegate?.didFailAddFriend(newFriendID, message: "Could not add new friend")
+                    } else {
+                        //self.addFriendDelegate?.didAddFriend(newFriendID, message: "New friend Added!")
+                        print("Friend \(userID) added to event!")
+                    }
+                })
+            }
+        }
+    }
+    
     public func addFriend(newFriendID: String) {
         let theUserRef = DatabaseService.manager.usersRef.child(FirebaseAuthService.getCurrentUser()!.uid)
         theUserRef.observeSingleEvent(of: .value) { (snapshot) in
