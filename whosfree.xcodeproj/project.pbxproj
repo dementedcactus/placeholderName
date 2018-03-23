@@ -19,6 +19,8 @@
 		DB3DE47B205721C000AAD2D8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE47A205721C000AAD2D8 /* SignInViewController.swift */; };
 		DB3DE484205722AE00AAD2D8 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE483205722AE00AAD2D8 /* SignInView.swift */; };
 		DB3DE486205723A400AAD2D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB3DE485205723A400AAD2D8 /* GoogleService-Info.plist */; };
+		DB3F6AC22065624D0015A946 /* InviteFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3F6AC12065624D0015A946 /* InviteFriendsViewController.swift */; };
+		DB3F6AC4206562840015A946 /* InviteFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3F6AC3206562840015A946 /* InviteFriendsView.swift */; };
 		DB7E3EA8205944A70075AA99 /* iShowTimeAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EA7205944A70075AA99 /* iShowTimeAPIHelper.swift */; };
 		DB7E3EAB205945640075AA99 /* DatabaseService+Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EA9205945630075AA99 /* DatabaseService+Edit.swift */; };
 		DB7E3EAC205945640075AA99 /* DatabaseService+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EAA205945640075AA99 /* DatabaseService+Delete.swift */; };
@@ -114,6 +116,8 @@
 		DB3DE47A205721C000AAD2D8 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		DB3DE483205722AE00AAD2D8 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		DB3DE485205723A400AAD2D8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		DB3F6AC12065624D0015A946 /* InviteFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendsViewController.swift; sourceTree = "<group>"; };
+		DB3F6AC3206562840015A946 /* InviteFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendsView.swift; sourceTree = "<group>"; };
 		DB7E3EA7205944A70075AA99 /* iShowTimeAPIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iShowTimeAPIHelper.swift; sourceTree = "<group>"; };
 		DB7E3EA9205945630075AA99 /* DatabaseService+Edit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Edit.swift"; sourceTree = "<group>"; };
 		DB7E3EAA205945640075AA99 /* DatabaseService+Delete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Delete.swift"; sourceTree = "<group>"; };
@@ -285,6 +289,7 @@
 				DBE59972205C1F5C00FD1898 /* EventListViewController.swift */,
 				DB3DE47A205721C000AAD2D8 /* SignInViewController.swift */,
 				DBE59998205C215900FD1898 /* TheaterShowtimesViewController.swift */,
+				DB3F6AC12065624D0015A946 /* InviteFriendsViewController.swift */,
 				DBE59990205C20F300FD1898 /* TheatersViewController.swift */,
 				DBE5998C205C20AF00FD1898 /* VenueDetailViewController.swift */,
 				DBE59982205C201600FD1898 /* VenueViewController.swift */,
@@ -299,6 +304,7 @@
 				DBE5997E205C1FEA00FD1898 /* CreateEventView.swift */,
 				DBE5997A205C1FC200FD1898 /* EventDetailView.swift */,
 				DBE59974205C1F7000FD1898 /* EventListView.swift */,
+				DB3F6AC3206562840015A946 /* InviteFriendsView.swift */,
 				E22D859E20605F1900A13ED1 /* MovieHeaderView.swift */,
 				E22D8598206054A900A13ED1 /* SignInContainerView.swift */,
 				DB3DE483205722AE00AAD2D8 /* SignInView.swift */,
@@ -722,6 +728,7 @@
 				DBE59997205C213B00FD1898 /* TheaterTableViewCell.swift in Sources */,
 				E22D85B12060626800A13ED1 /* VenueReview.swift in Sources */,
 				E22D859B206054B900A13ED1 /* SignUpContainerView.swift in Sources */,
+				DB3F6AC4206562840015A946 /* InviteFriendsView.swift in Sources */,
 				DBE5998D205C20AF00FD1898 /* VenueDetailViewController.swift in Sources */,
 				DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */,
 				DBACBAE020580A6900882850 /* NetworkConnectivity.swift in Sources */,
@@ -744,6 +751,7 @@
 				DBACBAF220580A9800882850 /* StorageService.swift in Sources */,
 				DBACBAE120580A6900882850 /* NetworkHelper.swift in Sources */,
 				DBACBAF420580AA500882850 /* UserProfile.swift in Sources */,
+				DB3F6AC22065624D0015A946 /* InviteFriendsViewController.swift in Sources */,
 				E22D85A9206061E900A13ED1 /* ShowtimeAPIClient.swift in Sources */,
 				DBE599B1205C22BA00FD1898 /* ChatTableViewCell.swift in Sources */,
 				DB3DE45120571E5C00AAD2D8 /* whosfree.xcdatamodeld in Sources */,

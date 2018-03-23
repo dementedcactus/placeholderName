@@ -24,7 +24,7 @@ class EventTableViewCell: UITableViewCell {
         lb.textColor = .white
         lb.font = .boldSystemFont(ofSize: 17)
         lb.numberOfLines = 0
-        lb.backgroundColor = .clear
+        lb.backgroundColor = UIColor(white: 1, alpha: 0.5)
         return lb
     }()
     
@@ -36,7 +36,7 @@ class EventTableViewCell: UITableViewCell {
         lb.textColor = .white
         lb.font = .boldSystemFont(ofSize: 17)
         lb.numberOfLines = 0
-        lb.backgroundColor = .clear
+        lb.backgroundColor = UIColor(white: 1, alpha: 0.5)
         return lb
     }()
     
