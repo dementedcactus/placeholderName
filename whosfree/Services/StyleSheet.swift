@@ -50,6 +50,7 @@ enum Stylesheet {
     }
     
     enum Colors {
+        static let azure = UIColor(red:19/255, green:129/255, blue:239/255, alpha:1.0)
         static let White = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.00)
         static let LightGrey = UIColor(red: 0.961, green: 0.961, blue: 0.961, alpha: 1.00)
         static let Red = UIColor(red: 0.949, green: 0.141, blue: 0, alpha: 1.0)

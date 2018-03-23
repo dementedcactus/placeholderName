@@ -11,6 +11,7 @@
 		746439952060670500B09545 /* FriendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746439942060670500B09545 /* FriendsCollectionViewCell.swift */; };
 		84F06A9A6BF121D360D801EC /* Pods_whosfree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56270434984F66181CF21D95 /* Pods_whosfree.framework */; };
 		94FF2030ABE4CB093C686CC7 /* Pods_whosfreeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21925C818A4A3361FA7E2477 /* Pods_whosfreeTests.framework */; };
+		D2603BFD20655B2000A55A87 /* CreateEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2603BFC20655B2000A55A87 /* CreateEventCell.swift */; };
 		DB0407192061FE440066F6C0 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0407182061FE440066F6C0 /* DateCollectionViewCell.swift */; };
 		DB04071D206203150066F6C0 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB04071C206203150066F6C0 /* CalenderView.swift */; };
 		DB04071F206203420066F6C0 /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB04071E206203420066F6C0 /* WeekdaysView.swift */; };
@@ -116,6 +117,7 @@
 		7CF222DD50E6FE553458725A /* Pods-whosfreeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whosfreeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-whosfreeUITests/Pods-whosfreeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7DD5219901C00B5DBC74C7D0 /* Pods_whosfreeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_whosfreeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95AFDAA9FE5BB29F7E498C64 /* Pods-whosfreeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whosfreeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-whosfreeUITests/Pods-whosfreeUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D2603BFC20655B2000A55A87 /* CreateEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventCell.swift; sourceTree = "<group>"; };
 		DB0407182061FE440066F6C0 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB04071C206203150066F6C0 /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
 		DB04071E206203420066F6C0 /* WeekdaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
@@ -359,6 +361,8 @@
 			isa = PBXGroup;
 			children = (
 				DBE599B0205C22BA00FD1898 /* ChatTableViewCell.swift */,
+				D2603BFC20655B2000A55A87 /* CreateEventCell.swift */,
+				DB0407182061FE440066F6C0 /* DateCollectionViewCell.swift */,
 				DBE59976205C1F8900FD1898 /* EventTableViewCell.swift */,
 				DBE59980205C1FFD00FD1898 /* EventTypeTableViewCell.swift */,
 				DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */,
@@ -367,7 +371,6 @@
 				DBE59988205C207000FD1898 /* InvitedFriendsCollectionViewCell.swift */,
 				DBE5999C205C217D00FD1898 /* MovieTableViewCell.swift */,
 				DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */,
-				DB0407182061FE440066F6C0 /* DateCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -767,6 +770,7 @@
 				DB040721206203660066F6C0 /* MonthView.swift in Sources */,
 				DBE59991205C20F300FD1898 /* TheatersViewController.swift in Sources */,
 				E22D859F20605F1900A13ED1 /* MovieHeaderView.swift in Sources */,
+				D2603BFD20655B2000A55A87 /* CreateEventCell.swift in Sources */,
 				DBE5998B205C209800FD1898 /* VenueView.swift in Sources */,
 				DBE59983205C201600FD1898 /* VenueViewController.swift in Sources */,
 				DBACBAEA20580A8300882850 /* DatabaseService+Get.swift in Sources */,
@@ -983,7 +987,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DSMJ37658F;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = whosfree/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = RC.whosfree;
@@ -999,7 +1003,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DSMJ37658F;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = whosfree/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = RC.whosfree;

@@ -12,7 +12,7 @@ import MapKit
 class CreateEventViewController: UIViewController {
 
     let createEventView = CreateEventView()
-    var dummyData = ["test1 title", "test2 title", "test3 title"]
+    var dummyData = ["test1 title"]
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     var searchSource: [String]?
@@ -24,6 +24,8 @@ class CreateEventViewController: UIViewController {
         self.view.addSubview(createEventView)
         self.createEventView.tableView.dataSource = self
         self.createEventView.tableView.delegate = self
+        self.createEventView.pageTableView.dataSource = self
+        self.createEventView.pageTableView.delegate = self
         self.createEventView.searchResultsTableView.dataSource = self
         self.createEventView.searchResultsTableView.delegate = self
         searchCompleter.delegate = self
@@ -66,7 +68,7 @@ class CreateEventViewController: UIViewController {
     }
     
     private func setupViewButtons() {
-        createEventView.inviteFriendsButton.addTarget(self, action: #selector(inviteFriendsButtonPressed), for: .touchUpInside)
+//        createEventView.inviteFriendsButton.addTarget(self, action: #selector(inviteFriendsButtonPressed(sender:)), for: .touchUpInside)
         createEventView.eventTypeButton.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)
     }
     
@@ -94,11 +96,13 @@ class CreateEventViewController: UIViewController {
         print("Cancel create event pressed")
     }
     
-    @objc private func inviteFriendsButtonPressed() {
-        print("invite friends button pressed")
-        let inviteFriendsVC = InviteFriendsViewController()
-        let inviteFriendsNavCon = UINavigationController(rootViewController: inviteFriendsVC)
-        present(inviteFriendsNavCon, animated: true, completion: nil)
+    @objc private func inviteFriendsButtonPressed(sender: UIButton) {
+        if sender.tag == 0 {
+            print("invite friends button pressed")
+            let inviteFriendsVC = InviteFriendsViewController()
+            let inviteFriendsNavCon = UINavigationController(rootViewController: inviteFriendsVC)
+            present(inviteFriendsNavCon, animated: true, completion: nil)
+        }
     }
     
     @objc private func categoryButtonAction(sender: UIButton!) {
@@ -129,8 +133,16 @@ class CreateEventViewController: UIViewController {
     
 }
 extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView == createEventView.pageTableView {
+            return view.safeAreaLayoutGuide.layoutFrame.size.height
+    
+        }
+        return 20
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == createEventView.tableView {
+        if tableView == createEventView.pageTableView {
             return dummyData.count
         } else {
             return searchResults.count
@@ -139,11 +151,13 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if tableView == createEventView.tableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "EventTypeCell", for: indexPath) as! EventTypeTableViewCell
+        if tableView == createEventView.pageTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CreateEventCell", for: indexPath) as! CreateEventCell
             let data = dummyData[indexPath.row]
+             cell.inviteFriendsButton.tag = 0
+             cell.inviteFriendsButton.addTarget(self, action: #selector(inviteFriendsButtonPressed(sender:)), for: .touchUpInside)
             
-            cell.eventTypeLabel.text = data
+            //cell.eventTitleTextField.text = data
             return cell
         } else {
             let cell = createEventView.searchResultsTableView.dequeueReusableCell(withIdentifier: "SearchResultsCell", for: indexPath)
