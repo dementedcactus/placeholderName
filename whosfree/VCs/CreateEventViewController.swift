@@ -97,6 +97,10 @@ class CreateEventViewController: UIViewController {
     @objc private func inviteFriendsButtonPressed() {
         print("invite friends button pressed")
         // TODO: Present User's Contacts and let user send a text to selected contacts
+        
+        let inviteFriendsVC = InviteFriendsViewController()
+        let inviteFriendsNavCon = UINavigationController(rootViewController: inviteFriendsVC)
+        present(inviteFriendsNavCon, animated: true, completion: nil)
     }
     
     @objc private func categoryButtonAction(sender: UIButton!) {
