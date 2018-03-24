@@ -7,10 +7,9 @@
 //
 
 import UIKit
+import Kingfisher
 import FBSDKLoginKit
 import FBSDKCoreKit
-import Contacts
-import MessageUI
 
 class EventListViewController: UIViewController {
     
@@ -32,9 +31,17 @@ class EventListViewController: UIViewController {
     
     var sampleArray = [1,2,3,4,5]
     
+    var events = [Event]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.eventListView.tableView.reloadData()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "EventListVC"
+        self.title = "Events"
         self.firebaseAuthService.delegate = self
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonAction))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(logoutAction))
@@ -50,7 +57,17 @@ class EventListViewController: UIViewController {
             let signInVC = SignInViewController()
             self.present(signInVC, animated: false, completion: nil)
         } else {
-            // load events for user here
+            loadEvents()
+        }
+    }
+    
+    private func loadEvents() {
+        DatabaseService.manager.getAllEvents { (theEvents) in
+            guard let theEvents = theEvents else  {
+                print("could not get events")
+                return
+            }
+            self.events = theEvents
         }
     }
     
@@ -69,7 +86,6 @@ class EventListViewController: UIViewController {
     @objc private func logoutAction() {
         print("Logout Button Pressed")
         logout()
-        
     }
     
     private func logout() {
@@ -94,8 +110,10 @@ class EventListViewController: UIViewController {
 
 extension EventListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: segue to EventDetailViewController using dependency injection
-        let eventDetailVC = EventDetailViewController()
+        let event = events[indexPath.row]
+        let eventCell = tableView.cellForRow(at: indexPath) as! EventTableViewCell
+        let eventImage = eventCell.eventBannerPhotoImageView.image
+        let eventDetailVC = EventDetailViewController(event: event, eventImage: eventImage ?? #imageLiteral(resourceName: "park"))
         navigationController?.pushViewController(eventDetailVC, animated: true)
     }
     
@@ -105,17 +123,23 @@ extension EventListViewController: UITableViewDelegate {
 }
 extension EventListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sampleArray.count
+        return events.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell", for: indexPath) as! EventTableViewCell
         
-        let testData = sampleArray[indexPath.row]
-        
-        cell.eventDateAndTimeLabel.text = "Date \(testData): Time \(testData)"
-        cell.eventTitleLabel.text = "Event \(testData)"
-        cell.setNeedsLayout()
+        //let testData = sampleArray[indexPath.row]
+        let event = events[indexPath.row]
+//        cell.eventDateAndTimeLabel.text = "Date \(testData): Time \(testData)"
+//        cell.eventTitleLabel.text = "Event \(testData)"
+        cell.eventDateAndTimeLabel.text = event.timestamp.description
+        cell.eventTitleLabel.text = event.eventName
+        cell.eventBannerPhotoImageView.kf.indicatorType = .activity
+        cell.eventBannerPhotoImageView.kf.setImage(with: URL(string: event.eventBannerImgUrl), placeholder: nil, options: nil, progressBlock: nil) { (image, error, cache, url) in
+            cell.setNeedsLayout()
+        }
+
         return cell
     }
 }
@@ -126,7 +150,7 @@ extension EventListViewController: FirebaseAuthServiceDelegate {
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()
         }
-        // TODO: reset Array of event to empty
+        events.removeAll()
         let signInVC = SignInViewController()
         self.present(signInVC, animated: true, completion: nil)
     }
