@@ -76,11 +76,12 @@ class EventTableViewCell: UITableViewCell {
         contentView.addSubview(containerView)
         containerView.addSubview(eventBannerPhotoImageView)
         containerView.addSubview(eventTitleLabel)
-        containerView.addSubview(placeholderIconImageView)
+        //containerView.addSubview(placeholderIconImageView)
         containerView.addSubview(eventDateAndTimeLabel)
         
         //ARRAY MUST BE IN ORDER!!
-        let eventCellObjects = [containerView, eventBannerPhotoImageView, eventTitleLabel, placeholderIconImageView, eventDateAndTimeLabel] as [UIView]
+        //let eventCellObjects = [containerView, eventBannerPhotoImageView, eventTitleLabel, placeholderIconImageView, eventDateAndTimeLabel] as [UIView]
+        let eventCellObjects = [containerView, eventBannerPhotoImageView, eventTitleLabel, eventDateAndTimeLabel] as [UIView]
         
         eventCellObjects.forEach {addSubview($0); ($0).translatesAutoresizingMaskIntoConstraints = false}
         
@@ -106,15 +107,17 @@ class EventTableViewCell: UITableViewCell {
             eventTitleLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.2),
 
             //placeholderIconImageView
-            placeholderIconImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            placeholderIconImageView.bottomAnchor.constraint(equalTo: eventTitleLabel.topAnchor),
-            placeholderIconImageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            placeholderIconImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.4),
+//            placeholderIconImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
+//            placeholderIconImageView.bottomAnchor.constraint(equalTo: eventTitleLabel.topAnchor),
+//            placeholderIconImageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+//            placeholderIconImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.4),
 
             //eventDateAndTimeLabel
-            eventDateAndTimeLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+//            eventDateAndTimeLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+//            eventDateAndTimeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+//            eventDateAndTimeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.25)
             eventDateAndTimeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            eventDateAndTimeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.25)
+            eventDateAndTimeLabel.bottomAnchor.constraint(equalTo: eventTitleLabel.topAnchor)
             ])
         
     }

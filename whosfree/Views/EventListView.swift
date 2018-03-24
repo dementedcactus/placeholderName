@@ -28,7 +28,7 @@ class EventListView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .brown
+        backgroundColor = .groupTableViewBackground
         setupViews()
     }
     

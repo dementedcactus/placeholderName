@@ -73,15 +73,13 @@ class CreateEventViewController: UIViewController {
     @objc private func createButtonPressed() {
         print("Create Event Button Pressed")
         let childByAutoId = DatabaseService.manager.getEvents().childByAutoId()
-        let eventName = createEventView.eventTitleLabel.text!
+        let eventName = createEventView.eventTitleTextField.text!
         let ownerUserID = FirebaseAuthService.getCurrentUser()!.uid
         let eventDescription = createEventView.descriptionTextView.text!
         let eventLocation = createEventView.searchBar.text!
-        // need to use datepicker delegate to get time and date
         let componenets = Calendar.current.dateComponents([.year, .month, .day], from: createEventView.datePicker.date)
         if let day = componenets.day, let month = componenets.month, let year = componenets.year {
             print("\(day) \(month) \(year)")
-            // add this to db
         }
         let timestamp = Date.timeIntervalSinceReferenceDate
         let eventToAdd = Event(eventID: childByAutoId.key, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")

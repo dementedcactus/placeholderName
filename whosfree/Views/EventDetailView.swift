@@ -233,5 +233,11 @@ class EventDetailView: UIView {
         invitedButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.33).isActive = true
     }
 
+    public func configureView(event: Event, eventImage: UIImage) {
+        bannerPhotoImageView.image = eventImage
+        eventTitleLabel.text = event.eventName
+        locationButton.setTitle(event.eventLocation, for: .normal)
+        descriptionTextView.text = event.eventDescription
+    }
 
 }

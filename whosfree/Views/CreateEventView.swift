@@ -18,11 +18,10 @@ class CreateEventView: UIView {
         return imageView
     }()
     
-    lazy var eventTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Event Title"
-        label.textAlignment = .center
-        return label
+    lazy var eventTitleTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Enter event title"
+        return textField
     }()
     
     lazy var eventTypeButton: UIButton = {
@@ -126,18 +125,18 @@ class CreateEventView: UIView {
     }
     
     private func setupEventTitle() {
-        addSubview(eventTitleLabel)
-        eventTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        eventTitleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        eventTitleLabel.topAnchor.constraint(equalTo: bannerPhotoImageView.bottomAnchor).isActive = true
-        eventTitleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        addSubview(eventTitleTextField)
+        eventTitleTextField.translatesAutoresizingMaskIntoConstraints = false
+        eventTitleTextField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        eventTitleTextField.topAnchor.constraint(equalTo: bannerPhotoImageView.bottomAnchor).isActive = true
+        eventTitleTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
     private func setupEventTypeButton() {
         addSubview(eventTypeButton)
         eventTypeButton.translatesAutoresizingMaskIntoConstraints = false
         eventTypeButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
-        eventTypeButton.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor).isActive = true
+        eventTypeButton.topAnchor.constraint(equalTo: eventTitleTextField.bottomAnchor).isActive = true
         eventTypeButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.8).isActive = true
         eventTypeButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.05).isActive = true
     }
