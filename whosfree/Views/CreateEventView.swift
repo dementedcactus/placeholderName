@@ -29,11 +29,10 @@ class CreateEventView: UIView {
         return imageView
     }()
     
-    lazy var eventTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Event Title"
-        label.textAlignment = .center
-        return label
+    lazy var eventTitleTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Enter event title"
+        return textField
     }()
     
     lazy var eventTypeButton: UIButton = {
@@ -160,18 +159,18 @@ class CreateEventView: UIView {
     }
     
     private func setupEventTitle() {
-        contentView.addSubview(eventTitleLabel)
-        eventTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        eventTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        eventTitleLabel.topAnchor.constraint(equalTo: bannerPhotoImageView.bottomAnchor).isActive = true
-        eventTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        contentView.addSubview(eventTitleTextField)
+        eventTitleTextField.translatesAutoresizingMaskIntoConstraints = false
+        eventTitleTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        eventTitleTextField.topAnchor.constraint(equalTo: bannerPhotoImageView.bottomAnchor).isActive = true
+        eventTitleTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
     }
     
     private func setupEventTypeButton() {
         contentView.addSubview(eventTypeButton)
         eventTypeButton.translatesAutoresizingMaskIntoConstraints = false
         eventTypeButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        eventTypeButton.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor).isActive = true
+        eventTypeButton.topAnchor.constraint(equalTo: eventTitleTextField.bottomAnchor).isActive = true
         eventTypeButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
         eventTypeButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.05).isActive = true
         //eventTypeButton.bottomAnchor.constraint(equalTo: datePicker.topAnchor)
