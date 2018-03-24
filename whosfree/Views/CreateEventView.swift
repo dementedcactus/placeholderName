@@ -10,6 +10,17 @@ import UIKit
 
 class CreateEventView: UIView {
 
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isScrollEnabled = true
+        return scrollView
+    }()
+    
+    lazy var contentView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     lazy var bannerPhotoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -103,6 +114,9 @@ class CreateEventView: UIView {
     }
     
     private func setupViews() {
+        
+        setupScrollView()
+        setupContentView()
         setupBannerPhoto()
         setupEventTitle()
         setupCreateEvent()
@@ -115,93 +129,114 @@ class CreateEventView: UIView {
         setupSearchResultsTableView()
     }
     
+    
+    // GIVE EVERYTHING A FIXED HEIGHT
+    private func setupScrollView() {
+        addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.heightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.heightAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor).isActive = true
+        scrollView.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        scrollView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor).isActive = true
+    }
+    
+    private func setupContentView() {
+        scrollView.addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
+    }
+    
     private func setupBannerPhoto() {
-        addSubview(bannerPhotoImageView)
+        contentView.addSubview(bannerPhotoImageView)
         bannerPhotoImageView.translatesAutoresizingMaskIntoConstraints = false
-        bannerPhotoImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        bannerPhotoImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        bannerPhotoImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        bannerPhotoImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.20).isActive = true
+        bannerPhotoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        bannerPhotoImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        bannerPhotoImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        bannerPhotoImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.20).isActive = true
     }
     
     private func setupEventTitle() {
-        addSubview(eventTitleTextField)
+        contentView.addSubview(eventTitleTextField)
         eventTitleTextField.translatesAutoresizingMaskIntoConstraints = false
-        eventTitleTextField.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        eventTitleTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         eventTitleTextField.topAnchor.constraint(equalTo: bannerPhotoImageView.bottomAnchor).isActive = true
-        eventTitleTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        eventTitleTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
     }
     
     private func setupEventTypeButton() {
-        addSubview(eventTypeButton)
+        contentView.addSubview(eventTypeButton)
         eventTypeButton.translatesAutoresizingMaskIntoConstraints = false
-        eventTypeButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+        eventTypeButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         eventTypeButton.topAnchor.constraint(equalTo: eventTitleTextField.bottomAnchor).isActive = true
-        eventTypeButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.8).isActive = true
-        eventTypeButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.05).isActive = true
+        eventTypeButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
+        eventTypeButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.05).isActive = true
+        //eventTypeButton.bottomAnchor.constraint(equalTo: datePicker.topAnchor)
     }
     
     private func setupTableView() {
-        addSubview(tableView)
+        contentView.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.leadingAnchor.constraint(equalTo: eventTypeButton.leadingAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: eventTypeButton.bottomAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: eventTypeButton.trailingAnchor).isActive = true
-        tableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.3).isActive = true
+        tableView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3).isActive = true
     }
     
     private func setupDatePicker() {
-        addSubview(datePicker)
+        contentView.addSubview(datePicker)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         datePicker.bottomAnchor.constraint(equalTo: searchBar.topAnchor).isActive = true
-        datePicker.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        datePicker.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.25).isActive = true
+        datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        datePicker.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25).isActive = true
     }
     
     private func setupSearchBar() {
-        addSubview(searchBar)
+        contentView.addSubview(searchBar)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         searchBar.bottomAnchor.constraint(equalTo: inviteFriendsButton.topAnchor, constant: -5).isActive = true
-        searchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
     }
     
     private func setupInviteButton() {
-        addSubview(inviteFriendsButton)
+        contentView.addSubview(inviteFriendsButton)
         inviteFriendsButton.translatesAutoresizingMaskIntoConstraints = false
-        inviteFriendsButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+        inviteFriendsButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         inviteFriendsButton.bottomAnchor.constraint(equalTo: descriptionTextView.topAnchor, constant: -5).isActive = true
-        inviteFriendsButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.8).isActive = true
-        inviteFriendsButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.05).isActive = true
+        inviteFriendsButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
+        inviteFriendsButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.05).isActive = true
     }
     
     private func setupDescriptionTextView() {
-        addSubview(descriptionTextView)
+        contentView.addSubview(descriptionTextView)
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        descriptionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         descriptionTextView.bottomAnchor.constraint(equalTo: createEventButton.topAnchor, constant: -5).isActive = true
-        descriptionTextView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        descriptionTextView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.25).isActive = true
+        descriptionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        descriptionTextView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25).isActive = true
     }
     
     private func setupCreateEvent() {
-        addSubview(createEventButton)
+        contentView.addSubview(createEventButton)
         createEventButton.translatesAutoresizingMaskIntoConstraints = false
-        createEventButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        createEventButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         //createEventButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 5).isActive = true
-        createEventButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        createEventButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
-        createEventButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.05).isActive = true
+        createEventButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        createEventButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        createEventButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.05).isActive = true
     }
     
     private func setupSearchResultsTableView() {
-        addSubview(searchResultsTableView)
+        contentView.addSubview(searchResultsTableView)
         searchResultsTableView.translatesAutoresizingMaskIntoConstraints = false
-        searchResultsTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        searchResultsTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         searchResultsTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
-        searchResultsTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        searchResultsTableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.3).isActive = true
+        searchResultsTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        searchResultsTableView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3).isActive = true
     }
 
 
