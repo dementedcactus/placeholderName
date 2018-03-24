@@ -42,7 +42,7 @@ enum Stylesheet {
         static let Yellow = UIColor(red: 0.9569, green: 0.8627, blue: 0, alpha: 1.0)
         static let Dark = UIColor(red: 0.184, green: 0.157, blue: 0.118, alpha: 1.00)
         static let RedBg = UIColor(red: 0.8471, green: 0.1608, blue: 0.1608, alpha: 1.0)
-        static let Gray = UIColor.gray
+        static let Gray = UIColor(red: 0.788, green: 0.788, blue: 0.808, alpha: 1.00)
         static let LightBlue = UIColor(red: 0.306, green: 0.675, blue: 0.839, alpha: 1.00)
         static let NYCBlue = UIColor(red: 0.267, green: 0.612, blue: 0.843, alpha: 1.00)
         static var DarkGray = UIColor(red: 0.373, green: 0.365, blue: 0.365, alpha: 1.00)
@@ -125,6 +125,7 @@ extension Stylesheet {
                     button.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
                     button.showsTouchWhenHighlighted = false
+                    button.layer.cornerRadius = 10.0
                 case .ClearButton:
                     button.backgroundColor = .clear
                     button.contentMode = .scaleAspectFit
@@ -196,11 +197,11 @@ extension Stylesheet {
                 case .Editable:
                     textview.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.TextfieldEditable)
                     textview.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
-                    textview.backgroundColor = Stylesheet.Colors.White
+                    textview.backgroundColor = Stylesheet.Colors.Gray
                     textview.textAlignment = .natural
                     textview.isEditable = true
                     textview.textColor = Stylesheet.Colors.Dark
-                    textview.font = Stylesheet.Fonts.Regular
+                    textview.font = Stylesheet.Fonts.TextfieldFont
                     textview.adjustsFontForContentSizeCategory = true
                     textview.isScrollEnabled = true
                 }
@@ -211,6 +212,7 @@ extension Stylesheet {
             case Address
             case LoginEmail
             case LoginPassword
+            case EventTitle
             
             func style(textfield: UITextField) {
                 switch self {
@@ -254,6 +256,19 @@ extension Stylesheet {
                     textfield.returnKeyType = .default
                     textfield.placeholder = "Password"
                     textfield.isSecureTextEntry = true
+                case .EventTitle:
+                    textfield.borderStyle = UITextBorderStyle.roundedRect
+                    textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
+                    textfield.backgroundColor = Stylesheet.Colors.White
+                    textfield.textAlignment = NSTextAlignment.center
+                    textfield.font = Stylesheet.Fonts.TextfieldFont
+                    textfield.textColor = Stylesheet.Colors.Dark
+                    textfield.adjustsFontSizeToFitWidth = true
+                    textfield.autocapitalizationType = .words
+                    textfield.autocorrectionType = .no
+                    textfield.keyboardType = .asciiCapable
+                    textfield.returnKeyType = .default
+                    textfield.placeholder = "Enter Event Title"
                 }
             }
         }

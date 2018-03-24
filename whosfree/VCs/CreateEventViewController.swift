@@ -23,14 +23,19 @@ class CreateEventViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(createEventView)
+        
+        // Delegates
         self.createEventView.tableView.dataSource = self
         self.createEventView.tableView.delegate = self
         self.createEventView.searchResultsTableView.dataSource = self
         self.createEventView.searchResultsTableView.delegate = self
+        self.createEventView.descriptionTextView.delegate = self
         searchCompleter.delegate = self
         //createEventView.scrollView.delegate = self
         self.createEventView.searchBar.delegate = self
         eventBannerImagePicker.delegate = self
+        
+        // Setup Functions
         setupNavBarButtons()
         setupViewButtons()
         setupBannerImageGestureRecognizer()
@@ -238,6 +243,17 @@ extension CreateEventViewController: UIImagePickerControllerDelegate, UINavigati
         self.dismiss(animated: true, completion: nil)
     }
     
+}
+extension CreateEventViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        becomeFirstResponder()
+        textView.text = ""
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        resignFirstResponder()
+    }
 }
 
 
