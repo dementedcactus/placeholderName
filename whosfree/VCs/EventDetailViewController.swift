@@ -39,6 +39,15 @@ class EventDetailViewController: UIViewController {
         eventDetailView.configureView(event: event, eventImage: eventImage)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // TODO
+        // if current userID == event's owner userID, change RSVP to EDIT, and change rsvpButton's addTarget to presentEditEventVC
+        
+        self.eventDetailView.locationButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+    }
+    
     @objc private func rsvp() {
         showAlert(title: "RSVP", message: "Please RSVP")
     }

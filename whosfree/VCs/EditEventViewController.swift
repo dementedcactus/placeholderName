@@ -1,50 +1,61 @@
 //
-//  CreateEventViewController.swift
+//  EditEventViewController.swift
 //  whosfree
 //
-//  Created by Richard Crichlow on 3/16/18.
+//  Created by Richard Crichlow on 3/25/18.
 //  Copyright © 2018 Richard Crichlow. All rights reserved.
 //
 
 import UIKit
 import MapKit
 
-class CreateEventViewController: UIViewController {
+class EditEventViewController: UIViewController {
 
-    
-    let createEventView = CreateEventView()
+    let editEventView = EditEventView()
     var categories = ["Venue", "Movie", "Other"]
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     var searchSource: [String]?
+    var event: Event!
+    var eventImage: UIImage!
+    
+    init(event: Event, eventImage: UIImage) {
+        self.event = event
+        self.eventImage = eventImage
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let eventBannerImagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(createEventView)
+        self.view.addSubview(editEventView)
         
         // Delegates
-        self.createEventView.tableView.dataSource = self
-        self.createEventView.tableView.delegate = self
-        self.createEventView.searchResultsTableView.dataSource = self
-        self.createEventView.searchResultsTableView.delegate = self
-        self.createEventView.descriptionTextView.delegate = self
+        self.editEventView.tableView.dataSource = self
+        self.editEventView.tableView.delegate = self
+        self.editEventView.searchResultsTableView.dataSource = self
+        self.editEventView.searchResultsTableView.delegate = self
+        self.editEventView.descriptionTextView.delegate = self
         searchCompleter.delegate = self
-        
-        self.createEventView.searchBar.delegate = self
+        self.editEventView.searchBar.delegate = self
         eventBannerImagePicker.delegate = self
         
         // Setup Functions
         setupNavBarButtons()
         setupViewButtons()
         setupBannerImageGestureRecognizer()
+        editEventView.prefillEventFields(event: event, eventImage: eventImage)
     }
     
     private func setupBannerImageGestureRecognizer() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(bannerImageTapped(tapGestureRecognizer:)))
-        createEventView.bannerPhotoImageView.isUserInteractionEnabled = true
-        createEventView.bannerPhotoImageView.addGestureRecognizer(tapGestureRecognizer)
+        editEventView.bannerPhotoImageView.isUserInteractionEnabled = true
+        editEventView.bannerPhotoImageView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     @objc private func bannerImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
@@ -67,30 +78,30 @@ class CreateEventViewController: UIViewController {
     }
     
     private func setupNavBarButtons() {
-        self.title = "Create Event"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Create", style: .done, target: self, action: #selector(createButtonPressed))
+        self.title = "Edit Event"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButtonPressed))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelButtonPressed))
     }
     
     private func setupViewButtons() {
-        createEventView.inviteFriendsButton.addTarget(self, action: #selector(inviteFriendsButtonPressed), for: .touchUpInside)
-        createEventView.eventTypeButton.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)
+        editEventView.inviteFriendsButton.addTarget(self, action: #selector(inviteFriendsButtonPressed), for: .touchUpInside)
+        editEventView.eventTypeButton.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)
     }
     
-    @objc private func createButtonPressed() {
-        print("Create Event Button Pressed")
-        let childByAutoId = DatabaseService.manager.getEvents().childByAutoId()
-        let eventName = createEventView.eventTitleTextField.text!
-        let ownerUserID = FirebaseAuthService.getCurrentUser()!.uid
-        let eventDescription = createEventView.descriptionTextView.text!
-        let eventLocation = createEventView.searchBar.text!
-        let componenets = Calendar.current.dateComponents([.year, .month, .day], from: createEventView.datePicker.date)
+    @objc private func editButtonPressed() {
+        print("Edit Event Button Pressed")
+        let eventId = event.eventID
+        let eventName = editEventView.eventTitleTextField.text!
+        let ownerUserID = event.ownerUserID //FirebaseAuthService.getCurrentUser()!.uid
+        let eventDescription = editEventView.descriptionTextView.text!
+        let eventLocation = editEventView.searchBar.text!
+        let componenets = Calendar.current.dateComponents([.year, .month, .day], from: editEventView.datePicker.date)
         if let day = componenets.day, let month = componenets.month, let year = componenets.year {
             print("\(day) \(month) \(year)")
         }
-        let timestamp = Date.timeIntervalSinceReferenceDate
-        let eventToAdd = Event(eventID: childByAutoId.key, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")
-        DatabaseService.manager.addEvent(eventToAdd, createEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
+        let timestamp = event.timestamp //Date.timeIntervalSinceReferenceDate
+        let editedEventToAdd = Event(eventID: eventId, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")
+        DatabaseService.manager.editEvent(editedEventToAdd, editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
         dismiss(animated: true, completion: nil)
     }
     
@@ -110,20 +121,20 @@ class CreateEventViewController: UIViewController {
     
     @objc private func categoryButtonAction(sender: UIButton!) {
         print("Button tapped")
-        if createEventView.tableView.isHidden == true {
-            createEventView.tableView.isHidden = false
+        if editEventView.tableView.isHidden == true {
+            editEventView.tableView.isHidden = false
             animateCategoryTV()
-            createEventView.datePicker.isEnabled = false
+            editEventView.datePicker.isEnabled = false
         } else {
-            createEventView.tableView.isHidden = true
-            createEventView.datePicker.isEnabled = true
+            editEventView.tableView.isHidden = true
+            editEventView.datePicker.isEnabled = true
         }
     }
     
     private func animateCategoryTV() {
-        createEventView.tableView.reloadData()
-        let cells = createEventView.tableView.visibleCells
-        let tableViewHeight = createEventView.tableView.bounds.size.height
+        editEventView.tableView.reloadData()
+        let cells = editEventView.tableView.visibleCells
+        let tableViewHeight = editEventView.tableView.bounds.size.height
         for cell in cells {
             cell.transform = CGAffineTransform(translationX: 0, y: -tableViewHeight)
         }
@@ -137,9 +148,9 @@ class CreateEventViewController: UIViewController {
     }
     
 }
-extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate {
+extension EditEventViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == createEventView.tableView {
+        if tableView == editEventView.tableView {
             return categories.count
         } else {
             return searchResults.count
@@ -148,14 +159,14 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if tableView == createEventView.tableView {
+        if tableView == editEventView.tableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventTypeCell", for: indexPath) as! EventTypeTableViewCell
             let data = categories[indexPath.row]
             
             cell.eventTypeLabel.text = data
             return cell
         } else {
-            let cell = createEventView.searchResultsTableView.dequeueReusableCell(withIdentifier: "SearchResultsCell", for: indexPath)
+            let cell = editEventView.searchResultsTableView.dequeueReusableCell(withIdentifier: "SearchResultsCell", for: indexPath)
             let searchResult = searchResults[indexPath.row]
             cell.textLabel?.text = "\(searchResult.title) \(searchResult.subtitle)"
             return cell
@@ -163,7 +174,7 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == createEventView.searchResultsTableView {
+        if tableView == editEventView.searchResultsTableView {
             let completion = searchResults[indexPath.row]
             let cellText = "\(completion.title) \(completion.subtitle)"
             let searchRequest = MKLocalSearchRequest(completion: completion)
@@ -172,17 +183,17 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
                 let coordinate = response?.mapItems[0].placemark.coordinate
                 //print(response?.mapItems)
                 
-                self.createEventView.searchBar.text = "\(cellText)"
+                self.editEventView.searchBar.text = "\(cellText)"
             }
             searchResults = []
-            self.createEventView.searchResultsTableView.reloadData()
-            createEventView.searchResultsTableView.isHidden = true
+            self.editEventView.searchResultsTableView.reloadData()
+            editEventView.searchResultsTableView.isHidden = true
             print("hidden")
-        } else if tableView == createEventView.tableView {
+        } else if tableView == editEventView.tableView {
             let category = categories[indexPath.row]
-            createEventView.eventTypeButton.setTitle(category, for: .normal)
-            createEventView.tableView.isHidden = true
-            createEventView.datePicker.isEnabled = true
+            editEventView.eventTypeButton.setTitle(category, for: .normal)
+            editEventView.tableView.isHidden = true
+            editEventView.datePicker.isEnabled = true
             switch category {
             case "Venue":
                 // seque venue
@@ -205,23 +216,23 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
     
 }
 
-extension CreateEventViewController: UISearchBarDelegate {
+extension EditEventViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchCompleter.queryFragment = searchText
-        createEventView.searchResultsTableView.isHidden = false
+        editEventView.searchResultsTableView.isHidden = false
     }
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        createEventView.searchResultsTableView.isHidden = true
+        editEventView.searchResultsTableView.isHidden = true
         print("hidden textdidendediting")
     }
 }
 
-extension CreateEventViewController: MKLocalSearchCompleterDelegate {
+extension EditEventViewController: MKLocalSearchCompleterDelegate {
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults =  completer.results
-        createEventView.searchResultsTableView.reloadData()
+        editEventView.searchResultsTableView.reloadData()
     }
     
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
@@ -230,14 +241,14 @@ extension CreateEventViewController: MKLocalSearchCompleterDelegate {
 }
 
 // MARK:- Image Picker delegate functions
-extension CreateEventViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension EditEventViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         guard let imageSelected = info[UIImagePickerControllerEditedImage] as? UIImage else {
             print("Error selecting picture")
             return
         }
-        createEventView.bannerPhotoImageView.image = imageSelected
+        editEventView.bannerPhotoImageView.image = imageSelected
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -246,16 +257,16 @@ extension CreateEventViewController: UIImagePickerControllerDelegate, UINavigati
     }
     
 }
-extension CreateEventViewController: UITextViewDelegate {
+extension EditEventViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         becomeFirstResponder()
-        textView.text = ""
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         resignFirstResponder()
     }
 }
+
 
 
