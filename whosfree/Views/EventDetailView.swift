@@ -20,24 +20,21 @@ class EventDetailView: UIView {
     
     lazy var eventTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Event Title"
-        label.textAlignment = .center
+        Stylesheet.Objects.Labels.PostTitle.style(label: label)
         return label
     }()
     
     lazy var eventTypeLabel: UILabel = {
         let label = UILabel()
         label.text = "Event Type"
-        label.textAlignment = .center
+        Stylesheet.Objects.Labels.PostCategory.style(label: label)
         return label
     }()
     
     lazy var rsvpButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("RSVP", for: .normal)
-        button.backgroundColor = UIColor.blue
-        button.layer.cornerRadius = 10.0
+        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
         return button
     }()
     
@@ -49,17 +46,15 @@ class EventDetailView: UIView {
     
     lazy var locationButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("123 Fake Street", for: .normal)
-        button.backgroundColor = UIColor.blue
-        button.layer.cornerRadius = 10.0
+        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
         return button
     }()
     
     lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.text = "Input message here"
-        textView.backgroundColor = .yellow
+        Stylesheet.Objects.Textviews.Completed.style(textview: textView)
         return textView
     }()
     
@@ -184,9 +179,10 @@ class EventDetailView: UIView {
     private func setupLocationButton() {
         addSubview(locationButton)
         locationButton.translatesAutoresizingMaskIntoConstraints = false
-        locationButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        locationButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5).isActive = true
         locationButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor).isActive = true
-        locationButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        locationButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -5).isActive = true
+        locationButton.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.1)
     }
     
     private func setupDescriptionTextView() {
@@ -221,7 +217,7 @@ class EventDetailView: UIView {
         goingButton.translatesAutoresizingMaskIntoConstraints = false
         goingButton.leadingAnchor.constraint(equalTo: notGoingButton.trailingAnchor).isActive = true
         goingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
-        goingButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.33).isActive = true
+        goingButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.34).isActive = true
         
     }
     

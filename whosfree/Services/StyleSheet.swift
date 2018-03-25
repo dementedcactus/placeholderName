@@ -62,7 +62,7 @@ enum Stylesheet {
     enum BorderWidths {
         static let Textviews = 0.5
         static let TextfieldEditable = 1
-        static let TextfieldCompleted = 0
+        static let TextfieldCompleted = 1
         static let PostImages = 0.5
         static let UserImages = 0.5
         static let FunctionButtons = 0.5
@@ -121,6 +121,7 @@ extension Stylesheet {
                 case .CreateButton:
                     button.setTitleColor(Stylesheet.Colors.White, for: .normal)
                     button.titleLabel?.font = Stylesheet.Fonts.Bold
+                    button.titleLabel?.textAlignment = .center
                     button.backgroundColor = Stylesheet.Colors.LightBlue
                     button.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
@@ -156,16 +157,16 @@ extension Stylesheet {
                     label.textAlignment = .center
                     label.numberOfLines = 0
                 case .PostCategory:
-                    label.font = Stylesheet.Fonts.Bold
-                    label.textColor = Stylesheet.Colors.Red
+                    label.font = Stylesheet.Fonts.Regular
+                    label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
-                    label.textAlignment = .left
+                    label.textAlignment = .center
                     label.numberOfLines = 1
                 case .PostTitle:
                     label.font = Stylesheet.Fonts.PostTitle
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
-                    label.textAlignment = .left
+                    label.textAlignment = .center
                     label.numberOfLines = 0
                 case .PostUsername:
                     label.font = Stylesheet.Fonts.Bold
@@ -191,7 +192,7 @@ extension Stylesheet {
                     textview.textAlignment = .natural
                     textview.isEditable = false
                     textview.textColor = Stylesheet.Colors.Dark
-                    textview.font = Stylesheet.Fonts.Regular
+                    textview.font = Stylesheet.Fonts.TextfieldFont
                     textview.adjustsFontForContentSizeCategory = true
                     textview.isScrollEnabled = true
                 case .Editable:
