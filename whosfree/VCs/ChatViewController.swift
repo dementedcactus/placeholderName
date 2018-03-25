@@ -18,15 +18,18 @@ class ChatViewController: UIViewController {
         self.view.addSubview(chatView)
         self.chatView.tableView.delegate = self
         self.chatView.tableView.dataSource = self
-        //no separator lines on tableview
-        self.chatView.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        self.chatView.tableView.rowHeight = UITableViewAutomaticDimension
+        self.chatView.textView.delegate = self
         self.chatView.sendButton.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
     }
     
     @objc private func sendMessage() {
         dummyData.append(chatView.textView.text)
         print(chatView.textView.text)
+        let lastIndexInData = dummyData.count - 1
+        let indexPath = IndexPath(item: lastIndexInData, section: 0)
         chatView.tableView.reloadData()
+        chatView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
     }
     
     //    override func viewDidAppear(_ animated: Bool) {
@@ -44,9 +47,20 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         //TODO: Handle if userid == userid configureCell, else configureOtherUserCell
         if indexPath.row % 2 == 0 {
             cell.configureUserCell()
+            return cell
         } else {
             cell.configureOtherUserCell()
+            return cell
         }
-        return cell
+        //return cell
+    }
+    
+}
+extension ChatViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        becomeFirstResponder()
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        resignFirstResponder()
     }
 }

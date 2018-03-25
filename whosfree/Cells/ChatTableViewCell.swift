@@ -10,6 +10,11 @@ import UIKit
 
 class ChatTableViewCell: UITableViewCell {
 
+    lazy var containerView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
         //imageView.image = #imageLiteral(resourceName: "user")
@@ -18,53 +23,45 @@ class ChatTableViewCell: UITableViewCell {
     
     lazy var usernameLabel: UILabel = {
         let label = UILabel()
-        label.text = " "
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        Stylesheet.Objects.Labels.LabelRight.style(label: label)
         return label
     }()
     
     lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.text = " "
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        Stylesheet.Objects.Labels.LabelRight.style(label: label)
         return label
     }()
     
     lazy var commentLabel: UILabel = {
         let label = UILabel()
         label.text = " "
-        //label.backgroundColor = .red
-        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        label.numberOfLines = 0
-        label.textAlignment = .right
+        Stylesheet.Objects.Labels.CommentLabelRight.style(label: label)
         return label
     }()
     
-    lazy var otherUserImageView: UIImageView = {
+    lazy var leftUserImageView: UIImageView = {
         let imageView = UIImageView()
         //imageView.image = #imageLiteral(resourceName: "user")
         return imageView
     }()
     
-    lazy var otherUsernameLabel: UILabel = {
+    lazy var leftUsernameLabel: UILabel = {
         let label = UILabel()
-        label.text = " "
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        Stylesheet.Objects.Labels.LabelLeft.style(label: label)
         return label
     }()
     
-    lazy var otherDateLabel: UILabel = {
+    lazy var leftDateLabel: UILabel = {
         let label = UILabel()
-        label.text = " "
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        Stylesheet.Objects.Labels.LabelLeft.style(label: label)
         return label
     }()
     
-    lazy var otherCommentLabel: UILabel = {
+    lazy var leftCommentLabel: UILabel = {
         let label = UILabel()
         label.text = " "
-        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        label.numberOfLines = 0
+        Stylesheet.Objects.Labels.CommentLabelLeft.style(label: label)
         return label
     }()
     
@@ -85,80 +82,101 @@ class ChatTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
     }
     
     private func setupViews() {
+        setupContainerView()
+        
+        setupDateLabel()
+        setupOtherDateLabel()
         setupUserImageView()
         setupOtherUserImageView()
         setupUsernameLabel()
         setupOtherUsernameLabel()
-        setupDateLabel()
-        setupOtherDateLabel()
         setupCommentLabel()
         setupOtherCommentLabel()
     }
     
+    private func setupContainerView() {
+        addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        containerView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+    }
+    
+    private func setupDateLabel() {
+        containerView.addSubview(dateLabel)
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
+        dateLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        dateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+    }
+    
+    private func setupOtherDateLabel() {
+        containerView.addSubview(leftDateLabel)
+        leftDateLabel.translatesAutoresizingMaskIntoConstraints = false
+        leftDateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5).isActive = true
+        leftDateLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        leftDateLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        leftDateLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+    }
     //right side
     private func setupUserImageView() {
-        addSubview(userImageView)
+        containerView.addSubview(userImageView)
         userImageView.translatesAutoresizingMaskIntoConstraints = false
-        userImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -4).isActive = true
-        userImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
-        userImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.2).isActive = true
+        userImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
+        userImageView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 2).isActive = true
+        userImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         userImageView.widthAnchor.constraint(equalTo: userImageView.heightAnchor).isActive = true
     }
     //other user - left side
     private func setupOtherUserImageView() {
-        addSubview(otherUserImageView)
-        otherUserImageView.translatesAutoresizingMaskIntoConstraints = false
-        otherUserImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 4).isActive = true
-        otherUserImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
-        otherUserImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.2).isActive = true
-        otherUserImageView.widthAnchor.constraint(equalTo: otherUserImageView.heightAnchor).isActive = true
+        containerView.addSubview(leftUserImageView)
+        leftUserImageView.translatesAutoresizingMaskIntoConstraints = false
+        leftUserImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5).isActive = true
+        leftUserImageView.topAnchor.constraint(equalTo: leftDateLabel.bottomAnchor, constant: 2).isActive = true
+        leftUserImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        leftUserImageView.widthAnchor.constraint(equalTo: leftUserImageView.heightAnchor).isActive = true
     }
     
     private func setupUsernameLabel() {
-        addSubview(usernameLabel)
+        containerView.addSubview(usernameLabel)
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        usernameLabel.trailingAnchor.constraint(equalTo: userImageView.leadingAnchor, constant: -4).isActive = true
+        usernameLabel.trailingAnchor.constraint(equalTo: userImageView.leadingAnchor, constant: -5).isActive = true
         usernameLabel.bottomAnchor.constraint(equalTo: userImageView.bottomAnchor).isActive = true
+        usernameLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        
     }
     
     private func setupOtherUsernameLabel() {
-        addSubview(otherUsernameLabel)
-        otherUsernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        otherUsernameLabel.leadingAnchor.constraint(equalTo: otherUserImageView.trailingAnchor, constant: 4).isActive = true
-        otherUsernameLabel.bottomAnchor.constraint(equalTo: otherUserImageView.bottomAnchor).isActive = true
-    }
-    
-    private func setupDateLabel() {
-        addSubview(dateLabel)
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -4).isActive = true
-        dateLabel.bottomAnchor.constraint(equalTo: userImageView.topAnchor).isActive = true
-    }
-    
-    private func setupOtherDateLabel() {
-        addSubview(otherDateLabel)
-        otherDateLabel.translatesAutoresizingMaskIntoConstraints = false
-        otherDateLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 4).isActive = true
-        otherDateLabel.bottomAnchor.constraint(equalTo: otherUserImageView.topAnchor).isActive = true
+        containerView.addSubview(leftUsernameLabel)
+        leftUsernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        leftUsernameLabel.leadingAnchor.constraint(equalTo: leftUserImageView.trailingAnchor, constant: 5).isActive = true
+        leftUsernameLabel.bottomAnchor.constraint(equalTo: leftUserImageView.bottomAnchor).isActive = true
+        leftUsernameLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        
     }
     
     private func setupCommentLabel() {
-        addSubview(commentLabel)
+        containerView.addSubview(commentLabel)
         commentLabel.translatesAutoresizingMaskIntoConstraints = false
-        commentLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -4).isActive = true
-        commentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4).isActive = true
-        commentLabel.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor).isActive = true
+        commentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
+        commentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
+        commentLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -5).isActive = true
+        commentLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 5).isActive = true
     }
     
     private func setupOtherCommentLabel() {
-        addSubview(otherCommentLabel)
-        otherCommentLabel.translatesAutoresizingMaskIntoConstraints = false
-        otherCommentLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -4).isActive = true
-        otherCommentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4).isActive = true
-        otherCommentLabel.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor).isActive = true
+        containerView.addSubview(leftCommentLabel)
+        leftCommentLabel.translatesAutoresizingMaskIntoConstraints = false
+        leftCommentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
+        leftCommentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
+        leftCommentLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -5).isActive = true
+        leftCommentLabel.topAnchor.constraint(equalTo: leftUsernameLabel.bottomAnchor, constant: 5).isActive = true
     }
     
     //TODO: Configure cell for user & other user
@@ -167,13 +185,33 @@ class ChatTableViewCell: UITableViewCell {
         self.dateLabel.text = "3/3/18"
         self.usernameLabel.text = "user"
         self.commentLabel.text = "user comment"
+        
+        self.leftUserImageView.isHidden = true
+        self.leftDateLabel.isHidden = true
+        self.leftUsernameLabel.isHidden = true
+        self.leftCommentLabel.isHidden = true
+        self.userImageView.isHidden = false
+        self.dateLabel.isHidden = false
+        self.usernameLabel.isHidden = false
+        self.commentLabel.isHidden = false
+        self.backgroundColor = .white
     }
     
     public func configureOtherUserCell() {
-        self.otherUserImageView.image = #imageLiteral(resourceName: "chatBubble")
-        self.otherDateLabel.text = "other 3/3/18"
-        self.otherUsernameLabel.text = "other user"
-        self.otherCommentLabel.text = "other user comment"
+        self.leftUserImageView.image = #imageLiteral(resourceName: "chatBubble")
+        self.leftDateLabel.text = "other 3/3/18"
+        self.leftUsernameLabel.text = "other user"
+        self.leftCommentLabel.text = "other user comment"
+        
+        self.userImageView.isHidden = true
+        self.dateLabel.isHidden = true
+        self.usernameLabel.isHidden = true
+        self.commentLabel.isHidden = true
+        self.leftUserImageView.isHidden = false
+        self.leftDateLabel.isHidden = false
+        self.leftUsernameLabel.isHidden = false
+        self.leftCommentLabel.isHidden = false
+        self.backgroundColor = UIColor(red: 0.945, green: 0.941, blue: 0.941, alpha: 1.00)
     }
 
 }
