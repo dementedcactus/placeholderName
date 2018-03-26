@@ -122,8 +122,8 @@ class CreateEventView: UIView {
         setupTableView()
         setupDatePicker()
         setupSearchBar()
-        setupSearchResultsTableView()
         setupInviteButton()
+        setupSearchResultsTableView()
         setupCreateEvent()
         setupDescriptionTextView()
     }

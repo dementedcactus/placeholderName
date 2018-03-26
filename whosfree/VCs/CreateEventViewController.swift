@@ -159,7 +159,7 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
             
             cell.eventTypeLabel.text = data
             return cell
-        } else if tableView == createEventView.searchResultsTableView {
+        } else {
             let cell = createEventView.searchResultsTableView.dequeueReusableCell(withIdentifier: "SearchResultsCell", for: indexPath)
             let searchResult = searchResults[indexPath.row]
             cell.textLabel?.text = "\(searchResult.title) \(searchResult.subtitle)"
