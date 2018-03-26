@@ -11,6 +11,11 @@ import Kingfisher
 import Contacts
 import MessageUI
 
+
+protocol InviteFriendsViewControllerDelegate: class {
+    func didFinishAddingFriendsToEvent(_ friendsGoing: [Contact])
+}
+
 class InviteFriendsViewController: UIViewController {
     
     lazy var refreshControl: UIRefreshControl = {
@@ -24,6 +29,8 @@ class InviteFriendsViewController: UIViewController {
         self.inviteFriendsView.tableView.reloadData()
         refreshControl.endRefreshing() //TODO: This should trigger at the end of any API calls
     }
+    
+    weak var delegate: InviteFriendsViewControllerDelegate?
     
     let inviteFriendsView = InviteFriendsView()
     
@@ -91,7 +98,7 @@ class InviteFriendsViewController: UIViewController {
     
     @objc private func finishedAddingFriends() {
         print("Finished adding friends button pressed")
-        // TODO: Delegate method to send array of emails to createevent send friends invited the email
+        delegate?.didFinishAddingFriendsToEvent(invitedContacts)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -150,8 +157,11 @@ extension InviteFriendsViewController: ExistingFriendsTableViewCellDelegate {
             showAlert(title: "Error", message: "Friend already added to event")
             return
         }
+        //let cell = inviteFriendsView.tableView.cellForRow(at: IndexPath(row: tag, section: 0)) as! ExistingFriendsTableViewCell
+        //cell.inviteButton.setTitle("Invited", for: .normal)
+        //dump(invitedContacts)
         invitedContacts.append(contactToAddToEvent)
-        dump(invitedContacts)
+
         showAlert(title: "Success", message: "Friend \(contactToAddToEvent.givenName) added to event list")
     }
 }

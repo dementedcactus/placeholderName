@@ -10,13 +10,17 @@ import UIKit
 import MapKit
 
 class CreateEventViewController: UIViewController {
-
     
     let createEventView = CreateEventView()
     var categories = ["Venue", "Movie", "Other"]
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     var searchSource: [String]?
+    var invitedFriendsEmails = [String]() {
+        didSet {
+            dump(invitedFriendsEmails)
+        }
+    }
     
     let eventBannerImagePicker = UIImagePickerController()
     
@@ -104,6 +108,7 @@ class CreateEventViewController: UIViewController {
         // TODO: Present User's Contacts and let user send a text to selected contacts
         
         let inviteFriendsVC = InviteFriendsViewController()
+        inviteFriendsVC.delegate = self
         let inviteFriendsNavCon = UINavigationController(rootViewController: inviteFriendsVC)
         present(inviteFriendsNavCon, animated: true, completion: nil)
     }
@@ -154,7 +159,7 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
             
             cell.eventTypeLabel.text = data
             return cell
-        } else {
+        } else if tableView == createEventView.searchResultsTableView {
             let cell = createEventView.searchResultsTableView.dequeueReusableCell(withIdentifier: "SearchResultsCell", for: indexPath)
             let searchResult = searchResults[indexPath.row]
             cell.textLabel?.text = "\(searchResult.title) \(searchResult.subtitle)"
@@ -255,6 +260,12 @@ extension CreateEventViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         resignFirstResponder()
+    }
+}
+
+extension CreateEventViewController: InviteFriendsViewControllerDelegate {
+    func didFinishAddingFriendsToEvent(_ friendsGoing: [Contact]) {
+        self.invitedFriendsEmails = friendsGoing.map{$0.emailAddress!}
     }
 }
 
