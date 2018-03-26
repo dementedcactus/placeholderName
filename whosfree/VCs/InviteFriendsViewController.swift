@@ -42,6 +42,7 @@ class InviteFriendsViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Invite Friends"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Finish", style: .done, target: self, action: #selector(finishedAddingFriends))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelAddFriendsToEvent))
         setupViews()
         //Delegates
         inviteFriendsView.tableView.delegate = self
@@ -100,6 +101,12 @@ class InviteFriendsViewController: UIViewController {
         print("Finished adding friends button pressed")
         delegate?.didFinishAddingFriendsToEvent(invitedContacts)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @objc private func cancelAddFriendsToEvent() {
+        self.dismiss(animated: true, completion: nil)
+        print("Cancel create event pressed")
     }
     
     private func showAlert(title: String, message: String) {

@@ -7,6 +7,7 @@
 //
 import UIKit
 import MapKit
+import MessageUI
 
 class CreateEventViewController: UIViewController {
     
@@ -20,6 +21,7 @@ class CreateEventViewController: UIViewController {
             dump(invitedFriendsEmails)
         }
     }
+    let childByAutoId = DatabaseService.manager.getEvents().childByAutoId()
     
     let eventBannerImagePicker = UIImagePickerController()
     
@@ -78,11 +80,12 @@ class CreateEventViewController: UIViewController {
     private func setupViewButtons() {
         createEventView.inviteFriendsButton.addTarget(self, action: #selector(inviteFriendsButtonPressed), for: .touchUpInside)
         createEventView.eventTypeButton.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)
+        createEventView.sendInvitesButton.addTarget(self, action: #selector(sendInvitesAction), for: .touchUpInside)
     }
     
     @objc private func createButtonPressed() {
         print("Create Event Button Pressed")
-        let childByAutoId = DatabaseService.manager.getEvents().childByAutoId()
+//        let childByAutoId = DatabaseService.manager.getEvents().childByAutoId()
         let eventName = createEventView.eventTitleTextField.text!
         let ownerUserID = FirebaseAuthService.getCurrentUser()!.uid
         let eventDescription = createEventView.descriptionTextView.text!
@@ -110,6 +113,29 @@ class CreateEventViewController: UIViewController {
         inviteFriendsVC.delegate = self
         let inviteFriendsNavCon = UINavigationController(rootViewController: inviteFriendsVC)
         present(inviteFriendsNavCon, animated: true, completion: nil)
+    }
+    
+    @objc private func sendInvitesAction() {
+        if invitedFriendsEmails.isEmpty {
+            showAlert(title: "Error", message: "You need to invite some friends first!")
+            return
+        }
+        let mailComposeViewController = self.configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail() {
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            //self.showAlert(service: "Email") //MailController pops up its own alert with no email service
+        }
+    }
+    
+    private func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        mailComposerVC.setBccRecipients(["luiscalle@ac.c4q.nyc", "lcalle101qc@gmail.com"])
+        mailComposerVC.setSubject("You have been invited!")
+        mailComposerVC.setMessageBody("Hi!, USER has invited you <a href=\"https://www.w3schools.com/html/\">RSVP</a> to blah blah blah", isHTML: true)
+        
+        return mailComposerVC
     }
     
     @objc private func categoryButtonAction(sender: UIButton!) {
@@ -140,7 +166,22 @@ class CreateEventViewController: UIViewController {
         }
     }
     
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { alert in }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }
+
+extension CreateEventViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+}
+
 extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == createEventView.tableView {
