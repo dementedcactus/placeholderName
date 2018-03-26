@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol ExistingFriendsTableViewCellDelegate: class {
+    func addedFriendToInviteList(_ tag: Int)
+}
+
 class ExistingFriendsTableViewCell: UITableViewCell {
+    
+    weak var delegate: ExistingFriendsTableViewCellDelegate?
 
     //userPhotoImageView
     lazy var userPhotoImageView: UIImageView = {
@@ -39,8 +45,13 @@ class ExistingFriendsTableViewCell: UITableViewCell {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(red: 0.263, green: 0.353, blue: 0.576, alpha: 1.00)
         button.layer.borderWidth = 1
+        button.addTarget(self, action: #selector(addFriendToInviteListPressed), for: .touchUpInside)
         return button
     }()
+    
+    @objc private func addFriendToInviteListPressed() {
+        delegate?.addedFriendToInviteList(self.tag)
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style , reuseIdentifier: "ExistingFriendsTableViewCell")

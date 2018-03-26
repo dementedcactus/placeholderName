@@ -8,6 +8,13 @@
 
 import UIKit
 import Kingfisher
+import Contacts
+import MessageUI
+
+
+protocol InviteFriendsViewControllerDelegate: class {
+    func didFinishAddingFriendsToEvent(_ friendsGoing: [Contact])
+}
 
 class InviteFriendsViewController: UIViewController {
     
@@ -23,17 +30,13 @@ class InviteFriendsViewController: UIViewController {
         refreshControl.endRefreshing() //TODO: This should trigger at the end of any API calls
     }
     
+    weak var delegate: InviteFriendsViewControllerDelegate?
+    
     let inviteFriendsView = InviteFriendsView()
     
-    var sampleArray = [1,2,3,4,5]
-    
-    var myFriendsIDs = [String]() {
-        didSet {
-            DispatchQueue.main.async {
-                self.inviteFriendsView.tableView.reloadData()
-            }
-        }
-    }
+    let contactStore = CNContactStore()
+    var contacts = [Contact]()
+    var invitedContacts = [Contact]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,18 +49,46 @@ class InviteFriendsViewController: UIViewController {
         inviteFriendsView.tableView.estimatedRowHeight = 80
         inviteFriendsView.tableView.rowHeight = UITableViewAutomaticDimension
         inviteFriendsView.friendSearchbBar.delegate = self
-        if FirebaseAuthService.getCurrentUser() != nil {
-            loadAllUserFriends()
-        }
+        loadContactsFromPhone()
     }
     
-    private func loadAllUserFriends() {
-        DatabaseService.manager.getUserFriendIDs { (friendIDs) in
-            guard let friendIDs = friendIDs else {
-                print("error retrieving user friends")
-                return
+    private func loadContactsFromPhone() {
+        let keys = [CNContactGivenNameKey, CNContactMiddleNameKey, CNContactFamilyNameKey, CNContactNameSuffixKey, CNContactPostalAddressesKey, CNContactBirthdayKey,  CNContactEmailAddressesKey, CNContactTypeKey, CNContactPhoneNumbersKey,CNContactDepartmentNameKey, CNContactImageDataKey]
+        let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
+        do {
+            try contactStore.enumerateContacts(with: request) {
+                (contact, stop) in
+                let givenName = contact.givenName
+                let middleName = contact.middleName
+                let familyName = contact.familyName
+                let nameSuffix = contact.nameSuffix
+                var location: String?
+                if let firstLocation = contact.postalAddresses.first {
+                    location = "\(firstLocation.value.street) \(firstLocation.value.city) \(firstLocation.value.state) \(firstLocation.value.postalCode)"
+                }
+                var birthday: String?
+                if let birthdayUnwrapped = contact.birthday, let day = birthdayUnwrapped.day, let month = birthdayUnwrapped.month, let year = birthdayUnwrapped.year {
+                    birthday = "\(day) \(month) \(year)"
+                }
+                var emailAddress: String?
+                if let firstEmailAddress = contact.emailAddresses.first {
+                    emailAddress = firstEmailAddress.value.description
+                }
+                var phoneNumber: String?
+                if let firstPhoneNumber = contact.phoneNumbers.first {
+                    phoneNumber = firstPhoneNumber.value.stringValue
+                }
+                var imageData: Data?
+                if let imageDataUnwrapped =  contact.imageData {
+                    imageData = imageDataUnwrapped
+                }
+                let theContact = Contact(givenName: givenName, middleName: middleName, familyName: familyName, nameSuffix: nameSuffix, location: location, birthday: birthday, emailAddress: emailAddress, phoneNumber: phoneNumber, imageData: imageData)
+                self.contacts.append(theContact)
             }
-            self.myFriendsIDs = friendIDs
+            inviteFriendsView.tableView.reloadData()
+        }
+        catch {
+            print("unable to fetch contacts")
         }
     }
     
@@ -67,10 +98,19 @@ class InviteFriendsViewController: UIViewController {
     
     @objc private func finishedAddingFriends() {
         print("Finished adding friends button pressed")
+        delegate?.didFinishAddingFriendsToEvent(invitedContacts)
         self.dismiss(animated: true, completion: nil)
     }
     
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { alert in }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }
+
 extension InviteFriendsViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         inviteFriendsView.friendSearchbBar.placeholder = "Search for a Friend"
@@ -91,21 +131,38 @@ extension InviteFriendsViewController: UITableViewDelegate {
 }
 extension InviteFriendsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myFriendsIDs.count
+        return contacts.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExistingFriendsTableViewCell", for: indexPath) as! ExistingFriendsTableViewCell
-        //let testData = sampleArray[indexPath.row]
-        //cell.usernameLabel.text = "username \(testData)"
-        //cell.setNeedsLayout()
-        let friend = myFriendsIDs[indexPath.row]
-        cell.userPhotoImageView.kf.indicatorType = .activity
-        DatabaseService.manager.getUserProfile(withUID: friend) { (user) in
-            cell.usernameLabel.text = user.displayName
-            cell.userPhotoImageView.kf.setImage(with: URL(string: user.profileImageUrl), placeholder: #imageLiteral(resourceName: "profileImagePlaceholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
-            })
+        let friend = contacts[indexPath.row]
+        cell.delegate = self
+        cell.tag = indexPath.row
+        cell.usernameLabel.text = "\(friend.givenName) \(friend.familyName)"
+        guard let friendImageData = friend.imageData else {
+            cell.userPhotoImageView.image = #imageLiteral(resourceName: "profileImagePlaceholder")
+            return cell
         }
+        cell.userPhotoImageView.image = UIImage(data: friendImageData)
         return cell
+    }
+}
+
+extension InviteFriendsViewController: ExistingFriendsTableViewCellDelegate {
+    func addedFriendToInviteList(_ tag: Int) {
+        let contactToAddToEvent = contacts[tag]
+        if invitedContacts.contains(where: { (contact) -> Bool in
+            return contact == contactToAddToEvent
+        }) {
+            showAlert(title: "Error", message: "Friend already added to event")
+            return
+        }
+        //let cell = inviteFriendsView.tableView.cellForRow(at: IndexPath(row: tag, section: 0)) as! ExistingFriendsTableViewCell
+        //cell.inviteButton.setTitle("Invited", for: .normal)
+        //dump(invitedContacts)
+        invitedContacts.append(contactToAddToEvent)
+
+        showAlert(title: "Success", message: "Friend \(contactToAddToEvent.givenName) added to event list")
     }
 }
 

@@ -14,6 +14,19 @@ class EventDetailViewController: UIViewController {
     let dummyData = ["test1 title", "test2 title", "test3 title", "test4 title", "test5 title"]
     private let cellSpacing: CGFloat =  5.0
     
+    var event: Event!
+    var eventImage: UIImage!
+    
+    init(event: Event, eventImage: UIImage) {
+        self.event = event
+        self.eventImage = eventImage
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(eventDetailView)
@@ -23,6 +36,16 @@ class EventDetailViewController: UIViewController {
         self.eventDetailView.collectionView.delegate = self
         self.eventDetailView.rsvpButton.addTarget(self, action: #selector(rsvp), for: .touchUpInside)
         configureNavBar()
+        eventDetailView.configureView(event: event, eventImage: eventImage)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // TODO
+        // if current userID == event's owner userID, change RSVP to EDIT, and change rsvpButton's addTarget to presentEditEventVC
+        
+        self.eventDetailView.locationButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
     }
     
     @objc private func rsvp() {
