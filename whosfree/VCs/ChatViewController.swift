@@ -13,6 +13,7 @@ class ChatViewController: UIViewController {
     let chatView = ChatView()
     var specificEventIDsChat: String = ""
     let currentLoggedInUID = FirebaseAuthService.getCurrentUser()!.uid
+    var lastIndexInData = 0
     var dummyData = [Comment]() {
         didSet {
             chatView.tableView.reloadData()
@@ -31,19 +32,18 @@ class ChatViewController: UIViewController {
     }
     
     private func setupView() {
-        var lastIndexInData = 0
         DatabaseService.manager.getChat(withEventID: specificEventIDsChat) { (data) in
             if let data = data {
                 self.dummyData = data
+                if !self.dummyData.isEmpty {
+                    self.lastIndexInData = self.dummyData.count - 1
+                    let indexPath = IndexPath(item: self.lastIndexInData, section: 0)
+                    self.chatView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+                }
             } else {
                 print("No Data")
                 // TODO: Empty State View
             }
-        }
-        if !dummyData.isEmpty {
-            lastIndexInData = dummyData.count - 1
-            let indexPath = IndexPath(item: lastIndexInData, section: 0)
-            chatView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
         }
     }
     

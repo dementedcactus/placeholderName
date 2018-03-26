@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ChatTableViewCell: UITableViewCell {
-
+    
     lazy var containerView: UIView = {
         let view = UIView()
         return view
@@ -181,11 +182,16 @@ class ChatTableViewCell: UITableViewCell {
     
     //TODO: Configure cell for user & other user
     public func configureUserCell(comment: Comment) {
-        self.userImageView.image = #imageLiteral(resourceName: "chatBubble")
+        self.usernameLabel.text = comment.userID // In case user doesn't have displayName
+        self.userImageView.image = #imageLiteral(resourceName: "chatBubble") // Default Image
+        self.userImageView.kf.indicatorType = .activity
+        DatabaseService.manager.getUserProfile(withUID: comment.userID!) { (data) in
+            self.usernameLabel.text = data.displayName
+            self.userImageView.kf.setImage(with: URL(string: data.profileImageUrl), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+            })
+        }
         self.dateLabel.text = "\(comment.timestamp)"
-        self.usernameLabel.text = comment.userID
         self.commentLabel.text = comment.text
-        
         self.leftUserImageView.isHidden = true
         self.leftDateLabel.isHidden = true
         self.leftUsernameLabel.isHidden = true
@@ -198,9 +204,17 @@ class ChatTableViewCell: UITableViewCell {
     }
     
     public func configureOtherUserCell(comment: Comment) {
-        self.leftUserImageView.image = #imageLiteral(resourceName: "chatBubble")
+        
+        self.leftUsernameLabel.text = comment.userID // In case user doesn't have displayName
+        self.leftUserImageView.image = #imageLiteral(resourceName: "chatBubble") // Default Image
+         self.leftUserImageView.kf.indicatorType = .activity
+         DatabaseService.manager.getUserProfile(withUID: comment.userID!) { (data) in
+         self.leftUsernameLabel.text = data.displayName
+         self.leftUserImageView.kf.setImage(with: URL(string: data.profileImageUrl), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cache, url) in
+         })
+         }
+        
         self.leftDateLabel.text = "\(comment.timestamp)"
-        self.leftUsernameLabel.text = comment.userID
         self.leftCommentLabel.text = comment.text
         
         self.userImageView.isHidden = true
@@ -213,5 +227,5 @@ class ChatTableViewCell: UITableViewCell {
         self.leftCommentLabel.isHidden = false
         self.backgroundColor = UIColor(red: 0.945, green: 0.941, blue: 0.941, alpha: 1.00)
     }
-
+    
 }
