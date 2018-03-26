@@ -11,6 +11,9 @@ import MessageUI
 
 class CreateEventViewController: UIViewController {
     
+    var keyboardAdjusted = false
+    var lastKeyboardOffset: CGFloat = 0.0
+    
     let createEventView = CreateEventView()
     var categories = ["Venue", "Movie", "Other"]
     var searchCompleter = MKLocalSearchCompleter()
@@ -44,6 +47,39 @@ class CreateEventViewController: UIViewController {
         setupNavBarButtons()
         setupViewButtons()
         setupBannerImageGestureRecognizer()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if keyboardAdjusted == false {
+            lastKeyboardOffset = getKeyboardHeight(notification: notification)
+            view.frame.origin.y -= lastKeyboardOffset
+            keyboardAdjusted = true
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if keyboardAdjusted == true {
+            view.frame.origin.y += lastKeyboardOffset
+            keyboardAdjusted = false
+        }
+    }
+    
+    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
     }
     
     private func setupBannerImageGestureRecognizer() {

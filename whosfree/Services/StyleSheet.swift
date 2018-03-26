@@ -237,6 +237,7 @@ extension Stylesheet {
                     textview.font = Stylesheet.Fonts.TextfieldFont
                     textview.adjustsFontForContentSizeCategory = true
                     textview.isScrollEnabled = true
+                    textview.keyboardType = .default
                 }
             }
         }
