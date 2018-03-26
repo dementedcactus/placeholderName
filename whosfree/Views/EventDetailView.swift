@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class EventDetailView: UIView {
     
@@ -21,12 +22,10 @@ class EventDetailView: UIView {
         return view
     }()
     
-    lazy var mapImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.image = #imageLiteral(resourceName: "park")
-        return imageView
+    lazy var mapImageView: MKMapView = {
+        let mapView = MKMapView()
+        mapView.isScrollEnabled = false
+        return mapView
     }()
 
     lazy var bannerPhotoImageView: UIImageView = {
@@ -152,6 +151,37 @@ class EventDetailView: UIView {
         setupNotGoingButton()
         setupGoingButton()
         setupInvitedButton()
+    }
+    
+    public func configureScrollView(event: Event) {
+        turnAddressIntoCoordinates(address: event.eventLocation, completionHandler: { (coordinate) in
+            self.configureMapView(coordinate: coordinate)
+        }) { (error) in
+            
+        }
+    }
+    
+    private func configureMapView(coordinate: CLLocationCoordinate2D) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapImageView.addAnnotation(annotation)
+        let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        mapImageView.setRegion(region, animated: true)
+    }
+    
+    private func turnAddressIntoCoordinates(address: String,
+                                            completionHandler: @escaping (CLLocationCoordinate2D) -> Void,
+                                            errorHandler: @escaping (Error) -> Void) {
+        CLGeocoder().geocodeAddressString(address) { (placemarks, error) in
+            if let error = error {
+                errorHandler(error)
+            }
+            if let placemarks = placemarks {
+                let placemark = placemarks.first
+                let coordinate = placemark?.location?.coordinate
+                completionHandler(coordinate!)
+            }
+        }
     }
     
     private func setupScrollView() {
