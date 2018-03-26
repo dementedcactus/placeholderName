@@ -9,9 +9,15 @@
 import UIKit
 
 class ChatViewController: UIViewController {
-
+    
     let chatView = ChatView()
-    var dummyData = ["test1", "test2", "test3"]
+    var specificEventIDsChat: String = ""
+    let currentLoggedInUID = FirebaseAuthService.getCurrentUser()!.uid
+    var dummyData = [Comment]() {
+        didSet {
+            chatView.tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,20 +27,32 @@ class ChatViewController: UIViewController {
         self.chatView.tableView.rowHeight = UITableViewAutomaticDimension
         self.chatView.textView.delegate = self
         self.chatView.sendButton.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
+        setupView()
+    }
+    
+    private func setupView() {
+        var lastIndexInData = 0
+        DatabaseService.manager.getChat(withEventID: specificEventIDsChat) { (data) in
+            if let data = data {
+                self.dummyData = data
+            } else {
+                print("No Data")
+                // TODO: Empty State View
+            }
+        }
+        if !dummyData.isEmpty {
+            lastIndexInData = dummyData.count - 1
+            let indexPath = IndexPath(item: lastIndexInData, section: 0)
+            chatView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
     }
     
     @objc private func sendMessage() {
-        dummyData.append(chatView.textView.text)
         print(chatView.textView.text)
-        let lastIndexInData = dummyData.count - 1
-        let indexPath = IndexPath(item: lastIndexInData, section: 0)
-        chatView.tableView.reloadData()
-        chatView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        let currentText = chatView.textView.text!
+        DatabaseService.manager.addComment(eventID: specificEventIDsChat, userID: currentLoggedInUID, phoneNumber: "", email: "", text: currentText)
+        setupView()
     }
-    
-    //    override func viewDidAppear(_ animated: Bool) {
-    //        chatView.tableView.reloadData()
-    //    }
 }
 extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,17 +60,15 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = dummyData[indexPath.row]
+        let comment = dummyData[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatTableViewCell", for: indexPath) as! ChatTableViewCell
-        //TODO: Handle if userid == userid configureCell, else configureOtherUserCell
-        if indexPath.row % 2 == 0 {
-            cell.configureUserCell()
+        if comment.userID == currentLoggedInUID {
+            cell.configureUserCell(comment: comment)
             return cell
         } else {
-            cell.configureOtherUserCell()
+            cell.configureOtherUserCell(comment: comment)
             return cell
         }
-        //return cell
     }
     
 }

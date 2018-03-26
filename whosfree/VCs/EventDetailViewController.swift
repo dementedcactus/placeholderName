@@ -87,6 +87,7 @@ class EventDetailViewController: UIViewController {
     @objc private func segueToChatViewController() {
         // TODO: dependency injection of the eventID so we know which chat corresponds to the event
         let chatVC = ChatViewController()
+        chatVC.specificEventIDsChat = event.eventID
         navigationController?.pushViewController(chatVC, animated: true)
     }
     
