@@ -11,7 +11,7 @@ import UIKit
 class EditEventView: CreateEventView {
 
     public func prefillEventFields(event: Event, eventImage: UIImage) {
-        createEventButton.setTitle("Edit", for: .normal)
+        //createEventButton.setTitle("Edit", for: .normal)
         bannerPhotoImageView.image = eventImage
         eventTitleTextField.text = event.eventName
         descriptionTextView.text = event.eventDescription
