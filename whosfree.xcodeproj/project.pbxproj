@@ -11,6 +11,11 @@
 		84F06A9A6BF121D360D801EC /* Pods_whosfree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56270434984F66181CF21D95 /* Pods_whosfree.framework */; };
 		94FF2030ABE4CB093C686CC7 /* Pods_whosfreeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21925C818A4A3361FA7E2477 /* Pods_whosfreeTests.framework */; };
 		D2603BFD20655B2000A55A87 /* CreateEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2603BFC20655B2000A55A87 /* CreateEventCell.swift */; };
+		DB0407192061FE440066F6C0 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0407182061FE440066F6C0 /* DateCollectionViewCell.swift */; };
+		DB04071D206203150066F6C0 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB04071C206203150066F6C0 /* CalenderView.swift */; };
+		DB04071F206203420066F6C0 /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB04071E206203420066F6C0 /* WeekdaysView.swift */; };
+		DB040721206203660066F6C0 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB040720206203660066F6C0 /* MonthView.swift */; };
+		DB0407232062039F0066F6C0 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0407222062039F0066F6C0 /* CalendarViewController.swift */; };
 		DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE44820571E5C00AAD2D8 /* AppDelegate.swift */; };
 		DB3DE45120571E5C00AAD2D8 /* whosfree.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE44F20571E5C00AAD2D8 /* whosfree.xcdatamodeld */; };
 		DB3DE45320571E5C00AAD2D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB3DE45220571E5C00AAD2D8 /* Assets.xcassets */; };

@@ -78,6 +78,17 @@ class CreateEventView: UIView {
         return button
     }()
     
+    lazy var sendInvitesButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(UIColor.white, for: .normal)
+        //button.setTitle("Send", for: .normal)
+        button.setImage(#imageLiteral(resourceName: "emailIcon"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.backgroundColor = UIColor.blue
+        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
+        return button
+    }()
+    
     lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.text = "Input message here"
@@ -122,6 +133,7 @@ class CreateEventView: UIView {
         setupDatePicker()
         setupSearchBar()
         setupInviteButton()
+        setupSendInviteButton()
         setupSearchResultsTableView()
         setupCreateEvent()
         setupDescriptionTextView()
@@ -216,11 +228,26 @@ class CreateEventView: UIView {
     private func setupInviteButton() {
         contentView.addSubview(inviteFriendsButton)
         inviteFriendsButton.translatesAutoresizingMaskIntoConstraints = false
-        inviteFriendsButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+//        inviteFriendsButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+//        inviteFriendsButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 5).isActive = true
+//        inviteFriendsButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
+//        inviteFriendsButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.05).isActive = true
         inviteFriendsButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 5).isActive = true
         inviteFriendsButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
+        inviteFriendsButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         inviteFriendsButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.05).isActive = true
     }
+    
+    private func setupSendInviteButton() {
+        contentView.addSubview(sendInvitesButton)
+        sendInvitesButton.translatesAutoresizingMaskIntoConstraints = false
+        sendInvitesButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 5).isActive = true
+        sendInvitesButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2).isActive = true
+        sendInvitesButton.leadingAnchor.constraint(equalTo: inviteFriendsButton.trailingAnchor).isActive = true
+        sendInvitesButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        sendInvitesButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.05).isActive = true
+    }
+    
     
     private func setupCreateEvent() {
         contentView.addSubview(createEventButton)
