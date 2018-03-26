@@ -75,6 +75,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
 extension ChatViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         becomeFirstResponder()
+        textView.text = ""
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         resignFirstResponder()
