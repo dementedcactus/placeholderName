@@ -182,7 +182,7 @@ class ChatTableViewCell: UITableViewCell {
     //TODO: Configure cell for user & other user
     public func configureUserCell(comment: Comment) {
         self.userImageView.image = #imageLiteral(resourceName: "chatBubble")
-        self.dateLabel.text = comment.timestamp
+        self.dateLabel.text = "\(comment.timestamp)"
         self.usernameLabel.text = comment.userID
         self.commentLabel.text = comment.text
         
@@ -199,7 +199,7 @@ class ChatTableViewCell: UITableViewCell {
     
     public func configureOtherUserCell(comment: Comment) {
         self.leftUserImageView.image = #imageLiteral(resourceName: "chatBubble")
-        self.leftDateLabel.text = comment.timestamp
+        self.leftDateLabel.text = "\(comment.timestamp)"
         self.leftUsernameLabel.text = comment.userID
         self.leftCommentLabel.text = comment.text
         
