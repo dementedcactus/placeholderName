@@ -11,14 +11,11 @@
 		84F06A9A6BF121D360D801EC /* Pods_whosfree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56270434984F66181CF21D95 /* Pods_whosfree.framework */; };
 		94FF2030ABE4CB093C686CC7 /* Pods_whosfreeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21925C818A4A3361FA7E2477 /* Pods_whosfreeTests.framework */; };
 		D2603BFD20655B2000A55A87 /* CreateEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2603BFC20655B2000A55A87 /* CreateEventCell.swift */; };
-<<<<<<< Updated upstream
-=======
 		DB0407192061FE440066F6C0 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0407182061FE440066F6C0 /* DateCollectionViewCell.swift */; };
 		DB04071D206203150066F6C0 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB04071C206203150066F6C0 /* CalenderView.swift */; };
 		DB04071F206203420066F6C0 /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB04071E206203420066F6C0 /* WeekdaysView.swift */; };
 		DB040721206203660066F6C0 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB040720206203660066F6C0 /* MonthView.swift */; };
 		DB0407232062039F0066F6C0 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0407222062039F0066F6C0 /* CalendarViewController.swift */; };
->>>>>>> Stashed changes
 		DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE44820571E5C00AAD2D8 /* AppDelegate.swift */; };
 		DB3DE45120571E5C00AAD2D8 /* whosfree.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE44F20571E5C00AAD2D8 /* whosfree.xcdatamodeld */; };
 		DB3DE45320571E5C00AAD2D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB3DE45220571E5C00AAD2D8 /* Assets.xcassets */; };
@@ -114,14 +111,11 @@
 		7DD5219901C00B5DBC74C7D0 /* Pods_whosfreeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_whosfreeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95AFDAA9FE5BB29F7E498C64 /* Pods-whosfreeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whosfreeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-whosfreeUITests/Pods-whosfreeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D2603BFC20655B2000A55A87 /* CreateEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventCell.swift; sourceTree = "<group>"; };
-<<<<<<< Updated upstream
-=======
 		DB0407182061FE440066F6C0 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB04071C206203150066F6C0 /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
 		DB04071E206203420066F6C0 /* WeekdaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
 		DB040720206203660066F6C0 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		DB0407222062039F0066F6C0 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
->>>>>>> Stashed changes
 		DB3DE44520571E5C00AAD2D8 /* whosfree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = whosfree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB3DE44820571E5C00AAD2D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB3DE45020571E5C00AAD2D8 /* whosfree.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = whosfree.xcdatamodel; sourceTree = "<group>"; };
