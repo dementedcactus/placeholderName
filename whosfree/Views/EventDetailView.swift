@@ -179,6 +179,7 @@ class EventDetailView: UIView {
         }
     }
     
+    
     private func configureMapView(coordinate: CLLocationCoordinate2D) {
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
