@@ -49,11 +49,11 @@ class ChatViewController: UIViewController {
         DatabaseService.manager.getChat(withEventID: specificEventIDsChat) { (data) in
             if let data = data {
                 self.dummyData = data
-                if !self.dummyData.isEmpty {
-                    self.lastIndexInData = self.dummyData.count - 1
-                    let indexPath = IndexPath(item: self.lastIndexInData, section: 0)
-                    self.chatView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
-                }
+//                if !self.dummyData.isEmpty {
+//                    self.lastIndexInData = self.dummyData.count - 1
+//                    let indexPath = IndexPath(item: self.lastIndexInData, section: 0)
+//                    self.chatView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+//                }
             } else {
                 print("No Data")
                 // TODO: Empty State View
