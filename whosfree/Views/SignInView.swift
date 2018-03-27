@@ -24,6 +24,7 @@ class SignInView: UIView {
     lazy var loginContainerButton: UIButton = {
         let button = UIButton()
         button.setTitle("Login", for: .normal)
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .groupTableViewBackground
         button.layer.cornerRadius = 4
@@ -34,6 +35,7 @@ class SignInView: UIView {
     lazy var createAccountContainerButton: UIButton = {
         let button = UIButton()
         button.setTitle("Create Account", for: .normal)
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .groupTableViewBackground
         button.layer.cornerRadius = 4
