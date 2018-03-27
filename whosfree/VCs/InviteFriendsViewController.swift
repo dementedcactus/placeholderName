@@ -11,6 +11,11 @@ import Kingfisher
 import Contacts
 import MessageUI
 
+
+protocol InviteFriendsViewControllerDelegate: class {
+    func didFinishAddingFriendsToEvent(_ friendsGoing: [Contact])
+}
+
 class InviteFriendsViewController: UIViewController {
     
     lazy var refreshControl: UIRefreshControl = {
@@ -25,6 +30,8 @@ class InviteFriendsViewController: UIViewController {
         refreshControl.endRefreshing() //TODO: This should trigger at the end of any API calls
     }
     
+    weak var delegate: InviteFriendsViewControllerDelegate?
+    
     let inviteFriendsView = InviteFriendsView()
     
     let contactStore = CNContactStore()
@@ -35,6 +42,7 @@ class InviteFriendsViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Invite Friends"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Finish", style: .done, target: self, action: #selector(finishedAddingFriends))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelAddFriendsToEvent))
         setupViews()
         //Delegates
         inviteFriendsView.tableView.delegate = self
@@ -91,8 +99,14 @@ class InviteFriendsViewController: UIViewController {
     
     @objc private func finishedAddingFriends() {
         print("Finished adding friends button pressed")
-        // TODO: Delegate method to send array of emails to createevent send friends invited the email
+        delegate?.didFinishAddingFriendsToEvent(invitedContacts)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @objc private func cancelAddFriendsToEvent() {
+        self.dismiss(animated: true, completion: nil)
+        print("Cancel create event pressed")
     }
     
     private func showAlert(title: String, message: String) {
@@ -150,8 +164,11 @@ extension InviteFriendsViewController: ExistingFriendsTableViewCellDelegate {
             showAlert(title: "Error", message: "Friend already added to event")
             return
         }
+        //let cell = inviteFriendsView.tableView.cellForRow(at: IndexPath(row: tag, section: 0)) as! ExistingFriendsTableViewCell
+        //cell.inviteButton.setTitle("Invited", for: .normal)
+        //dump(invitedContacts)
         invitedContacts.append(contactToAddToEvent)
-        dump(invitedContacts)
+
         showAlert(title: "Success", message: "Friend \(contactToAddToEvent.givenName) added to event list")
     }
 }

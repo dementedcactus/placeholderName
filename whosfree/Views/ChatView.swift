@@ -13,14 +13,15 @@ class ChatView: UIView {
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(ChatTableViewCell.self, forCellReuseIdentifier: "ChatTableViewCell")
-        //tableView.backgroundColor = .blue
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tableView.allowsSelection = false
         return tableView
     }()
     
     lazy var textView: UITextView = {
         let textView = UITextView()
         textView.text = "Input message here"
-        textView.backgroundColor = .yellow
+        Stylesheet.Objects.Textviews.Editable.style(textview: textView)
         return textView
     }()
     
@@ -28,6 +29,7 @@ class ChatView: UIView {
         let button = UIButton()
         button.setTitle("Send", for: .normal)
         button.backgroundColor = .green
+        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
         return button
     }()
     

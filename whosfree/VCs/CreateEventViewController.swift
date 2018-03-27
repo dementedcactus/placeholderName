@@ -5,35 +5,81 @@
 //  Created by Richard Crichlow on 3/16/18.
 //  Copyright © 2018 Richard Crichlow. All rights reserved.
 //
-
 import UIKit
 import MapKit
+import MessageUI
 
 class CreateEventViewController: UIViewController {
-
+    
+    var keyboardAdjusted = false
+    var lastKeyboardOffset: CGFloat = 0.0
     
     let createEventView = CreateEventView()
     var categories = ["Venue", "Movie", "Other"]
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     var searchSource: [String]?
+    var invitedFriendsEmails = [String]() {
+        didSet {
+            dump(invitedFriendsEmails)
+        }
+    }
+    let childByAutoId = DatabaseService.manager.getEvents().childByAutoId()
     
     let eventBannerImagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(createEventView)
+        
+        // Delegates
         self.createEventView.tableView.dataSource = self
         self.createEventView.tableView.delegate = self
         self.createEventView.searchResultsTableView.dataSource = self
         self.createEventView.searchResultsTableView.delegate = self
+        self.createEventView.descriptionTextView.delegate = self
         searchCompleter.delegate = self
-        //createEventView.scrollView.delegate = self
+        
         self.createEventView.searchBar.delegate = self
         eventBannerImagePicker.delegate = self
+        
+        // Setup Functions
         setupNavBarButtons()
         setupViewButtons()
         setupBannerImageGestureRecognizer()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if keyboardAdjusted == false {
+            lastKeyboardOffset = getKeyboardHeight(notification: notification)
+            view.frame.origin.y -= lastKeyboardOffset
+            keyboardAdjusted = true
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if keyboardAdjusted == true {
+            view.frame.origin.y += lastKeyboardOffset
+            keyboardAdjusted = false
+        }
+    }
+    
+    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
     }
     
     private func setupBannerImageGestureRecognizer() {
@@ -70,20 +116,19 @@ class CreateEventViewController: UIViewController {
     private func setupViewButtons() {
         createEventView.inviteFriendsButton.addTarget(self, action: #selector(inviteFriendsButtonPressed), for: .touchUpInside)
         createEventView.eventTypeButton.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)
+        createEventView.sendInvitesButton.addTarget(self, action: #selector(sendInvitesAction), for: .touchUpInside)
     }
     
     @objc private func createButtonPressed() {
         print("Create Event Button Pressed")
-        let childByAutoId = DatabaseService.manager.getEvents().childByAutoId()
-        let eventName = createEventView.eventTitleLabel.text!
+//        let childByAutoId = DatabaseService.manager.getEvents().childByAutoId()
+        let eventName = createEventView.eventTitleTextField.text!
         let ownerUserID = FirebaseAuthService.getCurrentUser()!.uid
         let eventDescription = createEventView.descriptionTextView.text!
         let eventLocation = createEventView.searchBar.text!
-        // need to use datepicker delegate to get time and date
         let componenets = Calendar.current.dateComponents([.year, .month, .day], from: createEventView.datePicker.date)
         if let day = componenets.day, let month = componenets.month, let year = componenets.year {
             print("\(day) \(month) \(year)")
-            // add this to db
         }
         let timestamp = Date.timeIntervalSinceReferenceDate
         let eventToAdd = Event(eventID: childByAutoId.key, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")
@@ -101,8 +146,32 @@ class CreateEventViewController: UIViewController {
         // TODO: Present User's Contacts and let user send a text to selected contacts
         
         let inviteFriendsVC = InviteFriendsViewController()
+        inviteFriendsVC.delegate = self
         let inviteFriendsNavCon = UINavigationController(rootViewController: inviteFriendsVC)
         present(inviteFriendsNavCon, animated: true, completion: nil)
+    }
+    
+    @objc private func sendInvitesAction() {
+        if invitedFriendsEmails.isEmpty {
+            showAlert(title: "Error", message: "You need to invite some friends first!")
+            return
+        }
+        let mailComposeViewController = self.configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail() {
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            //self.showAlert(service: "Email") //MailController pops up its own alert with no email service
+        }
+    }
+    
+    private func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        mailComposerVC.setBccRecipients(["luiscalle@ac.c4q.nyc", "lcalle101qc@gmail.com"])
+        mailComposerVC.setSubject("You have been invited!")
+        mailComposerVC.setMessageBody("Hi!, USER has invited you <a href=\"https://www.w3schools.com/html/\">RSVP</a> to blah blah blah", isHTML: true)
+        
+        return mailComposerVC
     }
     
     @objc private func categoryButtonAction(sender: UIButton!) {
@@ -110,8 +179,10 @@ class CreateEventViewController: UIViewController {
         if createEventView.tableView.isHidden == true {
             createEventView.tableView.isHidden = false
             animateCategoryTV()
+            createEventView.datePicker.isEnabled = false
         } else {
             createEventView.tableView.isHidden = true
+            createEventView.datePicker.isEnabled = true
         }
     }
     
@@ -124,14 +195,29 @@ class CreateEventViewController: UIViewController {
         }
         var delayCounter:Double = 0
         for cell in cells {
-            UIView.animate(withDuration: 1.75, delay: delayCounter * 0.05, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 1.25, delay: delayCounter * 0.05, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
                 cell.transform = CGAffineTransform.identity
             }, completion: nil)
             delayCounter += 0.5
         }
     }
     
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { alert in }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }
+
+extension CreateEventViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+}
+
 extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == createEventView.tableView {
@@ -156,7 +242,6 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
             return cell
             
         }
-        return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == createEventView.searchResultsTableView {
@@ -178,6 +263,7 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
             let category = categories[indexPath.row]
             createEventView.eventTypeButton.setTitle(category, for: .normal)
             createEventView.tableView.isHidden = true
+            createEventView.datePicker.isEnabled = true
             switch category {
             case "Venue":
                 // seque venue
@@ -241,5 +327,21 @@ extension CreateEventViewController: UIImagePickerControllerDelegate, UINavigati
     }
     
 }
+extension CreateEventViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        becomeFirstResponder()
+        textView.text = ""
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        resignFirstResponder()
+    }
+}
 
+extension CreateEventViewController: InviteFriendsViewControllerDelegate {
+    func didFinishAddingFriendsToEvent(_ friendsGoing: [Contact]) {
+        self.invitedFriendsEmails = friendsGoing.map{$0.emailAddress!}
+    }
+}
 
