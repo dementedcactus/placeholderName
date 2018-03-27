@@ -23,6 +23,15 @@ class Event: NSObject {
     //var rsvpYes: String? //[String of user ids]
     //var eventType: String
     
+    override var description: String {
+        return """
+        Event Name: \(self.eventName)<br />
+        Event Description: \(self.eventDescription)<br />
+        Where? \(self.eventLocation)<br />
+        When? \(self.timestamp)<br />
+        """
+    }
+    
     static func ==(lhs: Event, rhs: Event) -> Bool {
         return lhs.eventID == rhs.eventID && lhs.eventName == rhs.eventName && lhs.ownerUserID == rhs.ownerUserID
     }
