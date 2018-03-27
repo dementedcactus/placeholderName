@@ -25,6 +25,7 @@ class EventDetailView: UIView {
     lazy var mapImageView: MKMapView = {
         let mapView = MKMapView()
         mapView.isScrollEnabled = false
+        mapView.isZoomEnabled = false
         return mapView
     }()
     
