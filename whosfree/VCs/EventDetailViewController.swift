@@ -38,6 +38,7 @@ class EventDetailViewController: UIViewController {
         self.eventDetailView.deleteButton.addTarget(self, action: #selector(deleteEvent), for: .touchUpInside)
         configureNavBar()
         eventDetailView.configureView(event: event, eventImage: eventImage)
+        eventDetailView.configureScrollView(event: event)
     }
     
     override func viewDidAppear(_ animated: Bool) {
