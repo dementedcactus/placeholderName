@@ -106,10 +106,10 @@ class EventDetailView: UIView {
         return button
     }()
     
-    lazy var invitedButton: UIButton = {
+    lazy var maybeButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(UIColor.white, for: .normal)
-        button.setTitle("Invited", for: .normal)
+        button.setTitle("Maybe", for: .normal)
         button.backgroundColor = Stylesheet.Colors.LightBlue
         button.layer.borderWidth = 1.0
         button.layer.borderColor = UIColor.white.cgColor
@@ -333,11 +333,11 @@ class EventDetailView: UIView {
     }
     
     private func setupInvitedButton() {
-        contentView.addSubview(invitedButton)
-        invitedButton.translatesAutoresizingMaskIntoConstraints = false
-        invitedButton.leadingAnchor.constraint(equalTo: goingButton.trailingAnchor).isActive = true
-        invitedButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
-        invitedButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.33).isActive = true
+        contentView.addSubview(maybeButton)
+        maybeButton.translatesAutoresizingMaskIntoConstraints = false
+        maybeButton.leadingAnchor.constraint(equalTo: goingButton.trailingAnchor).isActive = true
+        maybeButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        maybeButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.33).isActive = true
     }
     
     private func setupDeleteButton() {
