@@ -17,7 +17,7 @@ class SignInView: UIView {
     lazy var appLogoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = #imageLiteral(resourceName: "whosFreeLogoBig")
+        imageView.image = #imageLiteral(resourceName: "wyd logo (original)")
         return imageView
     }()
     
