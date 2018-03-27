@@ -132,7 +132,8 @@ class SignUpContainerView: UIView {
     lazy var signUpButton: UIButton = {
         let button = UIButton()
         button.setTitle("Sign Up", for: .normal)
-        button.titleLabel!.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        //button.titleLabel!.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        button.titleLabel!.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .groupTableViewBackground
         button.layer.cornerRadius = 4
