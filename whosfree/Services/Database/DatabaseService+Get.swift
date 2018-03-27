@@ -129,7 +129,7 @@ extension DatabaseService {
                     completion(nil)
                     return
                 }
-                guard let timestamp = savedEventDictionary["timestamp"] as? Double else {
+                guard let timestamp = savedEventDictionary["timestamp"] as? String else {
                     completion(nil)
                     return
                 }

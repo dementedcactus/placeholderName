@@ -144,15 +144,22 @@ class CreateEventViewController: UIViewController {
         let ownerUserID = FirebaseAuthService.getCurrentUser()!.uid
         let eventDescription = createEventView.descriptionTextView.text!
         let eventLocation = createEventView.searchBar.text!
-        let componenets = Calendar.current.dateComponents([.year, .month, .day], from: createEventView.datePicker.date)
-        if let day = componenets.day, let month = componenets.month, let year = componenets.year {
-            print("\(day) \(month) \(year)")
-        }
-        let timestamp = Date.timeIntervalSinceReferenceDate
+        //let componenets = Calendar.current.dateComponents([.year, .month, .day], from: createEventView.datePicker.date)
+        let timestamp = formatDate(with: createEventView.datePicker.date)
+//        if let day = components.day, let month = components.month, let year = components.year {
+//            print("\(day) \(month) \(year)")
+//            timestamp = "\(day) \(month) \(year)"
+//        }
         let eventToAdd = Event(eventID: childByAutoId.key, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")
         DatabaseService.manager.addEvent(eventToAdd, createEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
         //if !invitedFriendsEmails.isEmpty { sendEmailInvites(event: eventToAdd) }
         dismiss(animated: true, completion: nil)
+    }
+    
+    public func formatDate(with date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, YYYY @ h:mm a"
+        return dateFormatter.string(from: date)
     }
     
     private func sendEmailInvites(event: Event) {
