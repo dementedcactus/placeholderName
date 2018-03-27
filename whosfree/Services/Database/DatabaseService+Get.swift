@@ -158,7 +158,7 @@ extension DatabaseService {
     }
     
     func getChat(withEventID: String, completion: @escaping ([Comment]?) -> Void) {
-        chatsRef.child(withEventID).observeSingleEvent(of: .value) { (dataSnapshot) in
+        chatsRef.child(withEventID).observe(.value) { (dataSnapshot) in
             guard let arrayOfAllCommentsSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
                 print("could not get children snapshots")
                 completion(nil)
