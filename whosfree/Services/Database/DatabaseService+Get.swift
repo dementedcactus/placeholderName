@@ -96,7 +96,7 @@ extension DatabaseService {
     }
  
     func getAllEvents(completion: @escaping ([Event]?) -> Void) {
-        eventsRef.observeSingleEvent(of: .value) { (dataSnapshot) in
+        eventsRef.observe(.value) { (dataSnapshot) in
             guard let arrayOfAllEventsSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
                 print("could not get children snapshots")
                 completion(nil)
