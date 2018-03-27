@@ -42,5 +42,10 @@ extension VenueViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let venueDetailVC = VenueDetailViewController()
+        navigationController?.pushViewController(venueDetailVC, animated: true)
+    }
+    
 
 }

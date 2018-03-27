@@ -105,6 +105,26 @@ class CreateEventView: UIView {
 //        return button
 //    }()
     
+    lazy var friendsGoingCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let cellSpacing: CGFloat = 5.0
+        let numCells: CGFloat = 3
+        let numSpaces: CGFloat = numCells + 1
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        let width = (screenWidth - (cellSpacing * numSpaces)) / numCells
+        let height = width
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = cellSpacing * 2
+        layout.minimumInteritemSpacing = cellSpacing
+        layout.itemSize = CGSize(width: width, height: height)
+        layout.sectionInset = UIEdgeInsetsMake(cellSpacing, cellSpacing, cellSpacing, cellSpacing)
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        collectionView.register(FriendsCollectionViewCell.self, forCellWithReuseIdentifier: "user going cell")
+        collectionView.backgroundColor = .white
+        return collectionView
+    }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -128,6 +148,7 @@ class CreateEventView: UIView {
         setupContentView()
         setupBannerPhoto()
         setupEventTitle()
+        setupDescriptionTextView()
         setupEventTypeButton()
         setupTableView()
         setupDatePicker()
@@ -135,8 +156,9 @@ class CreateEventView: UIView {
         setupInviteButton()
         //setupSendInviteButton()
         setupSearchResultsTableView()
+        setupFriendsGoingCollectionView()
         //setupCreateEvent()
-        setupDescriptionTextView()
+        //setupDescriptionTextView()
     }
     
     private func setupScrollView() {
@@ -177,11 +199,21 @@ class CreateEventView: UIView {
         eventTitleTextField.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
     }
     
+    private func setupDescriptionTextView() {
+        contentView.addSubview(descriptionTextView)
+        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
+        descriptionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        descriptionTextView.topAnchor.constraint(equalTo: eventTitleTextField.bottomAnchor, constant: 5).isActive = true
+        descriptionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        descriptionTextView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25).isActive = true
+        //descriptionTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    }
+    
     private func setupEventTypeButton() {
         contentView.addSubview(eventTypeButton)
         eventTypeButton.translatesAutoresizingMaskIntoConstraints = false
         eventTypeButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        eventTypeButton.topAnchor.constraint(equalTo: eventTitleTextField.bottomAnchor, constant: 5).isActive = true
+        eventTypeButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 5).isActive = true
         eventTypeButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
         eventTypeButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.05).isActive = true
     }
@@ -238,6 +270,16 @@ class CreateEventView: UIView {
 //        inviteFriendsButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.05).isActive = true
     }
     
+    private func setupFriendsGoingCollectionView() {
+        contentView.addSubview(friendsGoingCollectionView)
+        friendsGoingCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        friendsGoingCollectionView.topAnchor.constraint(equalTo: inviteFriendsButton.bottomAnchor).isActive = true
+        friendsGoingCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        friendsGoingCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        friendsGoingCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        friendsGoingCollectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3).isActive = true
+    }
+    
 //    private func setupSendInviteButton() {
 //        contentView.addSubview(sendInvitesButton)
 //        sendInvitesButton.translatesAutoresizingMaskIntoConstraints = false
@@ -258,14 +300,14 @@ class CreateEventView: UIView {
 //        createEventButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
 //    }
     
-    private func setupDescriptionTextView() {
-        contentView.addSubview(descriptionTextView)
-        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        descriptionTextView.topAnchor.constraint(equalTo: inviteFriendsButton.bottomAnchor, constant: 5).isActive = true
-        descriptionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        descriptionTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-    }
+//    private func setupDescriptionTextView() {
+//        contentView.addSubview(descriptionTextView)
+//        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
+//        descriptionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+//        descriptionTextView.topAnchor.constraint(equalTo: inviteFriendsButton.bottomAnchor, constant: 5).isActive = true
+//        descriptionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+//        descriptionTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+//    }
     
 
 
