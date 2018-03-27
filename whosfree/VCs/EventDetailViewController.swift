@@ -35,8 +35,10 @@ class EventDetailViewController: UIViewController {
         self.eventDetailView.collectionView.dataSource = self
         self.eventDetailView.collectionView.delegate = self
         self.eventDetailView.rsvpButton.addTarget(self, action: #selector(rsvp), for: .touchUpInside)
+        self.eventDetailView.deleteButton.addTarget(self, action: #selector(deleteEvent), for: .touchUpInside)
         configureNavBar()
         eventDetailView.configureView(event: event, eventImage: eventImage)
+        eventDetailView.configureScrollView(event: event)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,11 +50,29 @@ class EventDetailViewController: UIViewController {
         self.eventDetailView.locationButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
     }
     
-    @objc private func rsvp() {
-        showAlert(title: "RSVP", message: "Please RSVP")
+    @objc private func deleteEvent() {
+        deleteAction(title: "Delete", message: "Are you sure you want to delete event?")
     }
     
-    private func showAlert(title: String, message: String) {
+    private func deleteAction(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) {(alert) in
+            print("pressed Delete")
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(alert) in
+            print("pressed Cancel")
+        }
+        
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc private func rsvp() {
+        rsvpAction(title: "RSVP", message: "Please RSVP")
+    }
+    
+    private func rsvpAction(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         let goingAction = UIAlertAction(title: "Going", style: .default) {(alert) in
             print("pressed Going")
@@ -60,8 +80,12 @@ class EventDetailViewController: UIViewController {
         let notGoingAction = UIAlertAction(title: "Not Going", style: .default) {(alert) in
             print("pressed Not Going")
         }
+        let maybeAction = UIAlertAction(title: "Maybe", style: .default) {(alert) in
+            print("pressed Maybe")
+        }
         alertController.addAction(goingAction)
         alertController.addAction(notGoingAction)
+        alertController.addAction(maybeAction)
         present(alertController, animated: true, completion: nil)
     }
     

@@ -5,7 +5,6 @@
 //  Created by Richard Crichlow on 2/26/18.
 //  Copyright © 2018 C4Q . All rights reserved.
 //
-
 import Foundation
 import UIKit
 
@@ -237,6 +236,7 @@ extension Stylesheet {
                     textview.font = Stylesheet.Fonts.TextfieldFont
                     textview.adjustsFontForContentSizeCategory = true
                     textview.isScrollEnabled = true
+                    textview.keyboardType = .default
                 }
             }
         }

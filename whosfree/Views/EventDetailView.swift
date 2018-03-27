@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class EventDetailView: UIView {
     
@@ -21,12 +22,18 @@ class EventDetailView: UIView {
         return view
     }()
     
-    lazy var mapImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.image = #imageLiteral(resourceName: "park")
-        return imageView
+    lazy var mapImageView: MKMapView = {
+        let mapView = MKMapView()
+        mapView.isScrollEnabled = false
+        return mapView
+    }()
+    
+    lazy var editButton: UIButton = {
+        let button = UIButton()
+        button.setImage(#imageLiteral(resourceName: "edit"), for: .normal)
+        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
+        button.backgroundColor = Stylesheet.Colors.azure.withAlphaComponent(0.5)
+        return button
     }()
 
     lazy var bannerPhotoImageView: UIImageView = {
@@ -81,10 +88,10 @@ class EventDetailView: UIView {
         let button = UIButton()
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("Going", for: .normal)
-        button.backgroundColor = UIColor.blue
+        button.backgroundColor = Stylesheet.Colors.LightBlue
         //button.layer.cornerRadius = 10.0
         button.layer.borderWidth = 1.0
-        button.layer.borderColor = UIColor.darkGray.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
     
@@ -92,20 +99,20 @@ class EventDetailView: UIView {
         let button = UIButton()
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("Not Going", for: .normal)
-        button.backgroundColor = UIColor.blue
+        button.backgroundColor = Stylesheet.Colors.LightBlue
         button.layer.borderWidth = 1.0
-        button.layer.borderColor = UIColor.darkGray.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         // button.layer.cornerRadius = 10.0
         return button
     }()
     
-    lazy var invitedButton: UIButton = {
+    lazy var maybeButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(UIColor.white, for: .normal)
-        button.setTitle("Invited", for: .normal)
-        button.backgroundColor = UIColor.blue
+        button.setTitle("Maybe", for: .normal)
+        button.backgroundColor = Stylesheet.Colors.LightBlue
         button.layer.borderWidth = 1.0
-        button.layer.borderColor = UIColor.darkGray.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         //button.layer.cornerRadius = 10.0
         return button
     }()
@@ -117,6 +124,14 @@ class EventDetailView: UIView {
         cv.backgroundColor = UIColor.groupTableViewBackground
         cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "InvitedFriendsCollectionViewCell")
         return cv
+    }()
+    
+    lazy var deleteButton: UIButton = {
+        let button = UIButton()
+        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
+        button.backgroundColor = .red
+        button.setTitle("Delete Event", for: .normal)
+        return button
     }()
     
     
@@ -141,6 +156,7 @@ class EventDetailView: UIView {
         setupScrollView()
         setupContentView()
         setupBannerPhoto()
+        setupEditButton()
         setupEventTitle()
         setupEventTypeLabel()
         setupRsvpButton()
@@ -152,6 +168,39 @@ class EventDetailView: UIView {
         setupNotGoingButton()
         setupGoingButton()
         setupInvitedButton()
+        setupDeleteButton()
+    }
+    
+    public func configureScrollView(event: Event) {
+        turnAddressIntoCoordinates(address: event.eventLocation, completionHandler: { (coordinate) in
+            self.configureMapView(coordinate: coordinate)
+        }) { (error) in
+            
+        }
+    }
+    
+    
+    private func configureMapView(coordinate: CLLocationCoordinate2D) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapImageView.addAnnotation(annotation)
+        let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        mapImageView.setRegion(region, animated: true)
+    }
+    
+    private func turnAddressIntoCoordinates(address: String,
+                                            completionHandler: @escaping (CLLocationCoordinate2D) -> Void,
+                                            errorHandler: @escaping (Error) -> Void) {
+        CLGeocoder().geocodeAddressString(address) { (placemarks, error) in
+            if let error = error {
+                errorHandler(error)
+            }
+            if let placemarks = placemarks {
+                let placemark = placemarks.first
+                let coordinate = placemark?.location?.coordinate
+                completionHandler(coordinate!)
+            }
+        }
     }
     
     private func setupScrollView() {
@@ -182,12 +231,21 @@ class EventDetailView: UIView {
         bannerPhotoImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
     }
     
+    private func setupEditButton() {
+        contentView.addSubview(editButton)
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        editButton.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
+        editButton.widthAnchor.constraint(equalTo: bannerPhotoImageView.widthAnchor, multiplier: 0.1).isActive = true
+        editButton.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 0.2).isActive = true
+        editButton.topAnchor.constraint(equalTo: bannerPhotoImageView.topAnchor, constant: 5).isActive = true
+    }
+    
     private func setupEventTitle() {
         contentView.addSubview(eventTitleLabel)
         eventTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         eventTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         eventTitleLabel.topAnchor.constraint(equalTo: bannerPhotoImageView.bottomAnchor).isActive = true
-        eventTitleLabel.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 0.2).isActive = true
+        eventTitleLabel.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 0.25).isActive = true
         eventTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         eventTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1).isActive = true
     }
@@ -253,7 +311,7 @@ class EventDetailView: UIView {
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        //collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 1).isActive = true
     }
     
@@ -276,11 +334,21 @@ class EventDetailView: UIView {
     }
     
     private func setupInvitedButton() {
-        contentView.addSubview(invitedButton)
-        invitedButton.translatesAutoresizingMaskIntoConstraints = false
-        invitedButton.leadingAnchor.constraint(equalTo: goingButton.trailingAnchor).isActive = true
-        invitedButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
-        invitedButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.33).isActive = true
+        contentView.addSubview(maybeButton)
+        maybeButton.translatesAutoresizingMaskIntoConstraints = false
+        maybeButton.leadingAnchor.constraint(equalTo: goingButton.trailingAnchor).isActive = true
+        maybeButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        maybeButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.33).isActive = true
+    }
+    
+    private func setupDeleteButton() {
+        contentView.addSubview(deleteButton)
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteButton.leadingAnchor.constraint(equalTo: bannerPhotoImageView.leadingAnchor).isActive = true
+        deleteButton.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
+        deleteButton.heightAnchor.constraint(equalTo: rsvpButton.heightAnchor, multiplier: 1).isActive = true
+        deleteButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor).isActive = true
+        deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
 
     public func configureView(event: Event, eventImage: UIImage) {
@@ -290,4 +358,20 @@ class EventDetailView: UIView {
         descriptionTextView.text = event.eventDescription
     }
 
+}
+extension EventDetailView: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation { return nil }
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotationView") as? MKMarkerAnnotationView
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "annotationView")
+            annotationView?.canShowCallout = true
+            annotationView?.animatesWhenAdded = true
+            annotationView?.markerTintColor = Stylesheet.Colors.azure
+            annotationView?.isHighlighted = true
+        } else {
+            annotationView?.annotation = annotation
+        }
+        return annotationView
+    }
 }
