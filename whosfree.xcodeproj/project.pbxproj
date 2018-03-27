@@ -39,6 +39,7 @@
 		DBACBAEC20580A8300882850 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAE820580A8300882850 /* DatabaseService.swift */; };
 		DBACBAF220580A9800882850 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAF120580A9800882850 /* StorageService.swift */; };
 		DBACBAF420580AA500882850 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAF320580AA500882850 /* UserProfile.swift */; };
+		DBADA049206AFBB500EF1AE5 /* VenueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADA048206AFBB500EF1AE5 /* VenueTableViewCell.swift */; };
 		DBDDDC80206005C9009F4908 /* ExistingFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */; };
 		DBE59973205C1F5C00FD1898 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59972205C1F5C00FD1898 /* EventListViewController.swift */; };
 		DBE59975205C1F7000FD1898 /* EventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59974205C1F7000FD1898 /* EventListView.swift */; };
@@ -141,6 +142,7 @@
 		DBACBAE820580A8300882850 /* DatabaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		DBACBAF120580A9800882850 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		DBACBAF320580AA500882850 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		DBADA048206AFBB500EF1AE5 /* VenueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueTableViewCell.swift; sourceTree = "<group>"; };
 		DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingFriendsTableViewCell.swift; sourceTree = "<group>"; };
 		DBE59972205C1F5C00FD1898 /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
 		DBE59974205C1F7000FD1898 /* EventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListView.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */,
 				DBE5999C205C217D00FD1898 /* MovieTableViewCell.swift */,
 				DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */,
+				DBADA048206AFBB500EF1AE5 /* VenueTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 				E22D85B12060626800A13ED1 /* VenueReview.swift in Sources */,
 				E22D859B206054B900A13ED1 /* SignUpContainerView.swift in Sources */,
 				DB3F6AC4206562840015A946 /* InviteFriendsView.swift in Sources */,
+				DBADA049206AFBB500EF1AE5 /* VenueTableViewCell.swift in Sources */,
 				DBE5998D205C20AF00FD1898 /* VenueDetailViewController.swift in Sources */,
 				DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */,
 				DBACBAE020580A6900882850 /* NetworkConnectivity.swift in Sources */,
