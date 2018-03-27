@@ -16,7 +16,7 @@ class CreateEventViewController: UIViewController {
     var lastKeyboardOffset: CGFloat = 0.0
     
     let createEventView = CreateEventView()
-    var categories = ["Venue", "Movie", "Other"]
+    var categories = ["Place", "Movie"]
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     var searchSource: [String]?
@@ -26,6 +26,9 @@ class CreateEventViewController: UIViewController {
             dump(invitedFriendsEmails)
         }
     }
+    
+    var invitedFriendsFullInfo = [Contact]()
+    
     let childByAutoId = DatabaseService.manager.getEvents().childByAutoId()
     
     let eventBannerImagePicker = UIImagePickerController()
@@ -44,6 +47,8 @@ class CreateEventViewController: UIViewController {
         self.searchCompleter.delegate = self
         self.createEventView.searchBar.delegate = self
         self.eventBannerImagePicker.delegate = self
+        self.createEventView.friendsGoingCollectionView.delegate = self
+        self.createEventView.friendsGoingCollectionView.dataSource = self
         
         // Setup Functions
         setupNavBarButtons()
@@ -146,7 +151,7 @@ class CreateEventViewController: UIViewController {
         let timestamp = Date.timeIntervalSinceReferenceDate
         let eventToAdd = Event(eventID: childByAutoId.key, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")
         DatabaseService.manager.addEvent(eventToAdd, createEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
-        if !invitedFriendsEmails.isEmpty { sendEmailInvites(event: eventToAdd) }
+        //if !invitedFriendsEmails.isEmpty { sendEmailInvites(event: eventToAdd) }
         dismiss(animated: true, completion: nil)
     }
     
@@ -274,7 +279,7 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
             let searchRequest = MKLocalSearchRequest(completion: completion)
             let search = MKLocalSearch(request: searchRequest)
             search.start{ (response, error) in
-                let coordinate = response?.mapItems[0].placemark.coordinate
+                _ = response?.mapItems[0].placemark.coordinate
                 //print(response?.mapItems)
                 
                 self.createEventView.searchBar.text = "\(cellText)"
@@ -289,7 +294,7 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
             createEventView.tableView.isHidden = true
             createEventView.datePicker.isEnabled = true
             switch category {
-            case "Venue":
+            case "Place":
                 // seque venue
                 print("Clicked Venue")
                 let venueViewController = VenueViewController()
@@ -373,7 +378,25 @@ extension CreateEventViewController: UITextFieldDelegate {
 
 extension CreateEventViewController: InviteFriendsViewControllerDelegate {
     func didFinishAddingFriendsToEvent(_ friendsGoing: [Contact]) {
+        self.invitedFriendsFullInfo = friendsGoing
+        self.createEventView.friendsGoingCollectionView.reloadData()
         self.invitedFriendsEmails = friendsGoing.map{$0.emailAddress!}
     }
 }
 
+
+extension CreateEventViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return invitedFriendsFullInfo.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "user going cell", for: indexPath) as! FriendsCollectionViewCell
+        let currentFriend = invitedFriendsFullInfo[indexPath.row]
+        cell.friendLabel.text = "\(currentFriend.givenName)"
+        cell.friendImage.image = UIImage(data: currentFriend.imageData!)
+        return cell
+    }
+    
+    
+}
