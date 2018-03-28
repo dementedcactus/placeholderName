@@ -119,7 +119,7 @@ class EventTableViewCell: UITableViewCell {
 //            eventDateAndTimeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
 //            eventDateAndTimeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.25)
             eventDateAndTimeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            eventDateAndTimeLabel.bottomAnchor.constraint(equalTo: eventTitleLabel.topAnchor)
+            eventDateAndTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor)
             ])
         
     }
