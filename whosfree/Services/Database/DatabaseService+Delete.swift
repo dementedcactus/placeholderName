@@ -10,8 +10,6 @@ import Foundation
 import FirebaseDatabase
 
 extension DatabaseService {
-    /**
-     */
     public func deleteEvent(withPostID postID: String) {
         eventsRef.child(postID).removeValue { (error, _) in
             if let error = error {
@@ -21,18 +19,4 @@ extension DatabaseService {
             }
         }
     }
-    
-    /**
-     */
-//    public func deleteComment(withCommentID commentID: String) {
-//        commentsRef.child(commentID).removeValue { (error, _) in
-//            if let error = error {
-//                self.delegate?.didFailDeletingComment?(self, error: error.localizedDescription)
-//            } else {
-//                self.delegate?.didDeleteComment?(self)
-//            }
-//        }
-//    }
-    
-    
 }

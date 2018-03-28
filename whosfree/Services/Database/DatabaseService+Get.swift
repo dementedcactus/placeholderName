@@ -96,7 +96,7 @@ extension DatabaseService {
     }
  
     func getAllEvents(completion: @escaping ([Event]?) -> Void) {
-        eventsRef.observeSingleEvent(of: .value) { (dataSnapshot) in
+        eventsRef.observe(.value) { (dataSnapshot) in
             guard let arrayOfAllEventsSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
                 print("could not get children snapshots")
                 completion(nil)
@@ -129,7 +129,7 @@ extension DatabaseService {
                     completion(nil)
                     return
                 }
-                guard let timestamp = savedEventDictionary["timestamp"] as? Double else {
+                guard let timestamp = savedEventDictionary["timestamp"] as? String else {
                     completion(nil)
                     return
                 }
@@ -158,7 +158,7 @@ extension DatabaseService {
     }
     
     func getChat(withEventID: String, completion: @escaping ([Comment]?) -> Void) {
-        chatsRef.child(withEventID).observeSingleEvent(of: .value) { (dataSnapshot) in
+        chatsRef.child(withEventID).observe(.value) { (dataSnapshot) in
             guard let arrayOfAllCommentsSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
                 print("could not get children snapshots")
                 completion(nil)

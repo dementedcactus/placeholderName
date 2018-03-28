@@ -30,12 +30,11 @@ class EventDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(eventDetailView)
-        //self.eventDetailView.tableView.dataSource = self
-        //self.eventDetailView.tableView.delegate = self
         self.eventDetailView.collectionView.dataSource = self
         self.eventDetailView.collectionView.delegate = self
         self.eventDetailView.rsvpButton.addTarget(self, action: #selector(rsvp), for: .touchUpInside)
         self.eventDetailView.deleteButton.addTarget(self, action: #selector(deleteEvent), for: .touchUpInside)
+        self.eventDetailView.editButton.addTarget(self, action: #selector(editEvent), for: .touchUpInside)
         configureNavBar()
         eventDetailView.configureView(event: event, eventImage: eventImage)
         eventDetailView.configureScrollView(event: event)
@@ -58,6 +57,7 @@ class EventDetailViewController: UIViewController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) {(alert) in
             print("pressed Delete")
+            DatabaseService.manager.deleteEvent(withPostID: self.event.eventID)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(alert) in
             print("pressed Cancel")
@@ -105,30 +105,17 @@ class EventDetailViewController: UIViewController {
     
     
     @objc private func editEvent() {
-        
+        let editVC = EditEventViewController(event: event, eventImage: eventImage)
+        navigationController?.pushViewController(editVC, animated: true)
     }
     
     @objc private func segueToChatViewController() {
-        // TODO: dependency injection of the eventID so we know which chat corresponds to the event
         let chatVC = ChatViewController()
         chatVC.specificEventIDsChat = event.eventID
         navigationController?.pushViewController(chatVC, animated: true)
     }
     
 }
-
-//extension EventDetailViewController: UITableViewDataSource, UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return dummyData.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let data = dummyData[indexPath.row]
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "EventTypeCell", for: indexPath)
-//        cell.textLabel?.text = data
-//        return cell
-//    }
-//}
 
 extension EventDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -140,7 +127,6 @@ extension EventDetailViewController: UICollectionViewDataSource {
         cell.backgroundColor = .red
         return cell
     }
-    
     
 }
 

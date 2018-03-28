@@ -32,17 +32,28 @@ class ChatViewController: UIViewController {
         self.chatView.textView.delegate = self
         self.chatView.sendButton.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
         setupView()
+        chatView.tableView.transform = CGAffineTransform(rotationAngle: -(CGFloat)(Double.pi))
+        // adds toolbar on top of textfied with done button to resing first responder
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44))
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([flexibleSpace, doneButton], animated: true)
+        chatView.textView.inputAccessoryView = toolBar
+    }
+    
+    @objc func doneButtonTapped() -> Void {
+        chatView.textView.resignFirstResponder()
     }
     
     private func setupView() {
         DatabaseService.manager.getChat(withEventID: specificEventIDsChat) { (data) in
             if let data = data {
                 self.dummyData = data
-                if !self.dummyData.isEmpty {
-                    self.lastIndexInData = self.dummyData.count - 1
-                    let indexPath = IndexPath(item: self.lastIndexInData, section: 0)
-                    self.chatView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
-                }
+//                if !self.dummyData.isEmpty {
+//                    self.lastIndexInData = self.dummyData.count - 1
+//                    let indexPath = IndexPath(item: self.lastIndexInData, section: 0)
+//                    self.chatView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+//                }
             } else {
                 print("No Data")
                 // TODO: Empty State View
@@ -101,8 +112,9 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let comment = dummyData[indexPath.row]
+        let comment = dummyData.reversed()[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatTableViewCell", for: indexPath) as! ChatTableViewCell
+        cell.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi));
         if comment.userID == currentLoggedInUID {
             cell.configureUserCell(comment: comment)
             return cell

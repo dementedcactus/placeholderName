@@ -80,7 +80,6 @@ class EditEventViewController: UIViewController {
     private func setupNavBarButtons() {
         self.title = "Edit Event"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButtonPressed))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelButtonPressed))
     }
     
     private func setupViewButtons() {
@@ -103,11 +102,6 @@ class EditEventViewController: UIViewController {
         let editedEventToAdd = Event(eventID: eventId, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")
         DatabaseService.manager.editEvent(editedEventToAdd, editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
         dismiss(animated: true, completion: nil)
-    }
-    
-    @objc private func cancelButtonPressed() {
-        self.dismiss(animated: true, completion: nil)
-        print("Cancel create event pressed")
     }
     
     @objc private func inviteFriendsButtonPressed() {
