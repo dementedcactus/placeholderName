@@ -14,7 +14,8 @@ class EventTypeTableViewCell: UITableViewCell {
     lazy var eventTypeLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Category Here"
-        Stylesheet.Objects.Labels.Regular.style(label: lb)
+        Stylesheet.Objects.Labels.AppName.style(label: lb)
+        //lb.font = Stylesheet.Fonts.Bold
         return lb
     }()
     
