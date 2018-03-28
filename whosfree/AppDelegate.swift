@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("url host :\(url.host!)")
         print("url path :\(url.path.replacingOccurrences(of: "/", with: ""))")
         
-        let urlPath : String = url.path as String!
+        let urlPath : String = url.path.replacingOccurrences(of: "/", with: "") as String!
         let urlHost : String = url.host!.replacingOccurrences(of: "/", with: "") as String!
         
         DatabaseService.manager.addInvitedUserThatAccepted(to: urlHost, with: urlPath)
