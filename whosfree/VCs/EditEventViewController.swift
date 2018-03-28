@@ -198,18 +198,16 @@ extension EditEventViewController: UITableViewDataSource, UITableViewDelegate {
             editEventView.tableView.isHidden = true
             editEventView.datePicker.isEnabled = true
             switch category {
-            case "Venue":
-                // seque venue
-                print("Clicked Venue")
-                let venueViewController = VenueViewController()
-                navigationController?.pushViewController(venueViewController, animated: true)
+            case "Place":
+                // segue place
+                print("Clicked Place")
+                let placeViewController = PlaceViewController()
+                navigationController?.pushViewController(placeViewController, animated: true)
             case "Movie":
                 //segue movie
                 print("Clicked Movie")
                 let theatersViewController = TheatersViewController()
                 navigationController?.pushViewController(theatersViewController, animated: true)
-            case "Other":
-                print("Clicked Other")
             default:
                 print("Do nothing")
             }

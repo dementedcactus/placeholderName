@@ -302,17 +302,15 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
             createEventView.datePicker.isEnabled = true
             switch category {
             case "Place":
-                // seque venue
-                print("Clicked Venue")
-                let venueViewController = VenueViewController()
-                navigationController?.pushViewController(venueViewController, animated: true)
+                // segue Place
+                print("Clicked Place")
+                let placeViewController = PlaceViewController()
+                navigationController?.pushViewController(placeViewController, animated: true)
             case "Movie":
                 //segue movie
                 print("Clicked Movie")
                 let theatersViewController = TheatersViewController()
                 navigationController?.pushViewController(theatersViewController, animated: true)
-            case "Other":
-                print("Clicked Other")
             default:
                 print("Do nothing")
             }
