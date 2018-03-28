@@ -74,6 +74,6 @@ extension PlaceViewController: UISearchBarDelegate {
                 self.placeData = venueData
             }, failure: {print($0)})
         }
-        resignFirstResponder()
+        searchBar.resignFirstResponder()
     }
 }
