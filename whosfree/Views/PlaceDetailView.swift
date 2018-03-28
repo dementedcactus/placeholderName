@@ -78,7 +78,7 @@ class PlaceDetailView: UIView {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Place Detail Cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Review Cell")
         return tableView
     }()
     
@@ -196,6 +196,38 @@ class PlaceDetailView: UIView {
         tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 10).isActive = true
         tableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.3).isActive = true
+    }
+    
+    public func configureView(with place: Place) {
+        placeNameLabel.text = place.name
+        placeAddressLabel.text = place.location.address1
+        placePricePointLabel.text = place.price
+        switch place.rating {
+        case 0.0:
+            ratingImage.image = #imageLiteral(resourceName: "zeroStars")
+        case 0.5:
+            ratingImage.image = #imageLiteral(resourceName: "halfStar")
+        case 1.0:
+            ratingImage.image = #imageLiteral(resourceName: "oneStar")
+        case 1.5:
+            ratingImage.image = #imageLiteral(resourceName: "oneAndAHalfStar")
+        case 2.0:
+            ratingImage.image = #imageLiteral(resourceName: "twoStars")
+        case 2.5:
+            ratingImage.image = #imageLiteral(resourceName: "twoAndAHalfStars")
+        case 3.0:
+            ratingImage.image = #imageLiteral(resourceName: "threeStars")
+        case 3.5:
+            ratingImage.image = #imageLiteral(resourceName: "threeAndAHalfStars")
+        case 4.0:
+            ratingImage.image = #imageLiteral(resourceName: "fourStars")
+        case 4.5:
+            ratingImage.image = #imageLiteral(resourceName: "fourAndAHalfStars")
+        case 5.0:
+            ratingImage.image = #imageLiteral(resourceName: "fiveStars")
+        default:
+            print("no review rating available")
+        }
     }
 
 }
