@@ -17,7 +17,7 @@ struct PlaceAPIClient {
     static let manager = PlaceAPIClient()
     
     func getPlaces(with keyword: String, and zipCode: String, success: @escaping ([Place]) -> Void, failure: @escaping (Error) -> Void) {
-        let urlStr = "https://api.yelp.com/v3/businesses/search?term=\(keyword)&location=\(zipCode)"
+        let urlStr = "https://api.yelp.com/v3/businesses/search?term=\(keyword.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&location=\(zipCode.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)"
         guard let url = URL(string: urlStr) else {
             failure(AppErrors.badURL(str: urlStr))
             return
