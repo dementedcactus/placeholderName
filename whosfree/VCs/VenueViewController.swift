@@ -11,7 +11,7 @@ import UIKit
 class VenueViewController: UIViewController {
     
     let venueView = VenueView()
-    var dummyData = [Venue]() {
+    var placeData = [Venue]() {
         didSet {
             venueView.tableView.reloadData()
         }
@@ -36,15 +36,15 @@ class VenueViewController: UIViewController {
 
 extension VenueViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyData.count
+        return placeData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let testData = dummyData[indexPath.row]
+        let place = placeData[indexPath.row]
         let cell = venueView.tableView.dequeueReusableCell(withIdentifier: "Venue Cell", for: indexPath) as! VenueTableViewCell
         
-        cell.venueLabel.text = testData.name
-        cell.venueDetailLabel.text = testData.phone
+        cell.venueLabel.text = place.name
+        cell.venueDetailLabel.text = "\(place.location.address1) \(place.location.city) \(place.location.zip_code)"
         return cell
     }
     
@@ -71,7 +71,7 @@ extension VenueViewController: UISearchBarDelegate {
             present(alertView, animated: true, completion: nil)
         } else {
             VenueAPIClient.manager.getVenues(with: venueView.venueSearchBar.text!, and: venueView.locationSearchBar.text!, success: { (venueData) in
-                self.dummyData = venueData
+                self.placeData = venueData
             }, failure: {print($0)})
         }
         resignFirstResponder()
