@@ -24,7 +24,7 @@ class CreateEventView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = #imageLiteral(resourceName: "venuePlaceHolder")
+        imageView.image = #imageLiteral(resourceName: "placeholder")
         return imageView
     }()
     
