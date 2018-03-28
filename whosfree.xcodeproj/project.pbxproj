@@ -10,6 +10,7 @@
 		5A02D534D00123711E33753F /* Pods_whosfreeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD5219901C00B5DBC74C7D0 /* Pods_whosfreeUITests.framework */; };
 		84F06A9A6BF121D360D801EC /* Pods_whosfree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56270434984F66181CF21D95 /* Pods_whosfree.framework */; };
 		94FF2030ABE4CB093C686CC7 /* Pods_whosfreeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21925C818A4A3361FA7E2477 /* Pods_whosfreeTests.framework */; };
+		D23E3498206C29E5006A9638 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23E3497206C29E5006A9638 /* LocationService.swift */; };
 		D2603BFD20655B2000A55A87 /* CreateEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2603BFC20655B2000A55A87 /* CreateEventCell.swift */; };
 		DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE44820571E5C00AAD2D8 /* AppDelegate.swift */; };
 		DB3DE45120571E5C00AAD2D8 /* whosfree.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE44F20571E5C00AAD2D8 /* whosfree.xcdatamodeld */; };
@@ -107,6 +108,7 @@
 		7CF222DD50E6FE553458725A /* Pods-whosfreeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whosfreeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-whosfreeUITests/Pods-whosfreeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7DD5219901C00B5DBC74C7D0 /* Pods_whosfreeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_whosfreeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95AFDAA9FE5BB29F7E498C64 /* Pods-whosfreeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whosfreeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-whosfreeUITests/Pods-whosfreeUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D23E3497206C29E5006A9638 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		D2603BFC20655B2000A55A87 /* CreateEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventCell.swift; sourceTree = "<group>"; };
 		DB3DE44520571E5C00AAD2D8 /* whosfree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = whosfree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB3DE44820571E5C00AAD2D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				E22D85A8206061E900A13ED1 /* ShowtimeAPIClient.swift */,
 				E22D85AA2060621900A13ED1 /* PlaceAPIClient.swift */,
 				E22D85AC2060623800A13ED1 /* PlaceReviewAPIClient.swift */,
+				D23E3497206C29E5006A9638 /* LocationService.swift */,
 				DB3DE4822057224900AAD2D8 /* Database */,
 				DB3DE4812057224000AAD2D8 /* AuthUser */,
 				DB3DE4802057223700AAD2D8 /* Storage */,
@@ -791,6 +794,7 @@
 				E22D85AB2060621900A13ED1 /* PlaceAPIClient.swift in Sources */,
 				DB3FE9572067F2E7005DCE47 /* EditEventView.swift in Sources */,
 				DB7E3EAB205945640075AA99 /* DatabaseService+Edit.swift in Sources */,
+				D23E3498206C29E5006A9638 /* LocationService.swift in Sources */,
 				DB7E3EB0205967090075AA99 /* Event.swift in Sources */,
 				E22D85A7206061CF00A13ED1 /* TheaterAPIClient.swift in Sources */,
 				DBDDDC80206005C9009F4908 /* ExistingFriendsTableViewCell.swift in Sources */,
