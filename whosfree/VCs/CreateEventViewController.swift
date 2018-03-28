@@ -151,8 +151,8 @@ class CreateEventViewController: UIViewController {
 //            timestamp = "\(day) \(month) \(year)"
 //        }
         let eventToAdd = Event(eventID: childByAutoId.key, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")
-        DatabaseService.manager.addEvent(eventToAdd, createEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
-        //if !invitedFriendsEmails.isEmpty { sendEmailInvites(event: eventToAdd) }
+        DatabaseService.manager.addEvent(eventToAdd, createEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "placeholder"))
+        if !invitedFriendsEmails.isEmpty { sendEmailInvites(event: eventToAdd) }
         dismiss(animated: true, completion: nil)
     }
     
@@ -166,7 +166,7 @@ class CreateEventViewController: UIViewController {
         let emails = invitedFriendsEmails
         for email in emails {
             DatabaseService.manager.getUserProfile(withUID: FirebaseAuthService.getCurrentUser()!.uid, completion: { (user) in
-                self.mailgun.sendEmail(to: email, from: "WYT The App <whosfreetheapp@gmail.com>", subject: "You have been invited!", bodyHTML: "Hi!, \(user.firstName) \(user.lastName) invited you to an event.<br /> \(event.description) Please click <a href=\"https://www.w3schools.com/html/\">RSVP</a> to accept the invite") { mailgunResult in
+                self.mailgun.sendEmail(to: email, from: "WYT The App <whosfreetheapp@gmail.com>", subject: "You have been invited!", bodyHTML: "Hi!, \(user.firstName) \(user.lastName) invited you to an event.<br /> \(event.description) Please click <a href=\"wyd://\(self.childByAutoId.key)/\(email)\">RSVP</a> to accept the invite") { mailgunResult in
                     if mailgunResult.success{
                         print("Email was sent")
                     }

@@ -53,6 +53,10 @@ extension VenueViewController: UITableViewDelegate, UITableViewDataSource {
         navigationController?.pushViewController(venueDetailVC, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
 }
 extension VenueViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
