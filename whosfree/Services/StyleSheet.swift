@@ -146,8 +146,8 @@ extension Stylesheet {
             case PostUsername
             case CommentLabelRight
             case CommentLabelLeft
-            case VenueLabel
-            case VenueDetailLabel
+            case PlaceLabel
+            case PlaceDetailLabel
             
             func style(label: UILabel) {
                 switch self {
@@ -207,13 +207,13 @@ extension Stylesheet {
                     label.backgroundColor = .clear
                     label.textAlignment = .left
                     label.numberOfLines = 0
-                case .VenueLabel:
+                case .PlaceLabel:
                     label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
                     label.textColor = Stylesheet.Colors.Black
                     label.backgroundColor = .clear
                     label.textAlignment = .left
                     label.numberOfLines = 0
-                case .VenueDetailLabel:
+                case .PlaceDetailLabel:
                     label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
                     label.textColor = Stylesheet.Colors.Black
                     label.backgroundColor = .clear

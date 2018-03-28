@@ -9,9 +9,9 @@
 import UIKit
 import MapKit
 
-class VenueDetailView: UIView {
+class PlaceDetailView: UIView {
     
-    lazy var venueImage: UIImageView = {
+    lazy var placeImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -19,21 +19,21 @@ class VenueDetailView: UIView {
         return imageView
     }()
     
-    lazy var venueNameLabel: UILabel = {
+    lazy var placeNameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "Venue Name"
+        label.text = "Place Name"
         return label
     }()
     
-    lazy var venueAddressLabel: UILabel = {
+    lazy var placeAddressLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "Venue Address 34 st New York, NY 10020"
         return label
     }()
     
-    lazy var venuePricePointLabel: UILabel = {
+    lazy var placePricePointLabel: UILabel = {
         let label = UILabel()
         label.text = "Price point $$"
         return label
@@ -78,7 +78,7 @@ class VenueDetailView: UIView {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Venue Detail Cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Place Detail Cell")
         return tableView
     }()
     
@@ -99,11 +99,11 @@ class VenueDetailView: UIView {
     }
     
     private func setupViews() {
-        setupVenueImage()
-        setupVenueLabel()
+        setupPlaceImage()
+        setupPlaceLabel()
         setupRatingImage()
-        setupVenueAddressLabel()
-        setupVenuePricePointLabel()
+        setupPlaceAddressLabel()
+        setupPlacePricePointLabel()
         setupCallButton()
         setupCallLabel()
         setupSendLocationButton()
@@ -112,46 +112,46 @@ class VenueDetailView: UIView {
         setupTableView()
     }
     
-    private func setupVenueImage() {
-        addSubview(venueImage)
-        venueImage.translatesAutoresizingMaskIntoConstraints = false
-        venueImage.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        venueImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        venueImage.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        venueImage.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.20).isActive = true
+    private func setupPlaceImage() {
+        addSubview(placeImage)
+        placeImage.translatesAutoresizingMaskIntoConstraints = false
+        placeImage.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        placeImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        placeImage.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        placeImage.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.20).isActive = true
     }
     
-    private func setupVenueLabel() {
-        addSubview(venueNameLabel)
-        venueNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        venueNameLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        venueNameLabel.topAnchor.constraint(equalTo: venueImage.bottomAnchor, constant: 8).isActive = true
-        venueNameLabel.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.8).isActive = true
+    private func setupPlaceLabel() {
+        addSubview(placeNameLabel)
+        placeNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        placeNameLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        placeNameLabel.topAnchor.constraint(equalTo: placeImage.bottomAnchor, constant: 8).isActive = true
+        placeNameLabel.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.8).isActive = true
     }
     
     private func setupRatingImage() {
         addSubview(ratingImage)
         ratingImage.translatesAutoresizingMaskIntoConstraints = false
-        ratingImage.leadingAnchor.constraint(equalTo: venueNameLabel.leadingAnchor).isActive = true
+        ratingImage.leadingAnchor.constraint(equalTo: placeNameLabel.leadingAnchor).isActive = true
         ratingImage.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.3).isActive = true
         ratingImage.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.05).isActive = true
-        ratingImage.topAnchor.constraint(equalTo: venueNameLabel.bottomAnchor).isActive = true
+        ratingImage.topAnchor.constraint(equalTo: placeNameLabel.bottomAnchor).isActive = true
     }
     
-    private func setupVenueAddressLabel() {
-        addSubview(venueAddressLabel)
-        venueAddressLabel.translatesAutoresizingMaskIntoConstraints = false
-        venueAddressLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        venueAddressLabel.topAnchor.constraint(equalTo: ratingImage.bottomAnchor, constant: 5).isActive = true
-        venueAddressLabel.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.8).isActive = true
+    private func setupPlaceAddressLabel() {
+        addSubview(placeAddressLabel)
+        placeAddressLabel.translatesAutoresizingMaskIntoConstraints = false
+        placeAddressLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        placeAddressLabel.topAnchor.constraint(equalTo: ratingImage.bottomAnchor, constant: 5).isActive = true
+        placeAddressLabel.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.8).isActive = true
     }
     
-    private func setupVenuePricePointLabel() {
-        addSubview(venuePricePointLabel)
-        venuePricePointLabel.translatesAutoresizingMaskIntoConstraints = false
-        venuePricePointLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        venuePricePointLabel.topAnchor.constraint(equalTo: venueAddressLabel.bottomAnchor, constant: 5).isActive = true
-        venuePricePointLabel.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.3).isActive = true
+    private func setupPlacePricePointLabel() {
+        addSubview(placePricePointLabel)
+        placePricePointLabel.translatesAutoresizingMaskIntoConstraints = false
+        placePricePointLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        placePricePointLabel.topAnchor.constraint(equalTo: placeAddressLabel.bottomAnchor, constant: 5).isActive = true
+        placePricePointLabel.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.3).isActive = true
     }
     
     private func setupCallButton() {
@@ -160,7 +160,7 @@ class VenueDetailView: UIView {
         callButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 3).isActive = true
         callButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.2).isActive = true
         callButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.2).isActive = true
-        callButton.topAnchor.constraint(equalTo: venueNameLabel.bottomAnchor).isActive = true
+        callButton.topAnchor.constraint(equalTo: placeNameLabel.bottomAnchor).isActive = true
     }
     
     private func setupCallLabel() {
@@ -177,7 +177,7 @@ class VenueDetailView: UIView {
         sendLocationButton.translatesAutoresizingMaskIntoConstraints = false
         sendLocationButton.trailingAnchor.constraint(equalTo:safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         sendLocationButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: 0.4).isActive = true
-        sendLocationButton.topAnchor.constraint(equalTo: venueAddressLabel.bottomAnchor).isActive = true
+        sendLocationButton.topAnchor.constraint(equalTo: placeAddressLabel.bottomAnchor).isActive = true
     }
     
     private func setupMapView() {

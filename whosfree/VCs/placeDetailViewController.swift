@@ -8,32 +8,32 @@
 
 import UIKit
 
-class VenueDetailViewController: UIViewController {
+class placeDetailViewController: UIViewController {
 
-    let venueDetailView = VenueDetailView()
+    let placeDetailView = PlaceDetailView()
     let dummyData = ["test1", "test2", "test3"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(venueDetailView)
-        venueDetailView.tableView.delegate = self
-        venueDetailView.tableView.dataSource = self
+        self.view.addSubview(placeDetailView)
+        placeDetailView.tableView.delegate = self
+        placeDetailView.tableView.dataSource = self
         configureNavBar()
     }
     
     private func configureNavBar() {
-        navigationItem.title = "Venue Detail Page"
+        navigationItem.title = "Place Detail Page"
     }
     
 }
-extension VenueDetailViewController : UITableViewDelegate, UITableViewDataSource {
+extension placeDetailViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dummyData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = dummyData[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Venue Detail Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Place Detail Cell", for: indexPath)
         cell.textLabel?.text = data
         return cell
     }
