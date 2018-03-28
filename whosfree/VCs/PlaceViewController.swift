@@ -8,12 +8,12 @@
 
 import UIKit
 
-class VenueViewController: UIViewController {
+class PlaceViewController: UIViewController {
     
-    let venueView = VenueView()
-    var placeData = [Venue]() {
+    let placeView = PlaceView()
+    var placeData = [Place]() {
         didSet {
-            venueView.tableView.reloadData()
+            placeView.tableView.reloadData()
         }
     }
     
@@ -23,34 +23,34 @@ class VenueViewController: UIViewController {
     }
     
     private func setupView(){
-        self.view.addSubview(venueView)
-        venueView.tableView.dataSource = self
-        venueView.tableView.delegate = self
-        venueView.venueSearchBar.delegate = self
-        venueView.locationSearchBar.delegate = self
+        self.view.addSubview(placeView)
+        placeView.tableView.dataSource = self
+        placeView.tableView.delegate = self
+        placeView.placeSearchBar.delegate = self
+        placeView.locationSearchBar.delegate = self
         
     }
     
 }
 
 
-extension VenueViewController: UITableViewDelegate, UITableViewDataSource {
+extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return placeData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let place = placeData[indexPath.row]
-        let cell = venueView.tableView.dequeueReusableCell(withIdentifier: "Venue Cell", for: indexPath) as! VenueTableViewCell
+        let cell = placeView.tableView.dequeueReusableCell(withIdentifier: "Place Cell", for: indexPath) as! PlaceTableViewCell
         
-        cell.venueLabel.text = place.name
-        cell.venueDetailLabel.text = "\(place.location.address1) \(place.location.city) \(place.location.zip_code)"
+        cell.placeLabel.text = place.name
+        cell.placeDetailLabel.text = "\(place.location.address1) \(place.location.city) \(place.location.zip_code)"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let venueDetailVC = VenueDetailViewController()
-        navigationController?.pushViewController(venueDetailVC, animated: true)
+        let placeDetailVC = placeDetailViewController()
+        navigationController?.pushViewController(placeDetailVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -58,19 +58,19 @@ extension VenueViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
-extension VenueViewController: UISearchBarDelegate {
+extension PlaceViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         becomeFirstResponder()
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // TODO
-        if venueView.venueSearchBar.text == "" || venueView.locationSearchBar.text == "" {
+        if placeView.placeSearchBar.text == "" || placeView.locationSearchBar.text == "" {
             let alertView = UIAlertController(title: "Please enter text into both search fields", message: nil, preferredStyle: .alert)
             let noOption = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alertView.addAction(noOption)
             present(alertView, animated: true, completion: nil)
         } else {
-            VenueAPIClient.manager.getVenues(with: venueView.venueSearchBar.text!, and: venueView.locationSearchBar.text!, success: { (venueData) in
+            PlaceAPIClient.manager.getPlaces(with: placeView.placeSearchBar.text!, and: placeView.locationSearchBar.text!, success: { (venueData) in
                 self.placeData = venueData
             }, failure: {print($0)})
         }
