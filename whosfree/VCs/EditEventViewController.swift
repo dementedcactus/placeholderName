@@ -18,7 +18,7 @@ class EditEventViewController: UIViewController {
     // TODO: Update this VC to also send Mailgun invites when new people are added to the invite list
     
     var editDelegate: EditDelegate?
-    
+    let placeViewController = PlaceViewController()
     let editEventView = EditEventView()
     var categories = ["Place", "Movie"]
     var searchCompleter = MKLocalSearchCompleter()
@@ -58,6 +58,7 @@ class EditEventViewController: UIViewController {
         setupViewButtons()
         setupBannerImageGestureRecognizer()
         editEventView.prefillEventFields(event: event, eventImage: eventImage)
+        self.placeViewController.selectVenueDelegate = self
     }
     
     private func setupBannerImageGestureRecognizer() {
@@ -188,7 +189,7 @@ extension EditEventViewController: UITableViewDataSource, UITableViewDelegate {
             let searchRequest = MKLocalSearchRequest(completion: completion)
             let search = MKLocalSearch(request: searchRequest)
             search.start{ (response, error) in
-                let coordinate = response?.mapItems[0].placemark.coordinate
+                _ = response?.mapItems[0].placemark.coordinate
                 //print(response?.mapItems)
                 
                 self.editEventView.searchBar.text = "\(cellText)"
@@ -206,7 +207,6 @@ extension EditEventViewController: UITableViewDataSource, UITableViewDelegate {
             case "Place":
                 // segue place
                 print("Clicked Place")
-                let placeViewController = PlaceViewController()
                 navigationController?.pushViewController(placeViewController, animated: true)
             case "Movie":
                 //segue movie
@@ -274,5 +274,12 @@ extension EditEventViewController: UITextViewDelegate {
     }
 }
 
+extension EditEventViewController: SelectVenueDelegate {
+    func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String) {
+        self.editEventView.searchBar.text = addrsss
+    }
+    
+    
+}
 
 

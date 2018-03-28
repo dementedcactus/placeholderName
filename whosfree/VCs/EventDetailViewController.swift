@@ -16,6 +16,7 @@ class EventDetailViewController: UIViewController {
     let dummyData = ["test1 title", "test2 title", "test3 title", "test4 title", "test5 title"]
     private let cellSpacing: CGFloat =  5.0
     var coordinate: CLLocationCoordinate2D?
+    var goingFriends = [String]()
     
     var event: Event!
     var eventImage: UIImage!
@@ -45,6 +46,11 @@ class EventDetailViewController: UIViewController {
         eventDetailView.configureView(event: event, eventImage: eventImage)
         configureScrollView(event: event)
         editVC.editDelegate = self
+        DatabaseService.manager.getUserFriendsGoing(eventID: event.eventID) {(friends) in
+            if friends == nil {print("could not get friends"); return}
+            self.goingFriends = friends!
+            print(self.goingFriends)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -256,4 +262,6 @@ extension EventDetailViewController: EditDelegate {
     
     
 }
+
+
 
