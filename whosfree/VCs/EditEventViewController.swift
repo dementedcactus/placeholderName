@@ -10,11 +10,13 @@ import UIKit
 import MapKit
 
 protocol EditDelegate {
-    func passEditedEventBackToEventDetailVC(event: Event, eventImage: UIImage)
+    func passEditedEventBackToEventDetailVC(event: Event, eventImage: UIImage, date: Date)
 }
 
 class EditEventViewController: UIViewController {
 
+    // TODO: Update this VC to also send Mailgun invites when new people are added to the invite list
+    
     var editDelegate: EditDelegate?
     
     let editEventView = EditEventView()
@@ -100,16 +102,19 @@ class EditEventViewController: UIViewController {
         let ownerUserID = event.ownerUserID //FirebaseAuthService.getCurrentUser()!.uid
         let eventDescription = editEventView.descriptionTextView.text!
         let eventLocation = editEventView.searchBar.text!
-        let componenets = Calendar.current.dateComponents([.year, .month, .day], from: editEventView.datePicker.date)
-        if let day = componenets.day, let month = componenets.month, let year = componenets.year {
-            print("\(day) \(month) \(year)")
-        }
-        let timestamp = event.timestamp //Date.timeIntervalSinceReferenceDate
+        
+        //let componenets = Calendar.current.dateComponents([.year, .month, .day], from: createEventView.datePicker.date)
+        let timestamp = CreateEventViewController().formatDate(with: editEventView.datePicker.date)
+        //        if let day = components.day, let month = components.month, let year = components.year {
+        //            print("\(day) \(month) \(year)")
+        //            timestamp = "\(day) \(month) \(year)"
+        //        }
+        
         let editedEventToAdd = Event(eventID: eventId, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")
         DatabaseService.manager.editEvent(editedEventToAdd, editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
         
         //TODO: Pass Event object back to EventDetailVC
-        self.editDelegate?.passEditedEventBackToEventDetailVC(event: editedEventToAdd, eventImage: editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
+        self.editDelegate?.passEditedEventBackToEventDetailVC(event: editedEventToAdd, eventImage: editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"), date: editEventView.datePicker.date)
         self.navigationController?.popViewController(animated: true)
     }
     
