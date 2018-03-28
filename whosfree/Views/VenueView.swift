@@ -32,7 +32,7 @@ class VenueView: UIView {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Venue Cell")
+        tableView.register(VenueTableViewCell.self, forCellReuseIdentifier: "Venue Cell")
         return tableView
     }()
     

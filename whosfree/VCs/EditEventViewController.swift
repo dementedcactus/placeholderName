@@ -9,10 +9,16 @@
 import UIKit
 import MapKit
 
+protocol EditDelegate {
+    func passEditedEventBackToEventDetailVC(event: Event, eventImage: UIImage)
+}
+
 class EditEventViewController: UIViewController {
 
+    var editDelegate: EditDelegate?
+    
     let editEventView = EditEventView()
-    var categories = ["Venue", "Movie", "Other"]
+    var categories = ["Place", "Movie"]
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     var searchSource: [String]?
@@ -101,7 +107,10 @@ class EditEventViewController: UIViewController {
         let timestamp = event.timestamp //Date.timeIntervalSinceReferenceDate
         let editedEventToAdd = Event(eventID: eventId, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")
         DatabaseService.manager.editEvent(editedEventToAdd, editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
-        dismiss(animated: true, completion: nil)
+        
+        //TODO: Pass Event object back to EventDetailVC
+        self.editDelegate?.passEditedEventBackToEventDetailVC(event: editedEventToAdd, eventImage: editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc private func inviteFriendsButtonPressed() {

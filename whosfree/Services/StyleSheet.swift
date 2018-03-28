@@ -52,7 +52,7 @@ enum Stylesheet {
     }
     
     enum Fonts {
-        static let AppName = UIFont(name: "HelveticaNeue-CondensedBold", size: 45.0)
+        static let AppName = UIFont(name: "HelveticaNeue-Light", size: 40.0)
         static let PostTitle = UIFont(name: "HelveticaNeue-CondensedBold", size: 25.0)
         static let Regular = UIFont(name: "HelveticaNeue-Light", size: 20.0)
         static let TextfieldFont = UIFont(name: "HelveticaNeue-Light", size: 20.0)
@@ -146,6 +146,8 @@ extension Stylesheet {
             case PostUsername
             case CommentLabelRight
             case CommentLabelLeft
+            case VenueLabel
+            case VenueDetailLabel
             
             func style(label: UILabel) {
                 switch self {
@@ -171,7 +173,7 @@ extension Stylesheet {
                     label.numberOfLines = 0
                 case .AppName:
                     label.font = Stylesheet.Fonts.AppName
-                    label.textColor = Stylesheet.Colors.Dark
+                    label.textColor = Stylesheet.Colors.LightBlue
                     label.backgroundColor = .clear
                     label.textAlignment = .center
                     label.numberOfLines = 0
@@ -201,6 +203,18 @@ extension Stylesheet {
                     label.numberOfLines = 0
                 case .CommentLabelLeft:
                     label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+                    label.textColor = Stylesheet.Colors.Black
+                    label.backgroundColor = .clear
+                    label.textAlignment = .left
+                    label.numberOfLines = 0
+                case .VenueLabel:
+                    label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+                    label.textColor = Stylesheet.Colors.Black
+                    label.backgroundColor = .clear
+                    label.textAlignment = .left
+                    label.numberOfLines = 0
+                case .VenueDetailLabel:
+                    label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
                     label.textColor = Stylesheet.Colors.Black
                     label.backgroundColor = .clear
                     label.textAlignment = .left

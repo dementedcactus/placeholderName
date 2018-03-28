@@ -9,38 +9,71 @@
 import UIKit
 
 class VenueViewController: UIViewController {
-
+    
     let venueView = VenueView()
-    let dummyData = ["test1", "test2", "test3"]
+    var placeData = [Venue]() {
+        didSet {
+            venueView.tableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
+    
+    private func setupView(){
         self.view.addSubview(venueView)
         venueView.tableView.dataSource = self
         venueView.tableView.delegate = self
-        configureNavBar()
+        venueView.venueSearchBar.delegate = self
+        venueView.locationSearchBar.delegate = self
+        
     }
     
-    private func configureNavBar() {
-        let showVenuesTableViewBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "tableView"), style: .plain, target: self, action: #selector(showVenuesTableView))
-        navigationItem.rightBarButtonItem = showVenuesTableViewBarButton
-        navigationItem.title = "Venue Search"
-    }
-    
-    @objc private func showVenuesTableView() {
-        //unhide tableView
-    }
 }
+
+
 extension VenueViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyData.count
+        return placeData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let testData = dummyData[indexPath.row]
-        let cell = venueView.tableView.dequeueReusableCell(withIdentifier: "Venue Cell", for: indexPath)
-        cell.textLabel?.text = testData
+        let place = placeData[indexPath.row]
+        let cell = venueView.tableView.dequeueReusableCell(withIdentifier: "Venue Cell", for: indexPath) as! VenueTableViewCell
+        
+        cell.venueLabel.text = place.name
+        cell.venueDetailLabel.text = "\(place.location.address1) \(place.location.city) \(place.location.zip_code)"
         return cell
     }
     
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let venueDetailVC = VenueDetailViewController()
+        navigationController?.pushViewController(venueDetailVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+}
+extension VenueViewController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        becomeFirstResponder()
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // TODO
+        if venueView.venueSearchBar.text == "" || venueView.locationSearchBar.text == "" {
+            let alertView = UIAlertController(title: "Please enter text into both search fields", message: nil, preferredStyle: .alert)
+            let noOption = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alertView.addAction(noOption)
+            present(alertView, animated: true, completion: nil)
+        } else {
+            VenueAPIClient.manager.getVenues(with: venueView.venueSearchBar.text!, and: venueView.locationSearchBar.text!, success: { (venueData) in
+                self.placeData = venueData
+            }, failure: {print($0)})
+        }
+        resignFirstResponder()
+    }
 }

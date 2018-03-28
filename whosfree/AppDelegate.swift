@@ -60,6 +60,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
+
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
+        print("url \(url)")
+        print("url host :\(url.host!)")
+        print("url path :\(url.path.replacingOccurrences(of: "/", with: ""))")
+        
+        let urlPath : String = url.path as String!
+        let urlHost : String = url.host!.replacingOccurrences(of: "/", with: "") as String!
+        
+        DatabaseService.manager.addInvitedUserThatAccepted(to: urlHost, with: urlPath)
+        
+        let eventListVC = EventListViewController()
+        let eventListNavCon = UINavigationController(rootViewController: eventListVC)
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = eventListNavCon
+        window?.makeKeyAndVisible()
+        return true
+    }
+    
 
     // MARK: - Core Data stack
 
