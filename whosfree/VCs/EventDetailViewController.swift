@@ -12,6 +12,7 @@ import MapKit
 class EventDetailViewController: UIViewController {
 
     let eventDetailView = EventDetailView()
+    lazy var editVC = EditEventViewController(event: event, eventImage: eventImage)
     let dummyData = ["test1 title", "test2 title", "test3 title", "test4 title", "test5 title"]
     private let cellSpacing: CGFloat =  5.0
     
@@ -31,6 +32,7 @@ class EventDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(eventDetailView)
+        
         self.eventDetailView.collectionView.dataSource = self
         self.eventDetailView.collectionView.delegate = self
         self.eventDetailView.rsvpButton.addTarget(self, action: #selector(rsvp), for: .touchUpInside)
@@ -39,8 +41,19 @@ class EventDetailViewController: UIViewController {
         configureNavBar()
         eventDetailView.configureView(event: event, eventImage: eventImage)
         configureScrollView(event: event)
+        editVC.editDelegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        eventDetailView.configureView(event: event, eventImage: eventImage)
+        configureScrollView(event: event)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.eventDetailView.locationButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+    }
     public func configureScrollView(event: Event) {
         turnAddressIntoCoordinates(address: event.eventLocation, completionHandler: { (coordinate) in
             self.configureMapView(coordinate: coordinate)
@@ -73,14 +86,7 @@ class EventDetailViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // TODO
-        // if current userID == event's owner userID, change RSVP to EDIT, and change rsvpButton's addTarget to presentEditEventVC
-        
-        self.eventDetailView.locationButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-    }
+    
     
     @objc private func deleteEvent() {
         deleteAction(title: "Delete", message: "Are you sure you want to delete event?")
@@ -138,7 +144,6 @@ class EventDetailViewController: UIViewController {
     
     
     @objc private func editEvent() {
-        let editVC = EditEventViewController(event: event, eventImage: eventImage)
         navigationController?.pushViewController(editVC, animated: true)
     }
     
@@ -202,5 +207,13 @@ extension EventDetailViewController: MKMapViewDelegate {
         }
         return annotationView
     }
+}
+extension EventDetailViewController: EditDelegate {
+    func passEditedEventBackToEventDetailVC(event: Event, eventImage: UIImage) {
+        self.event = event
+        self.eventImage = eventImage
+    }
+    
+    
 }
 
