@@ -15,6 +15,7 @@ class EventDetailViewController: UIViewController {
     lazy var editVC = EditEventViewController(event: event, eventImage: eventImage)
     let dummyData = ["test1 title", "test2 title", "test3 title", "test4 title", "test5 title"]
     private let cellSpacing: CGFloat =  5.0
+    var coordinate: CLLocationCoordinate2D?
     
     var event: Event!
     var eventImage: UIImage!
@@ -38,6 +39,8 @@ class EventDetailViewController: UIViewController {
         self.eventDetailView.rsvpButton.addTarget(self, action: #selector(rsvp), for: .touchUpInside)
         self.eventDetailView.deleteButton.addTarget(self, action: #selector(deleteEvent), for: .touchUpInside)
         self.eventDetailView.editButton.addTarget(self, action: #selector(editEvent), for: .touchUpInside)
+        eventDetailView.mapImageView.delegate = self
+        let _ = LocationService.manager.checkForLocationServices()
         configureNavBar()
         eventDetailView.configureView(event: event, eventImage: eventImage)
         configureScrollView(event: event)
@@ -80,8 +83,8 @@ class EventDetailViewController: UIViewController {
             }
             if let placemarks = placemarks {
                 let placemark = placemarks.first
-                let coordinate = placemark?.location?.coordinate
-                completionHandler(coordinate!)
+                self.coordinate = placemark?.location?.coordinate
+                completionHandler(self.coordinate!)
             }
         }
     }
@@ -207,11 +210,48 @@ extension EventDetailViewController: MKMapViewDelegate {
         }
         return annotationView
     }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("User tapped on annotation")
+        openAppleMaps()
+        //        let annotation = MKPointAnnotation()
+        //        if let coordinate = coordinate {
+        //            annotation.coordinate = coordinate
+        //        }
+        
+    }
+    
+    private func openAppleMaps() {
+        //        guard let latAndLong = venue.location.labeledLatLngs else {
+        //            // alert controller there is no lat and long
+        //            return
+        //        }
+        
+        if LocationService.manager.checkForLocationServices() == .denied {
+            guard let validSettings: URL = URL(string: UIApplicationOpenSettingsURLString) else { return }
+            UIApplication.shared.open(validSettings, options: [:], completionHandler: nil)
+            return
+        }
+        
+        
+        let userCoordinate = CLLocationCoordinate2D(latitude: LocationService.manager.getCurrentLatitude()!, longitude: LocationService.manager.getCurrentLongitude()!)
+        
+        
+        let placeCoordinate = CLLocationCoordinate2D(latitude: (coordinate?.latitude)!, longitude: (coordinate?.longitude)!)
+        let directionsURLString = "http://maps.apple.com/?saddr=\(userCoordinate.latitude),\(userCoordinate.longitude)&daddr=\(placeCoordinate.latitude),\(placeCoordinate.longitude)"
+        
+        UIApplication.shared.open(URL(string: directionsURLString)!, options: [:]) { (done) in
+            print("launched apple maps")
+        }
+        
+    }
 }
+
 extension EventDetailViewController: EditDelegate {
-    func passEditedEventBackToEventDetailVC(event: Event, eventImage: UIImage) {
+    func passEditedEventBackToEventDetailVC(event: Event, eventImage: UIImage, date: Date) {
         self.event = event
         self.eventImage = eventImage
+        self.eventDetailView.datePicker.date = date
     }
     
     
