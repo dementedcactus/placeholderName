@@ -172,37 +172,7 @@ class EventDetailView: UIView {
         setupDeleteButton()
     }
     
-    public func configureScrollView(event: Event) {
-        turnAddressIntoCoordinates(address: event.eventLocation, completionHandler: { (coordinate) in
-            self.configureMapView(coordinate: coordinate)
-        }) { (error) in
-            
-        }
-    }
     
-    
-    private func configureMapView(coordinate: CLLocationCoordinate2D) {
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        mapImageView.addAnnotation(annotation)
-        let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        mapImageView.setRegion(region, animated: true)
-    }
-    
-    private func turnAddressIntoCoordinates(address: String,
-                                            completionHandler: @escaping (CLLocationCoordinate2D) -> Void,
-                                            errorHandler: @escaping (Error) -> Void) {
-        CLGeocoder().geocodeAddressString(address) { (placemarks, error) in
-            if let error = error {
-                errorHandler(error)
-            }
-            if let placemarks = placemarks {
-                let placemark = placemarks.first
-                let coordinate = placemark?.location?.coordinate
-                completionHandler(coordinate!)
-            }
-        }
-    }
     
     private func setupScrollView() {
         addSubview(scrollView)
@@ -360,19 +330,4 @@ class EventDetailView: UIView {
     }
 
 }
-extension EventDetailView: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation { return nil }
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotationView") as? MKMarkerAnnotationView
-        if annotationView == nil {
-            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "annotationView")
-            annotationView?.canShowCallout = true
-            annotationView?.animatesWhenAdded = true
-            annotationView?.markerTintColor = Stylesheet.Colors.azure
-            annotationView?.isHighlighted = true
-        } else {
-            annotationView?.annotation = annotation
-        }
-        return annotationView
-    }
-}
+
