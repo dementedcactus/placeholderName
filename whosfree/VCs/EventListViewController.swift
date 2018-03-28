@@ -136,7 +136,7 @@ extension EventListViewController: UITableViewDataSource {
         cell.eventDateAndTimeLabel.text = event.timestamp.description
         cell.eventTitleLabel.text = event.eventName
         cell.eventBannerPhotoImageView.kf.indicatorType = .activity
-        cell.eventBannerPhotoImageView.kf.setImage(with: URL(string: event.eventBannerImgUrl), placeholder: nil, options: nil, progressBlock: nil) { (image, error, cache, url) in
+        cell.eventBannerPhotoImageView.kf.setImage(with: URL(string: event.eventBannerImgUrl), placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
             cell.setNeedsLayout()
         }
 

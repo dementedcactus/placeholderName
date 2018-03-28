@@ -46,6 +46,14 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>wyd</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>RC.whosfree</string>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
 				<string>fb128886664614585</string>
 			</array>
 		</dict>
@@ -63,5 +71,9 @@
 	</array>
 	<key>NSContactsUsageDescription</key>
 	<string>WYD needs access to your contacts to send event invitation</string>
+	<key>NSCameraUsageDescription</key>
+	<string>WYD needs access to use the camera to take pictures</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string></string>
 </dict>
 </plist>
