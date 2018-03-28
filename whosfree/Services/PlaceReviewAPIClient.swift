@@ -1,5 +1,5 @@
 //
-//  VenueAPIClient.swift
+//  VenueReviewAPIClient.swift
 //  LuisWhosFreeViewControllers
 //
 //  Created by Luis Calle on 3/17/18.
@@ -9,15 +9,17 @@
 import Foundation
 import Alamofire
 
-struct VenueAPIClient {
+struct PlaceReviewAPIClient {
     
     let apiKey = "Ew-J-_X0F6h3sV1PtV1NklkETdOdxx2kOUr2t0nWUAT8YnKoqndMXMGU8rSZBznNj4khTsyKvVbvAvVW-Jvj0Yv-W69VvPvg2gmW3DyDwNt4JaszzqWnY5hHxwliWnYx"
     
     private init() { }
-    static let manager = VenueAPIClient()
+    static let manager = PlaceReviewAPIClient()
     
-    func getVenues(with keyword: String, and zipCode: String, success: @escaping ([Venue]) -> Void, failure: @escaping (Error) -> Void) {
-        let urlStr = "https://api.yelp.com/v3/businesses/search?term=\(keyword)&location=\(zipCode)"
+    private let urlSession = URLSession(configuration: URLSessionConfiguration.default)
+    
+    func getPlacesReviews(with id: String, success: @escaping ([Review]) -> Void, failure: @escaping (Error) -> Void) {
+        let urlStr = "https://api.yelp.com/v3/businesses/\(id)/reviews"
         guard let url = URL(string: urlStr) else {
             failure(AppErrors.badURL(str: urlStr))
             return
@@ -27,6 +29,7 @@ struct VenueAPIClient {
         urlRequest.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         
         Alamofire.request(urlRequest).responseJSON { response in
+            
             if response.value != nil {
                 guard let data = response.data else {
                     failure(AppErrors.noData)
@@ -34,8 +37,8 @@ struct VenueAPIClient {
                 }
                 do {
                     let decoder = JSONDecoder()
-                    let yelpResponse = try decoder.decode(YelpResponse.self, from: data)
-                    success(yelpResponse.businesses)
+                    let yelpReviewsResponse = try decoder.decode(YelpReviewsResponse.self, from: data)
+                    success(yelpReviewsResponse.reviews)
                 } catch let error {
                     failure(AppErrors.couldNotParseJSON(rawError: error))
                     return

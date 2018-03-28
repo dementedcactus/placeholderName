@@ -9,10 +9,10 @@
 import Foundation
 
 struct YelpResponse: Codable {
-    let businesses: [Venue]
+    let businesses: [Place]
 }
 
-struct Venue: Codable {
+struct Place: Codable {
     let id: String
     let name: String
     let image_url: String
