@@ -15,6 +15,8 @@ protocol EditDelegate {
 
 class EditEventViewController: UIViewController {
 
+    // TODO: Update this VC to also send Mailgun invites when new people are added to the invite list
+    
     var editDelegate: EditDelegate?
     
     let editEventView = EditEventView()
