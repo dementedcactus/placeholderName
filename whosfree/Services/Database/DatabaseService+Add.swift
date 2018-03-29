@@ -153,7 +153,8 @@ extension DatabaseService {
                       "eventDescription": eventToSave.eventDescription,
                       "eventLocation": eventToSave.eventLocation,
                       "timestamp": eventToSave.timestamp,
-                      "eventBannerImgUrl": eventToSave.eventBannerImgUrl
+                      "eventBannerImgUrl": eventToSave.eventBannerImgUrl,
+                      "invitedFriendsEmails": eventToSave.allFriendsInvited
                       //"rsvpNo": eventToSave.rsvpNo ?? "Empty",
                       //"rsvpMaybe": eventToSave.rsvpMaybe ?? "Empty",
                       //"rsvpYes": eventToSave.rsvpYes ?? "Empty"
