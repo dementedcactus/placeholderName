@@ -59,6 +59,7 @@ class CreateEventView: UIView {
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Search For Location"
+        searchBar.barTintColor = UIColor.white
         return searchBar
     }()
     
@@ -195,6 +196,7 @@ class CreateEventView: UIView {
         eventTitleTextField.translatesAutoresizingMaskIntoConstraints = false
         eventTitleTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         eventTitleTextField.topAnchor.constraint(equalTo: bannerPhotoImageView.bottomAnchor).isActive = true
+        eventTitleTextField.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 0.3).isActive = true
         eventTitleTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         eventTitleTextField.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
     }
@@ -234,7 +236,7 @@ class CreateEventView: UIView {
         datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         datePicker.topAnchor.constraint(equalTo: eventTypeButton.bottomAnchor).isActive = true
         datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        datePicker.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.25).isActive = true
+        datePicker.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.15).isActive = true
         datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
     }
     
