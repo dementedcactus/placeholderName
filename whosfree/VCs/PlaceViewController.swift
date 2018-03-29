@@ -69,12 +69,12 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
         let place = placeData[indexPath.row]
         let cell = placeView.tableView.dequeueReusableCell(withIdentifier: "Place Cell", for: indexPath) as! PlaceTableViewCell
         
-        cell.selectVenueButton.tag = indexPath.row
+        cell.selectPlaceButton.tag = indexPath.row
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.placeLabel.text = place.name
-        cell.placeDetailLabel.text = "\(place.location.address1) \(place.location.city) \(place.location.zip_code)"
+        cell.placeDetailLabel.text = "\n\(place.location.address1) \(place.location.city) \(place.location.zip_code) \n\nTap for more info... "
         
-        cell.selectVenueButton.addTarget(self, action: #selector(selectVenueAction(sender:)), for: .touchUpInside)
+        cell.selectPlaceButton.addTarget(self, action: #selector(selectVenueAction(sender:)), for: .touchUpInside)
         
         return cell
     }
@@ -84,6 +84,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
         let address = "\(place.location.address1) \(place.location.city) \(place.location.zip_code)"
         print(address)
         self.selectVenueDelegate?.passSelectedVenueAddressToCreateEventSearchBar(addrsss: address)
+        navigationController?.popViewController(animated: true)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
