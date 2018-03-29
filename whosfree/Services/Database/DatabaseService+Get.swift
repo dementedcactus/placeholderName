@@ -66,7 +66,7 @@ extension DatabaseService {
     
     func getAllUserFriendsInvited(eventID: String, completionHandler: @escaping ([String]?) -> Void) {
         let eventRef = DatabaseService.manager.eventsRef.child(eventID)
-        let allUserFriendsInvitedRef = eventRef.child("allFriendsInvited")
+        let allUserFriendsInvitedRef = eventRef.child("invitedFriendsEmails")
         allUserFriendsInvitedRef.observeSingleEvent(of: .value) { (snapshot) in
             var allFriendsInvited = [String]()
             for child in snapshot.children {
