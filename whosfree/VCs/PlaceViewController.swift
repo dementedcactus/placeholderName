@@ -89,6 +89,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let placeDetailVC = placeDetailViewController(place: placeData[indexPath.row])
+        placeDetailVC.selectDetailVenueDelegate = self
         navigationController?.pushViewController(placeDetailVC, animated: true)
     }
     
@@ -114,5 +115,11 @@ extension PlaceViewController: UISearchBarDelegate {
             }, failure: {print($0)})
         }
         searchBar.resignFirstResponder()
+    }
+}
+
+extension PlaceViewController: SelectDetailVenueDelegate {
+    func passSelectedDetailVenueAddressToCreateEventSearchBar(addrsss: String) {
+        selectVenueDelegate?.passSelectedVenueAddressToCreateEventSearchBar(addrsss: addrsss)
     }
 }

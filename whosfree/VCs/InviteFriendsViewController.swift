@@ -169,8 +169,9 @@ extension InviteFriendsViewController: ExistingFriendsTableViewCellDelegate {
         //cell.inviteButton.setTitle("Invited", for: .normal)
         //dump(invitedContacts)
         invitedContacts.append(contactToAddToEvent)
-
-        showAlert(title: "Success", message: "Friend \(contactToAddToEvent.givenName) added to event list")
+        
+        // commented because now button changes to show friend has been invited
+        //showAlert(title: "Success", message: "Friend \(contactToAddToEvent.givenName) added to event list")
     }
 }
 

@@ -60,7 +60,7 @@ class PlaceDetailView: UIView {
     lazy var sendLocationButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(UIColor.white, for: .normal)
-        button.setTitle("Select Location", for: .normal)
+        button.setTitle("Select Place", for: .normal)
         button.backgroundColor = Stylesheet.Colors.azure
         button.layer.cornerRadius = 10.0
         //button.layer.borderColor = UIColor.black.cgColor
