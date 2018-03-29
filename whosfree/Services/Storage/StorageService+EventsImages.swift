@@ -7,12 +7,17 @@
 //
 
 import Foundation
-
+//import Toucan
 import UIKit
 import FirebaseStorage
 
 extension StorageService {
     public func storeEventImage(image: UIImage, eventID: String) {
+        
+//        guard let resizedImage = Toucan(image: image).resize(CGSize(width: 800, height: 800)).image, let imageData = UIImagePNGRepresentation(resizedImage) else {
+//            return nil
+//        }
+        
         guard let data = UIImageJPEGRepresentation(image, 1.0) else { print("image is nil"); return }
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
