@@ -78,6 +78,7 @@
 		E22D85B12060626800A13ED1 /* VenueReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85B02060626800A13ED1 /* VenueReview.swift */; };
 		E248A1F12061F8630080A9E5 /* StorageService+UsersImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E248A1F02061F8630080A9E5 /* StorageService+UsersImages.swift */; };
 		E248A1F32061F8800080A9E5 /* StorageService+EventsImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E248A1F22061F8800080A9E5 /* StorageService+EventsImages.swift */; };
+		E2BCBE60206C3A0900BCE82B /* PlaceReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BCBE5F206C3A0900BCE82B /* PlaceReviewTableViewCell.swift */; };
 		E2EA2089206AE4DE003450E9 /* FriendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EA2088206AE4DE003450E9 /* FriendsCollectionViewCell.swift */; };
 		E2FBFBF020656A5E005C910B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FBFBEF20656A5E005C910B /* Contact.swift */; };
 /* End PBXBuildFile section */
@@ -183,6 +184,7 @@
 		E22D85B02060626800A13ED1 /* VenueReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueReview.swift; sourceTree = "<group>"; };
 		E248A1F02061F8630080A9E5 /* StorageService+UsersImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+UsersImages.swift"; sourceTree = "<group>"; };
 		E248A1F22061F8800080A9E5 /* StorageService+EventsImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+EventsImages.swift"; sourceTree = "<group>"; };
+		E2BCBE5F206C3A0900BCE82B /* PlaceReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceReviewTableViewCell.swift; sourceTree = "<group>"; };
 		E2EA2088206AE4DE003450E9 /* FriendsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionViewCell.swift; sourceTree = "<group>"; };
 		E2FBFBEF20656A5E005C910B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -348,6 +350,7 @@
 				DBE5999C205C217D00FD1898 /* MovieTableViewCell.swift */,
 				DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */,
 				DBADA048206AFBB500EF1AE5 /* PlaceTableViewCell.swift */,
+				E2BCBE5F206C3A0900BCE82B /* PlaceReviewTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -795,6 +798,7 @@
 				DB7E3EAC205945640075AA99 /* DatabaseService+Delete.swift in Sources */,
 				DBE5999D205C217D00FD1898 /* MovieTableViewCell.swift in Sources */,
 				E22D85AB2060621900A13ED1 /* PlaceAPIClient.swift in Sources */,
+				E2BCBE60206C3A0900BCE82B /* PlaceReviewTableViewCell.swift in Sources */,
 				DB3FE9572067F2E7005DCE47 /* EditEventView.swift in Sources */,
 				DB87473A206C31BE00126725 /* EmptyStateView.swift in Sources */,
 				DB7E3EAB205945640075AA99 /* DatabaseService+Edit.swift in Sources */,

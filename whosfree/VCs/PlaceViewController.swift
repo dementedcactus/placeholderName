@@ -87,7 +87,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let placeDetailVC = placeDetailViewController()
+        let placeDetailVC = placeDetailViewController(place: placeData[indexPath.row])
         navigationController?.pushViewController(placeDetailVC, animated: true)
     }
     
