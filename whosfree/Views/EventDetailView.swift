@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Kingfisher
 
 class EventDetailView: UIView {
     
@@ -325,7 +326,10 @@ class EventDetailView: UIView {
     }
 
     public func configureView(event: Event, eventImage: UIImage) {
-        bannerPhotoImageView.image = eventImage
+        //bannerPhotoImageView.image = eventImage
+        bannerPhotoImageView.kf.indicatorType = .activity
+        bannerPhotoImageView.kf.setImage(with: URL(string: event.eventBannerImgUrl), placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
+        }
         eventTitleLabel.text = event.eventName
         locationButton.setTitle(event.eventLocation, for: .normal)
         descriptionTextView.text = event.eventDescription
