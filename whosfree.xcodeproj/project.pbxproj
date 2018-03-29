@@ -30,6 +30,7 @@
 		DB7E3EAC205945640075AA99 /* DatabaseService+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EAA205945640075AA99 /* DatabaseService+Delete.swift */; };
 		DB7E3EAE2059517B0075AA99 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EAD2059517B0075AA99 /* Comment.swift */; };
 		DB7E3EB0205967090075AA99 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EAF205967090075AA99 /* Event.swift */; };
+		DB87473A206C31BE00126725 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB874739206C31BE00126725 /* EmptyStateView.swift */; };
 		DBACBAE020580A6900882850 /* NetworkConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBADB20580A6800882850 /* NetworkConnectivity.swift */; };
 		DBACBAE120580A6900882850 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBADC20580A6800882850 /* NetworkHelper.swift */; };
 		DBACBAE220580A6900882850 /* StyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBADD20580A6800882850 /* StyleSheet.swift */; };
@@ -77,6 +78,7 @@
 		E22D85B12060626800A13ED1 /* VenueReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85B02060626800A13ED1 /* VenueReview.swift */; };
 		E248A1F12061F8630080A9E5 /* StorageService+UsersImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E248A1F02061F8630080A9E5 /* StorageService+UsersImages.swift */; };
 		E248A1F32061F8800080A9E5 /* StorageService+EventsImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E248A1F22061F8800080A9E5 /* StorageService+EventsImages.swift */; };
+		E2BCBE60206C3A0900BCE82B /* PlaceReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BCBE5F206C3A0900BCE82B /* PlaceReviewTableViewCell.swift */; };
 		E2EA2089206AE4DE003450E9 /* FriendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EA2088206AE4DE003450E9 /* FriendsCollectionViewCell.swift */; };
 		E2FBFBF020656A5E005C910B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FBFBEF20656A5E005C910B /* Contact.swift */; };
 /* End PBXBuildFile section */
@@ -134,6 +136,7 @@
 		DB7E3EAA205945640075AA99 /* DatabaseService+Delete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Delete.swift"; sourceTree = "<group>"; };
 		DB7E3EAD2059517B0075AA99 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		DB7E3EAF205967090075AA99 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		DB874739206C31BE00126725 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		DBACBADB20580A6800882850 /* NetworkConnectivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConnectivity.swift; sourceTree = "<group>"; };
 		DBACBADC20580A6800882850 /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		DBACBADD20580A6800882850 /* StyleSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleSheet.swift; sourceTree = "<group>"; };
@@ -181,6 +184,7 @@
 		E22D85B02060626800A13ED1 /* VenueReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueReview.swift; sourceTree = "<group>"; };
 		E248A1F02061F8630080A9E5 /* StorageService+UsersImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+UsersImages.swift"; sourceTree = "<group>"; };
 		E248A1F22061F8800080A9E5 /* StorageService+EventsImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+EventsImages.swift"; sourceTree = "<group>"; };
+		E2BCBE5F206C3A0900BCE82B /* PlaceReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceReviewTableViewCell.swift; sourceTree = "<group>"; };
 		E2EA2088206AE4DE003450E9 /* FriendsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionViewCell.swift; sourceTree = "<group>"; };
 		E2FBFBEF20656A5E005C910B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -299,15 +303,15 @@
 			children = (
 				DBE599AC205C228300FD1898 /* ChatViewController.swift */,
 				DBE5997C205C1FD500FD1898 /* CreateEventViewController.swift */,
+				DB3FE9582067F303005DCE47 /* EditEventViewController.swift */,
 				DBE59978205C1FA500FD1898 /* EventDetailViewController.swift */,
 				DBE59972205C1F5C00FD1898 /* EventListViewController.swift */,
-				DB3DE47A205721C000AAD2D8 /* SignInViewController.swift */,
-				DB3FE9582067F303005DCE47 /* EditEventViewController.swift */,
-				DBE59998205C215900FD1898 /* TheaterShowtimesViewController.swift */,
 				DB3F6AC12065624D0015A946 /* InviteFriendsViewController.swift */,
-				DBE59990205C20F300FD1898 /* TheatersViewController.swift */,
 				DBE5998C205C20AF00FD1898 /* placeDetailViewController.swift */,
 				DBE59982205C201600FD1898 /* PlaceViewController.swift */,
+				DB3DE47A205721C000AAD2D8 /* SignInViewController.swift */,
+				DBE59998205C215900FD1898 /* TheaterShowtimesViewController.swift */,
+				DBE59990205C20F300FD1898 /* TheatersViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -318,6 +322,7 @@
 				DBE599AE205C229700FD1898 /* ChatView.swift */,
 				DBE5997E205C1FEA00FD1898 /* CreateEventView.swift */,
 				DBE5997A205C1FC200FD1898 /* EventDetailView.swift */,
+				DB874739206C31BE00126725 /* EmptyStateView.swift */,
 				DBE59974205C1F7000FD1898 /* EventListView.swift */,
 				DB3FE9562067F2E7005DCE47 /* EditEventView.swift */,
 				DB3F6AC3206562840015A946 /* InviteFriendsView.swift */,
@@ -345,6 +350,7 @@
 				DBE5999C205C217D00FD1898 /* MovieTableViewCell.swift */,
 				DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */,
 				DBADA048206AFBB500EF1AE5 /* PlaceTableViewCell.swift */,
+				E2BCBE5F206C3A0900BCE82B /* PlaceReviewTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -792,7 +798,9 @@
 				DB7E3EAC205945640075AA99 /* DatabaseService+Delete.swift in Sources */,
 				DBE5999D205C217D00FD1898 /* MovieTableViewCell.swift in Sources */,
 				E22D85AB2060621900A13ED1 /* PlaceAPIClient.swift in Sources */,
+				E2BCBE60206C3A0900BCE82B /* PlaceReviewTableViewCell.swift in Sources */,
 				DB3FE9572067F2E7005DCE47 /* EditEventView.swift in Sources */,
+				DB87473A206C31BE00126725 /* EmptyStateView.swift in Sources */,
 				DB7E3EAB205945640075AA99 /* DatabaseService+Edit.swift in Sources */,
 				D23E3498206C29E5006A9638 /* LocationService.swift in Sources */,
 				DB7E3EB0205967090075AA99 /* Event.swift in Sources */,

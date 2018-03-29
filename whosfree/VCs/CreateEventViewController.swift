@@ -16,6 +16,7 @@ class CreateEventViewController: UIViewController {
     var lastKeyboardOffset: CGFloat = 0.0
     
     let createEventView = CreateEventView()
+    let placeViewController = PlaceViewController()
     var categories = ["Place", "Movie"]
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
@@ -49,6 +50,7 @@ class CreateEventViewController: UIViewController {
         self.eventBannerImagePicker.delegate = self
         self.createEventView.friendsGoingCollectionView.delegate = self
         self.createEventView.friendsGoingCollectionView.dataSource = self
+        self.placeViewController.selectVenueDelegate = self
         
         // Setup Functions
         setupNavBarButtons()
@@ -304,8 +306,8 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
             case "Place":
                 // segue Place
                 print("Clicked Place")
-                let placeViewController = PlaceViewController()
-                navigationController?.pushViewController(placeViewController, animated: true)
+                
+        navigationController?.pushViewController(placeViewController, animated: true)
             case "Movie":
                 //segue movie
                 print("Clicked Movie")
@@ -401,6 +403,13 @@ extension CreateEventViewController: UICollectionViewDataSource, UICollectionVie
         cell.friendLabel.text = "\(currentFriend.givenName)"
         cell.friendImage.image = UIImage(data: currentFriend.imageData!)
         return cell
+    }
+    
+    
+}
+extension CreateEventViewController: SelectVenueDelegate {
+    func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String) {
+        self.createEventView.searchBar.text = addrsss
     }
     
     
