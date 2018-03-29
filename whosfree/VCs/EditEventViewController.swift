@@ -111,7 +111,7 @@ class EditEventViewController: UIViewController {
         //            timestamp = "\(day) \(month) \(year)"
         //        }
         
-        let editedEventToAdd = Event(eventID: eventId, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")
+        let editedEventToAdd = Event(eventID: eventId, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "", allFriendsInvited: [])
         DatabaseService.manager.editEvent(editedEventToAdd, editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
         
         //TODO: Pass Event object back to EventDetailVC

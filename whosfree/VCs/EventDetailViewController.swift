@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Contacts
 
 class EventDetailViewController: UIViewController {
 
@@ -20,6 +21,10 @@ class EventDetailViewController: UIViewController {
     
     var event: Event!
     var eventImage: UIImage!
+    
+    let contactStore = CNContactStore()
+    var allContacts = [Contact]()
+    var filteredContacts = [Contact]()
     
     init(event: Event, eventImage: UIImage) {
         self.event = event
@@ -46,10 +51,38 @@ class EventDetailViewController: UIViewController {
         eventDetailView.configureView(event: event, eventImage: eventImage)
         configureScrollView(event: event)
         editVC.editDelegate = self
-        DatabaseService.manager.getUserFriendsGoing(eventID: event.eventID) {(friends) in
-            if friends == nil {print("could not get friends"); return}
-            self.goingFriends = friends!
-            print(self.goingFriends)
+        loadContactsFromPhone()
+        eventDetailView.goingButton.addTarget(self, action: #selector(showGoing), for: .touchUpInside)
+        eventDetailView.notGoingButton.addTarget(self, action: #selector(showNotGoing), for: .touchUpInside)
+        showGoing()
+    }
+    
+    @objc private func showGoing() {
+        filteredContacts.removeAll()
+        DatabaseService.manager.getUserFriendsGoing(eventID: event.eventID) { (going) in
+            guard let going = going else {
+                print("could not get friends going")
+                return
+            }
+            for contact in self.allContacts {
+                guard let email = contact.emailAddress else {
+                    continue
+                }
+                if going.contains(email) {
+                    self.filteredContacts.append(contact)
+                }
+            }
+            self.eventDetailView.collectionView.reloadData()
+        }
+    }
+    
+    
+    @objc private func showNotGoing() {
+        filteredContacts.removeAll()
+        DatabaseService.manager.getAllUserFriendsInvited(eventID: event.eventID) { (allGoing) in
+            DatabaseService.manager.getUserFriendsGoing(eventID: self.event.eventID, completionHandler: { (allInvited) in
+                //TODO: filter with now going
+            })
         }
     }
     
@@ -68,6 +101,46 @@ class EventDetailViewController: UIViewController {
             self.configureMapView(coordinate: coordinate)
         }) { (error) in
             
+        }
+    }
+    
+    private func loadContactsFromPhone() {
+        let keys = [CNContactGivenNameKey, CNContactMiddleNameKey, CNContactFamilyNameKey, CNContactNameSuffixKey, CNContactPostalAddressesKey, CNContactBirthdayKey,  CNContactEmailAddressesKey, CNContactTypeKey, CNContactPhoneNumbersKey,CNContactDepartmentNameKey, CNContactImageDataKey]
+        let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
+        do {
+            try contactStore.enumerateContacts(with: request) {
+                (contact, stop) in
+                let givenName = contact.givenName
+                let middleName = contact.middleName
+                let familyName = contact.familyName
+                let nameSuffix = contact.nameSuffix
+                var location: String?
+                if let firstLocation = contact.postalAddresses.first {
+                    location = "\(firstLocation.value.street) \(firstLocation.value.city) \(firstLocation.value.state) \(firstLocation.value.postalCode)"
+                }
+                var birthday: String?
+                if let birthdayUnwrapped = contact.birthday, let day = birthdayUnwrapped.day, let month = birthdayUnwrapped.month, let year = birthdayUnwrapped.year {
+                    birthday = "\(day) \(month) \(year)"
+                }
+                var emailAddress: String?
+                if let firstEmailAddress = contact.emailAddresses.first {
+                    emailAddress = firstEmailAddress.value.description
+                }
+                var phoneNumber: String?
+                if let firstPhoneNumber = contact.phoneNumbers.first {
+                    phoneNumber = firstPhoneNumber.value.stringValue
+                }
+                var imageData: Data?
+                if let imageDataUnwrapped =  contact.imageData {
+                    imageData = imageDataUnwrapped
+                }
+                let theContact = Contact(givenName: givenName, middleName: middleName, familyName: familyName, nameSuffix: nameSuffix, location: location, birthday: birthday, emailAddress: emailAddress, phoneNumber: phoneNumber, imageData: imageData)
+                self.allContacts.append(theContact)
+                self.allContacts.sort{$0.givenName < $1.givenName}
+            }
+        }
+        catch {
+            print("unable to fetch contacts")
         }
     }
     
@@ -106,6 +179,7 @@ class EventDetailViewController: UIViewController {
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) {(alert) in
             print("pressed Delete")
             DatabaseService.manager.deleteEvent(withPostID: self.event.eventID)
+            self.navigationController?.popViewController(animated: true)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(alert) in
             print("pressed Cancel")
@@ -166,12 +240,15 @@ class EventDetailViewController: UIViewController {
 
 extension EventDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dummyData.count
+        return filteredContacts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InvitedFriendsCollectionViewCell", for: indexPath)
-        cell.backgroundColor = .red
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "user going cell", for: indexPath) as! FriendsCollectionViewCell
+        //cell.backgroundColor = .red
+        let contact = filteredContacts[indexPath.row]
+        cell.friendLabel.text = "\(contact.givenName)"
+        cell.friendImage.image = UIImage(data: contact.imageData!)
         return cell
     }
     
