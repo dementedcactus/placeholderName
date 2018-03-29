@@ -85,6 +85,7 @@ class InviteFriendsViewController: UIViewController {
                 }
                 let theContact = Contact(givenName: givenName, middleName: middleName, familyName: familyName, nameSuffix: nameSuffix, location: location, birthday: birthday, emailAddress: emailAddress, phoneNumber: phoneNumber, imageData: imageData)
                 self.contacts.append(theContact)
+                self.contacts.sort{$0.givenName < $1.givenName}
             }
             inviteFriendsView.tableView.reloadData()
         }

@@ -51,12 +51,12 @@ class InviteFriendsView: UIView {
         
         NSLayoutConstraint.activate([
             //searchbar
-            friendSearchbBar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            friendSearchbBar.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            friendSearchbBar.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+//            friendSearchbBar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+//            friendSearchbBar.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+//            friendSearchbBar.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
             
             //tableview
-            tableView.topAnchor.constraint(equalTo: self.friendSearchbBar.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
