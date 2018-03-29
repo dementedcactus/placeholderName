@@ -71,10 +71,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let urlPath : String = url.path.replacingOccurrences(of: "/", with: "") as String!
         let urlHost : String = url.host!.replacingOccurrences(of: "/", with: "") as String!
         
-        DatabaseService.manager.addInvitedUserThatAccepted(to: urlHost, with: urlPath)
+        //DatabaseService.manager.addInvitedUserThatAccepted(to: urlHost, with: urlPath)
         
         let eventListVC = EventListViewController()
         let eventListNavCon = UINavigationController(rootViewController: eventListVC)
+        DatabaseService.manager.getEvent(with: urlHost) { (event) in
+            guard let event = event else {
+                print("Could not get event details")
+                return
+            }
+            let eventDetailViewController = EventDetailViewController(event: event, eventImage: #imageLiteral(resourceName: "placeholder"))
+            eventListNavCon.pushViewController(eventDetailViewController, animated: true)
+        }
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = eventListNavCon
