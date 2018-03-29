@@ -198,6 +198,7 @@ class EventDetailViewController: UIViewController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         let goingAction = UIAlertAction(title: "Going", style: .default) {(alert) in
             print("pressed Going")
+            DatabaseService.manager.addInvitedUserThatAccepted(to: self.event.eventID, with: FirebaseAuthService.getCurrentUser()!.email!)
         }
         let notGoingAction = UIAlertAction(title: "Not Going", style: .default) {(alert) in
             print("pressed Not Going")
