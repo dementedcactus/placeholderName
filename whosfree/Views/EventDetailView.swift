@@ -34,6 +34,7 @@ class EventDetailView: UIView {
         button.setImage(#imageLiteral(resourceName: "edit"), for: .normal)
         Stylesheet.Objects.Buttons.CreateButton.style(button: button)
         button.backgroundColor = Stylesheet.Colors.azure.withAlphaComponent(0.5)
+        button.layer.borderWidth = 0
         return button
     }()
 
@@ -107,10 +108,10 @@ class EventDetailView: UIView {
         return button
     }()
     
-    lazy var maybeButton: UIButton = {
+    lazy var allInvitedButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(UIColor.white, for: .normal)
-        button.setTitle("Maybe", for: .normal)
+        button.setTitle("Invited", for: .normal)
         button.backgroundColor = Stylesheet.Colors.LightBlue
         button.layer.borderWidth = 1.0
         button.layer.borderColor = UIColor.white.cgColor
@@ -166,8 +167,8 @@ class EventDetailView: UIView {
         setupLocationButton()
         setupDescriptionTextView()
         setupCollectionView()
-        setupNotGoingButton()
         setupGoingButton()
+        setupNotGoingButton()
         setupInvitedButton()
         setupDeleteButton()
     }
@@ -286,30 +287,29 @@ class EventDetailView: UIView {
         collectionView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 1).isActive = true
     }
     
-    private func setupNotGoingButton() {
-        contentView.addSubview(notGoingButton)
-        notGoingButton.translatesAutoresizingMaskIntoConstraints = false
-        notGoingButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        notGoingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
-        notGoingButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.33).isActive = true
-        
-    }
-    
     private func setupGoingButton() {
         contentView.addSubview(goingButton)
         goingButton.translatesAutoresizingMaskIntoConstraints = false
-        goingButton.leadingAnchor.constraint(equalTo: notGoingButton.trailingAnchor).isActive = true
+        goingButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         goingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
-        goingButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.34).isActive = true
-        
+        goingButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.33).isActive = true
     }
     
+    private func setupNotGoingButton() {
+        contentView.addSubview(notGoingButton)
+        notGoingButton.translatesAutoresizingMaskIntoConstraints = false
+        notGoingButton.leadingAnchor.constraint(equalTo: goingButton.trailingAnchor).isActive = true
+        notGoingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        notGoingButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.34).isActive = true
+    }
+
+    
     private func setupInvitedButton() {
-        contentView.addSubview(maybeButton)
-        maybeButton.translatesAutoresizingMaskIntoConstraints = false
-        maybeButton.leadingAnchor.constraint(equalTo: goingButton.trailingAnchor).isActive = true
-        maybeButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
-        maybeButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.33).isActive = true
+        contentView.addSubview(allInvitedButton)
+        allInvitedButton.translatesAutoresizingMaskIntoConstraints = false
+        allInvitedButton.leadingAnchor.constraint(equalTo: notGoingButton.trailingAnchor).isActive = true
+        allInvitedButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        allInvitedButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.33).isActive = true
     }
     
     private func setupDeleteButton() {

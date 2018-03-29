@@ -54,10 +54,12 @@ class EventDetailViewController: UIViewController {
         loadContactsFromPhone()
         eventDetailView.goingButton.addTarget(self, action: #selector(showGoing), for: .touchUpInside)
         eventDetailView.notGoingButton.addTarget(self, action: #selector(showNotGoing), for: .touchUpInside)
+        eventDetailView.allInvitedButton.addTarget(self, action: #selector(allInvited), for: .touchUpInside)
         showGoing()
     }
     
     @objc private func showGoing() {
+        opacityWhenGoingClicked()
         filteredContacts.removeAll()
         DatabaseService.manager.getUserFriendsGoing(eventID: event.eventID) { (going) in
             guard let going = going else {
@@ -78,12 +80,66 @@ class EventDetailViewController: UIViewController {
     
     
     @objc private func showNotGoing() {
+        opacityWhenNotGoingClicked()
         filteredContacts.removeAll()
-        DatabaseService.manager.getAllUserFriendsInvited(eventID: event.eventID) { (allGoing) in
-            DatabaseService.manager.getUserFriendsGoing(eventID: self.event.eventID, completionHandler: { (allInvited) in
-                //TODO: filter with now going
+        DatabaseService.manager.getAllUserFriendsInvited(eventID: event.eventID) { (allInvited) in
+            DatabaseService.manager.getUserFriendsGoing(eventID: self.event.eventID, completionHandler: { (allGoing) in
+                guard let allInvited = allInvited, let allGoing = allGoing else {
+                    print("Error getting data")
+                    return
+                }
+                let all = Set(allInvited)
+                let notGoing = all.subtracting(Set(allGoing))
+                for contact in self.allContacts {
+                    guard let email = contact.emailAddress else {
+                        continue
+                    }
+                    if notGoing.contains(email) {
+                        self.filteredContacts.append(contact)
+                    }
+                }
+                self.eventDetailView.collectionView.reloadData()
             })
         }
+    }
+    
+    @objc private func allInvited() {
+        opacityWhenAllInvitedClicked()
+        filteredContacts.removeAll()
+        DatabaseService.manager.getAllUserFriendsInvited(eventID: event.eventID) { (invited) in
+            guard let invited = invited else {
+                print("Could not get invited list")
+                return
+            }
+            for contact in self.allContacts {
+                guard let email = contact.emailAddress else {
+                    continue
+                }
+                if invited.contains(email) {
+                    self.filteredContacts.append(contact)
+                }
+            }
+            self.eventDetailView.collectionView.reloadData()
+            
+        }
+    }
+    
+    private func opacityWhenGoingClicked() {
+        eventDetailView.goingButton.alpha = 1.0
+        eventDetailView.notGoingButton.alpha = 0.5
+        eventDetailView.allInvitedButton.alpha = 0.5
+    }
+    
+    private func opacityWhenNotGoingClicked() {
+        eventDetailView.goingButton.alpha = 0.5
+        eventDetailView.notGoingButton.alpha = 1.0
+        eventDetailView.allInvitedButton.alpha = 0.5
+    }
+    
+    private func opacityWhenAllInvitedClicked() {
+        eventDetailView.goingButton.alpha = 0.5
+        eventDetailView.notGoingButton.alpha = 0.5
+        eventDetailView.allInvitedButton.alpha = 1.0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -340,6 +396,3 @@ extension EventDetailViewController: EditDelegate {
     
     
 }
-
-
-
