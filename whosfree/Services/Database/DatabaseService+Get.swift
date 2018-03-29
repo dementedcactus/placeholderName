@@ -152,8 +152,12 @@ extension DatabaseService {
                     completion(nil)
                     return
                 }
+                guard let timestampDouble = savedEventDictionary["timestampDouble"] as? Double else {
+                    completion(nil)
+                    return
+                }
                 guard let allFriendsInvited = savedEventDictionary["allFriendsInvited"] as? [String] else {
-                    let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: [])
+                    let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: [], timestampDouble: timestampDouble)
                     eventArrayToReturn.append(event)
                     continue
                 }
@@ -170,7 +174,7 @@ extension DatabaseService {
 //                    return
 //                }
                 
-                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: allFriendsInvited)
+                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: allFriendsInvited, timestampDouble: timestampDouble)
                 eventArrayToReturn.append(event)
             }
             completion(eventArrayToReturn)
@@ -214,13 +218,17 @@ extension DatabaseService {
                 completion(nil)
                 return
             }
+            guard let timestampDouble = savedEventDictionary["timestampDouble"] as? Double else {
+                completion(nil)
+                return
+            }
             guard let allFriendsInvited = savedEventDictionary["allFriendsInvited"] as? [String] else {
-                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: [])
+                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: [], timestampDouble: timestampDouble)
                 completion(event)
                 return
             }
             
-            let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: allFriendsInvited)
+            let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: allFriendsInvited, timestampDouble: timestampDouble)
             completion(event)
         }
     }

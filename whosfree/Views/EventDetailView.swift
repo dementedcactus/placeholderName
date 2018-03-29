@@ -333,6 +333,7 @@ class EventDetailView: UIView {
         eventTitleLabel.text = event.eventName
         locationButton.setTitle(event.eventLocation, for: .normal)
         descriptionTextView.text = event.eventDescription
+        datePicker.date = Date.init(timeIntervalSince1970: event.timestampDouble)
     }
 
 }
