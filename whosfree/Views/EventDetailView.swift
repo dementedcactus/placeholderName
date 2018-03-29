@@ -68,6 +68,7 @@ class EventDetailView: UIView {
     lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.timeZone = NSTimeZone.local
+        datePicker.isUserInteractionEnabled = false
         return datePicker
     }()
     
@@ -75,6 +76,7 @@ class EventDetailView: UIView {
         let button = UIButton()
         button.setTitle("123 Fake Street", for: .normal)
         Stylesheet.Objects.Buttons.CreateButton.style(button: button)
+        button.layer.cornerRadius = 0
         return button
     }()
     
@@ -123,7 +125,7 @@ class EventDetailView: UIView {
         layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: frame, collectionViewLayout: layout)
         cv.backgroundColor = UIColor.groupTableViewBackground
-        cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "InvitedFriendsCollectionViewCell")
+        cv.register(FriendsCollectionViewCell.self, forCellWithReuseIdentifier: "user going cell")
         return cv
     }()
     
@@ -205,7 +207,7 @@ class EventDetailView: UIView {
     private func setupEditButton() {
         contentView.addSubview(editButton)
         editButton.translatesAutoresizingMaskIntoConstraints = false
-        editButton.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
+        editButton.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor, constant: -15).isActive = true
         editButton.widthAnchor.constraint(equalTo: bannerPhotoImageView.widthAnchor, multiplier: 0.1).isActive = true
         editButton.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 0.2).isActive = true
         editButton.topAnchor.constraint(equalTo: bannerPhotoImageView.topAnchor, constant: 5).isActive = true
@@ -261,10 +263,10 @@ class EventDetailView: UIView {
     private func setupLocationButton() {
         contentView.addSubview(locationButton)
         locationButton.translatesAutoresizingMaskIntoConstraints = false
-        locationButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
+        locationButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         locationButton.topAnchor.constraint(equalTo: mapImageView.bottomAnchor).isActive = true
-        locationButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
-        locationButton.heightAnchor.constraint(equalTo: rsvpButton.heightAnchor, multiplier: 1).isActive = true
+        locationButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        locationButton.heightAnchor.constraint(equalTo: rsvpButton.heightAnchor, multiplier: 1.1).isActive = true
     }
     
     private func setupDescriptionTextView() {
