@@ -16,6 +16,7 @@ class Event: NSObject {
     var eventLocation: String
 //    var timestamp: Double = Date.timeIntervalSinceReferenceDate //nicely format date for Richard
     var timestamp: String
+    var timestampDouble: Double
     var eventBannerImgUrl: String
     var friendsGoing: [String]?
     var allFriendsInvited: [String]
@@ -63,13 +64,14 @@ class Event: NSObject {
 //        self.rsvpYes = rsvpYes
 //    }
     
-    init(eventID: String, eventName: String, ownerUserID: String, eventDescription: String, eventLocation: String, timestamp: String, eventBannerImgUrl: String, allFriendsInvited: [String]) {
+    init(eventID: String, eventName: String, ownerUserID: String, eventDescription: String, eventLocation: String, timestamp: String, eventBannerImgUrl: String, allFriendsInvited: [String], timestampDouble: Double) {
         self.eventID = eventID
         self.eventName = eventName
         self.ownerUserID = ownerUserID
         self.eventDescription = eventDescription
         self.eventLocation = eventLocation
         self.timestamp = timestamp
+        self.timestampDouble = timestampDouble
         self.eventBannerImgUrl = eventBannerImgUrl
         self.allFriendsInvited = allFriendsInvited
     }
@@ -84,6 +86,7 @@ class Event: NSObject {
         eventBannerImgUrl = dict["eventBannerImgUrl"] as? String ?? ""
         friendsGoing = dict["friendsGoing"] as? [String] ?? []
         allFriendsInvited = dict["allFriendsInvited"] as? [String] ?? []
+        timestampDouble = dict["timestampDouble"] as? Double ?? 0.0
     }
 }
 

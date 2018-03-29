@@ -29,6 +29,12 @@ class FriendsCollectionViewCell: UICollectionViewCell {
         return fLabel
     }()
     
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        friendImage.layer.cornerRadius = friendImage.frame.height/2
+//        friendImage.clipsToBounds = true
+//    }
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         backgroundColor = UIColor.groupTableViewBackground
