@@ -39,11 +39,21 @@ class placeDetailViewController: UIViewController {
         configureNavBar()
         placeDetailView.configureView(with: place)
         placeDetailView.mapView.delegate = self
+        placeDetailView.callButton.addTarget(self, action: #selector(callPlace), for: .touchUpInside)
         PlaceReviewAPIClient.manager.getPlacesReviews(with: place.id, success: { self.placeReviews =  $0 }, failure: { print($0) })
     }
     
     private func configureNavBar() {
         navigationItem.title = "Place Detail Page"
+    }
+    
+    @objc private func callPlace() {
+        if let phoneCallURL = URL(string: "tel://\(place.phone)") {
+            let application:UIApplication = UIApplication.shared
+            if (application.canOpenURL(phoneCallURL)) {
+                application.open(phoneCallURL, options: [:], completionHandler: nil)
+            }
+        }
     }
     
 }

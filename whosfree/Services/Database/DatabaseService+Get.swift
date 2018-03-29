@@ -64,6 +64,21 @@ extension DatabaseService {
         }
     }
     
+    func getAllUserFriendsInvited(eventID: String, completionHandler: @escaping ([String]?) -> Void) {
+        let eventRef = DatabaseService.manager.eventsRef.child(eventID)
+        let allUserFriendsInvitedRef = eventRef.child("allFriendsInvited")
+        allUserFriendsInvitedRef.observeSingleEvent(of: .value) { (snapshot) in
+            var allFriendsInvited = [String]()
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let friend = snap.value as! String
+                allFriendsInvited.append(friend)
+            }
+            completionHandler(allFriendsInvited)
+        }
+        
+    }
+    
     
     func getUserFriendsGoing(eventID: String, completionHandler: @escaping ([String]?) -> Void) {
         let eventRef = DatabaseService.manager.eventsRef.child(eventID)
@@ -105,7 +120,7 @@ extension DatabaseService {
             var eventArrayToReturn: [Event] = [] // This is the empty events array that will be filled by the completion handler
             for postSnapshot in arrayOfAllEventsSnapshot {
                 guard let savedEventDictionary = postSnapshot.value as? [String : Any] else {
-                    print("could not get saved jobs dict")
+                    print("could not get saved events dict")
                     completion(nil)
                     return
                 }
@@ -137,6 +152,11 @@ extension DatabaseService {
                     completion(nil)
                     return
                 }
+                guard let allFriendsInvited = savedEventDictionary["allFriendsInvited"] as? [String] else {
+                    let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: [])
+                    eventArrayToReturn.append(event)
+                    continue
+                }
 //                guard let rsvpNo = savedEventDictionary["rsvpNo"] as? String else {
 //                    completion(nil)
 //                    return
@@ -150,7 +170,7 @@ extension DatabaseService {
 //                    return
 //                }
                 
-                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl)
+                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: allFriendsInvited)
                 eventArrayToReturn.append(event)
             }
             completion(eventArrayToReturn)

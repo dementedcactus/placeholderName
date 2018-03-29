@@ -123,7 +123,7 @@ class EventDetailView: UIView {
         layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: frame, collectionViewLayout: layout)
         cv.backgroundColor = UIColor.groupTableViewBackground
-        cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "InvitedFriendsCollectionViewCell")
+        cv.register(FriendsCollectionViewCell.self, forCellWithReuseIdentifier: "user going cell")
         return cv
     }()
     
