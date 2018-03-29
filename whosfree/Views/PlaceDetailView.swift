@@ -79,6 +79,7 @@ class PlaceDetailView: UIView {
         let mapView = MKMapView()
         mapView.isScrollEnabled = false
         mapView.isZoomEnabled = false
+        mapView.isUserInteractionEnabled = false
         return mapView
     }()
     
