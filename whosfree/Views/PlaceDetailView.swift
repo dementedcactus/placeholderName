@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Kingfisher
 
 class PlaceDetailView: UIView {
     
@@ -23,6 +24,7 @@ class PlaceDetailView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "Place Name"
+        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 23)
         return label
     }()
     
@@ -30,12 +32,14 @@ class PlaceDetailView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "Venue Address 34 st New York, NY 10020"
+        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 20)
         return label
     }()
     
     lazy var placePricePointLabel: UILabel = {
         let label = UILabel()
         label.text = "Price point $$"
+        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 20)
         return label
     }()
     
@@ -57,7 +61,7 @@ class PlaceDetailView: UIView {
         let button = UIButton()
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("Select Location", for: .normal)
-        button.backgroundColor = UIColor.blue
+        button.backgroundColor = Stylesheet.Colors.azure
         button.layer.cornerRadius = 10.0
         //button.layer.borderColor = UIColor.black.cgColor
         return button
@@ -67,18 +71,20 @@ class PlaceDetailView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.image = #imageLiteral(resourceName: "fourStars")
+        imageView.image = #imageLiteral(resourceName: "zeroStars")
         return imageView
     }()
     
     lazy var mapView: MKMapView = {
         let mapView = MKMapView()
+        mapView.isScrollEnabled = false
+        mapView.isZoomEnabled = false
         return mapView
     }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Review Cell")
+        tableView.register(PlaceReviewTableViewCell.self, forCellReuseIdentifier: "Review Cell")
         return tableView
     }()
     
@@ -194,14 +200,14 @@ class PlaceDetailView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 10).isActive = true
+        tableView.topAnchor.constraint(equalTo: mapView.bottomAnchor).isActive = true
         tableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.3).isActive = true
     }
     
     public func configureView(with place: Place) {
         placeNameLabel.text = place.name
-        placeAddressLabel.text = place.location.address1
-        placePricePointLabel.text = place.price
+        placeAddressLabel.text = "Address: \(place.location.address1), \(place.location.city), \(place.location.zip_code)"
+        placePricePointLabel.text = "Price: \(place.price ?? "N/A")"
         switch place.rating {
         case 0.0:
             ratingImage.image = #imageLiteral(resourceName: "zeroStars")
@@ -227,6 +233,14 @@ class PlaceDetailView: UIView {
             ratingImage.image = #imageLiteral(resourceName: "fiveStars")
         default:
             print("no review rating available")
+        }
+        let placeAnnotation = MKPointAnnotation()
+        placeAnnotation.coordinate = CLLocationCoordinate2D(latitude: place.coordinates.latitude, longitude: place.coordinates.longitude)
+        mapView.addAnnotation(placeAnnotation)
+        let region = MKCoordinateRegion(center: placeAnnotation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        mapView.setRegion(region, animated: true)
+        placeImage.kf.indicatorType = .activity
+        placeImage.kf.setImage(with: URL(string: place.image_url), placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
         }
     }
 

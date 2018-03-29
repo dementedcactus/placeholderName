@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class placeDetailViewController: UIViewController {
 
@@ -37,6 +38,7 @@ class placeDetailViewController: UIViewController {
         placeDetailView.tableView.dataSource = self
         configureNavBar()
         placeDetailView.configureView(with: place)
+        placeDetailView.mapView.delegate = self
         PlaceReviewAPIClient.manager.getPlacesReviews(with: place.id, success: { self.placeReviews =  $0 }, failure: { print($0) })
     }
     
@@ -52,9 +54,8 @@ extension placeDetailViewController : UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let review = placeReviews[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Review Cell", for: indexPath)
-        cell.textLabel?.text = review.time_created
-        cell.detailTextLabel?.text = review.text
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Review Cell", for: indexPath) as! PlaceReviewTableViewCell
+        cell.configureCell(review: review)
         return cell
     }
     
@@ -62,4 +63,21 @@ extension placeDetailViewController : UITableViewDelegate, UITableViewDataSource
         return "Reviews"
     }
     
+}
+
+extension placeDetailViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation { return nil }
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotationView") as? MKMarkerAnnotationView
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "annotationView")
+            annotationView?.canShowCallout = true
+            annotationView?.animatesWhenAdded = true
+            annotationView?.markerTintColor = Stylesheet.Colors.azure
+            annotationView?.isHighlighted = true
+        } else {
+            annotationView?.annotation = annotation
+        }
+        return annotationView
+    }
 }
