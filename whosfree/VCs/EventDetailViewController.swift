@@ -106,6 +106,7 @@ class EventDetailViewController: UIViewController {
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) {(alert) in
             print("pressed Delete")
             DatabaseService.manager.deleteEvent(withPostID: self.event.eventID)
+            self.navigationController?.popViewController(animated: true)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(alert) in
             print("pressed Cancel")
