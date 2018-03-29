@@ -18,6 +18,7 @@ class Event: NSObject {
     var timestamp: String
     var eventBannerImgUrl: String
     var friendsGoing: [String]?
+    var allFriendsInvited: [String]
     //var rsvpNo: String? //[String of user ids]
     //var rsvpMaybe: String? //[String of All invited user ids]
     //var rsvpYes: String? //[String of user ids]
@@ -62,7 +63,7 @@ class Event: NSObject {
 //        self.rsvpYes = rsvpYes
 //    }
     
-    init(eventID: String, eventName: String, ownerUserID: String, eventDescription: String, eventLocation: String, timestamp: String, eventBannerImgUrl: String) {
+    init(eventID: String, eventName: String, ownerUserID: String, eventDescription: String, eventLocation: String, timestamp: String, eventBannerImgUrl: String, allFriendsInvited: [String]) {
         self.eventID = eventID
         self.eventName = eventName
         self.ownerUserID = ownerUserID
@@ -70,6 +71,7 @@ class Event: NSObject {
         self.eventLocation = eventLocation
         self.timestamp = timestamp
         self.eventBannerImgUrl = eventBannerImgUrl
+        self.allFriendsInvited = allFriendsInvited
     }
     
     init(dict: [String : Any]) {
@@ -81,6 +83,7 @@ class Event: NSObject {
         timestamp = dict["timestamp"] as? String ?? ""
         eventBannerImgUrl = dict["eventBannerImgUrl"] as? String ?? ""
         friendsGoing = dict["friendsGoing"] as? [String] ?? []
+        allFriendsInvited = dict["allFriendsInvited"] as? [String] ?? []
     }
 }
 
