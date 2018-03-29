@@ -401,7 +401,11 @@ extension CreateEventViewController: UICollectionViewDataSource, UICollectionVie
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "user going cell", for: indexPath) as! FriendsCollectionViewCell
         let currentFriend = invitedFriendsFullInfo[indexPath.row]
         cell.friendLabel.text = "\(currentFriend.givenName)"
-        cell.friendImage.image = UIImage(data: currentFriend.imageData!)
+        guard let friendImageData = currentFriend.imageData else {
+            cell.friendImage.image = #imageLiteral(resourceName: "profileImagePlaceholder")
+            return cell
+        }
+        cell.friendImage.image = UIImage(data: friendImageData)
         return cell
     }
     
