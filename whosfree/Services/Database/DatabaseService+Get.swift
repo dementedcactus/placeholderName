@@ -64,6 +64,21 @@ extension DatabaseService {
         }
     }
     
+    func getAllUserFriendsInvited(eventID: String, completionHandler: @escaping ([String]?) -> Void) {
+        let eventRef = DatabaseService.manager.eventsRef.child(eventID)
+        let allUserFriendsInvitedRef = eventRef.child("allFriendsInvited")
+        allUserFriendsInvitedRef.observeSingleEvent(of: .value) { (snapshot) in
+            var allFriendsInvited = [String]()
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let friend = snap.value as! String
+                allFriendsInvited.append(friend)
+            }
+            completionHandler(allFriendsInvited)
+        }
+        
+    }
+    
     
     func getUserFriendsGoing(eventID: String, completionHandler: @escaping ([String]?) -> Void) {
         let eventRef = DatabaseService.manager.eventsRef.child(eventID)
@@ -96,7 +111,7 @@ extension DatabaseService {
     }
  
     func getAllEvents(completion: @escaping ([Event]?) -> Void) {
-        eventsRef.observeSingleEvent(of: .value) { (dataSnapshot) in
+        eventsRef.observe(.value) { (dataSnapshot) in
             guard let arrayOfAllEventsSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
                 print("could not get children snapshots")
                 completion(nil)
@@ -105,7 +120,7 @@ extension DatabaseService {
             var eventArrayToReturn: [Event] = [] // This is the empty events array that will be filled by the completion handler
             for postSnapshot in arrayOfAllEventsSnapshot {
                 guard let savedEventDictionary = postSnapshot.value as? [String : Any] else {
-                    print("could not get saved jobs dict")
+                    print("could not get saved events dict")
                     completion(nil)
                     return
                 }
@@ -129,13 +144,18 @@ extension DatabaseService {
                     completion(nil)
                     return
                 }
-                guard let timestamp = savedEventDictionary["timestamp"] as? Double else {
+                guard let timestamp = savedEventDictionary["timestamp"] as? String else {
                     completion(nil)
                     return
                 }
                 guard let eventBannerImgUrl = savedEventDictionary["eventBannerImgUrl"] as? String else {
                     completion(nil)
                     return
+                }
+                guard let allFriendsInvited = savedEventDictionary["allFriendsInvited"] as? [String] else {
+                    let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: [])
+                    eventArrayToReturn.append(event)
+                    continue
                 }
 //                guard let rsvpNo = savedEventDictionary["rsvpNo"] as? String else {
 //                    completion(nil)
@@ -150,15 +170,63 @@ extension DatabaseService {
 //                    return
 //                }
                 
-                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl)
+                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: allFriendsInvited)
                 eventArrayToReturn.append(event)
             }
             completion(eventArrayToReturn)
         }
     }
     
+    
+    func getEvent(with eventID: String, completion: @escaping (Event?) -> Void) {
+        let eventRef = eventsRef.child(eventID)
+        eventRef.observeSingleEvent(of: .value) { (dataSnapshot) in
+            guard let savedEventDictionary = dataSnapshot.value as? [String : Any] else {
+                print("could not get saved events dict")
+                completion(nil)
+                return
+            }
+            guard let eventID = savedEventDictionary["eventID"] as? String else {
+                completion(nil)
+                return
+            }
+            guard let eventName = savedEventDictionary["eventName"] as? String else {
+                completion(nil)
+                return
+            }
+            guard let ownerUserID = savedEventDictionary["ownerUserID"] as? String else {
+                completion(nil)
+                return
+            }
+            guard let eventDescription = savedEventDictionary["eventDescription"] as? String else {
+                completion(nil)
+                return
+            }
+            guard let eventLocation = savedEventDictionary["eventLocation"] as? String else {
+                completion(nil)
+                return
+            }
+            guard let timestamp = savedEventDictionary["timestamp"] as? String else {
+                completion(nil)
+                return
+            }
+            guard let eventBannerImgUrl = savedEventDictionary["eventBannerImgUrl"] as? String else {
+                completion(nil)
+                return
+            }
+            guard let allFriendsInvited = savedEventDictionary["allFriendsInvited"] as? [String] else {
+                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: [])
+                completion(event)
+                return
+            }
+            
+            let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: allFriendsInvited)
+            completion(event)
+        }
+    }
+    
     func getChat(withEventID: String, completion: @escaping ([Comment]?) -> Void) {
-        chatsRef.child(withEventID).observeSingleEvent(of: .value) { (dataSnapshot) in
+        chatsRef.child(withEventID).observe(.value) { (dataSnapshot) in
             guard let arrayOfAllCommentsSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
                 print("could not get children snapshots")
                 completion(nil)

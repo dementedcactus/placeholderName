@@ -9,10 +9,18 @@
 import UIKit
 import MapKit
 
+protocol EditDelegate {
+    func passEditedEventBackToEventDetailVC(event: Event, eventImage: UIImage, date: Date)
+}
+
 class EditEventViewController: UIViewController {
 
+    // TODO: Update this VC to also send Mailgun invites when new people are added to the invite list
+    
+    var editDelegate: EditDelegate?
+    let placeViewController = PlaceViewController()
     let editEventView = EditEventView()
-    var categories = ["Venue", "Movie", "Other"]
+    var categories = ["Place", "Movie"]
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     var searchSource: [String]?
@@ -50,6 +58,7 @@ class EditEventViewController: UIViewController {
         setupViewButtons()
         setupBannerImageGestureRecognizer()
         editEventView.prefillEventFields(event: event, eventImage: eventImage)
+        self.placeViewController.selectVenueDelegate = self
     }
     
     private func setupBannerImageGestureRecognizer() {
@@ -79,8 +88,7 @@ class EditEventViewController: UIViewController {
     
     private func setupNavBarButtons() {
         self.title = "Edit Event"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButtonPressed))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelButtonPressed))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(editButtonPressed))
     }
     
     private func setupViewButtons() {
@@ -95,19 +103,20 @@ class EditEventViewController: UIViewController {
         let ownerUserID = event.ownerUserID //FirebaseAuthService.getCurrentUser()!.uid
         let eventDescription = editEventView.descriptionTextView.text!
         let eventLocation = editEventView.searchBar.text!
-        let componenets = Calendar.current.dateComponents([.year, .month, .day], from: editEventView.datePicker.date)
-        if let day = componenets.day, let month = componenets.month, let year = componenets.year {
-            print("\(day) \(month) \(year)")
-        }
-        let timestamp = event.timestamp //Date.timeIntervalSinceReferenceDate
-        let editedEventToAdd = Event(eventID: eventId, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")
+        
+        //let componenets = Calendar.current.dateComponents([.year, .month, .day], from: createEventView.datePicker.date)
+        let timestamp = CreateEventViewController().formatDate(with: editEventView.datePicker.date)
+        //        if let day = components.day, let month = components.month, let year = components.year {
+        //            print("\(day) \(month) \(year)")
+        //            timestamp = "\(day) \(month) \(year)"
+        //        }
+        
+        let editedEventToAdd = Event(eventID: eventId, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "", allFriendsInvited: [])
         DatabaseService.manager.editEvent(editedEventToAdd, editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc private func cancelButtonPressed() {
-        self.dismiss(animated: true, completion: nil)
-        print("Cancel create event pressed")
+        
+        //TODO: Pass Event object back to EventDetailVC
+        self.editDelegate?.passEditedEventBackToEventDetailVC(event: editedEventToAdd, eventImage: editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"), date: editEventView.datePicker.date)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc private func inviteFriendsButtonPressed() {
@@ -180,7 +189,7 @@ extension EditEventViewController: UITableViewDataSource, UITableViewDelegate {
             let searchRequest = MKLocalSearchRequest(completion: completion)
             let search = MKLocalSearch(request: searchRequest)
             search.start{ (response, error) in
-                let coordinate = response?.mapItems[0].placemark.coordinate
+                _ = response?.mapItems[0].placemark.coordinate
                 //print(response?.mapItems)
                 
                 self.editEventView.searchBar.text = "\(cellText)"
@@ -195,18 +204,15 @@ extension EditEventViewController: UITableViewDataSource, UITableViewDelegate {
             editEventView.tableView.isHidden = true
             editEventView.datePicker.isEnabled = true
             switch category {
-            case "Venue":
-                // seque venue
-                print("Clicked Venue")
-                let venueViewController = VenueViewController()
-                navigationController?.pushViewController(venueViewController, animated: true)
+            case "Place":
+                // segue place
+                print("Clicked Place")
+                navigationController?.pushViewController(placeViewController, animated: true)
             case "Movie":
                 //segue movie
                 print("Clicked Movie")
                 let theatersViewController = TheatersViewController()
                 navigationController?.pushViewController(theatersViewController, animated: true)
-            case "Other":
-                print("Clicked Other")
             default:
                 print("Do nothing")
             }
@@ -268,5 +274,12 @@ extension EditEventViewController: UITextViewDelegate {
     }
 }
 
+extension EditEventViewController: SelectVenueDelegate {
+    func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String) {
+        self.editEventView.searchBar.text = addrsss
+    }
+    
+    
+}
 
 

@@ -10,12 +10,8 @@
 		5A02D534D00123711E33753F /* Pods_whosfreeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD5219901C00B5DBC74C7D0 /* Pods_whosfreeUITests.framework */; };
 		84F06A9A6BF121D360D801EC /* Pods_whosfree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56270434984F66181CF21D95 /* Pods_whosfree.framework */; };
 		94FF2030ABE4CB093C686CC7 /* Pods_whosfreeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21925C818A4A3361FA7E2477 /* Pods_whosfreeTests.framework */; };
+		D23E3498206C29E5006A9638 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23E3497206C29E5006A9638 /* LocationService.swift */; };
 		D2603BFD20655B2000A55A87 /* CreateEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2603BFC20655B2000A55A87 /* CreateEventCell.swift */; };
-		DB0407192061FE440066F6C0 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0407182061FE440066F6C0 /* DateCollectionViewCell.swift */; };
-		DB04071D206203150066F6C0 /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB04071C206203150066F6C0 /* CalenderView.swift */; };
-		DB04071F206203420066F6C0 /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB04071E206203420066F6C0 /* WeekdaysView.swift */; };
-		DB040721206203660066F6C0 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB040720206203660066F6C0 /* MonthView.swift */; };
-		DB0407232062039F0066F6C0 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0407222062039F0066F6C0 /* CalendarViewController.swift */; };
 		DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE44820571E5C00AAD2D8 /* AppDelegate.swift */; };
 		DB3DE45120571E5C00AAD2D8 /* whosfree.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB3DE44F20571E5C00AAD2D8 /* whosfree.xcdatamodeld */; };
 		DB3DE45320571E5C00AAD2D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB3DE45220571E5C00AAD2D8 /* Assets.xcassets */; };
@@ -34,6 +30,7 @@
 		DB7E3EAC205945640075AA99 /* DatabaseService+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EAA205945640075AA99 /* DatabaseService+Delete.swift */; };
 		DB7E3EAE2059517B0075AA99 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EAD2059517B0075AA99 /* Comment.swift */; };
 		DB7E3EB0205967090075AA99 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E3EAF205967090075AA99 /* Event.swift */; };
+		DB87473A206C31BE00126725 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB874739206C31BE00126725 /* EmptyStateView.swift */; };
 		DBACBAE020580A6900882850 /* NetworkConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBADB20580A6800882850 /* NetworkConnectivity.swift */; };
 		DBACBAE120580A6900882850 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBADC20580A6800882850 /* NetworkHelper.swift */; };
 		DBACBAE220580A6900882850 /* StyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBADD20580A6800882850 /* StyleSheet.swift */; };
@@ -44,6 +41,7 @@
 		DBACBAEC20580A8300882850 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAE820580A8300882850 /* DatabaseService.swift */; };
 		DBACBAF220580A9800882850 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAF120580A9800882850 /* StorageService.swift */; };
 		DBACBAF420580AA500882850 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBACBAF320580AA500882850 /* UserProfile.swift */; };
+		DBADA049206AFBB500EF1AE5 /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADA048206AFBB500EF1AE5 /* PlaceTableViewCell.swift */; };
 		DBDDDC80206005C9009F4908 /* ExistingFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */; };
 		DBE59973205C1F5C00FD1898 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59972205C1F5C00FD1898 /* EventListViewController.swift */; };
 		DBE59975205C1F7000FD1898 /* EventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59974205C1F7000FD1898 /* EventListView.swift */; };
@@ -53,10 +51,10 @@
 		DBE5997D205C1FD500FD1898 /* CreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5997C205C1FD500FD1898 /* CreateEventViewController.swift */; };
 		DBE5997F205C1FEA00FD1898 /* CreateEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5997E205C1FEA00FD1898 /* CreateEventView.swift */; };
 		DBE59981205C1FFD00FD1898 /* EventTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59980205C1FFD00FD1898 /* EventTypeTableViewCell.swift */; };
-		DBE59983205C201600FD1898 /* VenueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59982205C201600FD1898 /* VenueViewController.swift */; };
-		DBE5998B205C209800FD1898 /* VenueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5998A205C209800FD1898 /* VenueView.swift */; };
-		DBE5998D205C20AF00FD1898 /* VenueDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5998C205C20AF00FD1898 /* VenueDetailViewController.swift */; };
-		DBE5998F205C20C600FD1898 /* VenueDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5998E205C20C600FD1898 /* VenueDetailView.swift */; };
+		DBE59983205C201600FD1898 /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59982205C201600FD1898 /* PlaceViewController.swift */; };
+		DBE5998B205C209800FD1898 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5998A205C209800FD1898 /* PlaceView.swift */; };
+		DBE5998D205C20AF00FD1898 /* placeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5998C205C20AF00FD1898 /* placeDetailViewController.swift */; };
+		DBE5998F205C20C600FD1898 /* PlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5998E205C20C600FD1898 /* PlaceDetailView.swift */; };
 		DBE59991205C20F300FD1898 /* TheatersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59990205C20F300FD1898 /* TheatersViewController.swift */; };
 		DBE59993205C211000FD1898 /* TheatersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59992205C211000FD1898 /* TheatersView.swift */; };
 		DBE59997205C213B00FD1898 /* TheaterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */; };
@@ -74,12 +72,14 @@
 		E22D85A120605F6200A13ED1 /* Showtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85A020605F6200A13ED1 /* Showtime.swift */; };
 		E22D85A7206061CF00A13ED1 /* TheaterAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85A6206061CF00A13ED1 /* TheaterAPIClient.swift */; };
 		E22D85A9206061E900A13ED1 /* ShowtimeAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85A8206061E900A13ED1 /* ShowtimeAPIClient.swift */; };
-		E22D85AB2060621900A13ED1 /* VenueAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85AA2060621900A13ED1 /* VenueAPIClient.swift */; };
-		E22D85AD2060623800A13ED1 /* VenueReviewAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85AC2060623800A13ED1 /* VenueReviewAPIClient.swift */; };
-		E22D85AF2060625600A13ED1 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85AE2060625600A13ED1 /* Venue.swift */; };
+		E22D85AB2060621900A13ED1 /* PlaceAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85AA2060621900A13ED1 /* PlaceAPIClient.swift */; };
+		E22D85AD2060623800A13ED1 /* PlaceReviewAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85AC2060623800A13ED1 /* PlaceReviewAPIClient.swift */; };
+		E22D85AF2060625600A13ED1 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85AE2060625600A13ED1 /* Place.swift */; };
 		E22D85B12060626800A13ED1 /* VenueReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22D85B02060626800A13ED1 /* VenueReview.swift */; };
 		E248A1F12061F8630080A9E5 /* StorageService+UsersImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E248A1F02061F8630080A9E5 /* StorageService+UsersImages.swift */; };
 		E248A1F32061F8800080A9E5 /* StorageService+EventsImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E248A1F22061F8800080A9E5 /* StorageService+EventsImages.swift */; };
+		E2BCBE60206C3A0900BCE82B /* PlaceReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BCBE5F206C3A0900BCE82B /* PlaceReviewTableViewCell.swift */; };
+		E2EA2089206AE4DE003450E9 /* FriendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EA2088206AE4DE003450E9 /* FriendsCollectionViewCell.swift */; };
 		E2FBFBF020656A5E005C910B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FBFBEF20656A5E005C910B /* Contact.swift */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +110,7 @@
 		7CF222DD50E6FE553458725A /* Pods-whosfreeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whosfreeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-whosfreeUITests/Pods-whosfreeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7DD5219901C00B5DBC74C7D0 /* Pods_whosfreeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_whosfreeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95AFDAA9FE5BB29F7E498C64 /* Pods-whosfreeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whosfreeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-whosfreeUITests/Pods-whosfreeUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D23E3497206C29E5006A9638 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		D2603BFC20655B2000A55A87 /* CreateEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventCell.swift; sourceTree = "<group>"; };
 		DB3DE44520571E5C00AAD2D8 /* whosfree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = whosfree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB3DE44820571E5C00AAD2D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +136,7 @@
 		DB7E3EAA205945640075AA99 /* DatabaseService+Delete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Delete.swift"; sourceTree = "<group>"; };
 		DB7E3EAD2059517B0075AA99 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		DB7E3EAF205967090075AA99 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		DB874739206C31BE00126725 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		DBACBADB20580A6800882850 /* NetworkConnectivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConnectivity.swift; sourceTree = "<group>"; };
 		DBACBADC20580A6800882850 /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		DBACBADD20580A6800882850 /* StyleSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleSheet.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 		DBACBAE820580A8300882850 /* DatabaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		DBACBAF120580A9800882850 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		DBACBAF320580AA500882850 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		DBADA048206AFBB500EF1AE5 /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
 		DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingFriendsTableViewCell.swift; sourceTree = "<group>"; };
 		DBE59972205C1F5C00FD1898 /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
 		DBE59974205C1F7000FD1898 /* EventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListView.swift; sourceTree = "<group>"; };
@@ -154,10 +157,10 @@
 		DBE5997C205C1FD500FD1898 /* CreateEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventViewController.swift; sourceTree = "<group>"; };
 		DBE5997E205C1FEA00FD1898 /* CreateEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventView.swift; sourceTree = "<group>"; };
 		DBE59980205C1FFD00FD1898 /* EventTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeTableViewCell.swift; sourceTree = "<group>"; };
-		DBE59982205C201600FD1898 /* VenueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueViewController.swift; sourceTree = "<group>"; };
-		DBE5998A205C209800FD1898 /* VenueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueView.swift; sourceTree = "<group>"; };
-		DBE5998C205C20AF00FD1898 /* VenueDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailViewController.swift; sourceTree = "<group>"; };
-		DBE5998E205C20C600FD1898 /* VenueDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailView.swift; sourceTree = "<group>"; };
+		DBE59982205C201600FD1898 /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
+		DBE5998A205C209800FD1898 /* PlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
+		DBE5998C205C20AF00FD1898 /* placeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = placeDetailViewController.swift; sourceTree = "<group>"; };
+		DBE5998E205C20C600FD1898 /* PlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailView.swift; sourceTree = "<group>"; };
 		DBE59990205C20F300FD1898 /* TheatersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheatersViewController.swift; sourceTree = "<group>"; };
 		DBE59992205C211000FD1898 /* TheatersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheatersView.swift; sourceTree = "<group>"; };
 		DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterTableViewCell.swift; sourceTree = "<group>"; };
@@ -175,12 +178,14 @@
 		E22D85A020605F6200A13ED1 /* Showtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Showtime.swift; sourceTree = "<group>"; };
 		E22D85A6206061CF00A13ED1 /* TheaterAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheaterAPIClient.swift; sourceTree = "<group>"; };
 		E22D85A8206061E900A13ED1 /* ShowtimeAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowtimeAPIClient.swift; sourceTree = "<group>"; };
-		E22D85AA2060621900A13ED1 /* VenueAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueAPIClient.swift; sourceTree = "<group>"; };
-		E22D85AC2060623800A13ED1 /* VenueReviewAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueReviewAPIClient.swift; sourceTree = "<group>"; };
-		E22D85AE2060625600A13ED1 /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
+		E22D85AA2060621900A13ED1 /* PlaceAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAPIClient.swift; sourceTree = "<group>"; };
+		E22D85AC2060623800A13ED1 /* PlaceReviewAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceReviewAPIClient.swift; sourceTree = "<group>"; };
+		E22D85AE2060625600A13ED1 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		E22D85B02060626800A13ED1 /* VenueReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueReview.swift; sourceTree = "<group>"; };
 		E248A1F02061F8630080A9E5 /* StorageService+UsersImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+UsersImages.swift"; sourceTree = "<group>"; };
 		E248A1F22061F8800080A9E5 /* StorageService+EventsImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+EventsImages.swift"; sourceTree = "<group>"; };
+		E2BCBE5F206C3A0900BCE82B /* PlaceReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceReviewTableViewCell.swift; sourceTree = "<group>"; };
+		E2EA2088206AE4DE003450E9 /* FriendsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionViewCell.swift; sourceTree = "<group>"; };
 		E2FBFBEF20656A5E005C910B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -298,15 +303,15 @@
 			children = (
 				DBE599AC205C228300FD1898 /* ChatViewController.swift */,
 				DBE5997C205C1FD500FD1898 /* CreateEventViewController.swift */,
+				DB3FE9582067F303005DCE47 /* EditEventViewController.swift */,
 				DBE59978205C1FA500FD1898 /* EventDetailViewController.swift */,
 				DBE59972205C1F5C00FD1898 /* EventListViewController.swift */,
-				DB3DE47A205721C000AAD2D8 /* SignInViewController.swift */,
-				DB3FE9582067F303005DCE47 /* EditEventViewController.swift */,
-				DBE59998205C215900FD1898 /* TheaterShowtimesViewController.swift */,
 				DB3F6AC12065624D0015A946 /* InviteFriendsViewController.swift */,
+				DBE5998C205C20AF00FD1898 /* placeDetailViewController.swift */,
+				DBE59982205C201600FD1898 /* PlaceViewController.swift */,
+				DB3DE47A205721C000AAD2D8 /* SignInViewController.swift */,
+				DBE59998205C215900FD1898 /* TheaterShowtimesViewController.swift */,
 				DBE59990205C20F300FD1898 /* TheatersViewController.swift */,
-				DBE5998C205C20AF00FD1898 /* VenueDetailViewController.swift */,
-				DBE59982205C201600FD1898 /* VenueViewController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -317,6 +322,7 @@
 				DBE599AE205C229700FD1898 /* ChatView.swift */,
 				DBE5997E205C1FEA00FD1898 /* CreateEventView.swift */,
 				DBE5997A205C1FC200FD1898 /* EventDetailView.swift */,
+				DB874739206C31BE00126725 /* EmptyStateView.swift */,
 				DBE59974205C1F7000FD1898 /* EventListView.swift */,
 				DB3FE9562067F2E7005DCE47 /* EditEventView.swift */,
 				DB3F6AC3206562840015A946 /* InviteFriendsView.swift */,
@@ -326,8 +332,8 @@
 				E22D859A206054B900A13ED1 /* SignUpContainerView.swift */,
 				DBE5999A205C216B00FD1898 /* TheaterShowtimesView.swift */,
 				DBE59992205C211000FD1898 /* TheatersView.swift */,
-				DBE5998E205C20C600FD1898 /* VenueDetailView.swift */,
-				DBE5998A205C209800FD1898 /* VenueView.swift */,
+				DBE5998E205C20C600FD1898 /* PlaceDetailView.swift */,
+				DBE5998A205C209800FD1898 /* PlaceView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -339,9 +345,12 @@
 				D2603BFC20655B2000A55A87 /* CreateEventCell.swift */,
 				DBE59976205C1F8900FD1898 /* EventTableViewCell.swift */,
 				DBE59980205C1FFD00FD1898 /* EventTypeTableViewCell.swift */,
+				E2EA2088206AE4DE003450E9 /* FriendsCollectionViewCell.swift */,
 				DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */,
 				DBE5999C205C217D00FD1898 /* MovieTableViewCell.swift */,
 				DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */,
+				DBADA048206AFBB500EF1AE5 /* PlaceTableViewCell.swift */,
+				E2BCBE5F206C3A0900BCE82B /* PlaceReviewTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -356,7 +365,7 @@
 				DB7E3EA7205944A70075AA99 /* iShowTimeAPIHelper.swift */,
 				DBACBAF320580AA500882850 /* UserProfile.swift */,
 				E22D85A020605F6200A13ED1 /* Showtime.swift */,
-				E22D85AE2060625600A13ED1 /* Venue.swift */,
+				E22D85AE2060625600A13ED1 /* Place.swift */,
 				E22D85B02060626800A13ED1 /* VenueReview.swift */,
 			);
 			path = Models;
@@ -371,8 +380,9 @@
 				DBACBADD20580A6800882850 /* StyleSheet.swift */,
 				E22D85A6206061CF00A13ED1 /* TheaterAPIClient.swift */,
 				E22D85A8206061E900A13ED1 /* ShowtimeAPIClient.swift */,
-				E22D85AA2060621900A13ED1 /* VenueAPIClient.swift */,
-				E22D85AC2060623800A13ED1 /* VenueReviewAPIClient.swift */,
+				E22D85AA2060621900A13ED1 /* PlaceAPIClient.swift */,
+				E22D85AC2060623800A13ED1 /* PlaceReviewAPIClient.swift */,
+				D23E3497206C29E5006A9638 /* LocationService.swift */,
 				DB3DE4822057224900AAD2D8 /* Database */,
 				DB3DE4812057224000AAD2D8 /* AuthUser */,
 				DB3DE4802057223700AAD2D8 /* Storage */,
@@ -697,6 +707,8 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMailgun/SwiftMailgun.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -713,6 +725,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMailgun.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -739,17 +753,18 @@
 				E2FBFBF020656A5E005C910B /* Contact.swift in Sources */,
 				E22D859F20605F1900A13ED1 /* MovieHeaderView.swift in Sources */,
 				D2603BFD20655B2000A55A87 /* CreateEventCell.swift in Sources */,
-				DBE5998B205C209800FD1898 /* VenueView.swift in Sources */,
-				DBE59983205C201600FD1898 /* VenueViewController.swift in Sources */,
+				DBE5998B205C209800FD1898 /* PlaceView.swift in Sources */,
+				DBE59983205C201600FD1898 /* PlaceViewController.swift in Sources */,
 				DBACBAEA20580A8300882850 /* DatabaseService+Get.swift in Sources */,
-				E22D85AD2060623800A13ED1 /* VenueReviewAPIClient.swift in Sources */,
+				E22D85AD2060623800A13ED1 /* PlaceReviewAPIClient.swift in Sources */,
 				DBE5999B205C216B00FD1898 /* TheaterShowtimesView.swift in Sources */,
 				DB3FE9592067F303005DCE47 /* EditEventViewController.swift in Sources */,
 				DBE59997205C213B00FD1898 /* TheaterTableViewCell.swift in Sources */,
 				E22D85B12060626800A13ED1 /* VenueReview.swift in Sources */,
 				E22D859B206054B900A13ED1 /* SignUpContainerView.swift in Sources */,
 				DB3F6AC4206562840015A946 /* InviteFriendsView.swift in Sources */,
-				DBE5998D205C20AF00FD1898 /* VenueDetailViewController.swift in Sources */,
+				DBADA049206AFBB500EF1AE5 /* PlaceTableViewCell.swift in Sources */,
+				DBE5998D205C20AF00FD1898 /* placeDetailViewController.swift in Sources */,
 				DB3DE44920571E5C00AAD2D8 /* AppDelegate.swift in Sources */,
 				DBACBAE020580A6900882850 /* NetworkConnectivity.swift in Sources */,
 				E22D8599206054A900A13ED1 /* SignInContainerView.swift in Sources */,
@@ -764,8 +779,8 @@
 				DB3DE484205722AE00AAD2D8 /* SignInView.swift in Sources */,
 				DBE599AF205C229700FD1898 /* ChatView.swift in Sources */,
 				E22D85972060532400A13ED1 /* FirebaseAuthService.swift in Sources */,
-				DBE5998F205C20C600FD1898 /* VenueDetailView.swift in Sources */,
-				E22D85AF2060625600A13ED1 /* Venue.swift in Sources */,
+				DBE5998F205C20C600FD1898 /* PlaceDetailView.swift in Sources */,
+				E22D85AF2060625600A13ED1 /* Place.swift in Sources */,
 				E22D85A120605F6200A13ED1 /* Showtime.swift in Sources */,
 				DBE5997B205C1FC200FD1898 /* EventDetailView.swift in Sources */,
 				DBACBAF220580A9800882850 /* StorageService.swift in Sources */,
@@ -776,14 +791,18 @@
 				DBE599B1205C22BA00FD1898 /* ChatTableViewCell.swift in Sources */,
 				DB3DE45120571E5C00AAD2D8 /* whosfree.xcdatamodeld in Sources */,
 				DBE59973205C1F5C00FD1898 /* EventListViewController.swift in Sources */,
+				E2EA2089206AE4DE003450E9 /* FriendsCollectionViewCell.swift in Sources */,
 				DB7E3EAE2059517B0075AA99 /* Comment.swift in Sources */,
 				E248A1F32061F8800080A9E5 /* StorageService+EventsImages.swift in Sources */,
 				DBACBAE220580A6900882850 /* StyleSheet.swift in Sources */,
 				DB7E3EAC205945640075AA99 /* DatabaseService+Delete.swift in Sources */,
 				DBE5999D205C217D00FD1898 /* MovieTableViewCell.swift in Sources */,
-				E22D85AB2060621900A13ED1 /* VenueAPIClient.swift in Sources */,
+				E22D85AB2060621900A13ED1 /* PlaceAPIClient.swift in Sources */,
+				E2BCBE60206C3A0900BCE82B /* PlaceReviewTableViewCell.swift in Sources */,
 				DB3FE9572067F2E7005DCE47 /* EditEventView.swift in Sources */,
+				DB87473A206C31BE00126725 /* EmptyStateView.swift in Sources */,
 				DB7E3EAB205945640075AA99 /* DatabaseService+Edit.swift in Sources */,
+				D23E3498206C29E5006A9638 /* LocationService.swift in Sources */,
 				DB7E3EB0205967090075AA99 /* Event.swift in Sources */,
 				E22D85A7206061CF00A13ED1 /* TheaterAPIClient.swift in Sources */,
 				DBDDDC80206005C9009F4908 /* ExistingFriendsTableViewCell.swift in Sources */,
@@ -947,6 +966,7 @@
 			baseConfigurationReference = 60E208FAA28830ACA6B5C3A2 /* Pods-whosfree.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DSMJ37658F;
 				INFOPLIST_FILE = whosfree/Info.plist;
@@ -963,6 +983,7 @@
 			baseConfigurationReference = 01B615F746D6519FDD4F49D5 /* Pods-whosfree.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DSMJ37658F;
 				INFOPLIST_FILE = whosfree/Info.plist;

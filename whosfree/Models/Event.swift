@@ -15,13 +15,23 @@ class Event: NSObject {
     var eventDescription: String
     var eventLocation: String
 //    var timestamp: Double = Date.timeIntervalSinceReferenceDate //nicely format date for Richard
-    var timestamp: Double
+    var timestamp: String
     var eventBannerImgUrl: String
     var friendsGoing: [String]?
+    var allFriendsInvited: [String]
     //var rsvpNo: String? //[String of user ids]
     //var rsvpMaybe: String? //[String of All invited user ids]
     //var rsvpYes: String? //[String of user ids]
     //var eventType: String
+    
+    override var description: String {
+        return """
+        Event Name: \(self.eventName)<br />
+        Event Description: \(self.eventDescription)<br />
+        Where? \(self.eventLocation)<br />
+        When? \(self.timestamp)<br />
+        """
+    }
     
     static func ==(lhs: Event, rhs: Event) -> Bool {
         return lhs.eventID == rhs.eventID && lhs.eventName == rhs.eventName && lhs.ownerUserID == rhs.ownerUserID
@@ -53,7 +63,7 @@ class Event: NSObject {
 //        self.rsvpYes = rsvpYes
 //    }
     
-    init(eventID: String, eventName: String, ownerUserID: String, eventDescription: String, eventLocation: String, timestamp: Double, eventBannerImgUrl: String) {
+    init(eventID: String, eventName: String, ownerUserID: String, eventDescription: String, eventLocation: String, timestamp: String, eventBannerImgUrl: String, allFriendsInvited: [String]) {
         self.eventID = eventID
         self.eventName = eventName
         self.ownerUserID = ownerUserID
@@ -61,6 +71,7 @@ class Event: NSObject {
         self.eventLocation = eventLocation
         self.timestamp = timestamp
         self.eventBannerImgUrl = eventBannerImgUrl
+        self.allFriendsInvited = allFriendsInvited
     }
     
     init(dict: [String : Any]) {
@@ -69,9 +80,10 @@ class Event: NSObject {
         ownerUserID = dict["ownerUserID"] as? String ?? ""
         eventDescription = dict["eventDescription"] as? String ?? ""
         eventLocation = dict["eventLocation"] as? String ?? ""
-        timestamp = dict["timestamp"] as? Double ?? 0.0
+        timestamp = dict["timestamp"] as? String ?? ""
         eventBannerImgUrl = dict["eventBannerImgUrl"] as? String ?? ""
         friendsGoing = dict["friendsGoing"] as? [String] ?? []
+        allFriendsInvited = dict["allFriendsInvited"] as? [String] ?? []
     }
 }
 

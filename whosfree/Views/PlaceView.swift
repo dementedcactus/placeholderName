@@ -9,11 +9,11 @@
 import UIKit
 import MapKit
 
-class VenueView: UIView {
+class PlaceView: UIView {
 
-    lazy var venueSearchBar: UISearchBar = {
+    lazy var placeSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.placeholder = "Search for venue"
+        searchBar.placeholder = "Search for Place"
         return searchBar
     }()
     
@@ -24,7 +24,7 @@ class VenueView: UIView {
         return searchBar
     }()
     
-    lazy var venuesMapView: MKMapView = {
+    lazy var placesMapView: MKMapView = {
         let mapView = MKMapView()
         mapView.showsUserLocation = true
         return mapView
@@ -32,7 +32,7 @@ class VenueView: UIView {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Venue Cell")
+        tableView.register(PlaceTableViewCell.self, forCellReuseIdentifier: "Place Cell")
         return tableView
     }()
     
@@ -53,35 +53,35 @@ class VenueView: UIView {
     }
     
     private func setupViews() {
-        setupVenueSearchBar()
+        setupPlaceSearchBar()
         setupLocationSearchBar()
         //setupMapView()
         setupTableView()
     }
     
-    private func setupVenueSearchBar() {
-        addSubview(venueSearchBar)
-        venueSearchBar.translatesAutoresizingMaskIntoConstraints = false
-        venueSearchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        venueSearchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        venueSearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+    private func setupPlaceSearchBar() {
+        addSubview(placeSearchBar)
+        placeSearchBar.translatesAutoresizingMaskIntoConstraints = false
+        placeSearchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        placeSearchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        placeSearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
     private func setupLocationSearchBar() {
         addSubview(locationSearchBar)
         locationSearchBar.translatesAutoresizingMaskIntoConstraints = false
         locationSearchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        locationSearchBar.topAnchor.constraint(equalTo: venueSearchBar.bottomAnchor).isActive = true
+        locationSearchBar.topAnchor.constraint(equalTo: placeSearchBar.bottomAnchor).isActive = true
         locationSearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
     private func setupMapView() {
-        addSubview(venuesMapView)
-        venuesMapView.translatesAutoresizingMaskIntoConstraints = false
-        venuesMapView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        venuesMapView.topAnchor.constraint(equalTo: locationSearchBar.bottomAnchor).isActive = true
-        venuesMapView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        venuesMapView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
+        addSubview(placesMapView)
+        placesMapView.translatesAutoresizingMaskIntoConstraints = false
+        placesMapView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        placesMapView.topAnchor.constraint(equalTo: locationSearchBar.bottomAnchor).isActive = true
+        placesMapView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        placesMapView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
     private func setupTableView() {

@@ -20,11 +20,12 @@ class EventTableViewCell: UITableViewCell {
     lazy var eventTitleLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Event Title"
-        lb.textAlignment = .center
+        lb.textAlignment = .left
         lb.textColor = .white
-        lb.font = .boldSystemFont(ofSize: 17)
+        //lb.font = .boldSystemFont(ofSize: 25)
+        lb.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 25)
         lb.numberOfLines = 0
-        lb.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        lb.backgroundColor = UIColor(white: 0, alpha: 0.5)
         return lb
     }()
     
@@ -34,9 +35,10 @@ class EventTableViewCell: UITableViewCell {
         lb.text = "eventDate eventTime"
         lb.textAlignment = .center
         lb.textColor = .white
-        lb.font = .boldSystemFont(ofSize: 17)
+        //lb.font = .boldSystemFont(ofSize: 20)
+        lb.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
         lb.numberOfLines = 0
-        lb.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        lb.backgroundColor = UIColor(white: 0, alpha: 0.5)
         return lb
     }()
     
@@ -117,7 +119,7 @@ class EventTableViewCell: UITableViewCell {
 //            eventDateAndTimeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
 //            eventDateAndTimeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.25)
             eventDateAndTimeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            eventDateAndTimeLabel.bottomAnchor.constraint(equalTo: eventTitleLabel.topAnchor)
+            eventDateAndTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor)
             ])
         
     }
