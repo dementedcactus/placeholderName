@@ -36,7 +36,7 @@ class InviteFriendsView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .green
+        backgroundColor = Stylesheet.Colors.white
         setupViews()
     }
     

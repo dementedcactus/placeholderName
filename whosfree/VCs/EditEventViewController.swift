@@ -88,7 +88,7 @@ class EditEventViewController: UIViewController {
     
     private func setupNavBarButtons() {
         self.title = "Edit Event"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButtonPressed))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(editButtonPressed))
     }
     
     private func setupViewButtons() {
