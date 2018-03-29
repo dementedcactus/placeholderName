@@ -92,6 +92,6 @@ class Event: NSObject {
 
 extension Array where Element == Event {
     func sortedByTimestamp() -> [Event] {
-        return self.sorted {$0.timestamp < $1.timestamp}
+        return self.sorted {$0.timestampDouble < $1.timestampDouble}
     }
 }
