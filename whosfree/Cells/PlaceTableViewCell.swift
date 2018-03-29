@@ -44,7 +44,6 @@ class PlaceTableViewCell: UITableViewCell {
         button.setTitle("Select Place", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Stylesheet.Colors.LightBlue
-        button.layer.borderWidth = 1
         button.layer.cornerRadius = 10.0
         return button
     }()
@@ -71,7 +70,7 @@ class PlaceTableViewCell: UITableViewCell {
         placeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
         placeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5).isActive = true
         //placeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        placeLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.7).isActive = true
+        placeLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.68).isActive = true
         
         addSubview(placeDetailLabel)
         placeDetailLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -82,7 +81,7 @@ class PlaceTableViewCell: UITableViewCell {
         
         addSubview(selectPlaceButton)
         selectPlaceButton.translatesAutoresizingMaskIntoConstraints = false
-        selectPlaceButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
+        selectPlaceButton.topAnchor.constraint(equalTo: placeDetailLabel.topAnchor).isActive = true
         selectPlaceButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
         selectPlaceButton.heightAnchor.constraint(equalTo: placeLabel.heightAnchor).isActive = true
         selectPlaceButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3).isActive = true
