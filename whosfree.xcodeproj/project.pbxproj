@@ -345,12 +345,12 @@
 				D2603BFC20655B2000A55A87 /* CreateEventCell.swift */,
 				DBE59976205C1F8900FD1898 /* EventTableViewCell.swift */,
 				DBE59980205C1FFD00FD1898 /* EventTypeTableViewCell.swift */,
-				E2EA2088206AE4DE003450E9 /* FriendsCollectionViewCell.swift */,
 				DBDDDC7F206005C9009F4908 /* ExistingFriendsTableViewCell.swift */,
+				E2EA2088206AE4DE003450E9 /* FriendsCollectionViewCell.swift */,
 				DBE5999C205C217D00FD1898 /* MovieTableViewCell.swift */,
-				DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */,
-				DBADA048206AFBB500EF1AE5 /* PlaceTableViewCell.swift */,
 				E2BCBE5F206C3A0900BCE82B /* PlaceReviewTableViewCell.swift */,
+				DBADA048206AFBB500EF1AE5 /* PlaceTableViewCell.swift */,
+				DBE59996205C213B00FD1898 /* TheaterTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
