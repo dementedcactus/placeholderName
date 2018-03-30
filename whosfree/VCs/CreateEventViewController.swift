@@ -152,7 +152,7 @@ class CreateEventViewController: UIViewController {
 //            print("\(day) \(month) \(year)")
 //            timestamp = "\(day) \(month) \(year)"
 //        }
-        let eventToAdd = Event(eventID: childByAutoId.key, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "", allFriendsInvited: invitedFriendsEmails)
+        let eventToAdd = Event(eventID: childByAutoId.key, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "", allFriendsInvited: invitedFriendsEmails, timestampDouble: createEventView.datePicker.date.timeIntervalSince1970)
         DatabaseService.manager.addEvent(eventToAdd, createEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "placeholder"))
         if !invitedFriendsEmails.isEmpty { sendEmailInvites(event: eventToAdd) }
         dismiss(animated: true, completion: nil)
