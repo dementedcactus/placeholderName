@@ -22,6 +22,8 @@ class EventListViewController: UIViewController {
     
     let firebaseAuthService =  FirebaseAuthService()
     
+    let emptyView = EmptyStateView(emptyText: "No events yet!")
+    
     @objc private func handleRefresh(_ refreshControl: UIRefreshControl) {
         self.eventListView.tableView.reloadData()
         refreshControl.endRefreshing() //TODO: This should trigger at the end of any API calls
@@ -35,6 +37,7 @@ class EventListViewController: UIViewController {
         didSet {
             DispatchQueue.main.async {
                 self.eventListView.tableView.reloadData()
+                self.emptyStateFunc()
             }
         }
     }
@@ -67,7 +70,21 @@ class EventListViewController: UIViewController {
                 print("could not get events")
                 return
             }
-            self.events = theEvents
+            self.events = theEvents.sortedByTimestamp()
+        }
+    }
+    
+    private func emptyStateFunc(){
+        if events.isEmpty {
+            self.view.addSubview(emptyView)
+            
+            emptyView.translatesAutoresizingMaskIntoConstraints = false
+            emptyView.topAnchor.constraint(equalTo: eventListView.safeAreaLayoutGuide.topAnchor).isActive = true
+            emptyView.bottomAnchor.constraint(equalTo: eventListView.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            emptyView.leadingAnchor.constraint(equalTo: eventListView.safeAreaLayoutGuide.leadingAnchor).isActive = true
+            emptyView.trailingAnchor.constraint(equalTo: eventListView.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        } else {
+            emptyView.removeFromSuperview()
         }
     }
     
