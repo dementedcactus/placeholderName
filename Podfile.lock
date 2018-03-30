@@ -80,6 +80,7 @@ PODS:
   - SwiftMailgun (1.0.1):
     - Alamofire
     - ObjectMapper
+  - Toucan (1.0.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -92,6 +93,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - Kingfisher
   - SwiftMailgun
+  - Toucan
 
 SPEC CHECKSUMS:
   Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
@@ -116,7 +118,8 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
   SwiftMailgun: 311a28057e0ced2dbcfbc8320e4aa282511877d2
+  Toucan: 61867fb10948c02e9804280a95eb183e98eac97a
 
-PODFILE CHECKSUM: 8ac88194126ce8f8a40f439312fa93e22c4a8353
+PODFILE CHECKSUM: 4018525196e30a20f428b0ceb675d98b21918b74
 
 COCOAPODS: 1.4.0

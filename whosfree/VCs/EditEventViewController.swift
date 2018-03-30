@@ -275,11 +275,10 @@ extension EditEventViewController: UITextViewDelegate {
 }
 
 extension EditEventViewController: SelectVenueDelegate {
-    func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String) {
+    func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String, placeImageURL: String) {
         self.editEventView.searchBar.text = addrsss
+        self.editEventView.bannerPhotoImageView.kf.setImage(with: URL(string: placeImageURL))
     }
-    
-    
 }
 
 

@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 import MessageUI
 import SwiftMailgun
+import Kingfisher
 
 class CreateEventViewController: UIViewController {
     
@@ -412,9 +413,9 @@ extension CreateEventViewController: UICollectionViewDataSource, UICollectionVie
     
 }
 extension CreateEventViewController: SelectVenueDelegate {
-    func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String) {
+    func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String, placeImageURL: String) {
         self.createEventView.searchBar.text = addrsss
+        self.createEventView.bannerPhotoImageView.kf.setImage(with: URL(string: placeImageURL))
     }
-    
     
 }

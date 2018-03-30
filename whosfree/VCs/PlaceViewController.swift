@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SelectVenueDelegate {
-    func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String)
+    func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String, placeImageURL: String)
 }
 
 class PlaceViewController: UIViewController {
@@ -81,7 +81,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
         let place = placeData[sender.tag]
         let address = "\(place.location.address1) \(place.location.city) \(place.location.zip_code)"
         print(address)
-        self.selectVenueDelegate?.passSelectedVenueAddressToCreateEventSearchBar(addrsss: address)
+        self.selectVenueDelegate?.passSelectedVenueAddressToCreateEventSearchBar(addrsss: address, placeImageURL: place.image_url)
         navigationController?.popViewController(animated: true)
     }
     
@@ -112,7 +112,8 @@ extension PlaceViewController: UISearchBarDelegate {
 }
 
 extension PlaceViewController: SelectDetailVenueDelegate {
-    func passSelectedDetailVenueAddressToCreateEventSearchBar(addrsss: String) {
-        selectVenueDelegate?.passSelectedVenueAddressToCreateEventSearchBar(addrsss: addrsss)
+    func passSelectedDetailVenueAddressToCreateEventSearchBar(addrsss: String, placeImageURL: String) {
+        selectVenueDelegate?.passSelectedVenueAddressToCreateEventSearchBar(addrsss: addrsss, placeImageURL: placeImageURL)
     }
+    
 }
