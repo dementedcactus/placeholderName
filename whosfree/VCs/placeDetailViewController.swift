@@ -9,6 +9,10 @@
 import UIKit
 import MapKit
 
+protocol SelectDetailVenueDelegate {
+    func passSelectedDetailVenueAddressToCreateEventSearchBar(addrsss: String)
+}
+
 class placeDetailViewController: UIViewController {
 
     let placeDetailView = PlaceDetailView()
@@ -19,6 +23,8 @@ class placeDetailViewController: UIViewController {
             }
         }
     }
+    
+    var selectDetailVenueDelegate: SelectDetailVenueDelegate?
     
     var place: Place!
     
@@ -40,6 +46,7 @@ class placeDetailViewController: UIViewController {
         placeDetailView.configureView(with: place)
         placeDetailView.mapView.delegate = self
         placeDetailView.callButton.addTarget(self, action: #selector(callPlace), for: .touchUpInside)
+        placeDetailView.sendLocationButton.addTarget(self, action: #selector(selectPlace), for: .touchUpInside)
         PlaceReviewAPIClient.manager.getPlacesReviews(with: place.id, success: { self.placeReviews =  $0 }, failure: { print($0) })
     }
     
@@ -54,6 +61,14 @@ class placeDetailViewController: UIViewController {
                 application.open(phoneCallURL, options: [:], completionHandler: nil)
             }
         }
+    }
+    
+    @objc private func selectPlace() {
+        print("select place clicked")
+        let address = "\(place.location.address1) \(place.location.city) \(place.location.zip_code)"
+        // delegate that uses Richards delegate to put location info on searchbar
+        selectDetailVenueDelegate?.passSelectedDetailVenueAddressToCreateEventSearchBar(addrsss: address)
+        navigationController?.popToRootViewController(animated: true)
     }
     
 }

@@ -43,13 +43,15 @@ class ExistingFriendsTableViewCell: UITableViewCell {
         let button = UIButton()
         button.setTitle("Invite Friend", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(red: 0.263, green: 0.353, blue: 0.576, alpha: 1.00)
+        button.backgroundColor = Stylesheet.Colors.azure
         button.layer.borderWidth = 1
         button.addTarget(self, action: #selector(addFriendToInviteListPressed), for: .touchUpInside)
         return button
     }()
     
     @objc private func addFriendToInviteListPressed() {
+        self.inviteButton.backgroundColor = Stylesheet.Colors.NYCBlue
+        self.inviteButton.setTitle("Invited", for: .normal)
         delegate?.addedFriendToInviteList(self.tag)
     }
     

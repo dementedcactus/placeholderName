@@ -13,9 +13,8 @@ class FriendsCollectionViewCell: UICollectionViewCell {
     lazy var friendImage: UIImageView = {
         let fImage = UIImageView()
         fImage.image = #imageLiteral(resourceName: "profileImagePlaceholder")
-        fImage.contentMode = .scaleAspectFit
-        fImage.layer.borderWidth = 2
-        fImage.layer.borderColor = UIColor.black.cgColor
+        fImage.contentMode = .scaleAspectFill
+        fImage.clipsToBounds = true
         return fImage
     }()
     
@@ -24,11 +23,17 @@ class FriendsCollectionViewCell: UICollectionViewCell {
         fLabel.text = "Bob"
         fLabel.numberOfLines = 0
         fLabel.textAlignment = .center
-        fLabel.textColor = UIColor.black
-        fLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: UIFont.systemFontSize)!
-        fLabel.backgroundColor = UIColor.clear
+        fLabel.textColor = UIColor.white
+        fLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 20.0)!
+        fLabel.backgroundColor = Stylesheet.Colors.LightBlue
         return fLabel
     }()
+    
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        friendImage.layer.cornerRadius = friendImage.frame.height/2
+//        friendImage.clipsToBounds = true
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -56,7 +61,7 @@ class FriendsCollectionViewCell: UICollectionViewCell {
     private func setupCFImage() {
         addSubview(friendImage)
         friendImage.translatesAutoresizingMaskIntoConstraints = false
-        friendImage.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        friendImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
 //        friendImage.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
 //        friendImage.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         friendImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -68,9 +73,9 @@ class FriendsCollectionViewCell: UICollectionViewCell {
         addSubview(friendLabel)
         friendLabel.translatesAutoresizingMaskIntoConstraints = false
         friendLabel.topAnchor.constraint(equalTo: friendImage.bottomAnchor, constant: 5).isActive = true
-        friendLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
-        friendLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5).isActive = true
-        friendLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
+        friendLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        friendLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        friendLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
     
 }
