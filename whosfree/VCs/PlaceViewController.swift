@@ -54,7 +54,7 @@ class PlaceViewController: UIViewController {
         placeView.tableView.delegate = self
         placeView.placeSearchBar.delegate = self
         placeView.locationSearchBar.delegate = self
-        
+        placeView.tableView.rowHeight = UITableViewAutomaticDimension
     }
     
 }
@@ -71,9 +71,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.selectPlaceButton.tag = indexPath.row
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        cell.placeLabel.text = place.name
-        cell.placeDetailLabel.text = "\n\(place.location.address1) \(place.location.city) \(place.location.zip_code) \n\nTap for more info... "
-        
+        cell.placeLabel.text = "\(place.name)\n\(place.location.address1) \(place.location.city) \(place.location.zip_code) \n\nTap for more info... "
         cell.selectPlaceButton.addTarget(self, action: #selector(selectVenueAction(sender:)), for: .touchUpInside)
         
         return cell
@@ -93,17 +91,12 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
         navigationController?.pushViewController(placeDetailVC, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
 }
 extension PlaceViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         becomeFirstResponder()
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // TODO
         if placeView.placeSearchBar.text == "" || placeView.locationSearchBar.text == "" {
             let alertView = UIAlertController(title: "Please enter text into both search fields", message: nil, preferredStyle: .alert)
             let ok = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
