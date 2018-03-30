@@ -390,7 +390,7 @@ extension EventDetailViewController: MKMapViewDelegate {
 extension EventDetailViewController: EditDelegate {
     func passEditedEventBackToEventDetailVC(event: Event, eventImage: UIImage, date: Date) {
         self.event = event
-        self.eventImage = eventImage
+        self.eventDetailView.bannerPhotoImageView.image = eventImage
         self.eventDetailView.datePicker.date = date
     }
     
