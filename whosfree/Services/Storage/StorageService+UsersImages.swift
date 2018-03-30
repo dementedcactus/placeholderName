@@ -8,10 +8,14 @@
 
 import UIKit
 import FirebaseStorage
+import Toucan
 
 extension StorageService {
     public func storeUserImage(image: UIImage, userID: String) {
-        guard let data = UIImageJPEGRepresentation(image, 1.0) else { print("image is nil"); return }
+        guard let resizedImage = Toucan(image: image).resize(CGSize(width: 800, height: 800)).image else {
+            return
+        }
+        guard let data = UIImageJPEGRepresentation(resizedImage, 1.0) else { print("image is nil"); return }
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         let uploadTask = StorageService.manager.getUserImagesRef().child(userID).putData(data, metadata: metadata) { (storageMetadata, error) in
