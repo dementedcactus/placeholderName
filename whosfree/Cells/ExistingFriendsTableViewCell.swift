@@ -41,17 +41,28 @@ class ExistingFriendsTableViewCell: UITableViewCell {
     //inviteButton
     lazy var inviteButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Invite Friend", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = Stylesheet.Colors.azure
-        button.layer.borderWidth = 1
+        //button.setTitle("Invite Friend", for: .normal)
+        //button.setTitleColor(.white, for: .normal)
+        //button.backgroundColor = Stylesheet.Colors.azure
+        //button.layer.borderWidth = 1
+        button.setImage(#imageLiteral(resourceName: "friendAddButton"), for: .normal)
         button.addTarget(self, action: #selector(addFriendToInviteListPressed), for: .touchUpInside)
         return button
     }()
     
     @objc private func addFriendToInviteListPressed() {
-        self.inviteButton.backgroundColor = Stylesheet.Colors.NYCBlue
-        self.inviteButton.setTitle("Invited", for: .normal)
+        //self.inviteButton.backgroundColor = Stylesheet.Colors.NYCBlue
+        //self.inviteButton.setTitle("Invited", for: .normal)
+        //self.inviteButton.setImage(#imageLiteral(resourceName: "friendAddedButton"), for: .normal)
+        UIView.transition(with: inviteButton, duration: 0.3,
+                          options: .transitionFlipFromLeft,
+                                  animations: {
+                                    self.inviteButton.setImage(#imageLiteral(resourceName: "friendAddedButton"), for: .normal)
+        }, completion: nil)
+//        UIView.animate(withDuration: 0.25, animations: {
+//            self.inviteButton.transform = CGAffineTransform(
+//        })
+        //UIView.transition(with: self, duration: 0.5, options: .transitionFlipFromBottom, animations: nil, completion: nil)
         delegate?.addedFriendToInviteList(self.tag)
     }
     
@@ -88,24 +99,30 @@ class ExistingFriendsTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             //userPhotoImageView
+//            userPhotoImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+//            userPhotoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+//            userPhotoImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.2),
+//            userPhotoImageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.2),
+//            userPhotoImageView.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor),
+//            userPhotoImageView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor),
+            
             userPhotoImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             userPhotoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            userPhotoImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.2),
-            userPhotoImageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.2),
-            userPhotoImageView.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor),
-            userPhotoImageView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor),
+            userPhotoImageView.topAnchor.constraint(equalTo: self.topAnchor),
+            userPhotoImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            userPhotoImageView.widthAnchor.constraint(equalTo: userPhotoImageView.heightAnchor),
             
             //inviteButton
             inviteButton.centerYAnchor.constraint(equalTo: self.userPhotoImageView.centerYAnchor),
-            inviteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
-            inviteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
-            inviteButton.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
-            inviteButton.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor, constant: 5),
-            inviteButton.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant: -5),
+            inviteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
+            inviteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            inviteButton.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
+            //inviteButton.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor, constant: 5),
+            //inviteButton.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant: -5),
             
             //usernameLabel
             usernameLabel.centerYAnchor.constraint(equalTo: self.inviteButton.centerYAnchor),
-            usernameLabel.trailingAnchor.constraint(equalTo: self.inviteButton.leadingAnchor, constant: -5),
+            usernameLabel.leadingAnchor.constraint(equalTo: self.userPhotoImageView.trailingAnchor, constant: 5),
             usernameLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3)
             
             ])

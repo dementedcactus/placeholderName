@@ -47,8 +47,8 @@ class InviteFriendsViewController: UIViewController {
         //Delegates
         inviteFriendsView.tableView.delegate = self
         inviteFriendsView.tableView.dataSource = self
-        inviteFriendsView.tableView.estimatedRowHeight = 80
-        inviteFriendsView.tableView.rowHeight = UITableViewAutomaticDimension
+        //inviteFriendsView.tableView.estimatedRowHeight = 80
+        //inviteFriendsView.tableView.rowHeight = UITableViewAutomaticDimension
         inviteFriendsView.friendSearchbBar.delegate = self
         loadContactsFromPhone()
     }
@@ -135,6 +135,10 @@ extension InviteFriendsViewController: UISearchBarDelegate {
 extension InviteFriendsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //TODO: segue to userProfile. Bonus.
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 }
 extension InviteFriendsViewController: UITableViewDataSource {
