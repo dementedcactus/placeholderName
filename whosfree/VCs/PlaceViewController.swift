@@ -71,7 +71,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.selectPlaceButton.tag = indexPath.row
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        cell.placeLabel.text = "\(place.name)\n\(place.location.address1) \(place.location.city) \(place.location.zip_code) \n\nTap for more info... "
+        cell.placeLabel.text = "\(indexPath.row + 1). \(place.name)\n\(place.location.address1) \(place.location.city) \(place.location.zip_code) \n\nTap for more info... "
         cell.selectPlaceButton.addTarget(self, action: #selector(selectVenueAction(sender:)), for: .touchUpInside)
         
         return cell
