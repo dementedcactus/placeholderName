@@ -175,7 +175,7 @@ class ChatTableViewCell: UITableViewCell {
     }
     
     public func configureUserCell(comment: Comment) {
-        self.usernameLabel.text = comment.userID // In case user doesn't have displayName
+        //self.usernameLabel.text = comment.userID // In case user doesn't have displayName
         self.userImageView.image = #imageLiteral(resourceName: "chatBubble") // Default Image
         self.userImageView.kf.indicatorType = .activity
         self.dateLabel.text = formatDate(with: Date(timeIntervalSinceReferenceDate: comment.timestamp))
@@ -194,7 +194,7 @@ class ChatTableViewCell: UITableViewCell {
     }
     
     public func configureOtherUserCell(comment: Comment) {
-        self.leftUsernameLabel.text = comment.userID // In case user doesn't have displayName
+        //self.leftUsernameLabel.text = comment.userID // In case user doesn't have displayName
         self.leftUserImageView.image = #imageLiteral(resourceName: "chatBubble") // Default Image
         self.leftUserImageView.kf.indicatorType = .activity
         self.leftDateLabel.text = formatDate(with: Date(timeIntervalSinceReferenceDate: comment.timestamp))
