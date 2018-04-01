@@ -65,14 +65,22 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
         return placeData.count
     }
     
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 120
+//    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let place = placeData[indexPath.row]
         let cell = placeView.tableView.dequeueReusableCell(withIdentifier: "Place Cell", for: indexPath) as! PlaceTableViewCell
-        
         cell.selectPlaceButton.tag = indexPath.row
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        cell.placeLabel.text = "\(indexPath.row + 1). \(place.name)\n\(place.location.address1) \(place.location.city) \(place.location.zip_code) \n\nTap for more info... "
+        cell.placeLabel.text = "\(indexPath.row + 1). \(place.name)"
+        cell.subtitleLabel.text = "\(place.location.address1) \(place.location.city) \(place.location.zip_code) \n\nTap for more info... "
+        cell.selectPlaceButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         cell.selectPlaceButton.addTarget(self, action: #selector(selectVenueAction(sender:)), for: .touchUpInside)
+        cell.placeImageView.kf.indicatorType = .activity
+        cell.placeImageView.kf.setImage(with: URL(string: place.image_url), placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
+        }
         
         return cell
     }
