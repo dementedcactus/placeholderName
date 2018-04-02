@@ -47,18 +47,13 @@ class ExistingFriendsTableViewCell: UITableViewCell {
     }()
     
     @objc private func addFriendToInviteListPressed() {
-        //self.inviteButton.backgroundColor = Stylesheet.Colors.NYCBlue
-        //self.inviteButton.setTitle("Invited", for: .normal)
-        //self.inviteButton.setImage(#imageLiteral(resourceName: "friendAddedButton"), for: .normal)
-        UIView.transition(with: inviteButton, duration: 0.3,
-                          options: .transitionFlipFromLeft,
-                                  animations: {
-                                    self.inviteButton.setImage(#imageLiteral(resourceName: "friendAddedButton"), for: .normal)
+        UIView.transition(with: inviteButton, duration: 0.3, options: .transitionFlipFromLeft, animations: {
+            if self.inviteButton.imageView?.image == #imageLiteral(resourceName: "friendAddedButton") {
+                self.inviteButton.setImage(#imageLiteral(resourceName: "friendAddButton"), for: .normal)
+            } else {
+                self.inviteButton.setImage(#imageLiteral(resourceName: "friendAddedButton"), for: .normal)
+            }
         }, completion: nil)
-//        UIView.animate(withDuration: 0.25, animations: {
-//            self.inviteButton.transform = CGAffineTransform(
-//        })
-        //UIView.transition(with: self, duration: 0.5, options: .transitionFlipFromBottom, animations: nil, completion: nil)
         delegate?.addedFriendToInviteList(self.tag)
     }
     
