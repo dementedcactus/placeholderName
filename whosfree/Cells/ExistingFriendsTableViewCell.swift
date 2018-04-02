@@ -38,11 +38,21 @@ class ExistingFriendsTableViewCell: UITableViewCell {
         return lb
     }()
     
-    //inviteButton
+    //emailInviteButton
     lazy var inviteButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "friendAddButton"), for: .normal)
         button.addTarget(self, action: #selector(addFriendToInviteListPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    //smsInviteButton
+    lazy var smsInviteButton: UIButton = {
+        let button = UIButton()
+        button.setImage(#imageLiteral(resourceName: "smsicon"), for: .normal)
+        button.addTarget(self, action: #selector(addFriendToInviteListPressed), for: .touchUpInside)
+        //TODO: Switch to SMS Action then Enable
+        button.isEnabled = false
         return button
     }()
     
@@ -78,13 +88,14 @@ class ExistingFriendsTableViewCell: UITableViewCell {
     private func setupObjects(){
         addSubview(userPhotoImageView)
         addSubview(inviteButton)
+        addSubview(smsInviteButton)
         addSubview(usernameLabel)
     }
     
     private func constrainObjects() {
         
         //ARRAY MUST BE IN ORDER!!
-        let friendCellObjects = [userPhotoImageView,inviteButton,usernameLabel] as [UIView]
+        let friendCellObjects = [userPhotoImageView,inviteButton,smsInviteButton,usernameLabel] as [UIView]
         
         friendCellObjects.forEach {addSubview($0); ($0).translatesAutoresizingMaskIntoConstraints = false}
         
@@ -101,6 +112,12 @@ class ExistingFriendsTableViewCell: UITableViewCell {
             inviteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
             inviteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             inviteButton.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
+            
+            //smsInviteButton
+            smsInviteButton.centerYAnchor.constraint(equalTo: self.userPhotoImageView.centerYAnchor),
+            smsInviteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
+            smsInviteButton.trailingAnchor.constraint(equalTo: inviteButton.leadingAnchor, constant: -5),
+            smsInviteButton.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
             
             //usernameLabel
             usernameLabel.centerYAnchor.constraint(equalTo: self.inviteButton.centerYAnchor),
