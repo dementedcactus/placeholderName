@@ -260,10 +260,10 @@ extension Stylesheet {
                 case .Editable:
                     textview.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.TextfieldEditable)
                     textview.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
-                    textview.backgroundColor = Stylesheet.Colors.Gray
+                    textview.backgroundColor = Stylesheet.Colors.LightGrey
                     textview.textAlignment = .natural
                     textview.isEditable = true
-                    textview.textColor = Stylesheet.Colors.Dark
+                    textview.textColor = Stylesheet.Colors.Gray
                     textview.font = Stylesheet.Fonts.TextfieldFont
                     textview.adjustsFontForContentSizeCategory = true
                     textview.isScrollEnabled = true

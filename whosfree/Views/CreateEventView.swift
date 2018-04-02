@@ -81,7 +81,7 @@ class CreateEventView: UIView {
     
     lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "Input message here"
+        textView.text = "Enter event description..."
         Stylesheet.Objects.Textviews.Editable.style(textview: textView)
         return textView
     }()
