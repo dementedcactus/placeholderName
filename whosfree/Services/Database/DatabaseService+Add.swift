@@ -154,7 +154,8 @@ extension DatabaseService {
                       "eventLocation": eventToSave.eventLocation,
                       "timestamp": eventToSave.timestamp,
                       "eventBannerImgUrl": eventToSave.eventBannerImgUrl,
-                      "invitedFriendsEmails": eventToSave.allFriendsInvited,
+                      "invitedFriendsEmails": [FirebaseAuthService.getCurrentUser()!.email!] + eventToSave.allFriendsInvited,
+                      "friendsGoing" : [FirebaseAuthService.getCurrentUser()!.email!],
                       "timestampDouble": eventToSave.timestampDouble
                       //"rsvpNo": eventToSave.rsvpNo ?? "Empty",
                       //"rsvpMaybe": eventToSave.rsvpMaybe ?? "Empty",
