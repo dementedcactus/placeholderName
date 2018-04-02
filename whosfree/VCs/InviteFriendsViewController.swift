@@ -84,6 +84,9 @@ class InviteFriendsViewController: UIViewController {
                     imageData = imageDataUnwrapped
                 }
                 let theContact = Contact(givenName: givenName, middleName: middleName, familyName: familyName, nameSuffix: nameSuffix, location: location, birthday: birthday, emailAddress: emailAddress, phoneNumber: phoneNumber, imageData: imageData)
+                if theContact.emailAddress == FirebaseAuthService.getCurrentUser()?.email {
+                    return
+                }
                 self.contacts.append(theContact)
                 self.contacts.sort{$0.givenName < $1.givenName}
             }
@@ -166,16 +169,11 @@ extension InviteFriendsViewController: ExistingFriendsTableViewCellDelegate {
         if invitedContacts.contains(where: { (contact) -> Bool in
             return contact == contactToAddToEvent
         }) {
-            showAlert(title: "Error", message: "Friend already added to event")
+            invitedContacts = invitedContacts.filter{ $0.phoneNumber != contactToAddToEvent.phoneNumber }
             return
         }
-        //let cell = inviteFriendsView.tableView.cellForRow(at: IndexPath(row: tag, section: 0)) as! ExistingFriendsTableViewCell
-        //cell.inviteButton.setTitle("Invited", for: .normal)
-        //dump(invitedContacts)
+
         invitedContacts.append(contactToAddToEvent)
-        
-        // commented because now button changes to show friend has been invited
-        //showAlert(title: "Success", message: "Friend \(contactToAddToEvent.givenName) added to event list")
     }
 }
 
