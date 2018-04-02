@@ -59,6 +59,7 @@ class PlaceTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         setupAndConstrainObjects()
+
     }
     
     private func setupAndConstrainObjects(){
@@ -68,6 +69,8 @@ class PlaceTableViewCell: UITableViewCell {
         placeImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5).isActive = true
         placeImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.25).isActive = true
         placeImageView.heightAnchor.constraint(equalTo: placeImageView.widthAnchor).isActive = true
+        placeImageView.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor).isActive = true
+        placeImageView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor).isActive = true
         
         addSubview(placeLabel)
         placeLabel.translatesAutoresizingMaskIntoConstraints = false
