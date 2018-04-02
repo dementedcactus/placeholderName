@@ -29,7 +29,7 @@ class ChatTableViewCell: UITableViewCell {
     
     lazy var dateLabel: UILabel = {
         let label = UILabel()
-        Stylesheet.Objects.Labels.LabelRight.style(label: label)
+        Stylesheet.Objects.Labels.DateLabelRight.style(label: label)
         return label
     }()
     
@@ -53,7 +53,7 @@ class ChatTableViewCell: UITableViewCell {
     
     lazy var leftDateLabel: UILabel = {
         let label = UILabel()
-        Stylesheet.Objects.Labels.LabelLeft.style(label: label)
+        Stylesheet.Objects.Labels.DateLabelLeft.style(label: label)
         return label
     }()
     
@@ -108,7 +108,7 @@ class ChatTableViewCell: UITableViewCell {
         containerView.addSubview(dateLabel)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
-        dateLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        dateLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         dateLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         dateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
     }
@@ -117,7 +117,7 @@ class ChatTableViewCell: UITableViewCell {
         containerView.addSubview(leftDateLabel)
         leftDateLabel.translatesAutoresizingMaskIntoConstraints = false
         leftDateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5).isActive = true
-        leftDateLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        leftDateLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         leftDateLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         leftDateLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
@@ -175,7 +175,6 @@ class ChatTableViewCell: UITableViewCell {
     }
     
     public func configureUserCell(comment: Comment) {
-        self.usernameLabel.text = comment.userID // In case user doesn't have displayName
         self.userImageView.image = #imageLiteral(resourceName: "chatBubble") // Default Image
         self.userImageView.kf.indicatorType = .activity
         self.dateLabel.text = formatDate(with: Date(timeIntervalSinceReferenceDate: comment.timestamp))
@@ -194,7 +193,6 @@ class ChatTableViewCell: UITableViewCell {
     }
     
     public func configureOtherUserCell(comment: Comment) {
-        self.leftUsernameLabel.text = comment.userID // In case user doesn't have displayName
         self.leftUserImageView.image = #imageLiteral(resourceName: "chatBubble") // Default Image
         self.leftUserImageView.kf.indicatorType = .activity
         self.leftDateLabel.text = formatDate(with: Date(timeIntervalSinceReferenceDate: comment.timestamp))

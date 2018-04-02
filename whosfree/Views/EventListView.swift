@@ -34,11 +34,8 @@ class EventListView: UIView {
     
     private func setupViews() {
         addSubview(tableView)
-        
         let EventListObjects = [tableView] as [UIView]
-        
         EventListObjects.forEach{addSubview($0); ($0).translatesAutoresizingMaskIntoConstraints = false}
-        
         NSLayoutConstraint.activate([
             //tableview
             tableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
@@ -46,8 +43,6 @@ class EventListView: UIView {
             tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
             ])
-        
     }
-    
 }
 

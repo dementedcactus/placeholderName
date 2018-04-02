@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 import MessageUI
 import SwiftMailgun
+import Kingfisher
 
 class CreateEventViewController: UIViewController {
     
@@ -234,7 +235,7 @@ class CreateEventViewController: UIViewController {
         }
         var delayCounter:Double = 0
         for cell in cells {
-            UIView.animate(withDuration: 1.25, delay: delayCounter * 0.05, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.75, delay: delayCounter * 0.05, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
                 cell.transform = CGAffineTransform.identity
             }, completion: nil)
             delayCounter += 0.5
@@ -368,7 +369,10 @@ extension CreateEventViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         becomeFirstResponder()
-        textView.text = ""
+        if textView.textColor == Stylesheet.Colors.Gray {
+            textView.text = ""
+            textView.textColor = Stylesheet.Colors.Dark
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -412,9 +416,9 @@ extension CreateEventViewController: UICollectionViewDataSource, UICollectionVie
     
 }
 extension CreateEventViewController: SelectVenueDelegate {
-    func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String) {
+    func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String, placeImageURL: String) {
         self.createEventView.searchBar.text = addrsss
+        self.createEventView.bannerPhotoImageView.kf.setImage(with: URL(string: placeImageURL))
     }
-    
     
 }
