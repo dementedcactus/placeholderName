@@ -55,6 +55,7 @@ enum Stylesheet {
         static let AppName = UIFont(name: "HelveticaNeue-Light", size: 40.0)
         static let PostTitle = UIFont(name: "HelveticaNeue-CondensedBold", size: 25.0)
         static let Regular = UIFont(name: "HelveticaNeue-Light", size: 20.0)
+        static let Date = UIFont(name: "HelveticaNeue-Light", size: 15.0)
         static let TextfieldFont = UIFont(name: "HelveticaNeue-Light", size: 20.0)
         static let Link = UIFont(name: "HelveticaNeue", size: 15.0)
         static let Bold = UIFont(name: "HelveticaNeue-Medium", size: 17.0)
@@ -138,7 +139,9 @@ extension Stylesheet {
         
         enum Labels {
             case LabelRight
+            case DateLabelRight
             case LabelLeft
+            case DateLabelLeft
             case Regular
             case AppName
             case PostCategory
@@ -158,9 +161,23 @@ extension Stylesheet {
                     label.backgroundColor = .clear
                     label.textAlignment = .right
                     label.numberOfLines = 0
+                case .DateLabelRight:
+                    label.text = " "
+                    label.font = Stylesheet.Fonts.Date
+                    label.textColor = Stylesheet.Colors.Dark
+                    label.backgroundColor = .clear
+                    label.textAlignment = .right
+                    label.numberOfLines = 0
                 case .LabelLeft:
                     label.text = " "
                     label.font = Stylesheet.Fonts.Regular
+                    label.textColor = Stylesheet.Colors.Dark
+                    label.backgroundColor = .clear
+                    label.textAlignment = .left
+                    label.numberOfLines = 0
+                case .DateLabelLeft:
+                    label.text = " "
+                    label.font = Stylesheet.Fonts.Date
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
                     label.textAlignment = .left
@@ -214,7 +231,7 @@ extension Stylesheet {
                     label.textAlignment = .left
                     label.numberOfLines = 0
                 case .PlaceDetailLabel:
-                    label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+                    label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
                     label.textColor = Stylesheet.Colors.Black
                     label.backgroundColor = .clear
                     label.textAlignment = .left
