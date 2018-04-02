@@ -56,6 +56,10 @@ class EventDetailViewController: UIViewController {
         eventDetailView.notGoingButton.addTarget(self, action: #selector(showNotGoing), for: .touchUpInside)
         eventDetailView.allInvitedButton.addTarget(self, action: #selector(showAllInvited), for: .touchUpInside)
         showAllInvited()
+        if event.ownerUserID == FirebaseAuthService.getCurrentUser()!.uid {
+            self.eventDetailView.deleteButton.isHidden = true
+            self.eventDetailView.editButton.isHidden = true
+        }
     }
     
     @objc private func showGoing() {
@@ -270,17 +274,10 @@ class EventDetailViewController: UIViewController {
 
         let chatButton = UIBarButtonItem(image: #imageLiteral(resourceName: "chatBubble"), style: .plain, target: self, action: #selector(segueToChatViewController))
         navigationItem.rightBarButtonItem = chatButton
-        //TODO: edit button is only visible to creator of event
-        //if user.id == event creator.id {
-        //navigationItem.leftBarButtonItem = editButton
-        //} else {
-        //navigationItem.leftBarButtonItem = nil
-        
-        //}
     }
     
     @objc private func editEvent() {
-        navigationController?.pushViewController(editVC, animated: true)
+        navigationController?.pushViewController(editVC, animated: false)
     }
     
     @objc private func segueToChatViewController() {
