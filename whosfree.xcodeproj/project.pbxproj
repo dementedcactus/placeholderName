@@ -80,6 +80,7 @@
 		E248A1F32061F8800080A9E5 /* StorageService+EventsImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E248A1F22061F8800080A9E5 /* StorageService+EventsImages.swift */; };
 		E2BCBE60206C3A0900BCE82B /* PlaceReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BCBE5F206C3A0900BCE82B /* PlaceReviewTableViewCell.swift */; };
 		E2EA2089206AE4DE003450E9 /* FriendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EA2088206AE4DE003450E9 /* FriendsCollectionViewCell.swift */; };
+		E2ECDCA72072C11200E04168 /* TwilioSMSApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ECDCA62072C11200E04168 /* TwilioSMSApiClient.swift */; };
 		E2FBFBF020656A5E005C910B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FBFBEF20656A5E005C910B /* Contact.swift */; };
 /* End PBXBuildFile section */
 
@@ -186,6 +187,7 @@
 		E248A1F22061F8800080A9E5 /* StorageService+EventsImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+EventsImages.swift"; sourceTree = "<group>"; };
 		E2BCBE5F206C3A0900BCE82B /* PlaceReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceReviewTableViewCell.swift; sourceTree = "<group>"; };
 		E2EA2088206AE4DE003450E9 /* FriendsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionViewCell.swift; sourceTree = "<group>"; };
+		E2ECDCA62072C11200E04168 /* TwilioSMSApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwilioSMSApiClient.swift; sourceTree = "<group>"; };
 		E2FBFBEF20656A5E005C910B /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -381,6 +383,7 @@
 				E22D85A6206061CF00A13ED1 /* TheaterAPIClient.swift */,
 				E22D85A8206061E900A13ED1 /* ShowtimeAPIClient.swift */,
 				E22D85AA2060621900A13ED1 /* PlaceAPIClient.swift */,
+				E2ECDCA62072C11200E04168 /* TwilioSMSApiClient.swift */,
 				E22D85AC2060623800A13ED1 /* PlaceReviewAPIClient.swift */,
 				D23E3497206C29E5006A9638 /* LocationService.swift */,
 				DB3DE4822057224900AAD2D8 /* Database */,
@@ -783,6 +786,7 @@
 				E22D85972060532400A13ED1 /* FirebaseAuthService.swift in Sources */,
 				DBE5998F205C20C600FD1898 /* PlaceDetailView.swift in Sources */,
 				E22D85AF2060625600A13ED1 /* Place.swift in Sources */,
+				E2ECDCA72072C11200E04168 /* TwilioSMSApiClient.swift in Sources */,
 				E22D85A120605F6200A13ED1 /* Showtime.swift in Sources */,
 				DBE5997B205C1FC200FD1898 /* EventDetailView.swift in Sources */,
 				DBACBAF220580A9800882850 /* StorageService.swift in Sources */,
