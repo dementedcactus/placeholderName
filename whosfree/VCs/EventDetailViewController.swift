@@ -54,8 +54,8 @@ class EventDetailViewController: UIViewController {
         loadContactsFromPhone()
         eventDetailView.goingButton.addTarget(self, action: #selector(showGoing), for: .touchUpInside)
         eventDetailView.notGoingButton.addTarget(self, action: #selector(showNotGoing), for: .touchUpInside)
-        eventDetailView.allInvitedButton.addTarget(self, action: #selector(allInvited), for: .touchUpInside)
-        showGoing()
+        eventDetailView.allInvitedButton.addTarget(self, action: #selector(showAllInvited), for: .touchUpInside)
+        showAllInvited()
     }
     
     @objc private func showGoing() {
@@ -103,7 +103,7 @@ class EventDetailViewController: UIViewController {
         }
     }
     
-    @objc private func allInvited() {
+    @objc private func showAllInvited() {
         opacityWhenAllInvitedClicked()
         filteredContacts.removeAll()
         DatabaseService.manager.getAllUserFriendsInvited(eventID: event.eventID) { (invited) in
