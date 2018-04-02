@@ -36,7 +36,6 @@ class ChatView: UIView {
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,7 +61,6 @@ class ChatView: UIView {
         tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.8).isActive = true
-        
     }
     
     private func setupTextView() {
@@ -82,5 +80,4 @@ class ChatView: UIView {
         sendButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         sendButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
-
 }

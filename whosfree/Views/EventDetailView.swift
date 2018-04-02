@@ -94,7 +94,6 @@ class EventDetailView: UIView {
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("Going", for: .normal)
         button.backgroundColor = Stylesheet.Colors.LightBlue
-        //button.layer.cornerRadius = 10.0
         button.layer.borderWidth = 1.0
         button.layer.borderColor = UIColor.white.cgColor
         return button
@@ -107,7 +106,6 @@ class EventDetailView: UIView {
         button.backgroundColor = Stylesheet.Colors.LightBlue
         button.layer.borderWidth = 1.0
         button.layer.borderColor = UIColor.white.cgColor
-        // button.layer.cornerRadius = 10.0
         return button
     }()
     
@@ -118,7 +116,6 @@ class EventDetailView: UIView {
         button.backgroundColor = Stylesheet.Colors.LightBlue
         button.layer.borderWidth = 1.0
         button.layer.borderColor = UIColor.white.cgColor
-        //button.layer.cornerRadius = 10.0
         return button
     }()
     
@@ -139,12 +136,9 @@ class EventDetailView: UIView {
         return button
     }()
     
-    
-    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -175,8 +169,6 @@ class EventDetailView: UIView {
         setupInvitedButton()
         setupDeleteButton()
     }
-    
-    
     
     private func setupScrollView() {
         addSubview(scrollView)
@@ -259,7 +251,6 @@ class EventDetailView: UIView {
         mapImageView.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
         mapImageView.topAnchor.constraint(equalTo: datePicker.bottomAnchor).isActive = true
         mapImageView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor).isActive = true
-        
     }
     
     private func setupLocationButton() {
@@ -286,7 +277,6 @@ class EventDetailView: UIView {
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor).isActive = true
-        //collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 1).isActive = true
     }
     
@@ -306,7 +296,6 @@ class EventDetailView: UIView {
         notGoingButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.34).isActive = true
     }
 
-    
     private func setupInvitedButton() {
         contentView.addSubview(allInvitedButton)
         allInvitedButton.translatesAutoresizingMaskIntoConstraints = false
@@ -326,7 +315,6 @@ class EventDetailView: UIView {
     }
 
     public func configureView(event: Event, eventImage: UIImage) {
-        //bannerPhotoImageView.image = eventImage
         bannerPhotoImageView.kf.indicatorType = .activity
         bannerPhotoImageView.kf.setImage(with: URL(string: event.eventBannerImgUrl), placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
         }

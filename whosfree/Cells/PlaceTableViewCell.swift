@@ -54,7 +54,6 @@ class PlaceTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupAndConstrainObjects()
-        
     }
     
     override func layoutSubviews() {
@@ -85,11 +84,9 @@ class PlaceTableViewCell: UITableViewCell {
         
         addSubview(selectPlaceButton)
         selectPlaceButton.translatesAutoresizingMaskIntoConstraints = false
-        //selectPlaceButton.topAnchor.constraint(equalTo: placeLabel.topAnchor).isActive = true
         selectPlaceButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         selectPlaceButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
         selectPlaceButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         selectPlaceButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.24).isActive = true
-        
     }
 }

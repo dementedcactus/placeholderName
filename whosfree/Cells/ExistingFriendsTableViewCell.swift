@@ -41,10 +41,6 @@ class ExistingFriendsTableViewCell: UITableViewCell {
     //inviteButton
     lazy var inviteButton: UIButton = {
         let button = UIButton()
-        //button.setTitle("Invite Friend", for: .normal)
-        //button.setTitleColor(.white, for: .normal)
-        //button.backgroundColor = Stylesheet.Colors.azure
-        //button.layer.borderWidth = 1
         button.setImage(#imageLiteral(resourceName: "friendAddButton"), for: .normal)
         button.addTarget(self, action: #selector(addFriendToInviteListPressed), for: .touchUpInside)
         return button
@@ -98,13 +94,6 @@ class ExistingFriendsTableViewCell: UITableViewCell {
         friendCellObjects.forEach {addSubview($0); ($0).translatesAutoresizingMaskIntoConstraints = false}
         
         NSLayoutConstraint.activate([
-            //userPhotoImageView
-//            userPhotoImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-//            userPhotoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-//            userPhotoImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.2),
-//            userPhotoImageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.2),
-//            userPhotoImageView.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor),
-//            userPhotoImageView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor),
             
             userPhotoImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             userPhotoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -117,8 +106,6 @@ class ExistingFriendsTableViewCell: UITableViewCell {
             inviteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
             inviteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             inviteButton.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
-            //inviteButton.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor, constant: 5),
-            //inviteButton.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant: -5),
             
             //usernameLabel
             usernameLabel.centerYAnchor.constraint(equalTo: self.inviteButton.centerYAnchor),
@@ -127,6 +114,5 @@ class ExistingFriendsTableViewCell: UITableViewCell {
             
             ])
     }
-    
 }
 

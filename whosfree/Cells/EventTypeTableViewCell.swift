@@ -15,7 +15,6 @@ class EventTypeTableViewCell: UITableViewCell {
         let lb = UILabel()
         lb.text = "Category Here"
         Stylesheet.Objects.Labels.AppName.style(label: lb)
-        //lb.font = Stylesheet.Fonts.Bold
         return lb
     }()
     
@@ -27,7 +26,6 @@ class EventTypeTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupAndConstrainObjects()
-        
     }
     
     override func layoutSubviews() {

@@ -9,13 +9,11 @@
 import UIKit
 
 class EditEventView: CreateEventView {
-
     public func prefillEventFields(event: Event, eventImage: UIImage) {
-        //createEventButton.setTitle("Edit", for: .normal)
         bannerPhotoImageView.image = eventImage
         eventTitleTextField.text = event.eventName
         descriptionTextView.text = event.eventDescription
         searchBar.text = event.eventLocation
+        datePicker.date = Date(timeIntervalSince1970: event.timestampDouble)
     }
-
 }
