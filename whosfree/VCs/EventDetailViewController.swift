@@ -45,6 +45,7 @@ class EventDetailViewController: UIViewController {
         self.eventDetailView.rsvpButton.addTarget(self, action: #selector(rsvp), for: .touchUpInside)
         self.eventDetailView.deleteButton.addTarget(self, action: #selector(deleteEvent), for: .touchUpInside)
         self.eventDetailView.editButton.addTarget(self, action: #selector(editEvent), for: .touchUpInside)
+        self.eventDetailView.locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
         eventDetailView.mapImageView.delegate = self
         let _ = LocationService.manager.checkForLocationServices()
         configureNavBar()
@@ -60,6 +61,11 @@ class EventDetailViewController: UIViewController {
             self.eventDetailView.deleteButton.isHidden = true
             self.eventDetailView.editButton.isHidden = true
         }
+    }
+    
+    @objc private func locationButtonAction() {
+        print("Location Button Pressed")
+        openAppleMaps()
     }
     
     @objc private func showGoing() {
