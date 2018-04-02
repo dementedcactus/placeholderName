@@ -224,8 +224,6 @@ class EventDetailViewController: UIViewController {
         }
     }
     
-    
-    
     @objc private func deleteEvent() {
         deleteAction(title: "Delete", message: "Are you sure you want to delete event?")
     }
@@ -269,7 +267,7 @@ class EventDetailViewController: UIViewController {
     }
     
     private func configureNavBar() {
-        //let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editEvent))
+
         let chatButton = UIBarButtonItem(image: #imageLiteral(resourceName: "chatBubble"), style: .plain, target: self, action: #selector(segueToChatViewController))
         navigationItem.rightBarButtonItem = chatButton
         //TODO: edit button is only visible to creator of event
@@ -281,8 +279,6 @@ class EventDetailViewController: UIViewController {
         //}
     }
     
-    
-    
     @objc private func editEvent() {
         navigationController?.pushViewController(editVC, animated: true)
     }
@@ -292,48 +288,36 @@ class EventDetailViewController: UIViewController {
         chatVC.specificEventIDsChat = event.eventID
         navigationController?.pushViewController(chatVC, animated: true)
     }
-    
 }
-
 extension EventDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filteredContacts.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "user going cell", for: indexPath) as! FriendsCollectionViewCell
-        //cell.backgroundColor = .red
         let contact = filteredContacts[indexPath.row]
         cell.friendLabel.text = "\(contact.givenName)"
         cell.friendImage.image = UIImage(data: contact.imageData!)
         return cell
     }
-    
 }
-
 extension EventDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let numCells: CGFloat = 3
         let numSpaces: CGFloat = numCells + 1
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
-        
         return CGSize(width: (screenWidth - (cellSpacing * numSpaces)) / numCells, height: screenHeight * 0.15)
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: cellSpacing, left: cellSpacing, bottom: 0, right: cellSpacing)
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return cellSpacing
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return cellSpacing
     }
-
 }
 extension EventDetailViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -350,7 +334,6 @@ extension EventDetailViewController: MKMapViewDelegate {
         }
         return annotationView
     }
-    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("User tapped on annotation")
         openAppleMaps()
@@ -360,39 +343,28 @@ extension EventDetailViewController: MKMapViewDelegate {
         //        }
         
     }
-    
     private func openAppleMaps() {
         //        guard let latAndLong = venue.location.labeledLatLngs else {
         //            // alert controller there is no lat and long
         //            return
         //        }
-        
         if LocationService.manager.checkForLocationServices() == .denied {
             guard let validSettings: URL = URL(string: UIApplicationOpenSettingsURLString) else { return }
             UIApplication.shared.open(validSettings, options: [:], completionHandler: nil)
             return
         }
-        
-        
         let userCoordinate = CLLocationCoordinate2D(latitude: LocationService.manager.getCurrentLatitude()!, longitude: LocationService.manager.getCurrentLongitude()!)
-        
-        
         let placeCoordinate = CLLocationCoordinate2D(latitude: (coordinate?.latitude)!, longitude: (coordinate?.longitude)!)
         let directionsURLString = "http://maps.apple.com/?saddr=\(userCoordinate.latitude),\(userCoordinate.longitude)&daddr=\(placeCoordinate.latitude),\(placeCoordinate.longitude)"
-        
         UIApplication.shared.open(URL(string: directionsURLString)!, options: [:]) { (done) in
             print("launched apple maps")
         }
-        
     }
 }
-
 extension EventDetailViewController: EditDelegate {
     func passEditedEventBackToEventDetailVC(event: Event, eventImage: UIImage, date: Date) {
         self.event = event
         self.eventDetailView.bannerPhotoImageView.image = eventImage
         self.eventDetailView.datePicker.date = date
     }
-    
-    
 }
