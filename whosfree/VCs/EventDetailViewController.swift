@@ -57,9 +57,14 @@ class EventDetailViewController: UIViewController {
         eventDetailView.notGoingButton.addTarget(self, action: #selector(showNotGoing), for: .touchUpInside)
         eventDetailView.allInvitedButton.addTarget(self, action: #selector(showAllInvited), for: .touchUpInside)
         showAllInvited()
-        if event.ownerUserID == FirebaseAuthService.getCurrentUser()!.uid {
+        //If the currently logged in user is NOT the owner of the event
+        if event.ownerUserID != FirebaseAuthService.getCurrentUser()!.uid {
             self.eventDetailView.deleteButton.isHidden = true
             self.eventDetailView.editButton.isHidden = true
+        } else {
+            self.eventDetailView.rsvpButton.setTitle("Going", for: .normal)
+            self.eventDetailView.deleteButton.isHidden = false
+            self.eventDetailView.editButton.isHidden = false
         }
     }
     
