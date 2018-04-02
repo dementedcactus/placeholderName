@@ -105,6 +105,10 @@ extension PlaceViewController: UISearchBarDelegate {
         becomeFirstResponder()
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if searchBar == placeView.placeSearchBar {
+            placeView.locationSearchBar.becomeFirstResponder()
+            return
+        }
         if placeView.placeSearchBar.text == "" || placeView.locationSearchBar.text == "" {
             let alertView = UIAlertController(title: "Please enter text into both search fields", message: nil, preferredStyle: .alert)
             let ok = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
