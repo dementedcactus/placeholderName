@@ -247,6 +247,6 @@ class CreateEventView: UIView {
         friendsGoingCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         friendsGoingCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         friendsGoingCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        friendsGoingCollectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3).isActive = true
+        friendsGoingCollectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25).isActive = true
     }
 }
