@@ -413,7 +413,6 @@ extension CreateEventViewController: UICollectionViewDataSource, UICollectionVie
         return cell
     }
     
-    
 }
 extension CreateEventViewController: SelectVenueDelegate {
     func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String, placeImageURL: String) {
