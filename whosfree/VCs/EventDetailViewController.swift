@@ -40,6 +40,10 @@ class EventDetailViewController: UIViewController {
         super.viewDidLoad()
         self.view.addSubview(eventDetailView)
         
+        if FirebaseAuthService.getCurrentUser()?.uid == event.ownerUserID {
+            eventDetailView.rsvpButton.isHidden = true
+        }
+        
         self.eventDetailView.collectionView.dataSource = self
         self.eventDetailView.collectionView.delegate = self
         self.eventDetailView.rsvpButton.addTarget(self, action: #selector(rsvp), for: .touchUpInside)
@@ -272,12 +276,12 @@ class EventDetailViewController: UIViewController {
         let notGoingAction = UIAlertAction(title: "Not Going", style: .default) {(alert) in
             print("pressed Not Going")
         }
-        let maybeAction = UIAlertAction(title: "Maybe", style: .default) {(alert) in
-            print("pressed Maybe")
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(alert) in
+            print("pressed Cancel")
         }
         alertController.addAction(goingAction)
         alertController.addAction(notGoingAction)
-        alertController.addAction(maybeAction)
+        alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
     }
     
