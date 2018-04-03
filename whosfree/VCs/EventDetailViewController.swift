@@ -41,7 +41,7 @@ class EventDetailViewController: UIViewController {
         self.view.addSubview(eventDetailView)
         
         if FirebaseAuthService.getCurrentUser()?.uid == event.ownerUserID {
-            eventDetailView.rsvpButton.isHidden = true
+            eventDetailView.rsvpButton.isEnabled = false
         }
         
         self.eventDetailView.collectionView.dataSource = self
@@ -275,6 +275,7 @@ class EventDetailViewController: UIViewController {
         }
         let notGoingAction = UIAlertAction(title: "Not Going", style: .default) {(alert) in
             print("pressed Not Going")
+            DatabaseService.manager.clickedRSVPNotGoing(to: self.event.eventID)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(alert) in
             print("pressed Cancel")
