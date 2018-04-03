@@ -241,7 +241,7 @@ class EventDetailView: UIView {
         datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         datePicker.topAnchor.constraint(equalTo: rsvpButton.bottomAnchor).isActive = true
         datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        datePicker.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.10).isActive = true
+        datePicker.heightAnchor.constraint(equalTo: eventTypeLabel.heightAnchor, multiplier: 1.1).isActive = true
     }
     
     private func setupMapView() {
