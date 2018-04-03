@@ -59,6 +59,7 @@ class SignInContainerView: UIView {
         textField.textColor = .black
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
+        textField.keyboardType = .emailAddress
         return textField
     }()
     
@@ -73,6 +74,7 @@ class SignInContainerView: UIView {
         textField.layer.borderColor = UIColor.black.cgColor
         textField.isSecureTextEntry = true
         textField.textColor = .black
+        textField.keyboardType = .emailAddress
         return textField
     }()
     

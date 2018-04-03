@@ -39,7 +39,6 @@ class TheatersViewController: UIViewController {
     private func configureNavBar() {
         navigationItem.titleView = theatersView.theaterSearchBar
     }
-    
 }
 
 extension TheatersViewController: UITableViewDataSource {

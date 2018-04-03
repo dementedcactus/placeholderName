@@ -55,7 +55,6 @@ class PlaceView: UIView {
     private func setupViews() {
         setupPlaceSearchBar()
         setupLocationSearchBar()
-        //setupMapView()
         setupTableView()
     }
     
@@ -93,7 +92,4 @@ class PlaceView: UIView {
         tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
         
     }
-
-
-
 }
