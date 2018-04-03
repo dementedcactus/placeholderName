@@ -70,7 +70,7 @@ extension DatabaseService {
                     if !updatedFriendsGoing.contains(userID) {
                         updatedFriendsGoing.append(userID)
                     } else {
-                        print("You are already friends with this user")
+                        print("User already RSVP'd")
                         //self.addFriendDelegate?.didFailAddFriend(newFriendID, message: "You are already friends with this user")
                         return
                     }
