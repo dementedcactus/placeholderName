@@ -19,8 +19,9 @@ class PlaceView: UIView {
     
     lazy var locationSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.barTintColor = UIColor.groupTableViewBackground
+        searchBar.barTintColor = UIColor(displayP3Red: (247/255), green: (247/255), blue: (247/255), alpha: 1)
         searchBar.placeholder = "Enter location"
+        searchBar.isHidden = true
         return searchBar
     }()
     
@@ -35,11 +36,6 @@ class PlaceView: UIView {
         tableView.register(PlaceTableViewCell.self, forCellReuseIdentifier: "Place Cell")
         return tableView
     }()
-    
-//    lazy var activityIndicator: UIActivityIndicatorView = {
-//        let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
-//        return indicator
-//    }()
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -59,7 +55,7 @@ class PlaceView: UIView {
     
     private func setupViews() {
         //setupPlaceSearchBar()
-        //setupLocationSearchBar()
+        setupLocationSearchBar()
         setupTableView()
         //setupActivityIndicator()
     }
@@ -76,7 +72,7 @@ class PlaceView: UIView {
         addSubview(locationSearchBar)
         locationSearchBar.translatesAutoresizingMaskIntoConstraints = false
         locationSearchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        locationSearchBar.topAnchor.constraint(equalTo: placeSearchBar.bottomAnchor).isActive = true
+        locationSearchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         locationSearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
@@ -93,7 +89,7 @@ class PlaceView: UIView {
         addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: locationSearchBar.bottomAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
     }

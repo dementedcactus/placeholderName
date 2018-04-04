@@ -31,7 +31,6 @@ class PlaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        placeView.locationSearchBar.isHidden = true
         let _ = LocationService.manager.checkForLocationServices()
 
         setupView()
@@ -53,7 +52,7 @@ class PlaceViewController: UIViewController {
             self.view.addSubview(emptyView)
             
             emptyView.translatesAutoresizingMaskIntoConstraints = false
-            emptyView.topAnchor.constraint(equalTo: placeView.topAnchor).isActive = true
+            emptyView.topAnchor.constraint(equalTo: placeView.locationSearchBar.bottomAnchor).isActive = true
             emptyView.bottomAnchor.constraint(equalTo: placeView.bottomAnchor).isActive = true
             emptyView.leadingAnchor.constraint(equalTo: placeView.leadingAnchor).isActive = true
             emptyView.trailingAnchor.constraint(equalTo: placeView.trailingAnchor).isActive = true
@@ -68,8 +67,20 @@ class PlaceViewController: UIViewController {
         placeView.tableView.dataSource = self
         placeView.tableView.delegate = self
         placeView.placeSearchBar.delegate = self
-        //placeView.locationSearchBar.delegate = self
+        placeView.locationSearchBar.delegate = self
         placeView.tableView.rowHeight = UITableViewAutomaticDimension
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "marker"), style: .done, target: self, action: #selector(showLocationSearchbar))
+    }
+    
+    @objc private func showLocationSearchbar() {
+        if placeView.locationSearchBar.isHidden {
+            placeView.locationSearchBar.text = ""
+            placeView.locationSearchBar.isHidden = false
+        } else {
+            placeView.locationSearchBar.text = ""
+            placeView.locationSearchBar.isHidden = true
+        }
+
     }
     
 }
@@ -141,7 +152,7 @@ extension PlaceViewController: UISearchBarDelegate {
                         self.emptyView.emptyLabel.text = "No Results Found :("
                         self.view.addSubview(self.emptyView)
                         self.emptyView.translatesAutoresizingMaskIntoConstraints = false
-                        self.emptyView.topAnchor.constraint(equalTo: self.placeView.topAnchor).isActive = true
+                        self.emptyView.topAnchor.constraint(equalTo: self.placeView.locationSearchBar.bottomAnchor).isActive = true
                         self.emptyView.bottomAnchor.constraint(equalTo: self.placeView.bottomAnchor).isActive = true
                         self.emptyView.leadingAnchor.constraint(equalTo: self.placeView.leadingAnchor).isActive = true
                         self.emptyView.trailingAnchor.constraint(equalTo: self.placeView.trailingAnchor).isActive = true
