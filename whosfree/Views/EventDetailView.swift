@@ -158,15 +158,17 @@ class EventDetailView: UIView {
         setupEditButton()
         setupEventTitle()
         setupEventTypeLabel()
+        setupDescriptionTextView()
         setupRsvpButton()
         setupDatePicker()
         setupMapView()
         setupLocationButton()
-        setupDescriptionTextView()
-        setupCollectionView()
+        
         setupGoingButton()
         setupNotGoingButton()
         setupInvitedButton()
+        setupCollectionView()
+        
         setupDeleteButton()
     }
     
@@ -223,14 +225,24 @@ class EventDetailView: UIView {
         eventTypeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         eventTypeLabel.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor).isActive = true
         eventTypeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        eventTypeLabel.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1).isActive = true
+        //eventTypeLabel.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1).isActive = true //TODO: Implement later when multiple event types are added
+        eventTypeLabel.heightAnchor.constraint(equalToConstant: 0).isActive = true
+    }
+    
+    private func setupDescriptionTextView() {
+        contentView.addSubview(descriptionTextView)
+        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
+        descriptionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        descriptionTextView.topAnchor.constraint(equalTo: eventTypeLabel.bottomAnchor, constant: 5).isActive = true
+        descriptionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        descriptionTextView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 1).isActive = true
     }
     
     private func setupRsvpButton() {
         contentView.addSubview(rsvpButton)
         rsvpButton.translatesAutoresizingMaskIntoConstraints = false
         rsvpButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        rsvpButton.topAnchor.constraint(equalTo: eventTypeLabel.bottomAnchor, constant: 5).isActive = true
+        rsvpButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 5).isActive = true
         rsvpButton.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1).isActive = true
         rsvpButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.7).isActive = true
     }
@@ -241,7 +253,7 @@ class EventDetailView: UIView {
         datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         datePicker.topAnchor.constraint(equalTo: rsvpButton.bottomAnchor).isActive = true
         datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        datePicker.heightAnchor.constraint(equalTo: eventTypeLabel.heightAnchor, multiplier: 1.1).isActive = true
+        datePicker.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1.1).isActive = true
     }
     
     private func setupMapView() {
@@ -262,29 +274,12 @@ class EventDetailView: UIView {
         locationButton.heightAnchor.constraint(equalTo: rsvpButton.heightAnchor, multiplier: 1.1).isActive = true
     }
     
-    private func setupDescriptionTextView() {
-        contentView.addSubview(descriptionTextView)
-        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        descriptionTextView.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 5).isActive = true
-        descriptionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        descriptionTextView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 1).isActive = true
-    }
-    
-    private func setupCollectionView() {
-        contentView.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
-        collectionView.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 1).isActive = true
-    }
-    
     private func setupGoingButton() {
         contentView.addSubview(goingButton)
         goingButton.translatesAutoresizingMaskIntoConstraints = false
         goingButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        goingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        //goingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        goingButton.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 1).isActive = true
         goingButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.33).isActive = true
     }
     
@@ -292,16 +287,26 @@ class EventDetailView: UIView {
         contentView.addSubview(notGoingButton)
         notGoingButton.translatesAutoresizingMaskIntoConstraints = false
         notGoingButton.leadingAnchor.constraint(equalTo: goingButton.trailingAnchor).isActive = true
-        notGoingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        //notGoingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        notGoingButton.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 1).isActive = true
         notGoingButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.34).isActive = true
     }
-
+    
     private func setupInvitedButton() {
         contentView.addSubview(allInvitedButton)
         allInvitedButton.translatesAutoresizingMaskIntoConstraints = false
         allInvitedButton.leadingAnchor.constraint(equalTo: notGoingButton.trailingAnchor).isActive = true
-        allInvitedButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        //allInvitedButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        allInvitedButton.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 1).isActive = true
         allInvitedButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.33).isActive = true
+    }
+    private func setupCollectionView() {
+        contentView.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: goingButton.bottomAnchor).isActive = true
+        collectionView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 1).isActive = true
     }
     
     private func setupDeleteButton() {
