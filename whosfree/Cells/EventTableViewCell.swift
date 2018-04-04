@@ -70,6 +70,11 @@ class EventTableViewCell: UITableViewCell {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
+        eventTitleLabel.layer.cornerRadius = 4
+        eventDateAndTimeLabel.layer.cornerRadius = 4
+        eventTitleLabel.layer.masksToBounds = true
+        eventDateAndTimeLabel.layer.masksToBounds = true
+        
         setupAndConstrainObjects()
     }
     private func setupAndConstrainObjects(){
@@ -86,10 +91,10 @@ class EventTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             
             //containerView
-            containerView.topAnchor.constraint(equalTo: self.topAnchor),
-            containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
+            containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4),
+            containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
+            containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -4),
             
             //eventBannerPhotoImageView
             eventBannerPhotoImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
@@ -106,9 +111,20 @@ class EventTableViewCell: UITableViewCell {
 
             //eventDateAndTimeLabel
             eventDateAndTimeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            eventDateAndTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor)
+            eventDateAndTimeLabel.topAnchor.constraint(equalTo: containerView.topAnchor)
             ])
+        //setupBlurEffectView()
         
+    }
+    
+    private func setupBlurEffectView() {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let titleVisualEffect = UIVisualEffectView(frame: eventTitleLabel.frame)
+        titleVisualEffect.effect = blurEffect
+        addSubview(titleVisualEffect)
+        let dateVisualEffect = UIVisualEffectView(frame: eventDateAndTimeLabel.frame)
+        dateVisualEffect.effect = blurEffect
+        addSubview(dateVisualEffect)
     }
 }
 
