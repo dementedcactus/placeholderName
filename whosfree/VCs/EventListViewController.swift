@@ -150,8 +150,12 @@ extension EventListViewController: UITableViewDataSource {
         let event = events[indexPath.row]
 //        cell.eventDateAndTimeLabel.text = "Date \(testData): Time \(testData)"
 //        cell.eventTitleLabel.text = "Event \(testData)"
-        cell.eventDateAndTimeLabel.text = event.timestamp.description
-        cell.eventTitleLabel.text = event.eventName
+        
+        cell.layer.borderWidth = 0.5
+        cell.layer.borderColor = UIColor.darkText.cgColor
+        cell.selectionStyle = .none
+        cell.eventDateAndTimeLabel.text = "\(event.timestamp.description)  "
+        cell.eventTitleLabel.text = " \(event.eventName)"
         cell.eventBannerPhotoImageView.kf.indicatorType = .activity
         cell.eventBannerPhotoImageView.kf.setImage(with: URL(string: event.eventBannerImgUrl), placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
             cell.setNeedsLayout()

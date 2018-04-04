@@ -78,6 +78,7 @@ extension TheaterShowtimesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "showtime cell", for: indexPath)
+        cell.selectionStyle = .none
         let section = indexPath.section
         let row = indexPath.row
         let currentShowtime: Showtime = movieShowtimes[section].showtimes[row]
