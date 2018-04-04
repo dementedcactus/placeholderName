@@ -10,9 +10,7 @@ import UIKit
 
 class EditEventView: CreateEventView {
     public func prefillEventFields(event: Event, eventImage: UIImage) {
-
         UIView.animate(withDuration: 1.75, delay: 0.05, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-            
             self.bannerPhotoImageView.image = eventImage
             self.eventTitleTextField.text = event.eventName
             self.descriptionTextView.text = event.eventDescription
@@ -20,10 +18,8 @@ class EditEventView: CreateEventView {
             self.datePicker.date = Date(timeIntervalSince1970: event.timestampDouble)
             self.backgroundColor = Stylesheet.Colors.SuperLightBlue
             let editEventViewObjects = [self.bannerPhotoImageView, self.eventTitleTextField, self.descriptionTextView, self.friendsGoingCollectionView] as [UIView]
-            
             editEventViewObjects.forEach{($0).layer.cornerRadius = 10.0}
-    
         }, completion: nil)
-        
+        deleteButton.heightAnchor.constraint(equalTo: inviteFriendsButton.heightAnchor, multiplier: 1.0).isActive = true
     }
 }
