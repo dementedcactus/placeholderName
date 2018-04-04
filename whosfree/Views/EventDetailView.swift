@@ -23,13 +23,6 @@ class EventDetailView: UIView {
         return view
     }()
     
-    lazy var mapImageView: MKMapView = {
-        let mapView = MKMapView()
-        mapView.isScrollEnabled = false
-        mapView.isZoomEnabled = false
-        return mapView
-    }()
-    
     lazy var editButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "edit"), for: .normal)
@@ -74,11 +67,20 @@ class EventDetailView: UIView {
         return datePicker
     }()
     
+    lazy var mapImageView: MKMapView = {
+        let mapView = MKMapView()
+        mapView.isScrollEnabled = false
+        mapView.isZoomEnabled = false
+        return mapView
+    }()
+    
     lazy var locationButton: UIButton = {
         let button = UIButton()
         button.setTitle("123 Fake Street", for: .normal)
         Stylesheet.Objects.Buttons.CreateButton.style(button: button)
         button.layer.cornerRadius = 0
+        button.backgroundColor = UIColor(white: 0, alpha: 0.3)
+        
         return button
     }()
     
@@ -269,9 +271,9 @@ class EventDetailView: UIView {
         contentView.addSubview(locationButton)
         locationButton.translatesAutoresizingMaskIntoConstraints = false
         locationButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        locationButton.topAnchor.constraint(equalTo: mapImageView.bottomAnchor).isActive = true
+        locationButton.bottomAnchor.constraint(equalTo: mapImageView.bottomAnchor).isActive = true
         locationButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        locationButton.heightAnchor.constraint(equalTo: rsvpButton.heightAnchor, multiplier: 1.1).isActive = true
+        locationButton.heightAnchor.constraint(equalTo: rsvpButton.heightAnchor, multiplier: 0.9).isActive = true
     }
     
     private func setupGoingButton() {
