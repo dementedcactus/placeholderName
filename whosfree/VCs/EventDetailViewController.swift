@@ -13,7 +13,7 @@ import Contacts
 class EventDetailViewController: UIViewController {
 
     let eventDetailView = EventDetailView()
-    lazy var editVC = EditEventViewController(event: event, eventImage: eventImage)
+    //lazy var editVC = EditEventViewController(event: event, eventImage: eventImage)
     let dummyData = ["test1 title", "test2 title", "test3 title", "test4 title", "test5 title"]
     private let cellSpacing: CGFloat =  5.0
     var coordinate: CLLocationCoordinate2D?
@@ -55,7 +55,7 @@ class EventDetailViewController: UIViewController {
         configureNavBar()
         eventDetailView.configureView(event: event, eventImage: eventImage)
         configureScrollView(event: event)
-        editVC.editDelegate = self
+        //editVC.editDelegate = self
         loadContactsFromPhone()
         eventDetailView.goingButton.addTarget(self, action: #selector(showGoing), for: .touchUpInside)
         eventDetailView.notGoingButton.addTarget(self, action: #selector(showNotGoing), for: .touchUpInside)
@@ -293,6 +293,8 @@ class EventDetailViewController: UIViewController {
     }
     
     @objc private func editEvent() {
+        let editVC = EditEventViewController(event: event, eventImage: eventImage)
+        editVC.editDelegate = self
         navigationController?.pushViewController(editVC, animated: false)
     }
     

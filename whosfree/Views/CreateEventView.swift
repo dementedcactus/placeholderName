@@ -159,7 +159,7 @@ class CreateEventView: UIView {
         contentView.addSubview(eventTitleTextField)
         eventTitleTextField.translatesAutoresizingMaskIntoConstraints = false
         eventTitleTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        eventTitleTextField.topAnchor.constraint(equalTo: bannerPhotoImageView.bottomAnchor).isActive = true
+        eventTitleTextField.topAnchor.constraint(equalTo: bannerPhotoImageView.bottomAnchor, constant: 5).isActive = true
         eventTitleTextField.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 0.3).isActive = true
         eventTitleTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         eventTitleTextField.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
