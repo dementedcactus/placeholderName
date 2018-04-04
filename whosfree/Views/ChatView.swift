@@ -73,7 +73,7 @@ class ChatView: UIView {
         sendButton.leadingAnchor.constraint(equalTo: textView.trailingAnchor).isActive = true
         sendButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         sendButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
-        sendButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        sendButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
     }
     
     private func setupTableView() {

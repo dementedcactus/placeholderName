@@ -223,7 +223,8 @@ class EventDetailView: UIView {
         eventTypeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         eventTypeLabel.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor).isActive = true
         eventTypeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        eventTypeLabel.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1).isActive = true
+        //eventTypeLabel.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1).isActive = true //TODO: Implement later when multiple event types are added
+        eventTypeLabel.heightAnchor.constraint(equalToConstant: 0).isActive = true
     }
     
     private func setupRsvpButton() {
@@ -241,7 +242,7 @@ class EventDetailView: UIView {
         datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         datePicker.topAnchor.constraint(equalTo: rsvpButton.bottomAnchor).isActive = true
         datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        datePicker.heightAnchor.constraint(equalTo: eventTypeLabel.heightAnchor, multiplier: 1.1).isActive = true
+        datePicker.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1.1).isActive = true
     }
     
     private func setupMapView() {

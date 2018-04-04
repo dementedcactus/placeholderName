@@ -14,8 +14,6 @@ protocol EditDelegate {
 }
 
 class EditEventViewController: UIViewController {
-
-    // TODO: Update this VC to also send Mailgun invites when new people are added to the invite list
     
     var editDelegate: EditDelegate?
     let placeViewController = PlaceViewController()
@@ -44,8 +42,6 @@ class EditEventViewController: UIViewController {
         self.view.addSubview(editEventView)
         
         // Delegates
-        self.editEventView.tableView.dataSource = self
-        self.editEventView.tableView.delegate = self
         self.editEventView.searchResultsTableView.dataSource = self
         self.editEventView.searchResultsTableView.delegate = self
         self.editEventView.descriptionTextView.delegate = self
@@ -103,25 +99,17 @@ class EditEventViewController: UIViewController {
         let ownerUserID = event.ownerUserID //FirebaseAuthService.getCurrentUser()!.uid
         let eventDescription = editEventView.descriptionTextView.text!
         let eventLocation = editEventView.searchBar.text!
-        
-        //let componenets = Calendar.current.dateComponents([.year, .month, .day], from: createEventView.datePicker.date)
         let timestamp = CreateEventViewController().formatDate(with: editEventView.datePicker.date)
-        //        if let day = components.day, let month = components.month, let year = components.year {
-        //            print("\(day) \(month) \(year)")
-        //            timestamp = "\(day) \(month) \(year)"
-        //        }
         
         let editedEventToAdd = Event(eventID: eventId, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "", allFriendsInvited: [], timestampDouble: editEventView.datePicker.date.timeIntervalSince1970)
         DatabaseService.manager.editEvent(editedEventToAdd, editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
-        
-        //TODO: Pass Event object back to EventDetailVC
+    
         self.editDelegate?.passEditedEventBackToEventDetailVC(event: editedEventToAdd, eventImage: editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"), date: editEventView.datePicker.date)
         self.navigationController?.popViewController(animated: true)
     }
     
     @objc private func inviteFriendsButtonPressed() {
         print("invite friends button pressed")
-        // TODO: Present User's Contacts and let user send a text to selected contacts
         
         let inviteFriendsVC = InviteFriendsViewController()
         let inviteFriendsNavCon = UINavigationController(rootViewController: inviteFriendsVC)
@@ -130,57 +118,23 @@ class EditEventViewController: UIViewController {
     
     @objc private func categoryButtonAction(sender: UIButton!) {
         print("Button tapped")
-        if editEventView.tableView.isHidden == true {
-            editEventView.tableView.isHidden = false
-            animateCategoryTV()
-            editEventView.datePicker.isEnabled = false
-        } else {
-            editEventView.tableView.isHidden = true
-            editEventView.datePicker.isEnabled = true
-        }
-    }
-    
-    private func animateCategoryTV() {
-        editEventView.tableView.reloadData()
-        let cells = editEventView.tableView.visibleCells
-        let tableViewHeight = editEventView.tableView.bounds.size.height
-        for cell in cells {
-            cell.transform = CGAffineTransform(translationX: 0, y: -tableViewHeight)
-        }
-        var delayCounter:Double = 0
-        for cell in cells {
-            UIView.animate(withDuration: 0.75, delay: delayCounter * 0.05, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                cell.transform = CGAffineTransform.identity
-            }, completion: nil)
-            delayCounter += 0.5
-        }
+        navigationController?.pushViewController(placeViewController, animated: true)
     }
     
 }
 extension EditEventViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == editEventView.tableView {
-            return categories.count
-        } else {
             return searchResults.count
-        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if tableView == editEventView.tableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "EventTypeCell", for: indexPath) as! EventTypeTableViewCell
-            let data = categories[indexPath.row]
-            
-            cell.eventTypeLabel.text = data
-            return cell
-        } else {
             let cell = editEventView.searchResultsTableView.dequeueReusableCell(withIdentifier: "SearchResultsCell", for: indexPath)
             let searchResult = searchResults[indexPath.row]
             cell.textLabel?.text = "\(searchResult.title) \(searchResult.subtitle)"
             return cell
             
-        }
+        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == editEventView.searchResultsTableView {
@@ -198,25 +152,7 @@ extension EditEventViewController: UITableViewDataSource, UITableViewDelegate {
             self.editEventView.searchResultsTableView.reloadData()
             editEventView.searchResultsTableView.isHidden = true
             print("hidden")
-        } else if tableView == editEventView.tableView {
-            let category = categories[indexPath.row]
-            editEventView.eventTypeButton.setTitle(category, for: .normal)
-            editEventView.tableView.isHidden = true
-            editEventView.datePicker.isEnabled = true
-            switch category {
-            case "Place":
-                // segue place
-                print("Clicked Place")
-                navigationController?.pushViewController(placeViewController, animated: true)
-            case "Movie":
-                //segue movie
-                print("Clicked Movie")
-                let theatersViewController = TheatersViewController()
-                navigationController?.pushViewController(theatersViewController, animated: true)
-            default:
-                print("Do nothing")
-            }
-        }
+        } 
     }
     
     

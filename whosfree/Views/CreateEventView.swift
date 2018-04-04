@@ -36,19 +36,20 @@ class CreateEventView: UIView {
     
     lazy var eventTypeButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Select Event Type", for: .normal)
+        button.setTitle("Place", for: .normal)
         Stylesheet.Objects.Buttons.CreateButton.style(button: button)
         return button
     }()
     
-    lazy var tableView: UITableView = {
-        let tv = UITableView()
-        tv.register(EventTypeTableViewCell.self, forCellReuseIdentifier: "EventTypeCell")
-        tv.isHidden = true
-        tv.backgroundColor = .clear
-        tv.separatorColor = .clear
-        return tv
-    }()
+    //TODO: Implement later when multiple event types are added
+//    lazy var tableView: UITableView = {
+//        let tv = UITableView()
+//        tv.register(EventTypeTableViewCell.self, forCellReuseIdentifier: "EventTypeCell")
+//        tv.isHidden = true
+//        tv.backgroundColor = .clear
+//        tv.separatorColor = .clear
+//        return tv
+//    }()
     
     lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -128,7 +129,7 @@ class CreateEventView: UIView {
         setupEventTitle()
         setupDescriptionTextView()
         setupEventTypeButton()
-        setupTableView()
+        //setupTableView() //TODO: Implement later when multiple event types are added
         setupDatePicker()
         setupSearchBar()
         setupInviteButton()
@@ -192,15 +193,16 @@ class CreateEventView: UIView {
         eventTypeButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.05).isActive = true
     }
     
-    private func setupTableView() {
-        contentView.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.leadingAnchor.constraint(equalTo: eventTypeButton.leadingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: eventTypeButton.bottomAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: eventTypeButton.trailingAnchor).isActive = true
-        tableView.widthAnchor.constraint(equalTo: eventTypeButton.widthAnchor).isActive = true
-        tableView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3).isActive = true
-    }
+    //TODO: Implement later when multiple event types are added
+//    private func setupTableView() {
+//        contentView.addSubview(tableView)
+//        tableView.translatesAutoresizingMaskIntoConstraints = false
+//        tableView.leadingAnchor.constraint(equalTo: eventTypeButton.leadingAnchor).isActive = true
+//        tableView.topAnchor.constraint(equalTo: eventTypeButton.bottomAnchor).isActive = true
+//        tableView.trailingAnchor.constraint(equalTo: eventTypeButton.trailingAnchor).isActive = true
+//        tableView.widthAnchor.constraint(equalTo: eventTypeButton.widthAnchor).isActive = true
+//        tableView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3).isActive = true
+//    }
     
     private func setupDatePicker() {
         contentView.addSubview(datePicker)
