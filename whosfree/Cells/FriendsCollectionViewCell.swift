@@ -29,12 +29,6 @@ class FriendsCollectionViewCell: UICollectionViewCell {
         return fLabel
     }()
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        friendImage.layer.cornerRadius = friendImage.frame.height/2
-//        friendImage.clipsToBounds = true
-//    }
-    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         backgroundColor = UIColor.groupTableViewBackground
@@ -51,6 +45,9 @@ class FriendsCollectionViewCell: UICollectionViewCell {
         layer.shadowOpacity = 0.75
         layer.shadowRadius = 3
         layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+//        layer.borderWidth = 1
+//        layer.borderColor = Stylesheet.Colors.LightBlue.cgColor
+//        layer.borderColor = Stylesheet.Colors.Black.cgColor
     }
     
     private func setupViews() {
