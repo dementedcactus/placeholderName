@@ -36,6 +36,11 @@ class PlaceView: UIView {
         return tableView
     }()
     
+//    lazy var activityIndicator: UIActivityIndicatorView = {
+//        let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+//        return indicator
+//    }()
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -53,9 +58,10 @@ class PlaceView: UIView {
     }
     
     private func setupViews() {
-        setupPlaceSearchBar()
-        setupLocationSearchBar()
+        //setupPlaceSearchBar()
+        //setupLocationSearchBar()
         setupTableView()
+        //setupActivityIndicator()
     }
     
     private func setupPlaceSearchBar() {
@@ -87,9 +93,16 @@ class PlaceView: UIView {
         addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: locationSearchBar.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
     }
+    
+//    private func setupActivityIndicator() {
+//        addSubview(activityIndicator)
+//        //activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+//        activityIndicator.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+//        activityIndicator.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor).isActive = true
+//    }
+    
 }
