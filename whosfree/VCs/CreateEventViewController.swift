@@ -40,8 +40,6 @@ class CreateEventViewController: UIViewController {
         self.view.addSubview(createEventView)
         
         // Delegates
-        self.createEventView.tableView.dataSource = self
-        self.createEventView.tableView.delegate = self
         self.createEventView.searchResultsTableView.dataSource = self
         self.createEventView.searchResultsTableView.delegate = self
         self.createEventView.descriptionTextView.delegate = self
@@ -68,40 +66,6 @@ class CreateEventViewController: UIViewController {
     @objc func doneButtonTapped() -> Void {
         createEventView.descriptionTextView.resignFirstResponder()
     }
-    
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(true)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-//    }
-//
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-//    }
-    
-//    @objc func keyboardWillShow(notification: NSNotification) {
-//        if keyboardAdjusted == false {
-//            lastKeyboardOffset = getKeyboardHeight(notification: notification)
-//            view.frame.origin.y -= lastKeyboardOffset
-//            keyboardAdjusted = true
-//        }
-//    }
-//
-//    @objc func keyboardWillHide(notification: NSNotification) {
-//        if keyboardAdjusted == true {
-//            view.frame.origin.y += lastKeyboardOffset
-//            keyboardAdjusted = false
-//        }
-//    }
-//
-//    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
-//        let userInfo = notification.userInfo
-//        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-//        return keyboardSize.cgRectValue.height
-//    }
     
     private func setupBannerImageGestureRecognizer() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(bannerImageTapped(tapGestureRecognizer:)))
@@ -191,55 +155,9 @@ class CreateEventViewController: UIViewController {
         present(inviteFriendsNavCon, animated: true, completion: nil)
     }
     
-//    @objc private func sendInvitesAction() {
-//        if invitedFriendsEmails.isEmpty {
-//            showAlert(title: "Error", message: "You need to invite some friends first!")
-//            return
-//        }
-//        let mailComposeViewController = self.configuredMailComposeViewController()
-//        if MFMailComposeViewController.canSendMail() {
-//            self.present(mailComposeViewController, animated: true, completion: nil)
-//        } else {
-//            //self.showAlert(service: "Email") //MailController pops up its own alert with no email service
-//        }
-//    }
-//
-//    private func configuredMailComposeViewController() -> MFMailComposeViewController {
-//        let mailComposerVC = MFMailComposeViewController()
-//        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
-//        mailComposerVC.setBccRecipients(["luiscalle@ac.c4q.nyc", "lcalle101qc@gmail.com"])
-//        mailComposerVC.setSubject("You have been invited!")
-//        mailComposerVC.setMessageBody("Hi!, USER has invited you <a href=\"https://www.w3schools.com/html/\">RSVP</a> to blah blah blah", isHTML: true)
-//
-//        return mailComposerVC
-//    }
-    
     @objc private func categoryButtonAction(sender: UIButton!) {
         print("Button tapped")
-        if createEventView.tableView.isHidden == true {
-            createEventView.tableView.isHidden = false
-            animateCategoryTV()
-            createEventView.datePicker.isEnabled = false
-        } else {
-            createEventView.tableView.isHidden = true
-            createEventView.datePicker.isEnabled = true
-        }
-    }
-    
-    private func animateCategoryTV() {
-        createEventView.tableView.reloadData()
-        let cells = createEventView.tableView.visibleCells
-        let tableViewHeight = createEventView.tableView.bounds.size.height
-        for cell in cells {
-            cell.transform = CGAffineTransform(translationX: 0, y: -tableViewHeight)
-        }
-        var delayCounter:Double = 0
-        for cell in cells {
-            UIView.animate(withDuration: 0.75, delay: delayCounter * 0.05, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                cell.transform = CGAffineTransform.identity
-            }, completion: nil)
-            delayCounter += 0.5
-        }
+        navigationController?.pushViewController(placeViewController, animated: true)
     }
     
     private func showAlert(title: String, message: String) {
@@ -251,37 +169,20 @@ class CreateEventViewController: UIViewController {
     
 }
 
-//extension CreateEventViewController: MFMailComposeViewControllerDelegate {
-//    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-//        self.dismiss(animated: true, completion: nil)
-//    }
-//}
-
 extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == createEventView.tableView {
-            return categories.count
-        } else {
             return searchResults.count
-        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if tableView == createEventView.tableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "EventTypeCell", for: indexPath) as! EventTypeTableViewCell
-            let data = categories[indexPath.row]
-            
-            cell.eventTypeLabel.text = data
-            return cell
-        } else {
             let cell = createEventView.searchResultsTableView.dequeueReusableCell(withIdentifier: "SearchResultsCell", for: indexPath)
             let searchResult = searchResults[indexPath.row]
             cell.textLabel?.text = "\(searchResult.title) \(searchResult.subtitle)"
             return cell
-            
-        }
+        
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == createEventView.searchResultsTableView {
             let completion = searchResults[indexPath.row]
@@ -298,25 +199,6 @@ extension CreateEventViewController: UITableViewDataSource, UITableViewDelegate 
             self.createEventView.searchResultsTableView.reloadData()
             createEventView.searchResultsTableView.isHidden = true
             print("hidden")
-        } else if tableView == createEventView.tableView {
-            let category = categories[indexPath.row]
-            createEventView.eventTypeButton.setTitle(category, for: .normal)
-            createEventView.tableView.isHidden = true
-            createEventView.datePicker.isEnabled = true
-            switch category {
-            case "Place":
-                // segue Place
-                print("Clicked Place")
-                
-        navigationController?.pushViewController(placeViewController, animated: true)
-            case "Movie":
-                //segue movie
-                print("Clicked Movie")
-                let theatersViewController = TheatersViewController()
-                navigationController?.pushViewController(theatersViewController, animated: true)
-            default:
-                print("Do nothing")
-            }
         }
     }
     
