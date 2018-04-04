@@ -47,7 +47,6 @@ class EventDetailViewController: UIViewController {
         self.eventDetailView.collectionView.dataSource = self
         self.eventDetailView.collectionView.delegate = self
         self.eventDetailView.rsvpButton.addTarget(self, action: #selector(rsvp), for: .touchUpInside)
-        self.eventDetailView.deleteButton.addTarget(self, action: #selector(deleteEvent), for: .touchUpInside)
         self.eventDetailView.editButton.addTarget(self, action: #selector(editEvent), for: .touchUpInside)
         self.eventDetailView.locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
         eventDetailView.mapImageView.delegate = self
@@ -63,11 +62,9 @@ class EventDetailViewController: UIViewController {
         showAllInvited()
         //If the currently logged in user is NOT the owner of the event
         if event.ownerUserID != FirebaseAuthService.getCurrentUser()!.uid {
-            self.eventDetailView.deleteButton.isHidden = true
             self.eventDetailView.editButton.isHidden = true
         } else {
             self.eventDetailView.rsvpButton.setTitle("Going", for: .normal)
-            self.eventDetailView.deleteButton.isHidden = false
             self.eventDetailView.editButton.isHidden = false
         }
     }
