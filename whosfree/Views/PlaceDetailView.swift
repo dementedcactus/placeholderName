@@ -24,7 +24,7 @@ class PlaceDetailView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "Place Name"
-        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 23)
+        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 25)
         return label
     }()
     
@@ -32,14 +32,14 @@ class PlaceDetailView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "Venue Address 34 st New York, NY 10020"
-        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 20)
+        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 18)
         return label
     }()
     
     lazy var placePricePointLabel: UILabel = {
         let label = UILabel()
         label.text = "Price point $$"
-        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 20)
+        label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 18)
         return label
     }()
     
