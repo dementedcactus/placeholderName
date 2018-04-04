@@ -41,19 +41,10 @@ class CreateEventView: UIView {
         return button
     }()
     
-    //TODO: Implement later when multiple event types are added
-//    lazy var tableView: UITableView = {
-//        let tv = UITableView()
-//        tv.register(EventTypeTableViewCell.self, forCellReuseIdentifier: "EventTypeCell")
-//        tv.isHidden = true
-//        tv.backgroundColor = .clear
-//        tv.separatorColor = .clear
-//        return tv
-//    }()
-    
     lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.timeZone = NSTimeZone.local
+        datePicker.backgroundColor = .white
         return datePicker
     }()
     
@@ -129,7 +120,6 @@ class CreateEventView: UIView {
         setupEventTitle()
         setupDescriptionTextView()
         setupEventTypeButton()
-        //setupTableView() //TODO: Implement later when multiple event types are added
         setupDatePicker()
         setupSearchBar()
         setupInviteButton()
@@ -193,22 +183,11 @@ class CreateEventView: UIView {
         eventTypeButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.05).isActive = true
     }
     
-    //TODO: Implement later when multiple event types are added
-//    private func setupTableView() {
-//        contentView.addSubview(tableView)
-//        tableView.translatesAutoresizingMaskIntoConstraints = false
-//        tableView.leadingAnchor.constraint(equalTo: eventTypeButton.leadingAnchor).isActive = true
-//        tableView.topAnchor.constraint(equalTo: eventTypeButton.bottomAnchor).isActive = true
-//        tableView.trailingAnchor.constraint(equalTo: eventTypeButton.trailingAnchor).isActive = true
-//        tableView.widthAnchor.constraint(equalTo: eventTypeButton.widthAnchor).isActive = true
-//        tableView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3).isActive = true
-//    }
-    
     private func setupDatePicker() {
         contentView.addSubview(datePicker)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        datePicker.topAnchor.constraint(equalTo: eventTypeButton.bottomAnchor).isActive = true
+        datePicker.topAnchor.constraint(equalTo: eventTypeButton.bottomAnchor, constant: 5).isActive = true
         datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         datePicker.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.15).isActive = true
         datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
@@ -245,7 +224,7 @@ class CreateEventView: UIView {
     private func setupFriendsGoingCollectionView() {
         contentView.addSubview(friendsGoingCollectionView)
         friendsGoingCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        friendsGoingCollectionView.topAnchor.constraint(equalTo: inviteFriendsButton.bottomAnchor).isActive = true
+        friendsGoingCollectionView.topAnchor.constraint(equalTo: inviteFriendsButton.bottomAnchor, constant: 5).isActive = true
         friendsGoingCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         friendsGoingCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         friendsGoingCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true

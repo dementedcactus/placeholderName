@@ -15,5 +15,6 @@ class EditEventView: CreateEventView {
         descriptionTextView.text = event.eventDescription
         searchBar.text = event.eventLocation
         datePicker.date = Date(timeIntervalSince1970: event.timestampDouble)
+        backgroundColor = Stylesheet.Colors.SuperLightBlue
     }
 }

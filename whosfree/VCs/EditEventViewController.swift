@@ -8,6 +8,9 @@
 
 import UIKit
 import MapKit
+import MessageUI
+import SwiftMailgun
+import Kingfisher
 
 protocol EditDelegate {
     func passEditedEventBackToEventDetailVC(event: Event, eventImage: UIImage, date: Date)
@@ -24,6 +27,14 @@ class EditEventViewController: UIViewController {
     var searchSource: [String]?
     var event: Event!
     var eventImage: UIImage!
+    let mailgun = MailgunAPI(apiKey: "key-bf07275afe8c378ffe986d09c7b6f8a2", clientDomain: "sandbox5df72c43c441463fa8f7bcfdc4139162.mailgun.org")
+    var invitedFriendsFullInfo = [Contact]()
+    var invitedFriendsEmails = [String]() {
+        didSet {
+            dump(invitedFriendsEmails)
+        }
+    }
+    
     
     init(event: Event, eventImage: UIImage) {
         self.event = event
@@ -55,6 +66,16 @@ class EditEventViewController: UIViewController {
         setupBannerImageGestureRecognizer()
         editEventView.prefillEventFields(event: event, eventImage: eventImage)
         self.placeViewController.selectVenueDelegate = self
+        // adds toolbar on top of textfied with done button to resing first responder
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44))
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([flexibleSpace, doneButton], animated: true)
+        editEventView.descriptionTextView.inputAccessoryView = toolBar
+    }
+    
+    @objc func doneButtonTapped() -> Void {
+        editEventView.descriptionTextView.resignFirstResponder()
     }
     
     private func setupBannerImageGestureRecognizer() {
@@ -105,12 +126,25 @@ class EditEventViewController: UIViewController {
         DatabaseService.manager.editEvent(editedEventToAdd, editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
     
         self.editDelegate?.passEditedEventBackToEventDetailVC(event: editedEventToAdd, eventImage: editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"), date: editEventView.datePicker.date)
+        if !invitedFriendsEmails.isEmpty { sendEmailInvites(event: editedEventToAdd) }
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func sendEmailInvites(event: Event) {
+        let emails = invitedFriendsEmails
+        for email in emails {
+            DatabaseService.manager.getUserProfile(withUID: FirebaseAuthService.getCurrentUser()!.uid, completion: { (user) in
+                self.mailgun.sendEmail(to: email, from: "WYD The App <whosfreetheapp@gmail.com>", subject: "You have been invited!", bodyHTML: "Hi!, \(user.firstName) \(user.lastName) invited you to an event.<br /> \(event.description) Please click <a href=\"https://httpbin.org/redirect-to?url=wyd://\(event.eventID)/\(email)\">RSVP</a> to accept the invite") { mailgunResult in
+                    if mailgunResult.success{
+                        print("Email was sent")
+                    }
+                }
+            })
+        }
     }
     
     @objc private func inviteFriendsButtonPressed() {
         print("invite friends button pressed")
-        
         let inviteFriendsVC = InviteFriendsViewController()
         let inviteFriendsNavCon = UINavigationController(rootViewController: inviteFriendsVC)
         present(inviteFriendsNavCon, animated: true, completion: nil)
@@ -136,6 +170,7 @@ extension EditEventViewController: UITableViewDataSource, UITableViewDelegate {
             
         
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == editEventView.searchResultsTableView {
             let completion = searchResults[indexPath.row]
@@ -159,7 +194,6 @@ extension EditEventViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension EditEventViewController: UISearchBarDelegate {
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchCompleter.queryFragment = searchText
         editEventView.searchResultsTableView.isHidden = false
@@ -203,6 +237,10 @@ extension EditEventViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         becomeFirstResponder()
+        if textView.textColor == Stylesheet.Colors.Gray {
+            textView.text = ""
+            textView.textColor = Stylesheet.Colors.Dark
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -210,6 +248,40 @@ extension EditEventViewController: UITextViewDelegate {
     }
 }
 
+extension EditEventViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension EditEventViewController: InviteFriendsViewControllerDelegate {
+    func didFinishAddingFriendsToEvent(_ friendsGoing: [Contact]) {
+        self.invitedFriendsFullInfo = friendsGoing
+        self.editEventView.friendsGoingCollectionView.reloadData()
+        self.invitedFriendsEmails = friendsGoing.map{$0.emailAddress!}
+    }
+}
+
+
+extension EditEventViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return invitedFriendsFullInfo.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "user going cell", for: indexPath) as! FriendsCollectionViewCell
+        let currentFriend = invitedFriendsFullInfo[indexPath.row]
+        cell.friendLabel.text = "\(currentFriend.givenName)"
+        guard let friendImageData = currentFriend.imageData else {
+            cell.friendImage.image = #imageLiteral(resourceName: "profileImagePlaceholder")
+            return cell
+        }
+        cell.friendImage.image = UIImage(data: friendImageData)
+        return cell
+    }
+    
+}
 extension EditEventViewController: SelectVenueDelegate {
     func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String, placeImageURL: String) {
         self.editEventView.searchBar.text = addrsss
