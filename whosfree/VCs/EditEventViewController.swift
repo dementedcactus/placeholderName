@@ -35,7 +35,6 @@ class EditEventViewController: UIViewController {
         }
     }
     
-    
     init(event: Event, eventImage: UIImage) {
         self.event = event
         self.eventImage = eventImage
@@ -66,12 +65,33 @@ class EditEventViewController: UIViewController {
         setupBannerImageGestureRecognizer()
         editEventView.prefillEventFields(event: event, eventImage: eventImage)
         self.placeViewController.selectVenueDelegate = self
+        self.editEventView.deleteButton.addTarget(self, action: #selector(deleteEvent), for: .touchUpInside)
         // adds toolbar on top of textfied with done button to resing first responder
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44))
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         toolBar.setItems([flexibleSpace, doneButton], animated: true)
         editEventView.descriptionTextView.inputAccessoryView = toolBar
+    }
+    
+    @objc private func deleteEvent() {
+        deleteAction(title: "Delete", message: "Are you sure you want to delete event?")
+    }
+    
+    private func deleteAction(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) {(alert) in
+            print("pressed Delete")
+            DatabaseService.manager.deleteEvent(withPostID: self.event.eventID)
+            self.navigationController?.popViewController(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(alert) in
+            print("pressed Cancel")
+        }
+        
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     @objc func doneButtonTapped() -> Void {

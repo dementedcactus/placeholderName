@@ -130,14 +130,6 @@ class EventDetailView: UIView {
         return cv
     }()
     
-    lazy var deleteButton: UIButton = {
-        let button = UIButton()
-        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
-        button.backgroundColor = .red
-        button.setTitle("Delete Event", for: .normal)
-        return button
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -165,13 +157,10 @@ class EventDetailView: UIView {
         setupDatePicker()
         setupMapView()
         setupLocationButton()
-        
         setupGoingButton()
         setupNotGoingButton()
         setupInvitedButton()
         setupCollectionView()
-        
-        setupDeleteButton()
     }
     
     private func setupScrollView() {
@@ -309,16 +298,7 @@ class EventDetailView: UIView {
         collectionView.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: goingButton.bottomAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 1).isActive = true
-    }
-    
-    private func setupDeleteButton() {
-        contentView.addSubview(deleteButton)
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.leadingAnchor.constraint(equalTo: bannerPhotoImageView.leadingAnchor).isActive = true
-        deleteButton.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
-        deleteButton.heightAnchor.constraint(equalTo: rsvpButton.heightAnchor, multiplier: 1).isActive = true
-        deleteButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor).isActive = true
-        deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
     }
 
     public func configureView(event: Event, eventImage: UIImage) {

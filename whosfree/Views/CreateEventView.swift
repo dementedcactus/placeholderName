@@ -98,6 +98,14 @@ class CreateEventView: UIView {
         return collectionView
     }()
     
+    lazy var deleteButton: UIButton = {
+        let button = UIButton()
+        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
+        button.backgroundColor = .red
+        button.setTitle("Delete Event", for: .normal)
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -125,7 +133,10 @@ class CreateEventView: UIView {
         setupInviteButton()
         setupSearchResultsTableView()
         setupFriendsGoingCollectionView()
+        setupDeleteButton()
     }
+    
+    
     
     private func setupScrollView() {
         addSubview(scrollView)
@@ -227,7 +238,17 @@ class CreateEventView: UIView {
         friendsGoingCollectionView.topAnchor.constraint(equalTo: inviteFriendsButton.bottomAnchor, constant: 5).isActive = true
         friendsGoingCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         friendsGoingCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        friendsGoingCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        //friendsGoingCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         friendsGoingCollectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25).isActive = true
+    }
+    
+    private func setupDeleteButton() {
+        contentView.addSubview(deleteButton)
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteButton.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        deleteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        deleteButton.heightAnchor.constraint(equalTo: inviteFriendsButton.heightAnchor, multiplier: 0.0).isActive = true
+        deleteButton.topAnchor.constraint(equalTo: friendsGoingCollectionView.bottomAnchor, constant: 5).isActive = true
+        deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
 }
