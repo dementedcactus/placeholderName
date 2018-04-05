@@ -77,6 +77,13 @@ class EventListViewController: UIViewController {
             }
             self.events = theEvents.sortedByTimestamp()
         }
+//        DatabaseService.manager.getMyEvents { (theEvents) in
+//            guard let theEvents = theEvents else  {
+//                print("could not get events")
+//                return
+//            }
+//            self.events = theEvents.sortedByTimestamp()
+//        }
     }
     
     private func emptyStateFunc(){

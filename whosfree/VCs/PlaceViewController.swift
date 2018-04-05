@@ -121,7 +121,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectPlaceButton.tag = indexPath.row
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.placeLabel.text = "\(indexPath.row + 1). \(place.name)"
-        cell.subtitleLabel.text = "\(place.location.address1), \(place.location.city), \(place.location.zip_code) \n\nTap for more info... "
+        cell.subtitleLabel.text = "\(place.location.address1 ?? ""), \(place.location.city), \(place.location.zip_code) \n\nTap for more info... "
         cell.selectPlaceButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         cell.selectPlaceButton.addTarget(self, action: #selector(selectVenueAction(sender:)), for: .touchUpInside)
         cell.placeImageView.kf.indicatorType = .activity
@@ -133,7 +133,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
     
     @objc func selectVenueAction(sender: UIButton!) {
         let place = placeData[sender.tag]
-        let address = "\(place.location.address1) \(place.location.city) \(place.location.zip_code)"
+        let address = "\(place.location.address1 ?? "") \(place.location.city) \(place.location.zip_code)"
         print(address)
         self.selectVenueDelegate?.passSelectedVenueAddressToCreateEventSearchBar(addrsss: address, placeImageURL: place.image_url)
         navigationController?.popViewController(animated: true)
