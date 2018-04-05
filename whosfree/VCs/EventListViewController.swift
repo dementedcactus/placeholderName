@@ -44,7 +44,12 @@ class EventListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Events"
+        //self.title = "Events"
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 70, height: 23))
+        let titleImageView = UIImageView(image: #imageLiteral(resourceName: "WYD"))
+        titleImageView.frame = CGRect(x: 5, y: 0, width: titleView.frame.width, height: titleView.frame.height)
+        titleView.addSubview(titleImageView)
+        navigationItem.titleView = titleView
         self.firebaseAuthService.delegate = self
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonAction))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(logoutAction))
