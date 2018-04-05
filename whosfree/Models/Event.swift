@@ -19,7 +19,7 @@ class Event: NSObject {
     var timestampDouble: Double
     var eventBannerImgUrl: String
     var friendsGoing: [String]?
-    var allFriendsInvited: [String]
+    var invitedFriendsEmails: [String]
     //var rsvpNo: String? //[String of user ids]
     //var rsvpMaybe: String? //[String of All invited user ids]
     //var rsvpYes: String? //[String of user ids]
@@ -64,7 +64,7 @@ class Event: NSObject {
 //        self.rsvpYes = rsvpYes
 //    }
     
-    init(eventID: String, eventName: String, ownerUserID: String, eventDescription: String, eventLocation: String, timestamp: String, eventBannerImgUrl: String, allFriendsInvited: [String], timestampDouble: Double) {
+    init(eventID: String, eventName: String, ownerUserID: String, eventDescription: String, eventLocation: String, timestamp: String, eventBannerImgUrl: String, invitedFriendsEmails: [String], timestampDouble: Double) {
         self.eventID = eventID
         self.eventName = eventName
         self.ownerUserID = ownerUserID
@@ -73,7 +73,7 @@ class Event: NSObject {
         self.timestamp = timestamp
         self.timestampDouble = timestampDouble
         self.eventBannerImgUrl = eventBannerImgUrl
-        self.allFriendsInvited = allFriendsInvited
+        self.invitedFriendsEmails = invitedFriendsEmails
     }
     
     init(dict: [String : Any]) {
@@ -85,7 +85,7 @@ class Event: NSObject {
         timestamp = dict["timestamp"] as? String ?? ""
         eventBannerImgUrl = dict["eventBannerImgUrl"] as? String ?? ""
         friendsGoing = dict["friendsGoing"] as? [String] ?? []
-        allFriendsInvited = dict["allFriendsInvited"] as? [String] ?? []
+        invitedFriendsEmails = dict["invitedFriendsEmails"] as? [String] ?? []
         timestampDouble = dict["timestampDouble"] as? Double ?? 0.0
     }
 }
