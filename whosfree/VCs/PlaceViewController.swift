@@ -52,10 +52,14 @@ class PlaceViewController: UIViewController {
             self.view.addSubview(emptyView)
             
             emptyView.translatesAutoresizingMaskIntoConstraints = false
-            emptyView.topAnchor.constraint(equalTo: placeView.locationSearchBar.bottomAnchor).isActive = true
-            emptyView.bottomAnchor.constraint(equalTo: placeView.bottomAnchor).isActive = true
-            emptyView.leadingAnchor.constraint(equalTo: placeView.leadingAnchor).isActive = true
-            emptyView.trailingAnchor.constraint(equalTo: placeView.trailingAnchor).isActive = true
+//            emptyView.topAnchor.constraint(equalTo: placeView.topAnchor).isActive = true
+//            emptyView.bottomAnchor.constraint(equalTo: placeView.bottomAnchor).isActive = true
+//            emptyView.leadingAnchor.constraint(equalTo: placeView.leadingAnchor).isActive = true
+//            emptyView.trailingAnchor.constraint(equalTo: placeView.trailingAnchor).isActive = true
+            emptyView.topAnchor.constraint(equalTo: placeView.tableView.topAnchor).isActive = true
+            emptyView.bottomAnchor.constraint(equalTo: placeView.tableView.bottomAnchor).isActive = true
+            emptyView.leadingAnchor.constraint(equalTo: placeView.tableView.leadingAnchor).isActive = true
+            emptyView.trailingAnchor.constraint(equalTo: placeView.tableView.trailingAnchor).isActive = true
         } else {
             emptyView.removeFromSuperview()
         }
@@ -76,9 +80,24 @@ class PlaceViewController: UIViewController {
         if placeView.locationSearchBar.isHidden {
             placeView.locationSearchBar.text = ""
             placeView.locationSearchBar.isHidden = false
+            placeView.tableViewTopConstraint?.isActive = false
+            placeView.tableViewTopConstraint = placeView.tableView.topAnchor.constraint(equalTo: placeView.locationSearchBar.bottomAnchor)
+            placeView.tableViewTopConstraint?.isActive = true
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
         } else {
-            placeView.locationSearchBar.text = ""
-            placeView.locationSearchBar.isHidden = true
+            //placeView.locationSearchBar.text = ""
+            //placeView.locationSearchBar.isHidden = true
+            placeView.tableViewTopConstraint?.isActive = false
+            placeView.tableViewTopConstraint = placeView.tableView.topAnchor.constraint(equalTo: placeView.safeAreaLayoutGuide.topAnchor)
+            placeView.tableViewTopConstraint?.isActive = true
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: { (bool) in
+                self.placeView.locationSearchBar.isHidden = true
+                self.placeView.locationSearchBar.text = ""
+            })
         }
 
     }
@@ -154,10 +173,14 @@ extension PlaceViewController: UISearchBarDelegate {
                             self.emptyView.emptyLabel.text = "No Results Found :("
                             self.view.addSubview(self.emptyView)
                             self.emptyView.translatesAutoresizingMaskIntoConstraints = false
-                            self.emptyView.topAnchor.constraint(equalTo: self.placeView.locationSearchBar.bottomAnchor).isActive = true
-                            self.emptyView.bottomAnchor.constraint(equalTo: self.placeView.bottomAnchor).isActive = true
-                            self.emptyView.leadingAnchor.constraint(equalTo: self.placeView.leadingAnchor).isActive = true
-                            self.emptyView.trailingAnchor.constraint(equalTo: self.placeView.trailingAnchor).isActive = true
+//                            self.emptyView.topAnchor.constraint(equalTo: self.placeView.topAnchor).isActive = true
+//                            self.emptyView.bottomAnchor.constraint(equalTo: self.placeView.bottomAnchor).isActive = true
+//                            self.emptyView.leadingAnchor.constraint(equalTo: self.placeView.leadingAnchor).isActive = true
+//                            self.emptyView.trailingAnchor.constraint(equalTo: self.placeView.trailingAnchor).isActive = true
+                            self.emptyView.topAnchor.constraint(equalTo: self.placeView.tableView.topAnchor).isActive = true
+                            self.emptyView.bottomAnchor.constraint(equalTo: self.placeView.tableView.bottomAnchor).isActive = true
+                            self.emptyView.leadingAnchor.constraint(equalTo: self.placeView.tableView.leadingAnchor).isActive = true
+                            self.emptyView.trailingAnchor.constraint(equalTo: self.placeView.tableView.trailingAnchor).isActive = true
                         }
                         self.searchActivityIndicator.isHidden = true
                         self.searchActivityIndicator.stopAnimating()
@@ -172,10 +195,14 @@ extension PlaceViewController: UISearchBarDelegate {
                     self.emptyView.emptyLabel.text = "No Results Found :("
                     self.view.addSubview(self.emptyView)
                     self.emptyView.translatesAutoresizingMaskIntoConstraints = false
-                    self.emptyView.topAnchor.constraint(equalTo: self.placeView.locationSearchBar.bottomAnchor).isActive = true
-                    self.emptyView.bottomAnchor.constraint(equalTo: self.placeView.bottomAnchor).isActive = true
-                    self.emptyView.leadingAnchor.constraint(equalTo: self.placeView.leadingAnchor).isActive = true
-                    self.emptyView.trailingAnchor.constraint(equalTo: self.placeView.trailingAnchor).isActive = true
+//                    self.emptyView.topAnchor.constraint(equalTo: self.placeView.topAnchor).isActive = true
+//                    self.emptyView.bottomAnchor.constraint(equalTo: self.placeView.bottomAnchor).isActive = true
+//                    self.emptyView.leadingAnchor.constraint(equalTo: self.placeView.leadingAnchor).isActive = true
+//                    self.emptyView.trailingAnchor.constraint(equalTo: self.placeView.trailingAnchor).isActive = true
+                    self.emptyView.topAnchor.constraint(equalTo: self.placeView.tableView.topAnchor).isActive = true
+                    self.emptyView.bottomAnchor.constraint(equalTo: self.placeView.tableView.bottomAnchor).isActive = true
+                    self.emptyView.leadingAnchor.constraint(equalTo: self.placeView.tableView.leadingAnchor).isActive = true
+                    self.emptyView.trailingAnchor.constraint(equalTo: self.placeView.tableView.trailingAnchor).isActive = true
                 }
                 self.searchActivityIndicator.isHidden = true
                 self.searchActivityIndicator.stopAnimating()

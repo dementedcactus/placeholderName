@@ -60,13 +60,15 @@ class PlaceView: UIView {
         //setupActivityIndicator()
     }
     
-    private func setupPlaceSearchBar() {
-        addSubview(placeSearchBar)
-        placeSearchBar.translatesAutoresizingMaskIntoConstraints = false
-        placeSearchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        placeSearchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        placeSearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-    }
+    var tableViewTopConstraint: NSLayoutConstraint?
+    
+//    private func setupPlaceSearchBar() {
+//        addSubview(placeSearchBar)
+//        placeSearchBar.translatesAutoresizingMaskIntoConstraints = false
+//        placeSearchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+//        placeSearchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+//        placeSearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+//    }
     
     private func setupLocationSearchBar() {
         addSubview(locationSearchBar)
@@ -76,23 +78,24 @@ class PlaceView: UIView {
         locationSearchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
-    private func setupMapView() {
-        addSubview(placesMapView)
-        placesMapView.translatesAutoresizingMaskIntoConstraints = false
-        placesMapView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        placesMapView.topAnchor.constraint(equalTo: locationSearchBar.bottomAnchor).isActive = true
-        placesMapView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        placesMapView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
-    }
-    
     private func setupTableView() {
         addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: locationSearchBar.bottomAnchor).isActive = true
+        tableViewTopConstraint = tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
+        tableViewTopConstraint?.isActive = true
         tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
+    
+    //    private func setupMapView() {
+    //        addSubview(placesMapView)
+    //        placesMapView.translatesAutoresizingMaskIntoConstraints = false
+    //        placesMapView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+    //        placesMapView.topAnchor.constraint(equalTo: locationSearchBar.bottomAnchor).isActive = true
+    //        placesMapView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+    //        placesMapView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
+    //    }
     
 //    private func setupActivityIndicator() {
 //        addSubview(activityIndicator)
