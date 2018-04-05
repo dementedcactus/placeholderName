@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Alamofire
 
 protocol SelectVenueDelegate {
     func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String, placeImageURL: String)
@@ -149,8 +150,20 @@ extension PlaceViewController: UISearchBarDelegate {
 //    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
 //        becomeFirstResponder()
 //    }
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) {alert in }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         placeData.removeAll()
+        if !NetworkReachabilityManager()!.isReachable {
+            showAlert(title: "No Network Detected", message: "Please check your internet connection")
+            searchBar.resignFirstResponder()
+            return
+        }
         placeView.tableView.separatorStyle = .none
         emptyView.removeFromSuperview()
         searchActivityIndicator.isHidden = false
