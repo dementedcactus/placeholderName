@@ -24,7 +24,7 @@ class FriendsCollectionViewCell: UICollectionViewCell {
         fLabel.numberOfLines = 0
         fLabel.textAlignment = .center
         fLabel.textColor = UIColor.white
-        fLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 20.0)!
+        fLabel.font = UIFont(name: "Avenir-Medium", size: 20.0)!
         fLabel.backgroundColor = Stylesheet.Colors.LightBlue
         return fLabel
     }()

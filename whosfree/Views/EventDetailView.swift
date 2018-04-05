@@ -43,6 +43,8 @@ class EventDetailView: UIView {
     lazy var eventTitleLabel: UILabel = {
         let label = UILabel()
         Stylesheet.Objects.Labels.PostTitle.style(label: label)
+        let font = UIFont(name: "Avenir-Heavy", size: 26)!
+        label.font = font
         label.textAlignment = .left
         return label
     }()
@@ -65,7 +67,16 @@ class EventDetailView: UIView {
         let datePicker = UIDatePicker()
         datePicker.timeZone = NSTimeZone.local
         datePicker.isUserInteractionEnabled = false
+        datePicker.isHidden = true
         return datePicker
+    }()
+    
+    lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "event date"
+        let font = UIFont(name: "Avenir-Medium", size: 20)!
+        label.font = font
+        return label
     }()
     
     lazy var mapImageView: MKMapView = {
@@ -79,6 +90,8 @@ class EventDetailView: UIView {
         let button = UIButton()
         button.setTitle("123 Fake Street", for: .normal)
         Stylesheet.Objects.Buttons.CreateButton.style(button: button)
+        let font = UIFont(name: "Avenir-Medium", size: 18)!
+        button.titleLabel?.font = font
         button.layer.cornerRadius = 0
         button.backgroundColor = UIColor(white: 0, alpha: 0.3)
         
@@ -89,21 +102,28 @@ class EventDetailView: UIView {
         let textView = UITextView()
         textView.text = "Input message here"
         Stylesheet.Objects.Textviews.Completed.style(textview: textView)
+        let font = UIFont(name: "Avenir-Medium", size: 20)!
+        textView.font = font
         return textView
     }()
     
     lazy var goingButton: UIButton = {
         let button = UIButton()
+        let font = UIFont(name: "Avenir-Medium", size: 18)!
+        button.titleLabel?.font = font
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("Going", for: .normal)
         button.backgroundColor = Stylesheet.Colors.LightBlue
         button.layer.borderWidth = 1.0
         button.layer.borderColor = UIColor.white.cgColor
+        
         return button
     }()
     
     lazy var notGoingButton: UIButton = {
         let button = UIButton()
+        let font = UIFont(name: "Avenir-Medium", size: 18)!
+        button.titleLabel?.font = font
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("Not Going", for: .normal)
         button.backgroundColor = Stylesheet.Colors.LightBlue
@@ -114,6 +134,8 @@ class EventDetailView: UIView {
     
     lazy var allInvitedButton: UIButton = {
         let button = UIButton()
+        let font = UIFont(name: "Avenir-Medium", size: 18)!
+        button.titleLabel?.font = font
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("Invited", for: .normal)
         button.backgroundColor = Stylesheet.Colors.LightBlue
@@ -154,6 +176,7 @@ class EventDetailView: UIView {
         setupEventTitle()
         setupEventTypeLabel()
         setupDatePicker()
+        setupDateLabel()
         setupDescriptionTextView()
         setupRsvpButton()
         setupMapView()
@@ -248,6 +271,16 @@ class EventDetailView: UIView {
         datePicker.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1.3).isActive = true
     }
     
+    private func setupDateLabel() {
+        contentView.addSubview(dateLabel)
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.topAnchor.constraint(equalTo: datePicker.topAnchor).isActive = true
+        dateLabel.heightAnchor.constraint(equalTo: datePicker.heightAnchor).isActive = true
+        dateLabel.widthAnchor.constraint(equalTo: datePicker.widthAnchor).isActive = true
+        dateLabel.leadingAnchor.constraint(equalTo: datePicker.leadingAnchor, constant: 8).isActive = true
+        
+    }
+    
     private func setupMapView() {
         contentView.addSubview(mapImageView)
         mapImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -307,6 +340,7 @@ class EventDetailView: UIView {
         bannerPhotoImageView.kf.setImage(with: URL(string: event.eventBannerImgUrl), placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
         }
         eventTitleLabel.text = event.eventName
+        dateLabel.text = event.timestamp
         locationButton.setTitle(event.eventLocation, for: .normal)
         descriptionTextView.text = event.eventDescription
         datePicker.date = Date.init(timeIntervalSince1970: event.timestampDouble)
