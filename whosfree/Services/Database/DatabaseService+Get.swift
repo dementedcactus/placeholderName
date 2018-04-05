@@ -156,8 +156,8 @@ extension DatabaseService {
                     completion(nil)
                     return
                 }
-                guard let allFriendsInvited = savedEventDictionary["allFriendsInvited"] as? [String] else {
-                    let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: [], timestampDouble: timestampDouble)
+                guard let invitedFriendsEmails = savedEventDictionary["invitedFriendsEmails"] as? [String] else {
+                    let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, invitedFriendsEmails: [], timestampDouble: timestampDouble)
                     eventArrayToReturn.append(event)
                     continue
                 }
@@ -174,8 +174,68 @@ extension DatabaseService {
 //                    return
 //                }
                 
-                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: allFriendsInvited, timestampDouble: timestampDouble)
+                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, invitedFriendsEmails: invitedFriendsEmails, timestampDouble: timestampDouble)
                 eventArrayToReturn.append(event)
+            }
+            completion(eventArrayToReturn)
+        }
+    }
+    
+    
+    func getMyEvents(completion: @escaping ([Event]?) -> Void) {
+        eventsRef.observe(.value) { (dataSnapshot) in
+            guard let arrayOfAllEventsSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
+                print("could not get children snapshots")
+                completion(nil)
+                return
+            }
+            var eventArrayToReturn: [Event] = [] // This is the empty events array that will be filled by the completion handler
+            for postSnapshot in arrayOfAllEventsSnapshot {
+                guard let savedEventDictionary = postSnapshot.value as? [String : Any] else {
+                    print("could not get saved events dict")
+                    completion(nil)
+                    return
+                }
+                guard let eventID = savedEventDictionary["eventID"] as? String else {
+                    completion(nil)
+                    return
+                }
+                guard let eventName = savedEventDictionary["eventName"] as? String else {
+                    completion(nil)
+                    return
+                }
+                guard let ownerUserID = savedEventDictionary["ownerUserID"] as? String else {
+                    completion(nil)
+                    return
+                }
+                guard let eventDescription = savedEventDictionary["eventDescription"] as? String else {
+                    completion(nil)
+                    return
+                }
+                guard let eventLocation = savedEventDictionary["eventLocation"] as? String else {
+                    completion(nil)
+                    return
+                }
+                guard let timestamp = savedEventDictionary["timestamp"] as? String else {
+                    completion(nil)
+                    return
+                }
+                guard let eventBannerImgUrl = savedEventDictionary["eventBannerImgUrl"] as? String else {
+                    completion(nil)
+                    return
+                }
+                guard let timestampDouble = savedEventDictionary["timestampDouble"] as? Double else {
+                    completion(nil)
+                    return
+                }
+                guard let invitedFriendsEmails = savedEventDictionary["invitedFriendsEmails"] as? [String] else {
+                    let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, invitedFriendsEmails: [], timestampDouble: timestampDouble)
+                    eventArrayToReturn.append(event)
+                    continue
+                }
+                
+                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, invitedFriendsEmails: invitedFriendsEmails, timestampDouble: timestampDouble)
+                if event.invitedFriendsEmails.contains(FirebaseAuthService.getCurrentUser()!.email!) { eventArrayToReturn.append(event) }
             }
             completion(eventArrayToReturn)
         }
@@ -223,12 +283,12 @@ extension DatabaseService {
                 return
             }
             guard let allFriendsInvited = savedEventDictionary["allFriendsInvited"] as? [String] else {
-                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: [], timestampDouble: timestampDouble)
+                let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, invitedFriendsEmails: [], timestampDouble: timestampDouble)
                 completion(event)
                 return
             }
             
-            let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, allFriendsInvited: allFriendsInvited, timestampDouble: timestampDouble)
+            let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, invitedFriendsEmails: allFriendsInvited, timestampDouble: timestampDouble)
             completion(event)
         }
     }
