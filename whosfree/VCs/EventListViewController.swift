@@ -156,6 +156,12 @@ extension EventListViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         cell.eventDateAndTimeLabel.text = "\(event.timestamp.description)  "
         cell.eventTitleLabel.text = " \(event.eventName)"
+        DatabaseService.manager.getUserFriendsGoing(eventID: event.eventID) { (going) in
+            DatabaseService.manager.getAllUserFriendsInvited(eventID: event.eventID, completionHandler: { (invited) in
+                cell.goingNotGoingLabel.text = "\(going!.count)/\(invited!.count)"
+            })
+        }
+        //cell.goingNotGoingLabel.text = "\(event.friendsGoing?.count.description ?? "1")/\(event.allFriendsInvited.count)"
         cell.eventBannerPhotoImageView.kf.indicatorType = .activity
         cell.eventBannerPhotoImageView.kf.setImage(with: URL(string: event.eventBannerImgUrl), placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
             cell.setNeedsLayout()
