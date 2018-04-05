@@ -23,6 +23,8 @@ class ChatView: UIView {
         let textView = UITextView()
         textView.text = "Input message here"
         Stylesheet.Objects.Textviews.Editable.style(textview: textView)
+        let font = UIFont(name: "Avenir-Medium", size: 16)!
+        textView.font = font
         textView.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .vertical) // This tells the textview to be as big as its content
         textView.isScrollEnabled = false // The textview won't expand if it can scroll
         return textView
@@ -33,6 +35,8 @@ class ChatView: UIView {
         button.setTitle("Send", for: .normal)
         button.backgroundColor = .green
         Stylesheet.Objects.Buttons.CreateButton.style(button: button)
+        let font = UIFont(name: "Avenir-Medium", size: 16)!
+        button.titleLabel?.font = font
         return button
     }()
     
