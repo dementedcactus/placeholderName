@@ -20,11 +20,11 @@ class EventTableViewCell: UITableViewCell {
     lazy var eventTitleLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Event Title"
-        lb.textAlignment = .center
+        lb.textAlignment = .left
         lb.textColor = .white
-        lb.font = .boldSystemFont(ofSize: 17)
+        lb.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 25)
         lb.numberOfLines = 0
-        lb.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        lb.backgroundColor = UIColor(white: 0, alpha: 0.5)
         return lb
     }()
     
@@ -34,9 +34,9 @@ class EventTableViewCell: UITableViewCell {
         lb.text = "eventDate eventTime"
         lb.textAlignment = .center
         lb.textColor = .white
-        lb.font = .boldSystemFont(ofSize: 17)
+        lb.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
         lb.numberOfLines = 0
-        lb.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        lb.backgroundColor = UIColor(white: 0, alpha: 0.5)
         return lb
     }()
     
@@ -60,6 +60,24 @@ class EventTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    lazy var peopleImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "userGroup")
+        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    
+    lazy var goingNotGoingLabel: UILabel = {
+        let lb = UILabel()
+        lb.textColor = .white
+        lb.text = "3/3"
+        lb.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 18)
+        lb.numberOfLines = 0
+        return lb
+    }()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style , reuseIdentifier: "EventCell")
         setupAndConstrainObjects()
@@ -70,28 +88,31 @@ class EventTableViewCell: UITableViewCell {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
+        eventTitleLabel.layer.cornerRadius = 4
+        eventDateAndTimeLabel.layer.cornerRadius = 4
+        eventTitleLabel.layer.masksToBounds = true
+        eventDateAndTimeLabel.layer.masksToBounds = true
+        
         setupAndConstrainObjects()
     }
     private func setupAndConstrainObjects(){
         contentView.addSubview(containerView)
         containerView.addSubview(eventBannerPhotoImageView)
         containerView.addSubview(eventTitleLabel)
-        //containerView.addSubview(placeholderIconImageView)
         containerView.addSubview(eventDateAndTimeLabel)
         
         //ARRAY MUST BE IN ORDER!!
-        //let eventCellObjects = [containerView, eventBannerPhotoImageView, eventTitleLabel, placeholderIconImageView, eventDateAndTimeLabel] as [UIView]
-        let eventCellObjects = [containerView, eventBannerPhotoImageView, eventTitleLabel, eventDateAndTimeLabel] as [UIView]
+        let eventCellObjects = [containerView, eventBannerPhotoImageView, eventTitleLabel, eventDateAndTimeLabel, peopleImageView, goingNotGoingLabel] as [UIView]
         
         eventCellObjects.forEach {addSubview($0); ($0).translatesAutoresizingMaskIntoConstraints = false}
         
         NSLayoutConstraint.activate([
             
             //containerView
-            containerView.topAnchor.constraint(equalTo: self.topAnchor),
-            containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
+            containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4),
+            containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
+            containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -4),
             
             //eventBannerPhotoImageView
             eventBannerPhotoImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
@@ -106,21 +127,33 @@ class EventTableViewCell: UITableViewCell {
             eventTitleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             eventTitleLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.2),
 
-            //placeholderIconImageView
-//            placeholderIconImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
-//            placeholderIconImageView.bottomAnchor.constraint(equalTo: eventTitleLabel.topAnchor),
-//            placeholderIconImageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-//            placeholderIconImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.4),
-
             //eventDateAndTimeLabel
-//            eventDateAndTimeLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-//            eventDateAndTimeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-//            eventDateAndTimeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.25)
             eventDateAndTimeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            eventDateAndTimeLabel.bottomAnchor.constraint(equalTo: eventTitleLabel.topAnchor)
+            eventDateAndTimeLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
+            
+            
+            peopleImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
+            peopleImageView.centerYAnchor.constraint(equalTo: eventTitleLabel.centerYAnchor),
+            peopleImageView.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 0.75),
+            peopleImageView.widthAnchor.constraint(equalTo: peopleImageView.heightAnchor),
+            
+            goingNotGoingLabel.trailingAnchor.constraint(equalTo: peopleImageView.leadingAnchor, constant: -8),
+            goingNotGoingLabel.bottomAnchor.constraint(equalTo: peopleImageView.bottomAnchor)
+            //goingNotGoingLabel.centerYAnchor.constraint(equalTo: eventTitleLabel.centerYAnchor)
+            
             ])
+        //setupBlurEffectView()
         
     }
     
+    private func setupBlurEffectView() {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let titleVisualEffect = UIVisualEffectView(frame: eventTitleLabel.frame)
+        titleVisualEffect.effect = blurEffect
+        addSubview(titleVisualEffect)
+        let dateVisualEffect = UIVisualEffectView(frame: eventDateAndTimeLabel.frame)
+        dateVisualEffect.effect = blurEffect
+        addSubview(dateVisualEffect)
+    }
 }
 

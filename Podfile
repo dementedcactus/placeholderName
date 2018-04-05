@@ -16,6 +16,8 @@ target 'whosfree' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
+  pod 'SwiftMailgun'
+  pod 'Toucan'
 
   target 'whosfreeTests' do
     inherit! :search_paths

@@ -48,7 +48,8 @@ class SignInContainerView: UIView {
     
     lazy var emailLoginTextField: UITextField = {
         let textField = UITextField()
-        textField.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        //textField.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        textField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 15)
         textField.placeholder = "Enter e-mail address"
         textField.textAlignment = .center
         textField.text = "luiscalle@ac.c4q.nyc"
@@ -58,12 +59,14 @@ class SignInContainerView: UIView {
         textField.textColor = .black
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
+        textField.keyboardType = .emailAddress
         return textField
     }()
     
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        //textField.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        textField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 15)
         textField.placeholder = "Enter password"
         textField.textAlignment = .center
         textField.text = "123456"
@@ -71,13 +74,15 @@ class SignInContainerView: UIView {
         textField.layer.borderColor = UIColor.black.cgColor
         textField.isSecureTextEntry = true
         textField.textColor = .black
+        textField.keyboardType = .emailAddress
         return textField
     }()
     
     lazy var loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("Login", for: .normal)
-        button.titleLabel!.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        //button.titleLabel!.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 16)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .groupTableViewBackground
         button.layer.cornerRadius = 4
@@ -88,7 +93,8 @@ class SignInContainerView: UIView {
     lazy var forgotPasswordButton: UIButton = {
         let button = UIButton()
         button.setTitle("Forgot password?", for: .normal)
-        button.titleLabel!.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
+        //button.titleLabel!.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         button.setTitleColor(.blue, for: .normal)
         button.backgroundColor = .clear
         return button

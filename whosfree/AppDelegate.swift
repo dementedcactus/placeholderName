@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
+        Database.database().isPersistenceEnabled = true
         
 //        let loginVC = SignInViewController()
 //        let navController = UINavigationController(rootViewController: loginVC)
@@ -60,6 +61,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
+
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
+        print("url \(url)")
+        print("url host :\(url.host!)")
+        print("url path :\(url.path.replacingOccurrences(of: "/", with: ""))")
+        
+        let _ : String = url.path.replacingOccurrences(of: "/", with: "") as String!
+        let urlHost : String = url.host!.replacingOccurrences(of: "/", with: "") as String!
+        
+        let eventListVC = EventListViewController()
+        let eventListNavCon = UINavigationController(rootViewController: eventListVC)
+        DatabaseService.manager.getEvent(with: urlHost) { (event) in
+            guard let event = event else {
+                print("Could not get event details")
+                return
+            }
+            let eventDetailViewController = EventDetailViewController(event: event, eventImage: #imageLiteral(resourceName: "placeholder"))
+            eventListNavCon.pushViewController(eventDetailViewController, animated: true)
+        }
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = eventListNavCon
+        window?.makeKeyAndVisible()
+        return true
+    }
+    
 
     // MARK: - Core Data stack
 

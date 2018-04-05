@@ -33,13 +33,12 @@ class TheatersViewController: UIViewController {
         theatersView.theatersTableView.delegate = self
         theatersView.theatersTableView.dataSource = self
         configureNavBar()
-        TheaterAPIClient.manager.getTheaters(with: "11385", and: "5", success: { self.theaters = $0 }, failure: { print($0) })
+        //TheaterAPIClient.manager.getTheaters(with: "11385", and: "5", success: { self.theaters = $0 }, failure: { print($0) })
     }
     
     private func configureNavBar() {
         navigationItem.titleView = theatersView.theaterSearchBar
     }
-    
 }
 
 extension TheatersViewController: UITableViewDataSource {
@@ -58,8 +57,12 @@ extension TheatersViewController: UITableViewDataSource {
 extension TheatersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let theaterShowtimesVC = TheaterShowtimesViewController(theater: theaters[indexPath.row])
-        navigationController?.pushViewController(theaterShowtimesVC, animated: true)
+        let components = Calendar.current.dateComponents([.year, .month, .day], from: theatersView.movieDatePicker.date)
+        if let day = components.day, let month = components.month, let year = components.year {
+            print("\(year)-\(month)-\(day)")
+            let theaterShowtimesVC = TheaterShowtimesViewController(theater: theaters[indexPath.row], dateString: "\(year)-\(month)-\(day)")
+            navigationController?.pushViewController(theaterShowtimesVC, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -71,6 +74,8 @@ extension TheatersViewController: UITableViewDelegate {
 extension TheatersViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         zipcodeStr = searchBar.text!
+        theatersView.movieDatePicker.isHidden = false
+        searchBar.resignFirstResponder()
     }
 }
 

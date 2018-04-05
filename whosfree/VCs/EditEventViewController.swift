@@ -8,16 +8,32 @@
 
 import UIKit
 import MapKit
+import MessageUI
+import SwiftMailgun
+import Kingfisher
+
+protocol EditDelegate {
+    func passEditedEventBackToEventDetailVC(event: Event, eventImage: UIImage, date: Date)
+}
 
 class EditEventViewController: UIViewController {
-
+    
+    var editDelegate: EditDelegate?
+    let placeViewController = PlaceViewController()
     let editEventView = EditEventView()
-    var categories = ["Venue", "Movie", "Other"]
+    var categories = ["Place", "Movie"]
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     var searchSource: [String]?
     var event: Event!
     var eventImage: UIImage!
+    let mailgun = MailgunAPI(apiKey: "key-bf07275afe8c378ffe986d09c7b6f8a2", clientDomain: "sandbox5df72c43c441463fa8f7bcfdc4139162.mailgun.org")
+    var invitedFriendsFullInfo = [Contact]()
+    var invitedFriendsEmails = [String]() {
+        didSet {
+            dump(invitedFriendsEmails)
+        }
+    }
     
     init(event: Event, eventImage: UIImage) {
         self.event = event
@@ -36,8 +52,6 @@ class EditEventViewController: UIViewController {
         self.view.addSubview(editEventView)
         
         // Delegates
-        self.editEventView.tableView.dataSource = self
-        self.editEventView.tableView.delegate = self
         self.editEventView.searchResultsTableView.dataSource = self
         self.editEventView.searchResultsTableView.delegate = self
         self.editEventView.descriptionTextView.delegate = self
@@ -50,6 +64,38 @@ class EditEventViewController: UIViewController {
         setupViewButtons()
         setupBannerImageGestureRecognizer()
         editEventView.prefillEventFields(event: event, eventImage: eventImage)
+        self.placeViewController.selectVenueDelegate = self
+        self.editEventView.deleteButton.addTarget(self, action: #selector(deleteEvent), for: .touchUpInside)
+        // adds toolbar on top of textfied with done button to resing first responder
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44))
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([flexibleSpace, doneButton], animated: true)
+        editEventView.descriptionTextView.inputAccessoryView = toolBar
+    }
+    
+    @objc private func deleteEvent() {
+        deleteAction(title: "Delete", message: "Are you sure you want to delete event?")
+    }
+    
+    private func deleteAction(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) {(alert) in
+            print("pressed Delete")
+            DatabaseService.manager.deleteEvent(withPostID: self.event.eventID)
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(alert) in
+            print("pressed Cancel")
+        }
+        
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc func doneButtonTapped() -> Void {
+        editEventView.descriptionTextView.resignFirstResponder()
     }
     
     private func setupBannerImageGestureRecognizer() {
@@ -79,8 +125,7 @@ class EditEventViewController: UIViewController {
     
     private func setupNavBarButtons() {
         self.title = "Edit Event"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButtonPressed))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelButtonPressed))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(editButtonPressed))
     }
     
     private func setupViewButtons() {
@@ -95,25 +140,31 @@ class EditEventViewController: UIViewController {
         let ownerUserID = event.ownerUserID //FirebaseAuthService.getCurrentUser()!.uid
         let eventDescription = editEventView.descriptionTextView.text!
         let eventLocation = editEventView.searchBar.text!
-        let componenets = Calendar.current.dateComponents([.year, .month, .day], from: editEventView.datePicker.date)
-        if let day = componenets.day, let month = componenets.month, let year = componenets.year {
-            print("\(day) \(month) \(year)")
-        }
-        let timestamp = event.timestamp //Date.timeIntervalSinceReferenceDate
-        let editedEventToAdd = Event(eventID: eventId, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "")
+        let timestamp = CreateEventViewController().formatDate(with: editEventView.datePicker.date)
+        
+        let editedEventToAdd = Event(eventID: eventId, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "", allFriendsInvited: [], timestampDouble: editEventView.datePicker.date.timeIntervalSince1970)
         DatabaseService.manager.editEvent(editedEventToAdd, editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"))
-        dismiss(animated: true, completion: nil)
+    
+        self.editDelegate?.passEditedEventBackToEventDetailVC(event: editedEventToAdd, eventImage: editEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "park"), date: editEventView.datePicker.date)
+        if !invitedFriendsEmails.isEmpty { sendEmailInvites(event: editedEventToAdd) }
+        self.navigationController?.popViewController(animated: true)
     }
     
-    @objc private func cancelButtonPressed() {
-        self.dismiss(animated: true, completion: nil)
-        print("Cancel create event pressed")
+    private func sendEmailInvites(event: Event) {
+        let emails = invitedFriendsEmails
+        for email in emails {
+            DatabaseService.manager.getUserProfile(withUID: FirebaseAuthService.getCurrentUser()!.uid, completion: { (user) in
+                self.mailgun.sendEmail(to: email, from: "WYD The App <whosfreetheapp@gmail.com>", subject: "You have been invited!", bodyHTML: "Hi!, \(user.firstName) \(user.lastName) invited you to an event.<br /> \(event.description) Please click <a href=\"https://httpbin.org/redirect-to?url=wyd://\(event.eventID)/\(email)\">RSVP</a> to accept the invite") { mailgunResult in
+                    if mailgunResult.success{
+                        print("Email was sent")
+                    }
+                }
+            })
+        }
     }
     
     @objc private func inviteFriendsButtonPressed() {
         print("invite friends button pressed")
-        // TODO: Present User's Contacts and let user send a text to selected contacts
-        
         let inviteFriendsVC = InviteFriendsViewController()
         let inviteFriendsNavCon = UINavigationController(rootViewController: inviteFriendsVC)
         present(inviteFriendsNavCon, animated: true, completion: nil)
@@ -121,58 +172,25 @@ class EditEventViewController: UIViewController {
     
     @objc private func categoryButtonAction(sender: UIButton!) {
         print("Button tapped")
-        if editEventView.tableView.isHidden == true {
-            editEventView.tableView.isHidden = false
-            animateCategoryTV()
-            editEventView.datePicker.isEnabled = false
-        } else {
-            editEventView.tableView.isHidden = true
-            editEventView.datePicker.isEnabled = true
-        }
-    }
-    
-    private func animateCategoryTV() {
-        editEventView.tableView.reloadData()
-        let cells = editEventView.tableView.visibleCells
-        let tableViewHeight = editEventView.tableView.bounds.size.height
-        for cell in cells {
-            cell.transform = CGAffineTransform(translationX: 0, y: -tableViewHeight)
-        }
-        var delayCounter:Double = 0
-        for cell in cells {
-            UIView.animate(withDuration: 1.25, delay: delayCounter * 0.05, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                cell.transform = CGAffineTransform.identity
-            }, completion: nil)
-            delayCounter += 0.5
-        }
+        navigationController?.pushViewController(placeViewController, animated: true)
     }
     
 }
 extension EditEventViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == editEventView.tableView {
-            return categories.count
-        } else {
             return searchResults.count
-        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if tableView == editEventView.tableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "EventTypeCell", for: indexPath) as! EventTypeTableViewCell
-            let data = categories[indexPath.row]
-            
-            cell.eventTypeLabel.text = data
-            return cell
-        } else {
             let cell = editEventView.searchResultsTableView.dequeueReusableCell(withIdentifier: "SearchResultsCell", for: indexPath)
             let searchResult = searchResults[indexPath.row]
             cell.textLabel?.text = "\(searchResult.title) \(searchResult.subtitle)"
             return cell
             
-        }
+        
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == editEventView.searchResultsTableView {
             let completion = searchResults[indexPath.row]
@@ -180,7 +198,7 @@ extension EditEventViewController: UITableViewDataSource, UITableViewDelegate {
             let searchRequest = MKLocalSearchRequest(completion: completion)
             let search = MKLocalSearch(request: searchRequest)
             search.start{ (response, error) in
-                let coordinate = response?.mapItems[0].placemark.coordinate
+                _ = response?.mapItems[0].placemark.coordinate
                 //print(response?.mapItems)
                 
                 self.editEventView.searchBar.text = "\(cellText)"
@@ -189,35 +207,13 @@ extension EditEventViewController: UITableViewDataSource, UITableViewDelegate {
             self.editEventView.searchResultsTableView.reloadData()
             editEventView.searchResultsTableView.isHidden = true
             print("hidden")
-        } else if tableView == editEventView.tableView {
-            let category = categories[indexPath.row]
-            editEventView.eventTypeButton.setTitle(category, for: .normal)
-            editEventView.tableView.isHidden = true
-            editEventView.datePicker.isEnabled = true
-            switch category {
-            case "Venue":
-                // seque venue
-                print("Clicked Venue")
-                let venueViewController = VenueViewController()
-                navigationController?.pushViewController(venueViewController, animated: true)
-            case "Movie":
-                //segue movie
-                print("Clicked Movie")
-                let theatersViewController = TheatersViewController()
-                navigationController?.pushViewController(theatersViewController, animated: true)
-            case "Other":
-                print("Clicked Other")
-            default:
-                print("Do nothing")
-            }
-        }
+        } 
     }
     
     
 }
 
 extension EditEventViewController: UISearchBarDelegate {
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchCompleter.queryFragment = searchText
         editEventView.searchResultsTableView.isHidden = false
@@ -261,6 +257,10 @@ extension EditEventViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         becomeFirstResponder()
+        if textView.textColor == Stylesheet.Colors.Gray {
+            textView.text = ""
+            textView.textColor = Stylesheet.Colors.Dark
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -268,5 +268,45 @@ extension EditEventViewController: UITextViewDelegate {
     }
 }
 
+extension EditEventViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension EditEventViewController: InviteFriendsViewControllerDelegate {
+    func didFinishAddingFriendsToEvent(_ friendsGoing: [Contact]) {
+        self.invitedFriendsFullInfo = friendsGoing
+        self.editEventView.friendsGoingCollectionView.reloadData()
+        self.invitedFriendsEmails = friendsGoing.map{$0.emailAddress!}
+    }
+}
+
+
+extension EditEventViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return invitedFriendsFullInfo.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "user going cell", for: indexPath) as! FriendsCollectionViewCell
+        let currentFriend = invitedFriendsFullInfo[indexPath.row]
+        cell.friendLabel.text = "\(currentFriend.givenName)"
+        guard let friendImageData = currentFriend.imageData else {
+            cell.friendImage.image = #imageLiteral(resourceName: "profileImagePlaceholder")
+            return cell
+        }
+        cell.friendImage.image = UIImage(data: friendImageData)
+        return cell
+    }
+    
+}
+extension EditEventViewController: SelectVenueDelegate {
+    func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String, placeImageURL: String) {
+        self.editEventView.searchBar.text = addrsss
+        self.editEventView.bannerPhotoImageView.kf.setImage(with: URL(string: placeImageURL))
+    }
+}
 
 

@@ -22,6 +22,8 @@ class EventListViewController: UIViewController {
     
     let firebaseAuthService =  FirebaseAuthService()
     
+    let emptyView = EmptyStateView(emptyText: "No events yet!")
+    
     @objc private func handleRefresh(_ refreshControl: UIRefreshControl) {
         self.eventListView.tableView.reloadData()
         refreshControl.endRefreshing() //TODO: This should trigger at the end of any API calls
@@ -35,13 +37,19 @@ class EventListViewController: UIViewController {
         didSet {
             DispatchQueue.main.async {
                 self.eventListView.tableView.reloadData()
+                self.emptyStateFunc()
             }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Events"
+        //self.title = "Events"
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 70, height: 23))
+        let titleImageView = UIImageView(image: #imageLiteral(resourceName: "WYD"))
+        titleImageView.frame = CGRect(x: 5, y: 0, width: titleView.frame.width, height: titleView.frame.height)
+        titleView.addSubview(titleImageView)
+        navigationItem.titleView = titleView
         self.firebaseAuthService.delegate = self
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEventButtonAction))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(logoutAction))
@@ -67,7 +75,28 @@ class EventListViewController: UIViewController {
                 print("could not get events")
                 return
             }
-            self.events = theEvents
+            self.events = theEvents.sortedByTimestamp()
+        }
+//        DatabaseService.manager.getMyEvents { (theEvents) in
+//            guard let theEvents = theEvents else  {
+//                print("could not get events")
+//                return
+//            }
+//            self.events = theEvents.sortedByTimestamp()
+//        }
+    }
+    
+    private func emptyStateFunc(){
+        if events.isEmpty {
+            self.view.addSubview(emptyView)
+            
+            emptyView.translatesAutoresizingMaskIntoConstraints = false
+            emptyView.topAnchor.constraint(equalTo: eventListView.safeAreaLayoutGuide.topAnchor).isActive = true
+            emptyView.bottomAnchor.constraint(equalTo: eventListView.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            emptyView.leadingAnchor.constraint(equalTo: eventListView.safeAreaLayoutGuide.leadingAnchor).isActive = true
+            emptyView.trailingAnchor.constraint(equalTo: eventListView.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        } else {
+            emptyView.removeFromSuperview()
         }
     }
     
@@ -133,10 +162,20 @@ extension EventListViewController: UITableViewDataSource {
         let event = events[indexPath.row]
 //        cell.eventDateAndTimeLabel.text = "Date \(testData): Time \(testData)"
 //        cell.eventTitleLabel.text = "Event \(testData)"
-        cell.eventDateAndTimeLabel.text = event.timestamp.description
-        cell.eventTitleLabel.text = event.eventName
+        
+        cell.layer.borderWidth = 0.5
+        cell.layer.borderColor = UIColor.darkText.cgColor
+        cell.selectionStyle = .none
+        cell.eventDateAndTimeLabel.text = "\(event.timestamp.description)  "
+        cell.eventTitleLabel.text = " \(event.eventName)"
+        DatabaseService.manager.getUserFriendsGoing(eventID: event.eventID) { (going) in
+            DatabaseService.manager.getAllUserFriendsInvited(eventID: event.eventID, completionHandler: { (invited) in
+                cell.goingNotGoingLabel.text = "\(going!.count)/\(invited!.count)"
+            })
+        }
+        //cell.goingNotGoingLabel.text = "\(event.friendsGoing?.count.description ?? "1")/\(event.allFriendsInvited.count)"
         cell.eventBannerPhotoImageView.kf.indicatorType = .activity
-        cell.eventBannerPhotoImageView.kf.setImage(with: URL(string: event.eventBannerImgUrl), placeholder: nil, options: nil, progressBlock: nil) { (image, error, cache, url) in
+        cell.eventBannerPhotoImageView.kf.setImage(with: URL(string: event.eventBannerImgUrl), placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
             cell.setNeedsLayout()
         }
 

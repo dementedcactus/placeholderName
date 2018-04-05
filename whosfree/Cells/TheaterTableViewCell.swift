@@ -8,9 +8,7 @@
 //
 
 import UIKit
-//import SnapKit
 
-// TODO: Try cell with image on top just a little and labels in bottom and no snapkit
 class TheaterTableViewCell: UITableViewCell {
     
     lazy var theaterImageView: UIImageView = {

@@ -47,8 +47,8 @@ class InviteFriendsViewController: UIViewController {
         //Delegates
         inviteFriendsView.tableView.delegate = self
         inviteFriendsView.tableView.dataSource = self
-        inviteFriendsView.tableView.estimatedRowHeight = 80
-        inviteFriendsView.tableView.rowHeight = UITableViewAutomaticDimension
+        //inviteFriendsView.tableView.estimatedRowHeight = 80
+        //inviteFriendsView.tableView.rowHeight = UITableViewAutomaticDimension
         inviteFriendsView.friendSearchbBar.delegate = self
         loadContactsFromPhone()
     }
@@ -84,7 +84,11 @@ class InviteFriendsViewController: UIViewController {
                     imageData = imageDataUnwrapped
                 }
                 let theContact = Contact(givenName: givenName, middleName: middleName, familyName: familyName, nameSuffix: nameSuffix, location: location, birthday: birthday, emailAddress: emailAddress, phoneNumber: phoneNumber, imageData: imageData)
+                if theContact.emailAddress == FirebaseAuthService.getCurrentUser()?.email {
+                    return
+                }
                 self.contacts.append(theContact)
+                self.contacts.sort{$0.givenName < $1.givenName}
             }
             inviteFriendsView.tableView.reloadData()
         }
@@ -135,6 +139,10 @@ extension InviteFriendsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //TODO: segue to userProfile. Bonus.
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
 }
 extension InviteFriendsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -161,15 +169,11 @@ extension InviteFriendsViewController: ExistingFriendsTableViewCellDelegate {
         if invitedContacts.contains(where: { (contact) -> Bool in
             return contact == contactToAddToEvent
         }) {
-            showAlert(title: "Error", message: "Friend already added to event")
+            invitedContacts = invitedContacts.filter{ $0.phoneNumber != contactToAddToEvent.phoneNumber }
             return
         }
-        //let cell = inviteFriendsView.tableView.cellForRow(at: IndexPath(row: tag, section: 0)) as! ExistingFriendsTableViewCell
-        //cell.inviteButton.setTitle("Invited", for: .normal)
-        //dump(invitedContacts)
-        invitedContacts.append(contactToAddToEvent)
 
-        showAlert(title: "Success", message: "Friend \(contactToAddToEvent.givenName) added to event list")
+        invitedContacts.append(contactToAddToEvent)
     }
 }
 

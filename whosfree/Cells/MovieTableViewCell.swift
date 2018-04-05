@@ -18,7 +18,6 @@ class MovieTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupAndConstrainObjects()
-        
     }
     
     override func layoutSubviews() {
@@ -29,5 +28,4 @@ class MovieTableViewCell: UITableViewCell {
     private func setupAndConstrainObjects(){
         
     }
-
 }

@@ -38,19 +38,45 @@ class ExistingFriendsTableViewCell: UITableViewCell {
         return lb
     }()
     
-    //inviteButton
+    //emailInviteButton
     lazy var inviteButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Invite Friend", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(red: 0.263, green: 0.353, blue: 0.576, alpha: 1.00)
-        button.layer.borderWidth = 1
+        button.setImage(#imageLiteral(resourceName: "emailiconblue2"), for: .normal)
         button.addTarget(self, action: #selector(addFriendToInviteListPressed), for: .touchUpInside)
         return button
     }()
     
+    //smsInviteButton
+    lazy var smsInviteButton: UIButton = {
+        let button = UIButton()
+        button.setImage(#imageLiteral(resourceName: "smsicon"), for: .normal)
+        button.addTarget(self, action: #selector(addFriendToSMSInviteListPressed), for: .touchUpInside)
+        //TODO: Switch to SMS Action then Enable
+        //button.isEnabled = false
+        return button
+    }()
+    
     @objc private func addFriendToInviteListPressed() {
+        UIView.transition(with: inviteButton, duration: 0.3, options: .transitionFlipFromLeft, animations: {
+            if self.inviteButton.imageView?.image == #imageLiteral(resourceName: "friendAddedButton") {
+                self.inviteButton.setImage(#imageLiteral(resourceName: "emailiconblue2"), for: .normal)
+            } else {
+                self.inviteButton.setImage(#imageLiteral(resourceName: "friendAddedButton"), for: .normal)
+            }
+        }, completion: nil)
         delegate?.addedFriendToInviteList(self.tag)
+    }
+    
+    @objc private func addFriendToSMSInviteListPressed() {
+        // TODO Make this actually send SMS
+        UIView.transition(with: smsInviteButton, duration: 0.3, options: .transitionFlipFromLeft, animations: {
+            if self.smsInviteButton.imageView?.image == #imageLiteral(resourceName: "friendAddedButton") {
+                self.smsInviteButton.setImage(#imageLiteral(resourceName: "smsicon"), for: .normal)
+            } else {
+                self.smsInviteButton.setImage(#imageLiteral(resourceName: "friendAddedButton"), for: .normal)
+            }
+        }, completion: nil)
+        //delegate?.addedFriendToInviteList(self.tag)
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -74,40 +100,43 @@ class ExistingFriendsTableViewCell: UITableViewCell {
     private func setupObjects(){
         addSubview(userPhotoImageView)
         addSubview(inviteButton)
+        addSubview(smsInviteButton)
         addSubview(usernameLabel)
     }
     
     private func constrainObjects() {
         
         //ARRAY MUST BE IN ORDER!!
-        let friendCellObjects = [userPhotoImageView,inviteButton,usernameLabel] as [UIView]
+        let friendCellObjects = [userPhotoImageView,inviteButton,smsInviteButton,usernameLabel] as [UIView]
         
         friendCellObjects.forEach {addSubview($0); ($0).translatesAutoresizingMaskIntoConstraints = false}
         
         NSLayoutConstraint.activate([
-            //userPhotoImageView
+            
             userPhotoImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             userPhotoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            userPhotoImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.2),
-            userPhotoImageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.2),
-            userPhotoImageView.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor),
-            userPhotoImageView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor),
+            userPhotoImageView.topAnchor.constraint(equalTo: self.topAnchor),
+            userPhotoImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            userPhotoImageView.widthAnchor.constraint(equalTo: userPhotoImageView.heightAnchor),
             
             //inviteButton
             inviteButton.centerYAnchor.constraint(equalTo: self.userPhotoImageView.centerYAnchor),
-            inviteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
-            inviteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
-            inviteButton.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3),
-            inviteButton.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor, constant: 5),
-            inviteButton.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant: -5),
+            inviteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
+            inviteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            inviteButton.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
+            
+            //smsInviteButton
+            smsInviteButton.centerYAnchor.constraint(equalTo: self.userPhotoImageView.centerYAnchor),
+            smsInviteButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
+            smsInviteButton.trailingAnchor.constraint(equalTo: inviteButton.leadingAnchor, constant: -8),
+            smsInviteButton.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1),
             
             //usernameLabel
             usernameLabel.centerYAnchor.constraint(equalTo: self.inviteButton.centerYAnchor),
-            usernameLabel.trailingAnchor.constraint(equalTo: self.inviteButton.leadingAnchor, constant: -5),
+            usernameLabel.leadingAnchor.constraint(equalTo: self.userPhotoImageView.trailingAnchor, constant: 5),
             usernameLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.3)
             
             ])
     }
-    
 }
 
