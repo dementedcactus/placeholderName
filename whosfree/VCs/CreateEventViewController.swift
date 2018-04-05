@@ -10,6 +10,7 @@ import MapKit
 import MessageUI
 import SwiftMailgun
 import Kingfisher
+import Alamofire
 
 class CreateEventViewController: UIViewController {
     
@@ -34,6 +35,13 @@ class CreateEventViewController: UIViewController {
     let childByAutoId = DatabaseService.manager.getEvents().childByAutoId()
     
     let eventBannerImagePicker = UIImagePickerController()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if !NetworkReachabilityManager()!.isReachable {
+            showAlert(title: "No Network Connection", message: "Please check your network connection")
+            return
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,10 +137,12 @@ class CreateEventViewController: UIViewController {
             showAlert(title: "Please add a location", message: "How are your guests going to know where to meet if you don't tell them the location??")
             return
         }
+        
         let eventToAdd = Event(eventID: childByAutoId.key, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "", allFriendsInvited: invitedFriendsEmails, timestampDouble: createEventView.datePicker.date.timeIntervalSince1970)
         DatabaseService.manager.addEvent(eventToAdd, createEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "placeholder"))
         if !invitedFriendsEmails.isEmpty { sendEmailInvites(event: eventToAdd) }
         dismiss(animated: true, completion: nil)
+            
     }
     
     public func formatDate(with date: Date) -> String {

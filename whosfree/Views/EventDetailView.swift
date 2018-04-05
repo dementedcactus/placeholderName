@@ -43,6 +43,7 @@ class EventDetailView: UIView {
     lazy var eventTitleLabel: UILabel = {
         let label = UILabel()
         Stylesheet.Objects.Labels.PostTitle.style(label: label)
+        label.textAlignment = .left
         return label
     }()
     
@@ -152,9 +153,9 @@ class EventDetailView: UIView {
         setupEditButton()
         setupEventTitle()
         setupEventTypeLabel()
+        setupDatePicker()
         setupDescriptionTextView()
         setupRsvpButton()
-        setupDatePicker()
         setupMapView()
         setupLocationButton()
         setupGoingButton()
@@ -203,7 +204,7 @@ class EventDetailView: UIView {
     private func setupEventTitle() {
         contentView.addSubview(eventTitleLabel)
         eventTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        eventTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        eventTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
         eventTitleLabel.topAnchor.constraint(equalTo: bannerPhotoImageView.bottomAnchor).isActive = true
         eventTitleLabel.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 0.25).isActive = true
         eventTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
@@ -224,7 +225,7 @@ class EventDetailView: UIView {
         contentView.addSubview(descriptionTextView)
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        descriptionTextView.topAnchor.constraint(equalTo: eventTypeLabel.bottomAnchor, constant: 5).isActive = true
+        descriptionTextView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 8).isActive = true
         descriptionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         descriptionTextView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 1).isActive = true
     }
@@ -242,9 +243,9 @@ class EventDetailView: UIView {
         contentView.addSubview(datePicker)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        datePicker.topAnchor.constraint(equalTo: rsvpButton.bottomAnchor).isActive = true
+        datePicker.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor).isActive = true
         datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        datePicker.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1.1).isActive = true
+        datePicker.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1.3).isActive = true
     }
     
     private func setupMapView() {
@@ -252,7 +253,7 @@ class EventDetailView: UIView {
         mapImageView.translatesAutoresizingMaskIntoConstraints = false
         mapImageView.leadingAnchor.constraint(equalTo: bannerPhotoImageView.leadingAnchor).isActive = true
         mapImageView.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
-        mapImageView.topAnchor.constraint(equalTo: datePicker.bottomAnchor).isActive = true
+        mapImageView.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor).isActive = true
         mapImageView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor).isActive = true
     }
     
