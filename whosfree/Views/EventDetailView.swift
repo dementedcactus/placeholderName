@@ -286,7 +286,7 @@ class EventDetailView: UIView {
         mapImageView.translatesAutoresizingMaskIntoConstraints = false
         mapImageView.leadingAnchor.constraint(equalTo: bannerPhotoImageView.leadingAnchor).isActive = true
         mapImageView.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
-        mapImageView.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor).isActive = true
+        mapImageView.topAnchor.constraint(equalTo: rsvpButton.bottomAnchor, constant: 5).isActive = true
         mapImageView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor).isActive = true
     }
     
