@@ -1,0 +1,6 @@
+framework module Pods_whosfree {
+  umbrella header "Pods-whosfree-umbrella.h"
+
+  export *
+  module * { export * }
+}

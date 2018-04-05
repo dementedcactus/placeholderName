@@ -24,12 +24,17 @@ class ChatTableViewCell: UITableViewCell {
     lazy var usernameLabel: UILabel = {
         let label = UILabel()
         Stylesheet.Objects.Labels.LabelRight.style(label: label)
+        let font = UIFont(name: "Avenir-Medium", size: 18)!
+        label.font = font
+
         return label
     }()
     
     lazy var dateLabel: UILabel = {
         let label = UILabel()
         Stylesheet.Objects.Labels.DateLabelRight.style(label: label)
+        let font = UIFont(name: "Avenir-Medium", size: 14)!
+        label.font = font
         return label
     }()
     
@@ -48,12 +53,16 @@ class ChatTableViewCell: UITableViewCell {
     lazy var leftUsernameLabel: UILabel = {
         let label = UILabel()
         Stylesheet.Objects.Labels.LabelLeft.style(label: label)
+        let font = UIFont(name: "Avenir-Medium", size: 18)!
+        label.font = font
         return label
     }()
     
     lazy var leftDateLabel: UILabel = {
         let label = UILabel()
         Stylesheet.Objects.Labels.DateLabelLeft.style(label: label)
+        let font = UIFont(name: "Avenir-Medium", size: 14)!
+        label.font = font
         return label
     }()
     
@@ -61,6 +70,8 @@ class ChatTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = " "
         Stylesheet.Objects.Labels.CommentLabelLeft.style(label: label)
+        let font = UIFont(name: "Avenir-Medium", size: 20)!
+        label.font = font
         return label
     }()
     

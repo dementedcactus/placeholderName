@@ -16,7 +16,7 @@ class EventListViewController: UIViewController {
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(EventListViewController.handleRefresh(_:)), for: UIControlEvents.valueChanged)
-        refreshControl.tintColor = UIColor.red
+        refreshControl.tintColor = Stylesheet.Colors.azure
         return refreshControl
     }()
     
@@ -77,6 +77,13 @@ class EventListViewController: UIViewController {
             }
             self.events = theEvents.sortedByTimestamp()
         }
+//        DatabaseService.manager.getMyEvents { (theEvents) in
+//            guard let theEvents = theEvents else  {
+//                print("could not get events")
+//                return
+//            }
+//            self.events = theEvents.sortedByTimestamp()
+//        }
     }
     
     private func emptyStateFunc(){
