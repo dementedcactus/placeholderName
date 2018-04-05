@@ -16,7 +16,7 @@ class EventListViewController: UIViewController {
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(EventListViewController.handleRefresh(_:)), for: UIControlEvents.valueChanged)
-        refreshControl.tintColor = UIColor.red
+        refreshControl.tintColor = Stylesheet.Colors.azure
         return refreshControl
     }()
     
