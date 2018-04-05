@@ -117,6 +117,18 @@ class CreateEventViewController: UIViewController {
 //            print("\(day) \(month) \(year)")
 //            timestamp = "\(day) \(month) \(year)"
 //        }
+        if eventName == "" {
+            showAlert(title: "No Title", message: "Please name your event")
+            return
+        }
+        if eventDescription == "" {
+            showAlert(title: "No event description", message: "Please add an event description so your guests know what's happening!")
+            return
+        }
+        if eventLocation == "" {
+            showAlert(title: "Please add a location", message: "How are your guests going to know where to meet if you don't tell them the location??")
+            return
+        }
         let eventToAdd = Event(eventID: childByAutoId.key, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: "", allFriendsInvited: invitedFriendsEmails, timestampDouble: createEventView.datePicker.date.timeIntervalSince1970)
         DatabaseService.manager.addEvent(eventToAdd, createEventView.bannerPhotoImageView.image ?? #imageLiteral(resourceName: "placeholder"))
         if !invitedFriendsEmails.isEmpty { sendEmailInvites(event: eventToAdd) }
