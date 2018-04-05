@@ -102,6 +102,10 @@ class CreateEventViewController: UIViewController {
     
     private func setupNavBarButtons() {
         self.title = "Create Event"
+        let attrs = [
+            NSAttributedStringKey.font: UIFont(name: "Avenir-Heavy", size: 20)!
+        ]
+        UINavigationBar.appearance().titleTextAttributes = attrs
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Create", style: .done, target: self, action: #selector(createButtonPressed))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelButtonPressed))
     }
