@@ -13,7 +13,7 @@ import Contacts
 class EventDetailViewController: UIViewController {
 
     let eventDetailView = EventDetailView()
-    lazy var editVC = EditEventViewController(event: event, eventImage: eventImage)
+    //lazy var editVC = EditEventViewController(event: event, eventImage: eventImage)
     let dummyData = ["test1 title", "test2 title", "test3 title", "test4 title", "test5 title"]
     private let cellSpacing: CGFloat =  5.0
     var coordinate: CLLocationCoordinate2D?
@@ -47,7 +47,6 @@ class EventDetailViewController: UIViewController {
         self.eventDetailView.collectionView.dataSource = self
         self.eventDetailView.collectionView.delegate = self
         self.eventDetailView.rsvpButton.addTarget(self, action: #selector(rsvp), for: .touchUpInside)
-        self.eventDetailView.deleteButton.addTarget(self, action: #selector(deleteEvent), for: .touchUpInside)
         self.eventDetailView.editButton.addTarget(self, action: #selector(editEvent), for: .touchUpInside)
         self.eventDetailView.locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
         eventDetailView.mapImageView.delegate = self
@@ -55,7 +54,7 @@ class EventDetailViewController: UIViewController {
         configureNavBar()
         eventDetailView.configureView(event: event, eventImage: eventImage)
         configureScrollView(event: event)
-        editVC.editDelegate = self
+        //editVC.editDelegate = self
         loadContactsFromPhone()
         eventDetailView.goingButton.addTarget(self, action: #selector(showGoing), for: .touchUpInside)
         eventDetailView.notGoingButton.addTarget(self, action: #selector(showNotGoing), for: .touchUpInside)
@@ -63,11 +62,9 @@ class EventDetailViewController: UIViewController {
         showAllInvited()
         //If the currently logged in user is NOT the owner of the event
         if event.ownerUserID != FirebaseAuthService.getCurrentUser()!.uid {
-            self.eventDetailView.deleteButton.isHidden = true
             self.eventDetailView.editButton.isHidden = true
         } else {
             self.eventDetailView.rsvpButton.setTitle("Going", for: .normal)
-            self.eventDetailView.deleteButton.isHidden = false
             self.eventDetailView.editButton.isHidden = false
         }
     }
@@ -293,6 +290,8 @@ class EventDetailViewController: UIViewController {
     }
     
     @objc private func editEvent() {
+        let editVC = EditEventViewController(event: event, eventImage: eventImage)
+        editVC.editDelegate = self
         navigationController?.pushViewController(editVC, animated: false)
     }
     

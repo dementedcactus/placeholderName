@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 protocol SelectVenueDelegate {
     func passSelectedVenueAddressToCreateEventSearchBar(addrsss: String, placeImageURL: String)
@@ -14,19 +15,31 @@ protocol SelectVenueDelegate {
 
 class PlaceViewController: UIViewController {
     
+    var zipCode: String = "11385"
+    
+    var searchActivityIndicator: UIActivityIndicatorView!
+    
     var selectVenueDelegate: SelectVenueDelegate?
-    let emptyView = EmptyStateView(emptyText: "Use the Searchbars Above to find a Place!")
+    let emptyView = EmptyStateView(emptyText: "Use the Searchbar Above to find a Place!")
     let placeView = PlaceView()
     var placeData = [Place]() {
         didSet {
             placeView.tableView.reloadData()
-            emptyStateFunc()
+            //emptyStateFunc()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let _ = LocationService.manager.checkForLocationServices()
+
         setupView()
+        
+        searchActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        searchActivityIndicator.center = view.center
+        searchActivityIndicator.isHidden = true
+        view.addSubview(searchActivityIndicator)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,11 +63,24 @@ class PlaceViewController: UIViewController {
     
     private func setupView(){
         self.view.addSubview(placeView)
+        navigationItem.titleView = placeView.placeSearchBar
         placeView.tableView.dataSource = self
         placeView.tableView.delegate = self
         placeView.placeSearchBar.delegate = self
         placeView.locationSearchBar.delegate = self
         placeView.tableView.rowHeight = UITableViewAutomaticDimension
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "marker"), style: .done, target: self, action: #selector(showLocationSearchbar))
+    }
+    
+    @objc private func showLocationSearchbar() {
+        if placeView.locationSearchBar.isHidden {
+            placeView.locationSearchBar.text = ""
+            placeView.locationSearchBar.isHidden = false
+        } else {
+            placeView.locationSearchBar.text = ""
+            placeView.locationSearchBar.isHidden = true
+        }
+
     }
     
 }
@@ -75,7 +101,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectPlaceButton.tag = indexPath.row
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.placeLabel.text = "\(indexPath.row + 1). \(place.name)"
-        cell.subtitleLabel.text = "\(place.location.address1) \(place.location.city) \(place.location.zip_code) \n\nTap for more info... "
+        cell.subtitleLabel.text = "\(place.location.address1), \(place.location.city), \(place.location.zip_code) \n\nTap for more info... "
         cell.selectPlaceButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         cell.selectPlaceButton.addTarget(self, action: #selector(selectVenueAction(sender:)), for: .touchUpInside)
         cell.placeImageView.kf.indicatorType = .activity
@@ -101,24 +127,62 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 extension PlaceViewController: UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        becomeFirstResponder()
-    }
+//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+//        becomeFirstResponder()
+//    }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if searchBar == placeView.placeSearchBar {
-            placeView.locationSearchBar.becomeFirstResponder()
-            return
-        }
-        if placeView.placeSearchBar.text == "" || placeView.locationSearchBar.text == "" {
-            let alertView = UIAlertController(title: "Please enter text into both search fields", message: nil, preferredStyle: .alert)
-            let ok = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-            alertView.addAction(ok)
-            present(alertView, animated: true, completion: nil)
+        placeData.removeAll()
+        placeView.tableView.separatorStyle = .none
+        emptyView.removeFromSuperview()
+        searchActivityIndicator.isHidden = false
+        searchActivityIndicator.startAnimating()
+        
+        if placeView.locationSearchBar.text == "" {
+            let geocoder: CLGeocoder = CLGeocoder()
+            let userLocation: CLLocation = CLLocation(latitude: LocationService.manager.getCurrentLatitude()!, longitude: LocationService.manager.getCurrentLongitude()!)
+            geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
+                if error != nil {
+                    print("reverse geodcode fail: \(error!.localizedDescription)")
+                }
+                let pm = placemarks! as [CLPlacemark]
+                if pm.count > 0 {
+                    let pm = placemarks![0]
+                    print(pm.postalCode!)
+                    PlaceAPIClient.manager.getPlaces(with: self.placeView.placeSearchBar.text!, and: pm.postalCode!, success: { (venueData) in
+                        self.placeData = venueData
+                        if venueData.count == 0 {
+                            self.emptyView.emptyLabel.text = "No Results Found :("
+                            self.view.addSubview(self.emptyView)
+                            self.emptyView.translatesAutoresizingMaskIntoConstraints = false
+                            self.emptyView.topAnchor.constraint(equalTo: self.placeView.locationSearchBar.bottomAnchor).isActive = true
+                            self.emptyView.bottomAnchor.constraint(equalTo: self.placeView.bottomAnchor).isActive = true
+                            self.emptyView.leadingAnchor.constraint(equalTo: self.placeView.leadingAnchor).isActive = true
+                            self.emptyView.trailingAnchor.constraint(equalTo: self.placeView.trailingAnchor).isActive = true
+                        }
+                        self.searchActivityIndicator.isHidden = true
+                        self.searchActivityIndicator.stopAnimating()
+                        self.placeView.tableView.separatorStyle = .singleLine
+                    }, failure: {print($0)})
+                }
+            }
         } else {
-            PlaceAPIClient.manager.getPlaces(with: placeView.placeSearchBar.text!, and: placeView.locationSearchBar.text!, success: { (venueData) in
+            PlaceAPIClient.manager.getPlaces(with: self.placeView.placeSearchBar.text!, and: self.placeView.locationSearchBar.text!, success: { (venueData) in
                 self.placeData = venueData
+                if venueData.count == 0 {
+                    self.emptyView.emptyLabel.text = "No Results Found :("
+                    self.view.addSubview(self.emptyView)
+                    self.emptyView.translatesAutoresizingMaskIntoConstraints = false
+                    self.emptyView.topAnchor.constraint(equalTo: self.placeView.locationSearchBar.bottomAnchor).isActive = true
+                    self.emptyView.bottomAnchor.constraint(equalTo: self.placeView.bottomAnchor).isActive = true
+                    self.emptyView.leadingAnchor.constraint(equalTo: self.placeView.leadingAnchor).isActive = true
+                    self.emptyView.trailingAnchor.constraint(equalTo: self.placeView.trailingAnchor).isActive = true
+                }
+                self.searchActivityIndicator.isHidden = true
+                self.searchActivityIndicator.stopAnimating()
+                self.placeView.tableView.separatorStyle = .singleLine
             }, failure: {print($0)})
         }
+        
         searchBar.resignFirstResponder()
     }
 }

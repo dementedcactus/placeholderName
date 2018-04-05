@@ -14,6 +14,7 @@ class TheaterShowtimesViewController: UIViewController, SFSafariViewControllerDe
     var theaterShowtimesView = TheaterShowtimesView()
     
     var theater: Theater
+    var dateString: String
     
     var movieShowtimes = [MovieShowtimes]() {
         didSet {
@@ -24,8 +25,9 @@ class TheaterShowtimesViewController: UIViewController, SFSafariViewControllerDe
         }
     }
     
-    init(theater: Theater) {
+    init(theater: Theater, dateString: String) {
         self.theater = theater
+        self.dateString = dateString
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,7 +41,7 @@ class TheaterShowtimesViewController: UIViewController, SFSafariViewControllerDe
         theaterShowtimesView.showtimesTableView.delegate = self
         theaterShowtimesView.showtimesTableView.dataSource = self
         navigationItem.title = theater.name
-        ShowtimeAPIClient.manager.getShowtimes(with: theater.theatreId, and: "2018-03-23", and: "1", success: { self.movieShowtimes = $0 }, failure: { print($0) })
+        ShowtimeAPIClient.manager.getShowtimes(with: theater.theatreId, and: dateString, and: "1", success: { self.movieShowtimes = $0 }, failure: { print($0) })
     }
     
 }
@@ -76,6 +78,7 @@ extension TheaterShowtimesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "showtime cell", for: indexPath)
+        cell.selectionStyle = .none
         let section = indexPath.section
         let row = indexPath.row
         let currentShowtime: Showtime = movieShowtimes[section].showtimes[row]
