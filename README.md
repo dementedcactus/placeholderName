@@ -64,7 +64,7 @@ It is possible to sideload this project app into your iOS device by following th
 * [Toucan](https://github.com/gavinbunney/Toucan)
 
 ## Authors 
- * **Luis Calle** - [Github](https://github.com/Luch0)
- * **Richard Crichlow** - [Github](https://github.com/dementedcactus)
- * **Lisa Jiang** - [Github](https://github.com/NYCgirlLearnsToCode)
- * **Maryann Yin** - [Github](https://github.com/myin125)
+ * **Luis Calle** - [Github](https://github.com/Luch0), [LinkedIn](https://www.linkedin.com/in/luismcalle)
+ * **Richard Crichlow** - [Github](https://github.com/dementedcactus), [LinkedIn](https://www.linkedin.com/in/richard-crichlow-9082b74/)
+ * **Lisa Jiang** - [Github](https://github.com/NYCgirlLearnsToCode), [LinkedIn](https://www.linkedin.com/in/lljiang/)
+ * **Maryann Yin** - [Github](https://github.com/myin125), [LinkedIn](https://www.linkedin.com/in/maryannyin/)
