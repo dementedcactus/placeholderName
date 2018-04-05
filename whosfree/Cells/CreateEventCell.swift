@@ -9,14 +9,6 @@
 import UIKit
 
 class CreateEventCell: UITableViewCell {
-
-//    lazy var bannerPhotoImageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.clipsToBounds = true
-//        imageView.image = #imageLiteral(resourceName: "venuePlaceHolder")
-//        return imageView
-//    }()
     
     lazy var line: UIView = {
         let view = UIView()
@@ -52,8 +44,6 @@ class CreateEventCell: UITableViewCell {
         button.setTitleColor(UIColor.white, for: .normal)
         button.contentHorizontalAlignment = .left
         button.layer.cornerRadius = 10
-
-        //        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
         return button
     }()
     
@@ -82,7 +72,6 @@ class CreateEventCell: UITableViewCell {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SearchResultsCell")
         tableView.isHidden = true
-        //tableView.backgroundColor = .blue
         return tableView
     }()
     
@@ -91,7 +80,6 @@ class CreateEventCell: UITableViewCell {
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("   Invite Friends", for: .normal)
         button.contentHorizontalAlignment = .left
-        //button.setImage(#imageLiteral(resourceName: "profilePlaceholder"), for: .normal)
         button.imageView?.contentMode = UIViewContentMode.scaleAspectFit
         button.backgroundColor = Stylesheet.Colors.azure
         button.layer.cornerRadius = 10.0
@@ -104,7 +92,6 @@ class CreateEventCell: UITableViewCell {
         textView.layer.borderColor = Stylesheet.Colors.azure.cgColor
         textView.layer.borderWidth = 0.1
         textView.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        //textView.backgroundColor = .yellow
         return textView
     }()
     
@@ -119,7 +106,6 @@ class CreateEventCell: UITableViewCell {
     
     private func setupViews() {
         setupEventTitle()
-        //setupDescripLine()
         setupEventTypeButton()
         setupDatePicker()
         setupSearchBar()
@@ -128,7 +114,6 @@ class CreateEventCell: UITableViewCell {
         setupDescriptionTextView()
         setupSearchResultsTableView()
     }
-    
     
     private func setupEventTitle() {
         addSubview(eventTitleTextField)
@@ -208,6 +193,4 @@ class CreateEventCell: UITableViewCell {
         searchResultsTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         searchResultsTableView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.3).isActive = true
     }
-
-
 }

@@ -23,13 +23,6 @@ class EventDetailView: UIView {
         return view
     }()
     
-    lazy var mapImageView: MKMapView = {
-        let mapView = MKMapView()
-        mapView.isScrollEnabled = false
-        mapView.isZoomEnabled = false
-        return mapView
-    }()
-    
     lazy var editButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "edit"), for: .normal)
@@ -50,6 +43,9 @@ class EventDetailView: UIView {
     lazy var eventTitleLabel: UILabel = {
         let label = UILabel()
         Stylesheet.Objects.Labels.PostTitle.style(label: label)
+        let font = UIFont(name: "Avenir-Heavy", size: 26)!
+        label.font = font
+        label.textAlignment = .left
         return label
     }()
     
@@ -71,14 +67,34 @@ class EventDetailView: UIView {
         let datePicker = UIDatePicker()
         datePicker.timeZone = NSTimeZone.local
         datePicker.isUserInteractionEnabled = false
+        datePicker.isHidden = true
         return datePicker
+    }()
+    
+    lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "event date"
+        let font = UIFont(name: "Avenir-Medium", size: 20)!
+        label.font = font
+        return label
+    }()
+    
+    lazy var mapImageView: MKMapView = {
+        let mapView = MKMapView()
+        mapView.isScrollEnabled = false
+        mapView.isZoomEnabled = false
+        return mapView
     }()
     
     lazy var locationButton: UIButton = {
         let button = UIButton()
         button.setTitle("123 Fake Street", for: .normal)
         Stylesheet.Objects.Buttons.CreateButton.style(button: button)
+        let font = UIFont(name: "Avenir-Medium", size: 18)!
+        button.titleLabel?.font = font
         button.layer.cornerRadius = 0
+        button.backgroundColor = UIColor(white: 0, alpha: 0.3)
+        
         return button
     }()
     
@@ -86,39 +102,45 @@ class EventDetailView: UIView {
         let textView = UITextView()
         textView.text = "Input message here"
         Stylesheet.Objects.Textviews.Completed.style(textview: textView)
+        let font = UIFont(name: "Avenir-Medium", size: 20)!
+        textView.font = font
         return textView
     }()
     
     lazy var goingButton: UIButton = {
         let button = UIButton()
+        let font = UIFont(name: "Avenir-Medium", size: 18)!
+        button.titleLabel?.font = font
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("Going", for: .normal)
         button.backgroundColor = Stylesheet.Colors.LightBlue
-        //button.layer.cornerRadius = 10.0
         button.layer.borderWidth = 1.0
         button.layer.borderColor = UIColor.white.cgColor
+        
         return button
     }()
     
     lazy var notGoingButton: UIButton = {
         let button = UIButton()
+        let font = UIFont(name: "Avenir-Medium", size: 18)!
+        button.titleLabel?.font = font
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("Not Going", for: .normal)
         button.backgroundColor = Stylesheet.Colors.LightBlue
         button.layer.borderWidth = 1.0
         button.layer.borderColor = UIColor.white.cgColor
-        // button.layer.cornerRadius = 10.0
         return button
     }()
     
     lazy var allInvitedButton: UIButton = {
         let button = UIButton()
+        let font = UIFont(name: "Avenir-Medium", size: 18)!
+        button.titleLabel?.font = font
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitle("Invited", for: .normal)
         button.backgroundColor = Stylesheet.Colors.LightBlue
         button.layer.borderWidth = 1.0
         button.layer.borderColor = UIColor.white.cgColor
-        //button.layer.cornerRadius = 10.0
         return button
     }()
     
@@ -131,20 +153,9 @@ class EventDetailView: UIView {
         return cv
     }()
     
-    lazy var deleteButton: UIButton = {
-        let button = UIButton()
-        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
-        button.backgroundColor = .red
-        button.setTitle("Delete Event", for: .normal)
-        return button
-    }()
-    
-    
-    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -164,19 +175,17 @@ class EventDetailView: UIView {
         setupEditButton()
         setupEventTitle()
         setupEventTypeLabel()
-        setupRsvpButton()
         setupDatePicker()
+        setupDateLabel()
+        setupDescriptionTextView()
+        setupRsvpButton()
         setupMapView()
         setupLocationButton()
-        setupDescriptionTextView()
-        setupCollectionView()
         setupGoingButton()
         setupNotGoingButton()
         setupInvitedButton()
-        setupDeleteButton()
+        setupCollectionView()
     }
-    
-    
     
     private func setupScrollView() {
         addSubview(scrollView)
@@ -218,10 +227,10 @@ class EventDetailView: UIView {
     private func setupEventTitle() {
         contentView.addSubview(eventTitleLabel)
         eventTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        eventTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        eventTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
         eventTitleLabel.topAnchor.constraint(equalTo: bannerPhotoImageView.bottomAnchor).isActive = true
         eventTitleLabel.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 0.25).isActive = true
-        eventTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        //eventTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         eventTitleLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1).isActive = true
     }
     
@@ -231,14 +240,24 @@ class EventDetailView: UIView {
         eventTypeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         eventTypeLabel.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor).isActive = true
         eventTypeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        eventTypeLabel.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1).isActive = true
+        //eventTypeLabel.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1).isActive = true //TODO: Implement later when multiple event types are added
+        eventTypeLabel.heightAnchor.constraint(equalToConstant: 0).isActive = true
+    }
+    
+    private func setupDescriptionTextView() {
+        contentView.addSubview(descriptionTextView)
+        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
+        descriptionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        descriptionTextView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 8).isActive = true
+        descriptionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        descriptionTextView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 1).isActive = true
     }
     
     private func setupRsvpButton() {
         contentView.addSubview(rsvpButton)
         rsvpButton.translatesAutoresizingMaskIntoConstraints = false
         rsvpButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        rsvpButton.topAnchor.constraint(equalTo: eventTypeLabel.bottomAnchor, constant: 5).isActive = true
+        rsvpButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 5).isActive = true
         rsvpButton.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1).isActive = true
         rsvpButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.7).isActive = true
     }
@@ -247,9 +266,19 @@ class EventDetailView: UIView {
         contentView.addSubview(datePicker)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        datePicker.topAnchor.constraint(equalTo: rsvpButton.bottomAnchor).isActive = true
+        datePicker.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor).isActive = true
         datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        datePicker.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.10).isActive = true
+        datePicker.heightAnchor.constraint(equalTo: eventTitleLabel.heightAnchor, multiplier: 1.3).isActive = true
+    }
+    
+    private func setupDateLabel() {
+        contentView.addSubview(dateLabel)
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.topAnchor.constraint(equalTo: datePicker.topAnchor).isActive = true
+        dateLabel.heightAnchor.constraint(equalTo: datePicker.heightAnchor).isActive = true
+        dateLabel.widthAnchor.constraint(equalTo: datePicker.widthAnchor).isActive = true
+        dateLabel.leadingAnchor.constraint(equalTo: datePicker.leadingAnchor, constant: 8).isActive = true
+        
     }
     
     private func setupMapView() {
@@ -257,44 +286,25 @@ class EventDetailView: UIView {
         mapImageView.translatesAutoresizingMaskIntoConstraints = false
         mapImageView.leadingAnchor.constraint(equalTo: bannerPhotoImageView.leadingAnchor).isActive = true
         mapImageView.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
-        mapImageView.topAnchor.constraint(equalTo: datePicker.bottomAnchor).isActive = true
+        mapImageView.topAnchor.constraint(equalTo: rsvpButton.bottomAnchor, constant: 5).isActive = true
         mapImageView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor).isActive = true
-        
     }
     
     private func setupLocationButton() {
         contentView.addSubview(locationButton)
         locationButton.translatesAutoresizingMaskIntoConstraints = false
         locationButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        locationButton.topAnchor.constraint(equalTo: mapImageView.bottomAnchor).isActive = true
+        locationButton.bottomAnchor.constraint(equalTo: mapImageView.bottomAnchor).isActive = true
         locationButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        locationButton.heightAnchor.constraint(equalTo: rsvpButton.heightAnchor, multiplier: 1.1).isActive = true
-    }
-    
-    private func setupDescriptionTextView() {
-        contentView.addSubview(descriptionTextView)
-        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        descriptionTextView.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 5).isActive = true
-        descriptionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        descriptionTextView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 1).isActive = true
-    }
-    
-    private func setupCollectionView() {
-        contentView.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
-        collectionView.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor).isActive = true
-        //collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 1).isActive = true
+        locationButton.heightAnchor.constraint(equalTo: rsvpButton.heightAnchor, multiplier: 0.9).isActive = true
     }
     
     private func setupGoingButton() {
         contentView.addSubview(goingButton)
         goingButton.translatesAutoresizingMaskIntoConstraints = false
         goingButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        goingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        //goingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        goingButton.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 1).isActive = true
         goingButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.33).isActive = true
     }
     
@@ -302,35 +312,35 @@ class EventDetailView: UIView {
         contentView.addSubview(notGoingButton)
         notGoingButton.translatesAutoresizingMaskIntoConstraints = false
         notGoingButton.leadingAnchor.constraint(equalTo: goingButton.trailingAnchor).isActive = true
-        notGoingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        //notGoingButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        notGoingButton.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 1).isActive = true
         notGoingButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.34).isActive = true
     }
-
     
     private func setupInvitedButton() {
         contentView.addSubview(allInvitedButton)
         allInvitedButton.translatesAutoresizingMaskIntoConstraints = false
         allInvitedButton.leadingAnchor.constraint(equalTo: notGoingButton.trailingAnchor).isActive = true
-        allInvitedButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        //allInvitedButton.bottomAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+        allInvitedButton.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 1).isActive = true
         allInvitedButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.33).isActive = true
     }
-    
-    private func setupDeleteButton() {
-        contentView.addSubview(deleteButton)
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.leadingAnchor.constraint(equalTo: bannerPhotoImageView.leadingAnchor).isActive = true
-        deleteButton.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
-        deleteButton.heightAnchor.constraint(equalTo: rsvpButton.heightAnchor, multiplier: 1).isActive = true
-        deleteButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor).isActive = true
-        deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    private func setupCollectionView() {
+        contentView.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: bannerPhotoImageView.trailingAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: goingButton.bottomAnchor).isActive = true
+        collectionView.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 1).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
     }
 
     public func configureView(event: Event, eventImage: UIImage) {
-        //bannerPhotoImageView.image = eventImage
         bannerPhotoImageView.kf.indicatorType = .activity
         bannerPhotoImageView.kf.setImage(with: URL(string: event.eventBannerImgUrl), placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
         }
         eventTitleLabel.text = event.eventName
+        dateLabel.text = event.timestamp
         locationButton.setTitle(event.eventLocation, for: .normal)
         descriptionTextView.text = event.eventDescription
         datePicker.date = Date.init(timeIntervalSince1970: event.timestampDouble)

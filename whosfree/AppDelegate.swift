@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
+        Database.database().isPersistenceEnabled = true
         
 //        let loginVC = SignInViewController()
 //        let navController = UINavigationController(rootViewController: loginVC)
@@ -68,10 +69,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("url host :\(url.host!)")
         print("url path :\(url.path.replacingOccurrences(of: "/", with: ""))")
         
-        let urlPath : String = url.path.replacingOccurrences(of: "/", with: "") as String!
+        let _ : String = url.path.replacingOccurrences(of: "/", with: "") as String!
         let urlHost : String = url.host!.replacingOccurrences(of: "/", with: "") as String!
-        
-        //DatabaseService.manager.addInvitedUserThatAccepted(to: urlHost, with: urlPath)
         
         let eventListVC = EventListViewController()
         let eventListNavCon = UINavigationController(rootViewController: eventListVC)

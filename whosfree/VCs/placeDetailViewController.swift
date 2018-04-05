@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 protocol SelectDetailVenueDelegate {
-    func passSelectedDetailVenueAddressToCreateEventSearchBar(addrsss: String)
+    func passSelectedDetailVenueAddressToCreateEventSearchBar(addrsss: String, placeImageURL: String)
 }
 
 class placeDetailViewController: UIViewController {
@@ -65,9 +65,9 @@ class placeDetailViewController: UIViewController {
     
     @objc private func selectPlace() {
         print("select place clicked")
-        let address = "\(place.location.address1) \(place.location.city) \(place.location.zip_code)"
+        let address = "\(place.location.address1 ?? "") \(place.location.city) \(place.location.zip_code)"
         // delegate that uses Richards delegate to put location info on searchbar
-        selectDetailVenueDelegate?.passSelectedDetailVenueAddressToCreateEventSearchBar(addrsss: address)
+        selectDetailVenueDelegate?.passSelectedDetailVenueAddressToCreateEventSearchBar(addrsss: address, placeImageURL: place.image_url)
         navigationController?.popToRootViewController(animated: true)
     }
     

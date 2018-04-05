@@ -41,6 +41,11 @@ class ChatViewController: UIViewController {
         chatView.textView.inputAccessoryView = toolBar
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        chatView.textView.becomeFirstResponder()
+    }
+    
     @objc func doneButtonTapped() -> Void {
         chatView.textView.resignFirstResponder()
     }
@@ -128,7 +133,10 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
 extension ChatViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         becomeFirstResponder()
-        textView.text = ""
+        if textView.textColor == Stylesheet.Colors.Gray {
+            textView.text = ""
+            textView.textColor = Stylesheet.Colors.Dark
+        }
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         resignFirstResponder()
