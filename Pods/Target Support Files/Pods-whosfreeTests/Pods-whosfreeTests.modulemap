@@ -1,0 +1,6 @@
+framework module Pods_whosfreeTests {
+  umbrella header "Pods-whosfreeTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
