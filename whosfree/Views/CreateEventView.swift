@@ -36,7 +36,7 @@ class CreateEventView: UIView {
     
     lazy var eventTypeButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Place", for: .normal)
+        button.setTitle("Search For A Place", for: .normal)
         Stylesheet.Objects.Buttons.CreateButton.style(button: button)
         return button
     }()
@@ -50,7 +50,7 @@ class CreateEventView: UIView {
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.placeholder = "Search For Location"
+        searchBar.placeholder = "Search For Address"
         searchBar.barTintColor = UIColor.white
         return searchBar
     }()
