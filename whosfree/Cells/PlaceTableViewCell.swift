@@ -25,6 +25,8 @@ class PlaceTableViewCell: UITableViewCell {
         let lb = UILabel()
         lb.text = "Name"
         Stylesheet.Objects.Labels.PlaceLabel.style(label: lb)
+        let font = UIFont(name: "Avenir-Heavy", size: 22)!
+        lb.font = font
         return lb
     }()
     
@@ -33,6 +35,9 @@ class PlaceTableViewCell: UITableViewCell {
         let lb = UILabel()
         lb.text = "Details"
         Stylesheet.Objects.Labels.PlaceDetailLabel.style(label: lb)
+        let font = UIFont(name: "Avenir-Heavy", size: 18)!
+        lb.font = font
+
         return lb
     }()
     

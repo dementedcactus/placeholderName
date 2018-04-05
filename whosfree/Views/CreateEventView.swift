@@ -31,6 +31,8 @@ class CreateEventView: UIView {
     lazy var eventTitleTextField: UITextField = {
         let textField = UITextField()
         Stylesheet.Objects.Textfields.EventTitle.style(textfield: textField)
+        let font = UIFont(name: "Avenir-Heavy", size: 24)
+        textField.font = font
         return textField
     }()
     
@@ -38,6 +40,8 @@ class CreateEventView: UIView {
         let button = UIButton()
         button.setTitle("Search For A Place", for: .normal)
         Stylesheet.Objects.Buttons.CreateButton.style(button: button)
+        let font = UIFont(name: "Avenir-Medium", size: 18)
+        button.titleLabel?.font = font
         return button
     }()
     
@@ -68,6 +72,8 @@ class CreateEventView: UIView {
         button.setTitle("Invite Friends", for: .normal)
         button.backgroundColor = UIColor.blue
         Stylesheet.Objects.Buttons.CreateButton.style(button: button)
+        let font = UIFont(name: "Avenir-Medium", size: 18)
+        button.titleLabel?.font = font
         return button
     }()
     
@@ -75,6 +81,8 @@ class CreateEventView: UIView {
         let textView = UITextView()
         textView.text = "Enter event description..."
         Stylesheet.Objects.Textviews.Editable.style(textview: textView)
+        let font = UIFont(name: "Avenir-Medium", size: 18)
+        textView.font = font
         return textView
     }()
     
