@@ -27,22 +27,20 @@ pod install
 * Click on the "Sign Up" button.
 * Check your email inbox for a verification email (in case it doesn't appear, check the SPAM folder).
 * Verify your email address and start making events on WYD.
-* 
-<a href="https://imgflip.com/gif/23ez8x"><img src="https://i.imgflip.com/23ez8x.gif" title="made at imgflip.com"/></a>
 
 #### Create an Event
-<a href="https://imgflip.com/gif/27tg9q"><img src="https://imgflip.com/gif/27tg9q" title="made at imgflip.com"/></a>
+<a href="https://imgflip.com/gif/27tg9q"><img src="https://i.imgflip.com/27tg9q.gif" title="made at imgflip.com"/></a>
 #### Select Place
-<a href="https://imgflip.com/gif/27tgj3"><img src="https://imgflip.com/gif/27tgj3" title="made at imgflip.com"/></a>
-<a href="https://imgflip.com/gif/27tgmx"><img src="https://imgflip.com/gif/27tgmx" title="made at imgflip.com"/></a>
+<a href="https://imgflip.com/gif/27tgj3"><img src="https://i.imgflip.com/27tgj3.gif" title="made at imgflip.com"/></a>
+<a href="https://imgflip.com/gif/27tgmx"><img src="https://i.imgflip.com/27tgmx.gif" title="made at imgflip.com"/></a>
 #### Set Time, Set Date, and Invite Friends
-<a href="https://imgflip.com/gif/27th6m"><img src="https://imgflip.com/gif/27th6m" title="made at imgflip.com"/></a>
+<a href="https://imgflip.com/gif/27th6m"><img src="https://i.imgflip.com/27th6m.gif" title="made at imgflip.com"/></a>
 #### RSVP
-<a href="https://imgflip.com/gif/27thbp"><img src="https://imgflip.com/gif/27thbp" title="made at imgflip.com"/></a>
+<a href="https://imgflip.com/gif/27thbp"><img src="https://i.imgflip.com/27thbp.gif" title="made at imgflip.com"/></a>
 #### Chat with Friends Invited to an Event
-<a href="https://imgflip.com/gif/27thm5"><img src="https://imgflip.com/gif/27thm5" title="made at imgflip.com"/></a>
+<a href="https://imgflip.com/gif/27thm5"><img src="https://i.imgflip.com/27thm5.gif" title="made at imgflip.com"/></a>
 #### Search for Venue Directions
-<a href="https://imgflip.com/gif/27then"><img src="https://imgflip.com/gif/27then" title="made at imgflip.com"/></a>
+<a href="https://imgflip.com/gif/27then"><img src="https://i.imgflip.com/27then.gif" title="made at imgflip.com"/></a>
 
 ## Deployment to iOS Device
 It is possible to sideload this project app into your iOS device by following these instructions :
