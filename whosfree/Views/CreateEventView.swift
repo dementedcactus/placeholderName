@@ -36,29 +36,21 @@ class CreateEventView: UIView {
     
     lazy var eventTypeButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Select Event Type", for: .normal)
+        button.setTitle("Search For A Place", for: .normal)
         Stylesheet.Objects.Buttons.CreateButton.style(button: button)
         return button
-    }()
-    
-    lazy var tableView: UITableView = {
-        let tv = UITableView()
-        tv.register(EventTypeTableViewCell.self, forCellReuseIdentifier: "EventTypeCell")
-        tv.isHidden = true
-        tv.backgroundColor = .clear
-        tv.separatorColor = .clear
-        return tv
     }()
     
     lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.timeZone = NSTimeZone.local
+        datePicker.backgroundColor = .white
         return datePicker
     }()
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.placeholder = "Search For Location"
+        searchBar.placeholder = "Search For Address"
         searchBar.barTintColor = UIColor.white
         return searchBar
     }()
@@ -106,6 +98,14 @@ class CreateEventView: UIView {
         return collectionView
     }()
     
+    lazy var deleteButton: UIButton = {
+        let button = UIButton()
+        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
+        button.backgroundColor = .red
+        button.setTitle("Delete Event", for: .normal)
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -128,13 +128,15 @@ class CreateEventView: UIView {
         setupEventTitle()
         setupDescriptionTextView()
         setupEventTypeButton()
-        setupTableView()
         setupDatePicker()
         setupSearchBar()
         setupInviteButton()
         setupSearchResultsTableView()
         setupFriendsGoingCollectionView()
+        setupDeleteButton()
     }
+    
+    
     
     private func setupScrollView() {
         addSubview(scrollView)
@@ -168,7 +170,7 @@ class CreateEventView: UIView {
         contentView.addSubview(eventTitleTextField)
         eventTitleTextField.translatesAutoresizingMaskIntoConstraints = false
         eventTitleTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        eventTitleTextField.topAnchor.constraint(equalTo: bannerPhotoImageView.bottomAnchor).isActive = true
+        eventTitleTextField.topAnchor.constraint(equalTo: bannerPhotoImageView.bottomAnchor, constant: 5).isActive = true
         eventTitleTextField.heightAnchor.constraint(equalTo: bannerPhotoImageView.heightAnchor, multiplier: 0.3).isActive = true
         eventTitleTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         eventTitleTextField.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
@@ -192,21 +194,11 @@ class CreateEventView: UIView {
         eventTypeButton.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.05).isActive = true
     }
     
-    private func setupTableView() {
-        contentView.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.leadingAnchor.constraint(equalTo: eventTypeButton.leadingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: eventTypeButton.bottomAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: eventTypeButton.trailingAnchor).isActive = true
-        tableView.widthAnchor.constraint(equalTo: eventTypeButton.widthAnchor).isActive = true
-        tableView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3).isActive = true
-    }
-    
     private func setupDatePicker() {
         contentView.addSubview(datePicker)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        datePicker.topAnchor.constraint(equalTo: eventTypeButton.bottomAnchor).isActive = true
+        datePicker.topAnchor.constraint(equalTo: eventTypeButton.bottomAnchor, constant: 5).isActive = true
         datePicker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         datePicker.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.15).isActive = true
         datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
@@ -243,10 +235,20 @@ class CreateEventView: UIView {
     private func setupFriendsGoingCollectionView() {
         contentView.addSubview(friendsGoingCollectionView)
         friendsGoingCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        friendsGoingCollectionView.topAnchor.constraint(equalTo: inviteFriendsButton.bottomAnchor).isActive = true
+        friendsGoingCollectionView.topAnchor.constraint(equalTo: inviteFriendsButton.bottomAnchor, constant: 5).isActive = true
         friendsGoingCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         friendsGoingCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        friendsGoingCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        friendsGoingCollectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3).isActive = true
+        //friendsGoingCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        friendsGoingCollectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25).isActive = true
+    }
+    
+    private func setupDeleteButton() {
+        contentView.addSubview(deleteButton)
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteButton.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        deleteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        deleteButton.heightAnchor.constraint(equalTo: inviteFriendsButton.heightAnchor, multiplier: 0.0).isActive = true
+        deleteButton.topAnchor.constraint(equalTo: friendsGoingCollectionView.bottomAnchor, constant: 5).isActive = true
+        deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
 }

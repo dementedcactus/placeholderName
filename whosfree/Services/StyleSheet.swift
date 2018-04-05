@@ -45,6 +45,7 @@ enum Stylesheet {
         static let RedBg = UIColor(red: 0.8471, green: 0.1608, blue: 0.1608, alpha: 1.0)
         static let Gray = UIColor(red: 0.788, green: 0.788, blue: 0.808, alpha: 1.00)
         static let LightBlue = UIColor(red: 0.306, green: 0.675, blue: 0.839, alpha: 1.00)
+        static let SuperLightBlue = UIColor(red: 0.678, green: 0.788, blue: 0.824, alpha: 1.00)
         static let NYCBlue = UIColor(red: 0.267, green: 0.612, blue: 0.843, alpha: 1.00)
         static var DarkGray = UIColor(red: 0.373, green: 0.365, blue: 0.365, alpha: 1.00)
         static var DarkRed = UIColor(red: 0.463, green: 0.176, blue: 0.188, alpha: 1.00)
@@ -56,7 +57,7 @@ enum Stylesheet {
         static let PostTitle = UIFont(name: "HelveticaNeue-CondensedBold", size: 25.0)
         static let Regular = UIFont(name: "HelveticaNeue-Light", size: 20.0)
         static let Date = UIFont(name: "HelveticaNeue-Light", size: 15.0)
-        static let TextfieldFont = UIFont(name: "HelveticaNeue-Light", size: 20.0)
+        static let TextfieldFont = UIFont(name: "HelveticaNeue-Light", size: 19.0)
         static let Link = UIFont(name: "HelveticaNeue", size: 15.0)
         static let Bold = UIFont(name: "HelveticaNeue-Medium", size: 17.0)
     }
@@ -325,7 +326,7 @@ extension Stylesheet {
                     textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
                     textfield.backgroundColor = Stylesheet.Colors.White
                     textfield.textAlignment = NSTextAlignment.center
-                    textfield.font = Stylesheet.Fonts.TextfieldFont
+                    textfield.font = Stylesheet.Fonts.PostTitle
                     textfield.textColor = Stylesheet.Colors.Dark
                     textfield.adjustsFontSizeToFitWidth = true
                     textfield.autocapitalizationType = .words

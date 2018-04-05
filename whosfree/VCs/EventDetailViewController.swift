@@ -13,7 +13,7 @@ import Contacts
 class EventDetailViewController: UIViewController {
 
     let eventDetailView = EventDetailView()
-    lazy var editVC = EditEventViewController(event: event, eventImage: eventImage)
+    //lazy var editVC = EditEventViewController(event: event, eventImage: eventImage)
     let dummyData = ["test1 title", "test2 title", "test3 title", "test4 title", "test5 title"]
     private let cellSpacing: CGFloat =  5.0
     var coordinate: CLLocationCoordinate2D?
@@ -40,22 +40,38 @@ class EventDetailViewController: UIViewController {
         super.viewDidLoad()
         self.view.addSubview(eventDetailView)
         
+        if FirebaseAuthService.getCurrentUser()?.uid == event.ownerUserID {
+            eventDetailView.rsvpButton.isEnabled = false
+        }
+        
         self.eventDetailView.collectionView.dataSource = self
         self.eventDetailView.collectionView.delegate = self
         self.eventDetailView.rsvpButton.addTarget(self, action: #selector(rsvp), for: .touchUpInside)
-        self.eventDetailView.deleteButton.addTarget(self, action: #selector(deleteEvent), for: .touchUpInside)
         self.eventDetailView.editButton.addTarget(self, action: #selector(editEvent), for: .touchUpInside)
+        self.eventDetailView.locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
         eventDetailView.mapImageView.delegate = self
         let _ = LocationService.manager.checkForLocationServices()
         configureNavBar()
         eventDetailView.configureView(event: event, eventImage: eventImage)
         configureScrollView(event: event)
-        editVC.editDelegate = self
+        //editVC.editDelegate = self
         loadContactsFromPhone()
         eventDetailView.goingButton.addTarget(self, action: #selector(showGoing), for: .touchUpInside)
         eventDetailView.notGoingButton.addTarget(self, action: #selector(showNotGoing), for: .touchUpInside)
         eventDetailView.allInvitedButton.addTarget(self, action: #selector(showAllInvited), for: .touchUpInside)
         showAllInvited()
+        //If the currently logged in user is NOT the owner of the event
+        if event.ownerUserID != FirebaseAuthService.getCurrentUser()!.uid {
+            self.eventDetailView.editButton.isHidden = true
+        } else {
+            self.eventDetailView.rsvpButton.setTitle("Going", for: .normal)
+            self.eventDetailView.editButton.isHidden = false
+        }
+    }
+    
+    @objc private func locationButtonAction() {
+        print("Location Button Pressed")
+        openAppleMaps()
     }
     
     @objc private func showGoing() {
@@ -256,13 +272,14 @@ class EventDetailViewController: UIViewController {
         }
         let notGoingAction = UIAlertAction(title: "Not Going", style: .default) {(alert) in
             print("pressed Not Going")
+            DatabaseService.manager.clickedRSVPNotGoing(to: self.event.eventID)
         }
-        let maybeAction = UIAlertAction(title: "Maybe", style: .default) {(alert) in
-            print("pressed Maybe")
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {(alert) in
+            print("pressed Cancel")
         }
         alertController.addAction(goingAction)
         alertController.addAction(notGoingAction)
-        alertController.addAction(maybeAction)
+        alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
     }
     
@@ -270,17 +287,12 @@ class EventDetailViewController: UIViewController {
 
         let chatButton = UIBarButtonItem(image: #imageLiteral(resourceName: "chatBubble"), style: .plain, target: self, action: #selector(segueToChatViewController))
         navigationItem.rightBarButtonItem = chatButton
-        //TODO: edit button is only visible to creator of event
-        //if user.id == event creator.id {
-        //navigationItem.leftBarButtonItem = editButton
-        //} else {
-        //navigationItem.leftBarButtonItem = nil
-        
-        //}
     }
     
     @objc private func editEvent() {
-        navigationController?.pushViewController(editVC, animated: true)
+        let editVC = EditEventViewController(event: event, eventImage: eventImage)
+        editVC.editDelegate = self
+        navigationController?.pushViewController(editVC, animated: false)
     }
     
     @objc private func segueToChatViewController() {

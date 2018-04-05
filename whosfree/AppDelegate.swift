@@ -72,8 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let _ : String = url.path.replacingOccurrences(of: "/", with: "") as String!
         let urlHost : String = url.host!.replacingOccurrences(of: "/", with: "") as String!
         
-        //DatabaseService.manager.addInvitedUserThatAccepted(to: urlHost, with: urlPath)
-        
         let eventListVC = EventListViewController()
         let eventListNavCon = UINavigationController(rootViewController: eventListVC)
         DatabaseService.manager.getEvent(with: urlHost) { (event) in
