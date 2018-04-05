@@ -25,7 +25,7 @@ class PlaceTableViewCell: UITableViewCell {
         let lb = UILabel()
         lb.text = "Name"
         Stylesheet.Objects.Labels.PlaceLabel.style(label: lb)
-        let font = UIFont(name: "Avenir-Heavy", size: 22)!
+        let font = UIFont(name: "Avenir-Heavy", size: 18)!
         lb.font = font
         return lb
     }()
@@ -35,7 +35,7 @@ class PlaceTableViewCell: UITableViewCell {
         let lb = UILabel()
         lb.text = "Details"
         Stylesheet.Objects.Labels.PlaceDetailLabel.style(label: lb)
-        let font = UIFont(name: "Avenir-Heavy", size: 18)!
+        let font = UIFont(name: "Avenir-Heavy", size: 13)!
         lb.font = font
 
         return lb
@@ -81,13 +81,13 @@ class PlaceTableViewCell: UITableViewCell {
         placeLabel.translatesAutoresizingMaskIntoConstraints = false
         placeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
         placeLabel.leadingAnchor.constraint(equalTo: placeImageView.trailingAnchor, constant: 5).isActive = true
-        placeLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.46).isActive = true
+        placeLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
         
         addSubview(subtitleLabel)
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.topAnchor.constraint(equalTo: placeLabel.bottomAnchor, constant: 1).isActive = true
         subtitleLabel.leadingAnchor.constraint(equalTo: placeImageView.trailingAnchor, constant: 5).isActive = true
-        subtitleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.46).isActive = true
+        subtitleLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
         subtitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
         
         addSubview(selectPlaceButton)
@@ -95,6 +95,6 @@ class PlaceTableViewCell: UITableViewCell {
         selectPlaceButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         selectPlaceButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
         selectPlaceButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        selectPlaceButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.24).isActive = true
+        selectPlaceButton.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.20).isActive = true
     }
 }

@@ -207,7 +207,7 @@ class PlaceDetailView: UIView {
     
     public func configureView(with place: Place) {
         placeNameLabel.text = place.name
-        placeAddressLabel.text = "Address: \(place.location.address1), \(place.location.city), \(place.location.zip_code)"
+        placeAddressLabel.text = "Address: \(place.location.address1 ?? ""), \(place.location.city), \(place.location.zip_code)"
         placePricePointLabel.text = "Price: \(place.price ?? "N/A")"
         switch place.rating {
         case 0.0:
