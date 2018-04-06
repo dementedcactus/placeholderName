@@ -173,7 +173,7 @@ extension EventListViewController: UITableViewDataSource {
                 cell.goingNotGoingLabel.text = "\(going!.count)/\(invited!.count)"
             })
         }
-        //cell.goingNotGoingLabel.text = "\(event.friendsGoing?.count.description ?? "1")/\(event.allFriendsInvited.count)"
+        //cell.goingNotGoingLabel.text = "\(event.friendsGoing?.count.description ?? "1")/\(event.invitedFriendsEmails.count)"
         cell.eventBannerPhotoImageView.kf.indicatorType = .activity
         cell.eventBannerPhotoImageView.kf.setImage(with: URL(string: event.eventBannerImgUrl), placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cache, url) in
             cell.setNeedsLayout()

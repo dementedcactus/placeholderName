@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any?) -> Bool {
         
         print("url \(url)")
         print("url host :\(url.host!)")
