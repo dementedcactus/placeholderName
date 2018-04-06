@@ -282,13 +282,13 @@ extension DatabaseService {
                 completion(nil)
                 return
             }
-            guard let allFriendsInvited = savedEventDictionary["allFriendsInvited"] as? [String] else {
+            guard let invitedFriendsEmails = savedEventDictionary["invitedFriendsEmails"] as? [String] else {
                 let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, invitedFriendsEmails: [], timestampDouble: timestampDouble)
                 completion(event)
                 return
             }
             
-            let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, invitedFriendsEmails: allFriendsInvited, timestampDouble: timestampDouble)
+            let event = Event(eventID: eventID, eventName: eventName, ownerUserID: ownerUserID, eventDescription: eventDescription, eventLocation: eventLocation, timestamp: timestamp, eventBannerImgUrl: eventBannerImgUrl, invitedFriendsEmails: invitedFriendsEmails, timestampDouble: timestampDouble)
             completion(event)
         }
     }
